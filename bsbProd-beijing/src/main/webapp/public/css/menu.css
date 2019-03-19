@@ -1,0 +1,250 @@
+@CHARSET "UTF-8";
+#nav {
+	width: 200px;
+	line-height: 46px;
+	list-style-type: none;
+	/*定义整个ul菜单的行高和背景色*/
+}
+#menu{
+background-color: #292d37;	
+	
+}
+
+
+#BSC20,
+#BSC30,
+#BSCz0{
+	background-color: #17283c;
+	
+}
+#BSC20{
+    margin-bottom: -16px;
+}
+
+#nav .last_level1{
+	height: 5px;
+	
+}
+#nav .last_level2{
+	height: 6px;
+	
+}
+
+/*==================一级目录===================*/
+.img{
+	height: 18px;
+	width:27px;
+	float: left;
+	margin-left: 25px;
+}
+
+#nav a {
+	width: 100%;
+	display: block;
+	font-family: "微软雅黑", "宋体", Arial, sans-serif;
+	font-size:14px;
+	height:45px;
+	color:#d4d6dc;
+	font-weight: bold;
+	display: inline-block;
+	text-decoration: none;
+	outline: none;
+	/*Width(一定要)，否则下面的Li会变形*/
+}
+#nav .level1 a{
+	font-size:12px;
+}
+#nav .item_focus{
+	background-color: #0c1f36;
+}
+
+#nav li {
+	 margin:0px 0px 0px 0px;
+	 z-index: 1;
+	 position: relative;
+}
+
+
+#nav a:hover {
+	color:#fff;
+	text-decoration: none;
+	font-weight: bold;
+	background-color: #448aff;
+}
+
+/*==================二级目录===================*/
+#nav li ul {
+	list-style: none;
+	text-align: left;
+	position: relative;
+	top:-15px;
+	left:0px;
+	padding-top: 15px;
+	background-color: #1e222e;
+	z-index: -12;
+	width: 100%;
+	margin-bottom: -14px;
+}
+#nav li ul li a:hover {
+	color:#fff;
+	background-color: #448aff;
+
+	}
+
+.level1{
+	line-height: 11px;
+}
+.a1,.a2{
+	margin-top: 17px
+}
+
+
+#nav li ul li {
+	margin: 0px;
+}
+
+#nav li ul a {
+	width: 100%;
+	font-weight: normal;
+	text-align: left;
+	text-decoration: none;
+	background-image: none;
+	
+}
+.a0{
+	margin-left: 20px;
+
+	}
+	
+	
+
+.a1{
+	margin-left: 40px;
+	float: left;
+}
+.a2{
+	margin-left: 60px;
+}
+#nav li ul a img {
+	vertical-align: middle;
+}
+ 
+/*下面是二级目录的链接样式*/
+#nav li ul a:link {
+	color:#d4d6dc;
+	text-decoration: none;
+	outline: none;
+}
+
+#nav li ul a:hover {
+	color:#fff;
+	font-weight: normal;
+}
+
+.level1 ui{
+	padding-top: 5px;
+}
+
+#content {
+	clear: left;
+}
+
+#nav ul.collapsed {
+	display: none;
+}
+
+#menu {
+	width: 100%;
+	padding-left:0px;
+	height : 100% !important;
+}
+
+
+/*=======三级目录================*/
+#nav li ul li ul{
+	width:100%;
+	list-style: none;
+	text-align: center;
+	background-color:#1e222e;
+	margin-top: 12px;
+	z-index: 1;
+	padding-top: 0px;
+    margin-bottom: -15px;
+}
+
+/* #nav li ul li ul li{
+	height : 32px;
+} */
+
+#nav li ul li ul a {
+	width: 100%;
+	font-weight: normal;
+	vertical-align: middle;
+	font-size:12px;
+}
+#nav li ul li ul a img {
+	vertical-align: middle;
+}
+ 
+/*下面是三级目录的链接样式*/
+#nav li ul li ul a:link {
+	color:#d4d6dc;
+	text-decoration: none;
+	vertical-align: middle;
+	outline: none;
+}
+
+.level1 ul{
+	margin-top: 0px;
+}
+ .last_level0,
+ .last_level1,
+ .last_level2{
+ display: none;
+ }
+
+#nav li ul li ul a:hover {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-weight: normal;
+	background-image: none;
+	vertical-align: middle;
+}
+.now {
+	height : 83px;
+	width: 33px;
+	cursor : hand;
+}
+
+.nav {
+	position: absolute;
+	right: 10px;
+	top: 80px;
+	width: 33px;
+	height: 20px;
+	float: right;
+	margin-top: 4px;
+	margin-right: 5px;
+}
+ 
+.nav .box {
+	position: absolute;
+	right: 33px;
+	top: 30px;
+	background: #e2dbcb;
+	overflow: hidden;
+	height: 0;
+	filter: alpha(opacity = 0);
+	opacity: 0;
+}
+
+.nav .cont {
+	position: relative;
+}
+
+.movehandle{
+	z-index: 999999999;
+	height : 20px;
+	cursor : move;
+	margin-bottom: 5px;
+}

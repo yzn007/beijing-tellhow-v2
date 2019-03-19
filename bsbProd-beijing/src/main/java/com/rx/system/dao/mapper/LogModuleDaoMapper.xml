@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rx.system.dao.LogModuleDao">
+	
+	<!-- 分页查询数据Sql头 -->
+	<sql id="pageDataHeader">
+		select * from (select t1.* from (
+	</sql>
+	
+	<!-- 分页查询数据Sql尾 -->
+	<sql id="pageDataEnd">
+		
+			) 
+			 t1 limit #{endrow}
+		) tt  limit #{start} , #{endrow}
+		
+	</sql>
+	
+	<!-- 查询总数Sql头 -->
+	<sql id="totalCountHeader">
+		select count(*) from (
+	</sql>
+	
+	<!-- 查询总数Sql头尾-->
+	<sql id="totalCountEnd">
+		) ct
+	</sql>
+	<!-- 查询系统各个模块访问情况 -->
+	<select id="queryModuleInfo" parameterType="map" resultType="map">
+		select
+		    concat(a.month_seq , '月' )   as month_id,
+		    sum(case when b.function_id is not null then 1 end)   as count
+		from
+		    (select
+		        @level :=  @level + 1                      as  month_seq,
+		        concat(#{year_id} , lpad(@level,2,'0'))   as  month_id,
+		        str_to_date(concat(#{year_id} , lpad(@level,2,'0'),'01'),'%Y%m%d') as month_begin,
+		        date_sub(date_add(str_to_date(concat(#{year_id} , lpad(@level,2,'0'),'01'),'%Y%m%d'), interval 1 month),interval 1 second) as month_end
+		    from
+		        (select @level:=0) r ,
+		        (select 1
+		         union select 2
+		         union select 3
+		         union select 4
+		         union select 5
+		         union select 6
+		         union select 7
+		         union select 8
+		         union select 9
+		         union select 10
+		         union select 11
+		         union select 12) dd
+		    ) a
+		left join
+		    bsc_operation_his b
+		on
+		    substr(b.function_id, 1, 3) = #{module_flag}
+		and b.oper_time between a.month_begin and a.month_end
+		group by
+		    a.month_seq
+		order by
+		    a.month_seq
+	</select>
+	<!-- 实时访问情况 -->
+	<select id="queryInstant" parameterType="map" resultType="map">
+	select a.record_time, count(session_id) as count
+	  from (select date_sub(now(), interval level * 10 minute) record_time
+	          from tmp_level_per_ten
+	      <![CDATA[where level <= 144) a]]> 
+	  left join bsc_login_his b
+	    on a.record_time >= b.begin_time
+	   <![CDATA[and a.record_time <= b.end_time]]>
+	 group by a.record_time
+	 order by a.record_time
+	</select>
+</mapper>

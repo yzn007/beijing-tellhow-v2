@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rx.system.bsc.dao.BscResultDao">
+	
+
+	<!-- 分页查询数据Sql头 -->
+	<sql id="pageDataHeader">
+		select * from (select  t1.*,@rw:=@rw+1 rw from (
+	</sql>
+	
+	<!-- 分页查询数据Sql尾 -->
+	<sql id="pageDataEnd">
+		
+			) t1 ,(select @rw:=0) r) tt where rw >#{start} <![CDATA[ and rw<= #{endrow}]]> 
+		
+	</sql>
+	
+	<!-- 查询总数Sql头 -->
+	<sql id="totalCountHeader">
+		select count(*) from (
+	</sql>
+	
+	<!-- 查询总数Sql头尾-->
+	<sql id="totalCountEnd">
+		) ct
+	</sql>
+
+	<sql id="totalResultCountHeader">
+		select cnt from (
+	</sql>
+
+	<!-- 发布平衡计分卡结果 -->
+	<update id="publishBscResult" parameterType="map">
+		update bsc_proj_exe_mth set is_published = 'Y'
+		where month_id = #{month_id} and project_id = #{project_id}
+	</update>
+	
+	<!-- 查询积分结果列表 -->
+	<select id="listResult" parameterType="map" resultType="map">
+		<if test="start != null">
+			<include refid="pageDataHeader"/>		
+		</if>
+		<!-- 是否查询前十排名 -->
+		<if test="top != null and top != ''">
+			) k limit 9
+		</if>
+		
+		<if test="start != null">
+			<include refid="pageDataEnd"/>
+		</if>
+	</select>
+	
+	
+	<!-- 查询积分结果列表 -->
+	<select id="listResultCount" parameterType="map" resultType="string">
+		<include refid="totalCountHeader"/>
+		<include refid="totalCountEnd"/>
+	</select>
+	
+	<!-- 获取考核对象明细结果 -->
+	<select id="getBscResultDetail" parameterType="map" resultType="map">
+		select a.*,
+			case when a.measure_source_code = '01' then b.measure_name else c.measure_name end measure_name,
+			d.dim_name,
+			ifnull(e.plan_value,0) plan_value,
+			ifnull(g.value,0) measure_value,
+			ifnull(f.value,0) measure_point
+		from
+			bsc_calc_ctrl a left outer join
+			kpi_core b on a.measure_id = b.measure_id left outer join
+			kpi_proj_measure c on a.measure_id = c.measure_id  left outer join
+				bsc_calc_plan e	on a.project_id = e.project_id and a.role_id = e.role_id and a.measure_id = e.measure_id
+			and a.dim_id = e.dim_id inner join
+			bsc_kpi_dim d on
+			<!-- 关联取维度-->
+				a.dim_id = d.dim_id
+
+			<choose>
+				<when test="published != null and published == '1'">
+					left outer join bsc_calc_result f on
+						a.project_id = f.project_id
+						and a.role_id = f.role_id
+						and a.measure_id = f.measure_id
+						and a.dim_id = f.dim_id
+					left outer join	kpi_calc_result g on
+						a.project_id = g.project_id
+						and a.role_id = g.role_id
+						and a.measure_id = g.measure_id
+				</when>
+				<otherwise>
+					left outer join bsc_t_calc_result f on
+						a.project_id = f.project_id
+						and a.role_id = f.role_id
+						and a.measure_id = f.measure_id
+						and a.dim_id = f.dim_id
+					left outer join kpi_t_calc_result g on
+						a.project_id = g.project_id
+						and a.role_id = g.role_id
+						and a.measure_id = g.measure_id
+				</otherwise>
+			</choose>
+		where a.project_id = #{project_id}
+			and a.role_id = #{role_id}
+
+			<!-- 关联取指标名 -->
+			and c.owner_id = #{owner_id}
+
+			<!-- 关联取计划值 -->
+			and e.date_id = #{month_id}
+
+
+
+			<!-- 关联取实际值-->
+			and g.date_id = #{month_id}
+			and g.object_id = #{object_id}
+
+			<!-- 关联取得分-->
+			and f.date_id = #{month_id}
+			and f.object_id = #{object_id}
+	</select>
+	
+	
+	<!-- 查询考核积分维度占比 -->
+	<select id="dimRsult" parameterType="map" resultType="map">
+		select a.*,b.dim_name from (
+			select 
+				b.parent_dim_id dim_id,
+				sum(a.value) value
+			from 
+			<choose>
+				<when test="published == '1'">
+					bsc_calc_result a,bsc_kpi_dim_relation b						
+				</when>
+				<otherwise>
+					bsc_t_calc_result a, bsc_kpi_dim_relation b
+				</otherwise>
+			</choose>
+			where a.dim_id = b.dim_id
+				and b.rela_type_cd='00'
+				and a.object_id = #{object_id}
+				and a.date_id = #{month_id}
+				and a.project_id = #{project_id}
+				and a.role_id = #{role_id}
+				and a.object_id = #{object_id}
+			group by b.parent_dim_id
+		) a,bsc_kpi_dim b
+		where a.dim_id = b.dim_id
+			and b.parent_dim_id='root'
+		order by a.value desc
+	</select>
+	
+	<select id="listProjectMeasure" parameterType="map" resultType="map">
+		<!--		select
+               distinct a.measure_id,
+                a.mea_definition
+            from bsc_proj_mea_h a
+            where  a.project_id = #{project_id}
+		<if test="year_id != null and year_id != ''">
+			and a.year_id = #{year_id}
+		</if>
+            order by a.measure_id-->
+
+		select  measure_id, mea_definition from bsc_proj_mea
+		where project_id  = #{project_id}
+		order by measure_id
+	</select>
+	
+	<select id="listSubMeasure" parameterType="map" resultType="map">
+		select
+		t.rely_measure_id measure_id,
+		m.measure_name mea_definition
+		from bsc_measure_exe_h t
+		left join bsc_measure_h m on
+		t.rely_measure_id = m.measure_id
+		and t.year_id = m.year_id
+		and t.project_id = m.project_id
+		<if test="query_date != null and query_date != ''">
+			and #{query_date} between m.begin_date and m.end_date
+		</if>
+		where t.project_id= #{project_id}
+		<if test="year_id != null and year_id != ''">
+			and t.year_id = #{year_id}
+		</if>
+		<if test="query_date != null and query_date != ''">
+			and #{query_date} between t.begin_date and t.end_date
+		</if>
+		<if test="year_id != null and year_id != ''">
+			and t.measure_id =#{measure_id}
+		</if>
+	</select>
+	
+	<select id="listScoreResult" parameterType="map" resultType="map">
+		<include refid="pageDataHeader"/>
+		select 	 j.obj_id,concat(
+		'[',j.obj_id,']',' ',j.obj_name) as object_name,
+		concat(max(t.year_id),'年') as month_name
+		<if test="case_sql != null and case_sql != ''">
+			,${case_sql}
+		</if>
+		from bsc_proj_obj_h t
+		inner join  bsc_proj_stat_obj j
+		on t.project_id =j.project_id
+		and t.object_id =j.obj_id
+		left join bsc_proj_mea_obj_val b
+		on t.project_id =  b.project_id
+		and t.object_id = b.object_id
+		and t.year_id =  b.month_id
+		and b.month_id = #{year_id}
+		where t.project_id = #{project_id}
+		<if test="query_date != null and query_date != ''">
+			and #{query_date} between t.begin_date and t.end_date
+		</if>
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		and t.year_id= #{year_id}
+		group by j.obj_id,j.obj_name
+		<include refid="pageDataEnd"/>
+		<!--<include refid="pageDataHeader"/>-->
+			<!--select t.object_id, -->
+			       <!--concat('[',t.object_id,']',' ',max(t.object_name)) as object_name,-->
+			       <!--${case_sql}-->
+			<!--from bsc_proj_obj_h t -->
+			     <!--left join bsc_proj_mea_obj_val b on -->
+			        <!--t.project_id =  b.project_id -->
+			        <!--and t.object_id = b.object_id -->
+			        <!--and b.month_id = #{month_id} -->
+			<!--where t.project_id = #{project_id} -->
+			      <!--and #{query_date} between t.begin_date and t.end_date-->
+			      <!--and t.year_id= #{year_id} -->
+			<!--group by t.object_id-->
+		<!--<include refid="pageDataEnd"/>-->
+	</select>
+	<select id="listScoreResultCount" parameterType="map" resultType="string">
+		<include refid="totalCountHeader"/>
+			select t.object_id, 
+			       concat('[',t.object_id,']',' ',t.object_name) as object_name
+			from bsc_proj_obj_h t 
+			where t.project_id = #{project_id} 
+			      and t.year_id= #{year_id} 
+			group by t.object_id,t.object_name
+		<include refid="totalCountEnd"/>
+	</select>
+	
+	<select id="listScoreSubResult" parameterType="map" resultType="map">
+			select t.object_id, 
+			       concat('[',t.object_id,']',' ',max(t.object_name)) as object_name,
+			       ${case_sql}
+			from bsc_proj_obj_h t 
+			     left join bsc_result b on 
+			        t.project_id =  b.project_id 
+			        and t.object_id = b.object_id 
+			        and b.month_id = #{month_id} 
+			where t.project_id = #{project_id} 
+			      and #{query_date} between t.begin_date and t.end_date
+			      and t.year_id= #{year_id} 
+			group by t.object_id
+	</select>
+	
+	<select id="listScoreTotalResult" parameterType="map" resultType="map">
+			select t.object_id, 
+			       concat('[',t.object_id,']',' ',max(t.object_name)) as object_name,
+			       ${case_sql}
+			from bsc_proj_obj_h t 
+			     left join bsc_proj_mea_obj_val b on 
+			        t.project_id =  b.project_id 
+			        and t.object_id = b.object_id 
+			        and b.month_id = #{month_id} 
+			where t.project_id = #{project_id} 
+			      and #{query_date} between t.begin_date and t.end_date
+			      and t.year_id= #{year_id} 
+			group by t.object_id
+	</select>	
+	
+	<select id="getScoreTopPoint" parameterType="map" resultType="map">
+	    select t.*,@rw:=@rw+1 rn from (
+		select t.project_id,
+               t.object_id,
+               t.object_name,
+               a.month_id,
+               a.score,
+               a.sys_proj_rank_id,
+               a.adj_proj_rank_id,
+               a.adj_reason
+          from bsc_proj_obj_h t
+          left join bsc_proj_obj_score a
+            on t.project_id = a.project_id
+           and t.object_id = a.object_id
+           and a.month_id = #{month_id}
+         where t.project_id = #{project_id}
+         and #{query_date} between t.begin_date and t.end_date
+	 	 and t.year_id = #{year_id}
+         order by a.score desc, t.object_id) t,(select @rw:=0)tr
+	</select>
+	
+	
+	<!-- 图表等级分布查询 -->
+	<select id="getLevelList" parameterType="map" resultType="map">
+		select 
+			ifnull(a.adj_proj_rank_id,a.sys_proj_rank_id) level_id,
+			count(*) as level_count
+		from bsc_proj_obj_score a,bsc_proj_obj_h b
+		where a.project_id = b.project_id
+		and a.object_id = b.object_id
+		and a.project_id = #{project_id}
+		and a.month_id = #{month_id}
+		and #{query_date} between b.begin_date and b.end_date
+	 	and b.year_id = #{year_id}
+		group by ifnull(a.adj_proj_rank_id,a.sys_proj_rank_id)
+	</select>
+	
+	<!-- 是否可以公布计分卡方案 0:可以发布；1：因为已经发布所以不可发布；2：因为并非周期的月底所以不可发布-->
+	<select id="canPublish" parameterType="map" resultType="string">
+		select 
+			case when is_cycle_end_mth = 'Y' and is_published = 'N' then 0
+				 when is_published = 'Y' then 1
+				 else 2 end as num
+		from	
+			bsc_proj_exe_mth
+		where
+			project_id = #{project_id}
+		and	month_id = #{month_id}
+	</select>
+	
+	<!-- 对比考核周期方案得分 -->
+	<select id="getCompareDetailProjectScore" parameterType="map" resultType="map">
+		select
+		    s.month_id,
+		    s.month_label,
+		    s.score,
+		    s.score_coef,
+		    s.score_order
+		from
+		    (select d.* from (select
+		        a.month_id,
+		        concat(substr(a.month_id,1,4),'-',substr(a.month_id,5,2)) as month_label,
+		        a.score,
+		        a.score_coef,
+		        a.score_order
+		      from bsc_proj_obj_score a, bsc_proj_exe_mth b
+		     where a.project_id = #{project_id}
+		       and a.object_id = #{object_id}
+		       and a.month_id = b.month_id
+		       and a.project_id = b.project_id
+		       <!-- and b.is_published = 'Y' -->
+		       and b.is_cycle_end_mth = 'Y'
+		       <![CDATA[
+		       and a.month_id <= #{month_id}
+		       limit 12
+		       ]]>) d
+		     order by d.month_id desc
+		    ) s
+		order by s.month_id
+	</select>
+
+	<!-- 通过指标编号查询指标信息 -->
+	<select id="listProjectMeasureByIndexId" parameterType="map" resultType="map">
+		select
+		measure_id  as measure_id,
+		measure_name as mea_definition
+		from bsc_measure
+		where measure_id in (${meaId})
+		order by measure_id
+	</select>
+	<select id="listScoreResultCountByYear" parameterType="map" resultType="string">
+		<include refid="totalCountHeader"/>
+		select t.year_id as object_id,
+		concat(year_id , '年') as object_name
+		from bsc_proj_obj_h t
+		where t.project_id = #{project_id}
+		group by t.year_id
+		<include refid="totalCountEnd"/>
+	</select>
+	<!--根据年份查询指标结果 -->
+	<select id="listScoreResultByYear" parameterType="map" resultType="map">
+		<include refid="pageDataHeader"/>
+		select c.cycle_id as month_id,
+		concat(c.cycle_id,'年') as month_name,
+		max(t.object_name) object_name,
+		${case_sql}
+		from bsc_proj_obj_h t
+		inner join  bsc_proj_stat_cyc c
+		on t.project_id =c.project_id
+		and t.year_id =c.cycle_id
+		left join bsc_proj_mea_obj_val b
+		on  t.project_id =  b.project_id
+		and t.object_id = b.object_id
+		and t.year_id=b.month_id
+		<if test="tId != null and tId != ''">
+			and b.month_id in (${tId})
+		</if>
+		where t.project_id = #{project_id}
+
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		<if test="tId != null and tId != ''">
+			and t.year_id in (${tId})
+		</if>
+		group by c.cycle_id
+		order by c.cycle_id  desc
+		<include refid="pageDataEnd"/>
+
+	</select>
+	<!--根据维度查询指标结果 -->
+	<select id="listScoreTotalResultByObj" parameterType="map" resultType="map">
+		select t.object_id,
+		concat('[',t.object_id,']',' ',max(t.object_name)) as object_name, concat(max(t.year_id),'年') as month_name,
+		${case_sql}
+		from bsc_proj_obj_h t
+		inner join  bsc_proj_stat_obj j
+		on t.project_id =j.project_id
+		and t.object_id =j.obj_id
+		left join bsc_proj_mea_obj_val b on
+		t.project_id =  b.project_id
+		and t.object_id = b.object_id
+		and t.year_id =  b.month_id
+		and b.month_id = #{month_id}
+		where t.project_id = #{project_id}
+		and t.year_id= #{year_id}
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		group by t.object_id
+	</select>
+	<!--根据年份查询指标结果 -->
+	<select id="listScoreTotalResultByYear" parameterType="map" resultType="map">
+		select t.year_id month_id,
+		concat(t.year_id,'年') as month_name, max(t.object_name) object_name,
+		${case_sql}
+		from bsc_proj_obj_h t
+		inner join  bsc_proj_stat_cyc c
+		on t.project_id =c.project_id
+		and t.year_id =c.cycle_id
+		left join bsc_proj_mea_obj_val b on
+		t.project_id =  b.project_id
+		and t.object_id = b.object_id
+		and t.year_id=b.month_id
+		where t.project_id = #{project_id}
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		<if test="tId != null and tId != ''">
+			and t.year_id in (${tId})
+		</if>
+		group by t.year_id
+		order by t.year_id desc
+	</select>
+	<select id="listScoreSubResultByYear" parameterType="map" resultType="map">
+		select t.year_id as month_id,
+		concat(t.year_id,'年') as month_name,
+		${case_sql}
+		from bsc_proj_obj_h t
+		left join bsc_result b on
+		t.project_id =  b.project_id
+		and t.object_id = b.object_id
+		and t.year_id=b.month_id
+		and b.object_id = #{obj_id}
+		where t.project_id = #{project_id}
+		group by t.year_id
+	</select>
+	<!-- 根据年份查询全部积分结果 -->
+	<select id="getResultDhtmlYearByParam" parameterType="map" resultType="map">
+		<include refid="pageDataHeader"/>
+		${sql}
+		<include refid="pageDataEnd"/>
+	</select>
+	<!-- 根据维度查询全部积分结果 -->
+	<select id="getResultDhtmlOjbectByParam" parameterType="map" resultType="map">
+		<include refid="pageDataHeader"/>
+		${sql}
+		<include refid="pageDataEnd"/>
+	</select>
+
+
+	<select id="getResultDhtmlYearCountByCondExt" parameterType="map" resultType="string">
+		<include refid="totalCountHeader"/>
+		${case_sql}
+		<include refid="totalCountEnd"/>
+	</select>
+	<select id="getResultDhtmlObjCountByCondExt" parameterType="map" resultType="string">
+		<include refid="totalCountHeader"/>
+		${case_sql}
+		<include refid="totalCountEnd"/>
+	</select>
+	<select id="getZoneNameByZoneID" parameterType="map" resultType="map">
+		select zone_cd_desc as measure_id from B99_Zone_Cd where 1=1
+		<if test="zId != null and zId != ''">
+			and zone_cd in (${zId})
+		</if>
+	</select>
+	<!-- 根据年份查询全部积分结果 -->
+	<select id="getResultDhtmlYearByParamInfo" parameterType="map" resultType="map">
+		${sql}
+	</select>
+
+
+	<!-- 根据维度查询全部积分结果 -->
+	<select id="getResultDhtmlOjbectByParamInfo" parameterType="map" resultType="map">
+		${sql}
+	</select>
+	<select id="getProjectResultMeasure" parameterType="map" resultType="map">
+		select
+		i.measure_id  as measure_id,
+		i.measure_name as mea_definition
+		from bsc_measure i inner join B04_DATA_COL_IND_RELA a
+		on i.measure_id =a.ind_id
+		where a.Data_Col_Id =#{project_id}
+		order by i.measure_id
+	</select>
+	<!-- 通过指标编号查询指标信息 -->
+	<select id="getProjectResultMeasureByIndexId" parameterType="map" resultType="map">
+		select
+		ind_id  as measure_id,
+		ind_nm as mea_definition
+		from B04_IND
+		where ind_id in (${meaId})
+		order by ind_id
+	</select>
+	<select id="getObectNameByObjId" parameterType="map" resultType="map">
+		select obj_name from bsc_proj_stat_obj where project_id =#{project_id} and obj_id in (${oId})
+	</select>
+
+
+	<select id="getObectNameByDimId" parameterType="map" resultType="map">
+		select dim_cd_desc from b04_data_col_adim_scope e where e.data_col_id =#{project_id} and dim_cd in (${oId})
+	</select>
+</mapper>

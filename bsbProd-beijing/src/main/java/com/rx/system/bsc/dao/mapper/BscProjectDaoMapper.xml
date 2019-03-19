@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.rx.system.bsc.dao.BscProjectDao">
+	
+	<!-- 分页查询数据Sql头 -->
+	<sql id="pageDataHeader">
+		select * from (select  t1.*,@rw:=@rw+1 rw from (
+	</sql>
+	
+	<!-- 分页查询数据Sql尾 -->
+	<sql id="pageDataEnd">
+		
+			) t1 ,(select @rw:=0) r) tt where rw >#{start} <![CDATA[ and rw<= #{endrow}]]> 
+		
+	</sql>
+	
+	<!-- 查询总数Sql头 -->
+	<sql id="totalCountHeader">
+		select count(*) from (
+	</sql>
+	
+	<!-- 查询总数Sql头尾-->
+	<sql id="totalCountEnd">
+		) ct
+	</sql>
+	
+	<!-- 查询方案已经发布的月份个数 -->
+	<select id="getPublishedCount" parameterType="map" resultType="int">
+		select
+			count(*)
+		from bsc_project a,bsc_proj_exe_mth b
+		where a.project_id=b.project_id
+			and b.is_published='Y'
+			and a.project_id=#{project_id} 
+	</select>
+	
+	<select id="getProjectCountByName" parameterType="map" resultType="int">
+		select count(*)  from bsc_project 
+		where project_name = trim(#{project_name})
+			and owner_org_id = #{owner_id}
+			<if test="project_id!=null and project_id!=''">
+			and project_id &lt;&gt; #{project_id} 
+			</if>
+	</select>
+		
+	<!-- 查询平衡计分卡方案定义列表 -->
+	<select id="listProject" parameterType="map" resultType="map">
+		 select t.project_id,
+				t.project_name, 
+				t.project_desc, 
+				t.cycle_type_id, 
+				t.obj_cate_id, 
+				t.app_type_id, 
+				t.obj_link_id,
+				b.link_name as obj_link_name,
+				t.owner_org_id, 
+				t.create_user, 
+				t.create_time, 
+				t.update_user, 
+				t.update_time,
+				t.obj_cate_id as icon,
+				t.record_status
+		 from bsc_project t
+		 left join
+		 	bsc_dim_link b
+		 on t.obj_link_id = b.link_id
+		 where 1=1 
+		 and t.owner_org_id = #{owner_id}
+		 <if test="record_status != 'All'">
+		 and t.record_status = 'A'
+		 </if> 
+		<if test="searchKey != null and searchKey != ''">
+			and project_name like '%${searchKey}%'
+		</if>
+			order by record_status,project_name 
+	</select>
+	
+	<!-- 查询方案已经执行的月份 -->
+	<select id="listExecutedMonth" parameterType="map" resultType="map">
+		select month_id as month_id,concat(substr(month_id,1,4),'年') as month_name from bsc_proj_exe_mth where project_id = #{project_id}
+		order by month_id desc
+	</select>
+	
+	<!-- 添加平衡计分卡方案 -->
+	<insert id="addProject" parameterType="map">
+		insert into bsc_project
+		  (project_id,
+		   project_name,
+		   project_desc,
+		   cycle_type_id,
+		   obj_cate_id,
+		   app_type_id,
+		   obj_link_id,
+		   owner_org_id,
+		   create_user,
+		   create_time,
+		   update_user,
+		   update_time,
+		   record_status)
+		values
+		  (#{project_id},
+		   #{project_name},
+		   #{project_desc},
+		   '02',
+		   'BM',
+		   '01',
+		   #{obj_link_id},
+		   #{owner_id},
+		   #{login_user_id},
+		   sysdate(),
+		   #{login_user_id},
+		   sysdate(),
+		   'A')
+	</insert>
+	
+	<!-- 编辑平衡计分卡方案 -->
+	<update id="editProject" parameterType="map">
+		update bsc_project t
+		   set t.project_name     = #{project_name},
+		       t.project_desc     = #{project_desc},
+		       t.obj_link_id      = #{obj_link_id},
+		       t.update_user      = #{login_user_id},
+		       t.update_time      = sysdate()
+		 where t.project_id = #{project_id}
+	</update>
+		
+	<!-- 停用平衡计分卡方案 -->
+	<update id="updateProjectStatus" parameterType="map">
+		 update bsc_project t
+		    set t.record_status = 'I',
+		        t.project_name  = concat(t.project_name , '[停用-' ,
+		                          date_format(now(), '%Y%m%d') , ']')
+		  where t.project_id = #{project_id}
+	</update>
+	
+	<!-- 方案下达 -->
+	<update id="doPublish" parameterType="map">
+		update bsc_project t
+		   set t.app_type_id = #{app_type_id}
+		 where t.project_id = #{project_id}
+	</update>
+	
+	<select id="checkExist" parameterType="map" resultType="map">
+		select t.*
+		  from bsc_proj_rslt_stat t
+		 where  t.project_id = #{project_id}
+		   and t.proj_rank_id = #{proj_rank_id}
+	</select>
+
+	<!-- 查询方案执行情况 -->
+	<select id="listExeInfoCount" parameterType="map" resultType="int">
+		<include refid="totalCountHeader"/>
+		select 
+			b.*
+		from bsc_proj_exe_mth b
+		where b.project_id = #{project_id}
+		order by b.month_id desc
+		<include refid="totalCountEnd"/>
+	</select>
+	<select id="listExeInfo" parameterType="map" resultType="map">
+		<include refid="pageDataHeader"/>
+		select 
+			b.*
+		from bsc_proj_exe_mth b
+		where b.project_id = #{project_id}
+		order by b.month_id desc
+		<include refid="pageDataEnd"/>
+	</select>
+	
+	<select id="hasRelation" parameterType="map" resultType="int">
+		select count(*) from bsc_proj_obj t where t.project_id = #{project_id}
+	</select>
+
+
+	<!-- 查询平衡计分卡方案（通过方案编号）已执行指标名称列表 -->
+	<select id="listExecutedIndex" parameterType="map" resultType="map">
+		select
+		a.measure_id as value_field,
+		a.mea_definition as display_field
+		from bsc_proj_mea a
+		where a.project_id = #{project_id}
+		order by a.mea_order_id
+		<!--
+		select
+		a.measure_id as value_field,
+		a.mea_definition as display_field
+		from bsc_proj_mea_h a
+		where a.project_id = #{project_id}
+		<if test="month_id != null and month_id != ''">
+			and a.year_id = #{month_id}
+		</if>
+		order by a.mea_order_id
+		-->
+	</select>
+	<!--统计方案维度表-->
+	<insert id="addProjectStatOjbect" parameterType="map">
+		insert into bsc_proj_stat_obj
+		(project_id, obj_id, obj_name)
+		${sql}
+	</insert>
+	<!-- 统计方案周期表 -->
+	<insert id="addProjectStatCycle" parameterType="map">
+		insert into bsc_proj_stat_cyc
+		(project_id, cycle_id, cycle_name)
+		${sql}
+	</insert>
+	<!-- 通過 link_id查詢数据源表达式-->
+	<select id="getSourceExpressionByLinkID" parameterType="string" resultType="map">
+		select SOURCE_EXPRESSION as SOURCE_EXPRESSION,LABEL_FIELD as LABEL_FIELD,ID_FIELD as ID_FIELD from bsc_dim_link  where link_id=#{linkId}
+	</select>
+	<!-- 删除统计方案维度表 -->
+	<delete id="removeProjectStatOjbect" parameterType="map">
+		delete from bsc_proj_stat_obj where project_id = #{project_id}
+	</delete>
+	<!-- 删除统计方案周期表 -->
+	<delete id="removeProjectStatCycle" parameterType="map">
+		delete from bsc_proj_stat_cyc where project_id = #{project_id}
+	</delete>
+	<!--复制统计方案维度表数据-->
+	<insert id="copyProjectStatOjbect" parameterType="map">
+		insert into bsc_proj_stat_obj
+		select #{new_project_id}, a.obj_id,a.obj_name
+		from (
+		select obj_id,obj_name from bsc_proj_stat_obj
+		where project_id= #{old_project_id}
+		)a
+
+	</insert>
+	<!-- 统计方案周期表 -->
+	<insert id="copyProjectStatCycle" parameterType="map">
+		insert into bsc_proj_stat_cyc
+		(project_id, cycle_id, cycle_name)
+		select #{new_project_id}, a.cycle_id, a.cycle_name
+		from (select cycle_id,cycle_name
+		from bsc_proj_stat_cyc
+		where project_id= #{old_project_id}
+		) a
+	</insert>
+	<!-- 查询统计年份下拉框-->
+	<select id="getDimCycDataDS" parameterType="string" resultType="map">
+		SELECT CYCLE_ID AS `KEY`,CYCLE_NAME AS `VALUE` FROM BSC_PROJ_STAT_CYC WHERE PROJECT_ID=#{project_id}
+	</select>
+	<!-- 查询统计维度下拉框-->
+	<select id="getDimObjDataDS" parameterType="string" resultType="map">
+		SELECT OBJ_ID AS `KEY`,OBJ_NAME  AS `VALUE` FROM BSC_PROJ_STAT_OBJ WHERE PROJECT_ID=#{project_id}
+	</select>
+	<!-- 统计方案维度列表 -->
+	<select id="listPorjectObj" parameterType="map" resultType="map">
+		select * from bsc_proj_stat_obj where project_id = #{project_id}
+		order by obj_id asc
+	</select>
+	<!-- 查询地区代码信息列表 -->
+	<select id="getZoneInfo" parameterType="map" resultType="map">
+		select E.Dim_Cd AS zone_id,E.Dim_Cd_Desc AS zone_name from B04_DATA_COL_ADIM_SCOPE E   WHERE  E.Data_Col_Id =#{project_id}
+		AND  E.DIM_TYPE_ID IN (SELECT L.Region_Cd FROM B04_DATA_COL L WHERE  L.Data_Col_Id =#{project_id} )
+		ORDER BY E.Dim_Cd
+	</select>
+
+
+
+
+	<!-- 查询项目信息信息列表 -->
+	<select id="getProjectInfo" parameterType="map" resultType="map">
+		select DATA_COL_ID AS project_id,DATA_COL_NM AS project_name from  B04_DATA_COL  ORDER BY DATA_COL_ID
+	</select>
+
+	<!-- 查询项目时间信息列表 -->
+	<select id="getProjectMonth" parameterType="map" resultType="map">
+		select e1.sts_cycle_scope_cd as month_id,e1.sts_cycle_scope_desc as month_name
+		from  B04_DATA_COL_TM_SCOPE e1
+		where e1.Data_Col_Id =#{project_id}
+		order by e1.sts_cycle_scope_cd desc
+	</select>
+
+
+
+	<!-- 查询项目维度信息 -->
+	<select id="getPorjectObjInfo" parameterType="map" resultType="map">
+		select Dim_Cd AS obj_id,Dim_Cd_Desc AS obj_name from B04_DATA_COL_ADIM_SCOPE E   WHERE  E.Data_Col_Id =#{project_id}
+		AND  E.DIM_TYPE_ID IN (SELECT Dim_Type_Cd FROM B04_DATA_COL  WHERE  Data_Col_Id =#{project_id} )
+		ORDER BY Dim_Cd
+	</select>
+
+
+
+
+	<select id="getProjectIndex" parameterType="map" resultType="map">
+		select
+		i.measure_id  as value_field,
+		i.measure_name as display_field
+		from bsc_measure i inner join B04_DATA_COL_IND_RELA a
+		on i.measure_id =a.ind_id
+		where a.Data_Col_Id  = #{project_id}
+		order by i.measure_id
+	</select>
+</mapper>

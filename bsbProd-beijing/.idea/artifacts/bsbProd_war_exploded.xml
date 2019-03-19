@@ -1,0 +1,49 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="bsbProd:war exploded">
+    <output-path>$PROJECT_DIR$/target/bsbProd</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="bsbProd" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: org.apache.axis2:axis2-transport-http:1.7.5" />
+          <element id="library" level="project" name="Maven: org.apache.axis2:axis2-kernel:1.7.5" />
+          <element id="library" level="project" name="Maven: org.apache.ws.commons.axiom:axiom-api:1.2.20" />
+          <element id="library" level="project" name="Maven: jaxen:jaxen:1.1.6" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-stax-api_1.0_spec:1.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.james:apache-mime4j-core:0.7.2" />
+          <element id="library" level="project" name="Maven: org.apache.ws.commons.axiom:axiom-impl:1.2.20" />
+          <element id="library" level="project" name="Maven: org.codehaus.woodstox:woodstox-core-asl:4.2.0" />
+          <element id="library" level="project" name="Maven: org.codehaus.woodstox:stax2-api:3.1.1" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-ws-metadata_2.0_spec:1.1.2" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-jta_1.1_spec:1.1" />
+          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.3" />
+          <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.3.1" />
+          <element id="library" level="project" name="Maven: wsdl4j:wsdl4j:1.6.2" />
+          <element id="library" level="project" name="Maven: org.apache.ws.xmlschema:xmlschema-core:2.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.neethi:neethi:3.0.3" />
+          <element id="library" level="project" name="Maven: org.apache.woden:woden-core:1.0M10" />
+          <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
+          <element id="library" level="project" name="Maven: commons-httpclient:commons-httpclient:3.1" />
+          <element id="library" level="project" name="Maven: org.apache.axis2:axis2-transport-local:1.7.5" />
+          <element id="library" level="project" name="Maven: org.apache.axis2:axis2-json:1.7.5" />
+          <element id="library" level="project" name="Maven: org.codehaus.jettison:jettison:1.3.8" />
+          <element id="library" level="project" name="Maven: org.apache.axis2:axis2-adb:1.7.5" />
+          <element id="library" level="project" name="Maven: org.apache.ws.commons.axiom:axiom-dom:1.2.20" />
+          <element id="library" level="project" name="Maven: org.apache.geronimo.specs:geronimo-activation_1.1_spec:1.0.2" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.1" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.1" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/bsbProd/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="bsbProd/web/Web" />
+    </root>
+  </artifact>
+</component>
