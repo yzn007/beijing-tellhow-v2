@@ -552,9 +552,7 @@
                 <profiles.active>test</profiles.active>
                 <cas.server.ip>http://10.10.10.41:17001/cas</cas.server.ip>
             </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+
         </profile>
         <!--演示环境-->
         <profile>
@@ -572,7 +570,9 @@
                 <profiles.active>tellhow</profiles.active>
                 <cas.server.ip>http://10.10.10.41:17001/cas</cas.server.ip>
             </properties>
-
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
         </profile>
         <!--生产环境-->
         <profile>
