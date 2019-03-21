@@ -8,7 +8,7 @@
           <deploymentDescriptor name="weblogic.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/weblogic.xml" />
         </descriptors>
         <webroots>
-          <root url="file://$MODULE_DIR$/src/main/resources/profile/tellhow/web-inf" relative="WEB-INF" />
+          <root url="file://$MODULE_DIR$/src/main/resources/profile/test/web-inf" relative="WEB-INF" />
           <root url="file://$MODULE_DIR$/lib" relative="WEB-INF/lib" />
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
@@ -25,6 +25,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="mysql">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/mysql-connector-java-5.1.21.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.0.1" level="project" />
     <orderEntry type="module-library">
       <library name="Maven: bsbProd:activation:1.0">

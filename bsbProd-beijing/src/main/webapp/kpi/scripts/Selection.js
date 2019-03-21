@@ -1,5 +1,12 @@
 ﻿function RangeInsert(field,txt)
 {
+	var fieldStartPos = -1;
+	var fieldEndPos = -1;
+	if (field.getPositionEl().dom!=null) {
+        fieldStartPos = field.getPositionEl().dom.selectionStart;
+        fieldEndPos = field.getPositionEl().dom.selectionEnd;
+    }
+
 	//IE support
 	if (document.selection) {
 		field.focus();
@@ -9,9 +16,12 @@
 		field.focus();
 	}
 	//MOZILLA/NETSCAPE support
-	else if (field.selectionStart || field.selectionStart == '0') {
-		var startPos = field.selectionStart;
-		var endPos = field.selectionEnd;
+	//else if (field.selectionStart || field.selectionStart == '0') {
+    else if (fieldStartPos >=0 && fieldEndPos>=0){
+		// var startPos = field.selectionStart;
+		// var endPos = field.selectionEnd;
+        var startPos = fieldStartPos;
+        var endPos = fieldEndPos;
 		var cursorPos = endPos;
 		var scrollTop = field.scrollTop;
 		if (startPos != endPos) {
