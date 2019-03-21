@@ -13,13 +13,13 @@
 		<param-name>thisName</param-name>
 		<param-value>指标管理系统</param-value>
 	</context-param>
-
+	
 	<!-- spring 配置文件路径 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring/applicationContext.xml</param-value>
 	</context-param>
-
+	
 	<!-- log4j配置文件路径 -->
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
@@ -29,13 +29,13 @@
 		<param-name>log4jRefreshInterval</param-name>
 		<param-value>60000</param-value>
 	</context-param>
-
+	
 	<!-- 登陆验证过滤器 -->
 	<filter>
 		<filter-name>sessionValidFilter</filter-name>
 		<filter-class>com.rx.system.filter.SessionValidFilter</filter-class>
 	</filter>
-
+	
 	<!-- 主页数据加载过滤器 -->
 	<filter>
 		<filter-name>mainPageFilter</filter-name>
@@ -45,7 +45,7 @@
 			<param-value>false</param-value>
 		</init-param>
 	</filter>
-
+	
 	<!-- 编码监听器 -->
 	<filter>
 		<filter-name>encodeFilter</filter-name>
@@ -55,7 +55,7 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
-	<!--
+	<!-- 
 	<filter-mapping>
 		<filter-name>encodeFilter</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -67,28 +67,28 @@
 			org.springframework.web.util.Log4jConfigListener
 		</listener-class>
 	</listener>
-
+	
 	<!-- spring 监听 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
+	
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
-
+	
 	<listener>
 		<listener-class>com.rx.system.util.SystemSessionListener</listener-class>
 	</listener>
-
+	
 	<!-- 系统初始化Servlet -->
 	<servlet>
 		<servlet-name>InitService</servlet-name>
 		<servlet-class>com.rx.system.init.InitService</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
-
-	<!-- FusionChart 导出功能暂时注释
+	
+	<!-- FusionChart 导出功能暂时注释 
 	<servlet>
 		<display-name>FCExporter</display-name>
 		<servlet-name>FCExporter</servlet-name>
@@ -97,7 +97,7 @@
 	<servlet-mapping>
 		<servlet-name>FCExporter</servlet-name>
 		<url-pattern>/FCExporter.jsp</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 	-->
 	<filter>
 		<filter-name>Set Character Encoding</filter-name>
@@ -109,7 +109,7 @@
 			<param-value>UTF-8</param-value>
 		</init-param>
 	</filter>
-
+	
 	<!--Set Character Encoding-->
 	<filter-mapping>
 		<filter-name>Set Character Encoding</filter-name>
@@ -119,7 +119,7 @@
 		<filter-name>Set Character Encoding</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
-
+	
 	<filter-mapping>
 		<filter-name>sessionValidFilter</filter-name>
 		<url-pattern>*.action</url-pattern>
@@ -128,7 +128,7 @@
 		<filter-name>sessionValidFilter</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
-
+	 
 	<filter-mapping>
 		<filter-name>Set Character Encoding</filter-name>
 		<url-pattern>/service/ExportExcelService</url-pattern>
@@ -141,18 +141,18 @@
 		<filter-name>Set Character Encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
+	
 	<!-- 主页监听器拦截配置 -->
 	<filter-mapping>
 		<filter-name>mainPageFilter</filter-name>
 		<url-pattern>/main.jsp</url-pattern>
 	</filter-mapping>
-
+	
 	<!-- struts2标签 -->
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
-	</filter>
+    </filter>  
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -234,8 +234,8 @@
 		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!--CAS融合 配置 End -->
-
+	 <!--CAS融合 配置 End -->
+	
 	<!-- 导出EXCEL Service -->
 	<servlet>
 		<servlet-name>ModelExcelService</servlet-name>
@@ -245,13 +245,13 @@
 		<servlet-name>ModelExcelService</servlet-name>
 		<url-pattern>/service/ModelExcelService</url-pattern>
 	</servlet-mapping>
-
+	
 	<session-config>
 		<session-timeout>-1</session-timeout>
 	</session-config>
-
-	<welcome-file-list>
-		<welcome-file>/main.jsp</welcome-file>
-	</welcome-file-list>
-	<distributable/>
+	
+  <welcome-file-list>
+    <welcome-file>/main.jsp</welcome-file>
+  </welcome-file-list>
+  <distributable/>
 </web-app>
