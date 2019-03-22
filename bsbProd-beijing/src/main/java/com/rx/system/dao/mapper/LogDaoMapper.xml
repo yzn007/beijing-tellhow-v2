@@ -37,10 +37,14 @@
 		       concat(a.user_name , '[', t.user_id ,']') as user_name
 		  from bsc_login_his t, bsc_user_info a
 		 where t.user_id = a.user_id
-   			and t.begin_time >= str_to_date(#{begin_date}, '%Y-%m-%d')
+		<if test = "begin_date!=null and begin_date!= ''" >
+   			and t.begin_time >= date_format(#{begin_date}, '%Y-%m-%d')
+		</if>
+		<if test = "end_date!='' and end_date != null">
 		   <![CDATA[
- 		    and t.end_time <= str_to_date(#{end_date}, '%Y-%m-%d')
+ 		    and t.end_time <= date_format(#{end_date}, '%Y-%m-%d')
 		   ]]>
+		</if>
 		   <if test="userKey!='' and userKey!=null">
 		    and (t.user_id like '%${userKey}%' or a.user_name like '%${userKey}%')
 		   </if> 
@@ -61,10 +65,15 @@
 		       a.user_name
 		  from bsc_login_his t, bsc_user_info a
 		 where t.user_id = a.user_id
-   			and t.begin_time >= str_to_date(#{begin_date}, '%Y-%m-%d')
-		   <![CDATA[
- 		    and t.end_time <= str_to_date(#{end_date}, '%Y-%m-%d')
+			<if test = "begin_date!=null and begin_date!= ''" >
+				and t.begin_time >= date_format(#{begin_date}, '%Y-%m-%d')
+			</if>
+   			<if test = "end_date!='' and end_date != null">
+				<![CDATA[
+ 		    and t.end_time <= date_format(#{end_date}, '%Y-%m-%d')
 		   ]]>
+			</if>
+
 		   <if test="userKey!='' and userKey!=null">
 		    and (t.user_id like '%${userKey}%' or a.user_name like '%${userKey}%')
 		   </if>
@@ -85,7 +94,7 @@
 		  left join bsc_function b
 		    on a.function_id = b.function_id
 		 where t.session_id = #{session_id,jdbcType=VARCHAR}
-		   and t.begin_time = str_to_date(#{begin_time,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%S')
+		   and t.begin_time = date_format(#{begin_time,jdbcType=VARCHAR},'%Y-%m-%d %H:%i:%S')
 		 order by oper_time desc
 
 	</select>
