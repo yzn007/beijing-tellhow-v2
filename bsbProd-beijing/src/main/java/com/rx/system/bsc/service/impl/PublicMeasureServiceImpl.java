@@ -31,8 +31,16 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 	 * @throws Exception
 	 */
 	public void addEngMeasure(Map<String, Object> paramMap) throws Exception {
-		paramMap.put("obj_cate_id", paramMap.get("obj_cate_id").toString());
-		
+		if (null == paramMap.get("obj_cate_id")){
+			paramMap.put("obj_cate_id", "BM");
+		}else {
+			paramMap.put("obj_cate_id", paramMap.get("obj_cate_id").toString());
+		}
+		paramMap.put("measure_source",paramMap.get("obj_source_id").toString());
+		paramMap.put("countperiod",paramMap.get("obj_period_id").toString());
+		paramMap.put("alerttype",paramMap.get("obj_type_id").toString());
+		paramMap.put("objDimSet",paramMap.get(paramMap.get("obj_link_id")));//其它维度
+		paramMap.put("objDistrictDimSet",paramMap.get(paramMap.get("obj_district_id")));//地区维度
 		this.publicMeasureDao.addEngMeasure(paramMap);
 		this.jdbcManager.execute("call pbsc_measure_cascade()");
 		this.jdbcManager.execute("call pbsc_measure_order()");

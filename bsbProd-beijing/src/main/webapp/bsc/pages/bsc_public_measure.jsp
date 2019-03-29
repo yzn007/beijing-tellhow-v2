@@ -40,7 +40,7 @@
 	 -->
   	<script type="text/javascript" src="${pageContext.request.contextPath}/bsc/scripts/bsc_public_measure_layout.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/bsc/scripts/bsc_public_measure.js"></script>
-	
+	<%--<script type="text/javascript" src="${pageContext.request.contextPath}/bsc/scripts/bsc_project_def_statistics.js"></script>"--%>
   </head>
   <body>
   </body>

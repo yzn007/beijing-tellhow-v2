@@ -23,7 +23,17 @@
 		<if test="inner_level_order != null and inner_level_order != ''">
 		   inner_level_order,
 		</if>
-		   measure_desc)
+		   measure_desc,
+		   measure_unit,
+		measure_source,
+		measure_source_desc,
+		countperiod,
+		districtdimension,
+		districtdimension_desc,
+		ohterdimension,
+		ohterdimension_desc,
+		alerttype
+		)
 		values
 		  (#{measure_id},
 		   #{parent_measure_id},
@@ -38,15 +48,27 @@
 		<if test="inner_level_order != null and inner_level_order != ''">
 		   #{inner_level_order jdbcType=INTEGER},
 		</if>
-		   #{measure_desc})
+		   #{measure_desc},
+		#{measure_unit},
+		#{obj_source_id},
+		#{measure_source_desc},
+		#{obj_period_id},
+		#{objDistrictDimSet},
+		#{objDistrictDimSet_desc},
+		#{objDimSet},
+		#{objDimSet_desc},
+		#{obj_type_id}
+		)
 	</insert>
 	
 	<!-- 编辑指标 -->
 	<update id="editEngMeasure" parameterType="map">
 		update bsc_measure set 
 			measure_name = #{measure_name},
-			measure_desc = #{measure_desc}
-			
+			measure_desc = #{measure_desc},
+			measure_source = #{obj_source_id},
+			measure_unit = #{measure_unit},
+			measure_source_desc = #{measure_source_desc}
 		<choose>
 			<when test="inner_level_order != null and inner_level_order != ''">
 				,inner_level_order = #{inner_level_order jdbcType=INTEGER}

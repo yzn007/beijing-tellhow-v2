@@ -8,7 +8,7 @@ Ext.form.Field.prototype.msgTarget='under';
 AddWindow = Ext.extend(Ext.Window, {
 	title : '添加公共指标',
 	width : 460,
-	height : 300,
+	height : 450,
 	layout : 'fit',
 	plain : true,
 	modal : true,
@@ -18,10 +18,19 @@ AddWindow = Ext.extend(Ext.Window, {
 	listeners : {
 		close : function() {
 			Ext.getCmp("addWindow").destroy();
-		}
+		},
+        afterRender: function() {
+            var combo = Ext.getCmp("sourceTypeId");
+            var cmbType = Ext.getCmp("objTypeId");
+            //预警指标显示
+            if (combo.getValue()!='04'){
+                cmbType.hide();
+            }
+        }
 	},
 	initComponent : function() {
 		var comp = null;
+
 		if (selectNodeId == 'root' || selectNodeId == '') {
 			comp = new ObjCateSelector();
 		} else {
@@ -51,6 +60,7 @@ AddWindow = Ext.extend(Ext.Window, {
 				}]
 			})
 		}
+
 		Ext.applyIf(this, {
 			items : [{
 				xtype : 'form',
@@ -65,7 +75,7 @@ AddWindow = Ext.extend(Ext.Window, {
 						+ '/publicMeasure_common.action?method=addEngMeasure',
 				items : [{
 					xtype : 'textfield',
-					fieldLabel : '指标代码',
+					fieldLabel : '指标代码<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
 					allowBlank : false,
 					id : 'measure_id',
 					name : 'measure_id',
@@ -97,7 +107,80 @@ AddWindow = Ext.extend(Ext.Window, {
 					id : 'measure_name',
 					name : 'measure_name',
 					anchor : '95%'
-				}, new SourceTypeSelector(), comp, {
+				},{
+                    xtype : 'textfield',
+                    fieldLabel : '指标单位',
+                    allowBlank : true,
+                    id : 'measure_unit',
+                    name : 'measure_unit',
+                    anchor : '95%'
+                },
+					new ObjectSourceFromSelector(),
+					new SourceTypeSelector(),
+					new ObjAlertTypeSelector(),
+					/*comp,*/
+					new ObjectCountPeriod(),
+                    {
+                        xtype : 'combo',
+                        store : dimensionOtherStore,
+                        valueField : 'link_id',
+                        displayField : 'link_name',
+                        mode : 'local',
+                        forceSelection : true,
+                        hiddenName : 'obj_link_id',
+                        editable : false,
+                        triggerAction : 'all',
+                        allowBlank : false,
+                        fieldLabel : '其它维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+                        listeners: {
+                            select : function(combo, record, index){
+                                beforeMeaClose(this.id);
+                                objDimDS.reload({params : {
+                                    link_id : record.get('link_id')
+                                }})
+                            }
+                        },
+                        name : 'obj_link_id',
+                        id : 'isDimension',			//对象维度
+                        anchor : '95%'
+                    },
+                    {
+                        id : 'objDimSet',
+                        columnWidth : .35,
+                        anchor : '95%',
+                        layout : 'form'
+                    },
+                    {
+                        xtype : 'combo',
+                        store : districtDimensionStore,
+                        valueField : 'link_id',
+                        displayField : 'link_name',
+                        mode : 'local',
+                        forceSelection : true,
+                        hiddenName : 'obj_district_id',
+                        editable : false,
+                        triggerAction : 'all',
+                        allowBlank : false,
+                        fieldLabel : '地区维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+                        listeners: {
+                            select : function(combo, record, index){
+                                beforeMeaClose(this.id);
+                                objDistrictDim.reload({params : {
+                                    link_id : record.get('link_id')
+                                }});
+                            }
+                        },
+                        name : 'obj_district_id',
+                        id : 'districtDimension',			//地区维度
+                        anchor : '95%'
+                    },
+                    {
+                        id : 'objDistrictDimSet',
+                        columnWidth : .35,
+                        anchor : '95%',
+                        layout : 'form'
+                    },
+					{
 					xtype : 'numberfield',
 					name : 'inner_level_order',
 					fieldLabel : '同级顺序',
@@ -116,7 +199,19 @@ AddWindow = Ext.extend(Ext.Window, {
 					name : 'parent_measure_id',
 					anchor : '95%',
 					value : selectNodeId == '' ? 'root' : selectNodeId
-				}]
+				}, {
+                        xtype : 'hidden',
+                        id : 'measure_source_desc'
+                    }
+                    ,{
+                        xtype : 'hidden',
+                        id : 'objDistrictDimSet_desc'
+                    }
+                    , {
+                        xtype : 'hidden',
+                        id : 'objDimSet_desc'
+                    }
+				]
 			}],
 			buttons : [{
 				text : '保存',
@@ -170,10 +265,74 @@ AddWindow = Ext.extend(Ext.Window, {
 	}
 });
 
+function doAddLoad(){
+    var addwindow = new AddWindow();
+    // Ext.getCmp("addForm").form.load({
+    //   success: function (store, op, options) {
+    //
+    //    },
+    //    failure: function (form, action) {
+    //        // var combo = Ext.getCmp("sourceTypeId");
+    //        // var uid = combo.getValue();
+    //        // combo.fireEvent('select', combo, combo.getStore().getById(uid));
+    //    }
+    // });
+    addwindow.show();
+    //其它对象维度
+    dimensionOtherStore.on("load", function() {
+        //删除统计年份维度
+		for(var i=dimensionOtherStore.getCount()-1;i>=0;i--){
+            if(dimensionOtherStore.data.items[i].data.link_name.indexOf('地区代码')>=0
+				|| dimensionOtherStore.data.items[i].data.link_name.indexOf('统计年份')>=0
+                ){
+                dimensionOtherStore.data.items[i].store.removeAt(i);
+            }
+        }
+
+        if (dimensionOtherStore.getCount() > 0) {
+
+            var  dimensionId = dimensionOtherStore.getAt(0).get('link_id');
+
+            Ext.getCmp("isDimension").setValue(dimensionId);
+        }
+    });
+    dimensionOtherStore.load();
+
+    //地区维度
+    districtDimensionStore.on('load',function(){
+        //删除其它维度
+        for(var i=districtDimensionStore.getCount()-1;i>=0;i--){
+            if(districtDimensionStore.data.items[i].data.link_name.indexOf('地区代码') < 0 ){
+                districtDimensionStore.data.items[i].store.removeAt(i);
+            }
+        }
+        if (districtDimensionStore.getCount() > 0) {
+
+            var  dimensionId = districtDimensionStore.getAt(0).get('link_id');
+
+            Ext.getCmp("districtDimension").setValue(dimensionId);
+        }
+    });
+    districtDimensionStore.load();
+
+    //分类目录
+    var combo = Ext.getCmp("sourceTypeId");
+    var uid = combo.getValue();
+    combo.fireEvent("select",combo,combo.getStore().getById(uid));
+
+    //指标来源
+    var combo = Ext.getCmp("objSourceId");
+    var uid = combo.getValue();
+    combo.fireEvent("select",combo,combo.getStore().getById(uid));
+
+
+}
+var compSource = null;
 /**
  * 编辑公共指标
  */
 function doEdit() {
+    compSource = new ObjectSourceFromSelector();
 	var editWindow = new EditWindow();
 	Ext.getCmp("pmid").setValue(selectNode.parentNode.text);
 	Ext.getCmp("tpmid").setValue(selectNode.parentNode.id);
@@ -182,9 +341,18 @@ function doEdit() {
 		url : pathUrl + '/publicMeasure_common.action?method=getEngMeasureById',
 		params : {
 			measure_id : selectNode.id
-		}
+		},
+        success:function(form ,action){
+            //指标来源
+			var record = eval(action.result.data);
+			var comb = Ext.getCmp("objSourceId");
+			comb.setValue(record.measure_source);
+        }
 	});
+
 	editWindow.show();
+
+
 }
 /**
  * 编辑公共指标
@@ -205,6 +373,8 @@ EditWindow = Ext.extend(Ext.Window, {
 		}
 	},
 	initComponent : function() {
+
+
 		Ext.applyIf(this, {
 			items : [{
 				xtype : 'form',
@@ -235,7 +405,13 @@ EditWindow = Ext.extend(Ext.Window, {
 					name : 'inner_level_order'
 				}, {
 					name : 'obj_cate_desc'
-				}]),
+				}, {
+                    name : 'measure_unit'
+                }, {
+                    name : 'measure_source'
+                }, {
+                    name : 'measure_source_desc'
+                }]),
 				items : [{
 					xtype : 'hidden',
 					fieldLabel : '上级节点',
@@ -258,17 +434,44 @@ EditWindow = Ext.extend(Ext.Window, {
 					id : 'measure_name',
 					name : 'measure_name',
 					anchor : '95%'
-				}, {
-					xtype : 'hidden',
-					name : 'obj_cate_id'
-				}, {
+				},{
+                    xtype : 'textfield',
+                    fieldLabel : '指标单位',
+                    allowBlank : true,
+                    id : 'measure_unit',
+                    name : 'measure_unit',
+                    anchor : '95%'
+                },
+                    compSource,
+                    {
+                        xtype : 'hidden',
+                        name : 'measure_source_desc',
+						id : 'measure_source_desc'
+                    },
+                    {
+                        xtype : 'hidden',
+                        name : 'obj_cate_id'
+                    }/**,{
 					xtype : 'textfield',
 					name : 'obj_cate_desc',
 					fieldLabel : '考核对象类型',
 					readOnly : true,
 					disabled : true,
 					anchor : '95%'
-				}		/** ,new ObjCateSelector() */
+				}		 ,new ObjCateSelector() */
+                    /* ,{
+                        xtype : 'textfield',
+                        name : 'obj_period_id',
+                        fieldLabel : '统计周期',
+                        allowBlank : false,
+                        anchor : '95%'
+                    } ,{
+                        xtype : 'textfield',
+                        name : 'obj_link_id',
+                        fieldLabel : '对象维度',
+                        allowBlank : false,
+                        anchor : '95%'
+                    }*/
 						, {
 							xtype : 'numberfield',
 							name : 'inner_level_order',
