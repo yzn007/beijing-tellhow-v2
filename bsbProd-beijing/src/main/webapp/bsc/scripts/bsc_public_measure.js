@@ -627,6 +627,88 @@ EditWindow = Ext.extend(Ext.Window, {
 	}
 });
 
+/**
+ * 高级查询
+ * @param n
+ */
+function doSearch(){
+    compSource = new ObjectSourceFromSelector();
+    var searchWindow = new SearchWindow();
+    searchWindow.show();
+}
+
+SearchWindow = Ext.extend(Ext.Window, {
+    title : '查询公共指标',
+    width : 300,
+    height : 290,
+    layout : 'fit',
+    plain : true,
+    modal : true,
+    bodyStyle : 'padding:10px;',
+    buttonAlign : 'center',
+    id : 'searchWindow',
+    listeners : {
+        close : function() {
+            Ext.getCmp("searchWindow").destroy();
+        }
+    },
+    initComponent : function() {
+
+        Ext.applyIf(this, {
+            items : [{
+                xtype : 'form',
+                // region : 'center',
+                id : 'searchForm',
+                // width : 270,
+                bodyStyle : 'padding:10px;',
+                border : false,
+                labelWidth : 80,
+                labelAlign : 'left',
+                layout : 'form',
+                url : pathUrl
+                + '/selector_getPath.action',
+                timeout : 600000,
+                items : [{
+                    xtype : 'textfield',
+                    fieldLabel : '指标名称',
+                    allowBlank : false,
+                    id : 'measure_name',
+                    name : 'measure_name',
+                    anchor : '95%'
+                },
+                    new SourceTypeSelector(),
+                    compSource
+                ]
+            }
+            ],
+            buttons : [{
+                text : '查询',
+                handler : function() {
+                    var formPanel = Ext.getCmp("searchForm");
+                    if (formPanel.form.isValid()){
+                        var str_id = Ext.getCmp('measure_name').getValue();
+                        var treePanelId = 'measureTreePanel';
+                        var sourceTypeId = Ext.getCmp("sourceTypeId").getValue();
+                        var measuerSource = Ext.getCmp("objSourceId").getValue();
+                        searchNode(str_id,expandMyMeasureTreeNode,treePanelId,pathUrl+'/selector_getPath.action','N',sourceTypeId,measuerSource);
+
+                        _searchCount+=1;
+                        _searchCount=_searchCount==_searchPaths.length?0:_searchCount;
+                        _searchPath=_searchPaths[_searchCount].path.split(',');
+                        expandMyMeasureTreeNode(Ext.getCmp(treePanelId).getRootNode());
+					}
+                }
+            }, {
+                text : '取消',
+                handler : function() {
+                    Ext.getCmp("searchWindow").destroy();
+                }
+            }]
+        })
+        EditWindow.superclass.initComponent.call(this);
+    }
+});
+
 // 删除方法
 function doDeleteMeasure(n) {
 	Ext.Ajax.request({

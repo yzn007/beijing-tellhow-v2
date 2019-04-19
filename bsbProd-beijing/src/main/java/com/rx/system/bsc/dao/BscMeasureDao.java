@@ -29,4 +29,11 @@ public interface BscMeasureDao {
 	 * @throws Exception
 	 */
 	public List<Map<String, Object>> getProjectMeasure(String projectId) throws Exception;
+
+	/**
+	 * 取得运行的有效指标
+	 * @return
+	 * @throws Exception
+	 */
+	public List<IMeasure> getValidMeasure() throws Exception;
 }

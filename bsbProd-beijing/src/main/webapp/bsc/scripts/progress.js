@@ -1,5 +1,44 @@
 var flag=0;//执行状态代码
 
+function doExecute() {
+    if (flag = 1) {
+        flag = 0;
+    }
+
+    Ext.Ajax.request({
+        url : pathUrl + '/bscprojectexe_measureExe.action',
+        waitMsg : '正在处理,请稍候......',
+        method : 'POST',
+        params : {
+            projectID : projectID,
+            monthID : monthID,
+            cycleTypeID : cycleTypeID,
+            fullScore : fullScore,
+            published : published
+        },
+        callback : function(options, success, response) {
+            var json = Ext.util.JSON.decode(response.responseText);
+            if (json.success) {
+                Ext.MessageBox.hide();
+                setStatus('start');
+            } else {
+                setStatus('exception');
+                Ext.MessageBox.alert('提示信息', json.info);
+            }
+        },
+
+        failure : function(response, options) {
+            clearInterval(listener);
+            Ext.MessageBox.hide();
+            Ext.MessageBox.alert('提示信息',Ext.util.JSON.decode(response.responseText).info);
+        },
+
+        success : function(response, options) {
+            Ext.MessageBox.hide();
+        }
+    });
+}
+
 /**
  * 执行方案方法
  */
@@ -146,6 +185,77 @@ var ProgressRunner = function() {
 			listener = setInterval(loop(pbar), 1200);
 		}
 	}
+}();
+
+/**
+ * 执行计算考核进度条更新方法
+ */
+var ProgressRunnerMeasure = function() {
+    var update = function(index, pbar, count, time) {
+        pbar.updateProgress(index / count, '已完成 ' + index + ' of ' + count + ' ' + time);
+    };
+
+    var reset = function(pbar) {
+        $("#logPanel").html('');
+        pbar.updateText('正在初始化');
+    }
+
+    var over = function(pbar) {
+        pbar.updateProgress(1);
+        pbar.updateText('计算完成');
+    }
+
+    var loop = function(pbar) {
+        return function() {
+            Ext.Ajax.request({
+                url : pathUrl + '/bscprojectexe_queryStatus.action',
+                method : 'POST',
+                callback : function(options, success, response) {
+                    var json = Ext.util.JSON.decode(response.responseText);
+                    if (json.success) {
+                        var count = json.count;
+                        var index = json.index;
+                        var state = json.state;
+                        var e = json.exception;
+                        var time = json.time;
+                        var obj = json.log;
+                        getLogInfo(obj);
+                        if (state == 1) {
+                            update(index, pbar, count, time);
+                            over(pbar);
+                            setStatus('stop');
+                        } else if (state == 2) {
+                            Ext.MessageBox.alert('提示信息',e);
+                            setStatus('exception');
+                            reset(pbar);
+                        } else
+                            update(index, pbar, count, time);
+                    } else {
+                        Ext.MessageBox.alert('提示信息', json.info);
+                    }
+
+                },
+
+                failure : function(response, options) {
+                    clearInterval(listener);
+                    Ext.MessageBox.hide();
+                    Ext.MessageBox.alert("提示信息","后台服务错误，请联系管理员");
+                },
+
+                success : function(response, options) {
+                    Ext.MessageBox.hide();
+                }
+            });
+        };
+    };
+
+    return {
+        run : function(pbar) {
+            reset(pbar);
+            doExecute();
+            listener = setInterval(loop(pbar), 1200);
+        }
+    }
 }();
 
 /**

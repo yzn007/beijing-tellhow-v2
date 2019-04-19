@@ -8,11 +8,14 @@ import com.rx.log.annotation.FunDesc;
 import com.rx.log.annotation.UseLog;
 import com.rx.system.base.BaseDispatchAction;
 import com.rx.system.bsc.calc.CalculateProcedure;
+import com.rx.system.bsc.calc.CalculateProcedureOnlyMeasure;
 import com.rx.system.bsc.calc.Context;
 import com.rx.system.bsc.calc.ThreadStatus;
 import com.rx.system.bsc.calc.service.IDataSourceService;
 import com.rx.system.bsc.calc.service.IMeasureService;
 import com.rx.system.bsc.service.IBscProjectService;
+import com.rx.system.bsc.service.IDimLinkService;
+
 /**
  * 平衡计分卡方案执行Action
  * @author chenxd
@@ -25,21 +28,23 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 	private IDataSourceService dataSourceService = null;
 	private IBscProjectService bscProjectService = null;
 	private JdbcManager jdbcManager = null;
-	
+	private IDimLinkService dimLinkService = null;
+
 	/**
-	 * 执行方案
+	 * 指标计算
 	 */
 	@FunDesc(code="BSC_0017")
 	@UseLog
-	public String execute() throws Exception {
-		
+	public String measureExe() throws Exception {
+
 		Map<String, Object> paramMap = this.getRequestParam(request);
 		try {
-			CalculateProcedure procedure = new CalculateProcedure();
+			CalculateProcedureOnlyMeasure procedure = new CalculateProcedureOnlyMeasure();
 			procedure.setBscProjectService(bscProjectService);
 			procedure.setDataSourceService(dataSourceService);
 			procedure.setMeasureService(measureService);
-			
+			procedure.setDimLinkService(dimLinkService);
+
 			procedure.setJdbcManager(this.jdbcManager);
 			Context context = new Context();
 			context.put("monthID", getStringValue(paramMap, "monthID"));
@@ -47,10 +52,45 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 			context.put("cycleTypeID", getStringValue(paramMap, "cycleTypeID"));
 			context.put("is_published", "N");
 			procedure.initContext(context);
-			
+
 			session.removeAttribute("status");
 			procedure.setSession(session);
-						
+
+			procedure.start();
+			doSuccessInfoResponse("");
+		} catch (Exception e) {
+			e.printStackTrace();
+			session.removeAttribute("status");
+			doFailureInfoResponse("执行失败:" + e.getMessage());
+		}
+		return null;
+	}
+
+	/**
+	 * 执行方案
+	 */
+	@FunDesc(code="BSC_0017")
+	@UseLog
+	public String execute() throws Exception {
+
+		Map<String, Object> paramMap = this.getRequestParam(request);
+		try {
+			CalculateProcedure procedure = new CalculateProcedure();
+			procedure.setBscProjectService(bscProjectService);
+			procedure.setDataSourceService(dataSourceService);
+			procedure.setMeasureService(measureService);
+
+			procedure.setJdbcManager(this.jdbcManager);
+			Context context = new Context();
+			context.put("monthID", getStringValue(paramMap, "monthID"));
+			context.put("projectID", getStringValue(paramMap, "projectID"));
+			context.put("cycleTypeID", getStringValue(paramMap, "cycleTypeID"));
+			context.put("is_published", "N");
+			procedure.initContext(context);
+
+			session.removeAttribute("status");
+			procedure.setSession(session);
+
 			procedure.start();
 			doSuccessInfoResponse("");
 		} catch (Exception e) {
@@ -67,6 +107,7 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	public String queryStatus() throws Exception {
+		Thread.sleep(500);
 		ThreadStatus status = (ThreadStatus) session.getAttribute("status");
 		
 		Map<String, Object> results = new HashMap<String, Object>();
@@ -78,7 +119,7 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 		results.put("exception", status.getException());
 		results.put("success", true);
 		results.put("log", status.getLogList());
-		
+
 		doJSONResponse(results);
 		
 		return null;
@@ -122,5 +163,9 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 
 	public void setJdbcManager(JdbcManager jdbcManager) {
 		this.jdbcManager = jdbcManager;
+	}
+
+	public  void setDimLinkService(IDimLinkService dimLinkService){
+		this.dimLinkService = dimLinkService;
 	}
 }

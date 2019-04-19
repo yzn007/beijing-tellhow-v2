@@ -39,7 +39,12 @@ public class BscMeasureServiceImpl extends BaseService implements IMeasureServic
 		
 		return this.bscMeasureDao.getMeasureByProjectId(projectId);
 	}
-		
+
+	@Override
+	public List<IMeasure> getValidMeasure() throws Exception {
+		return this.bscMeasureDao.getValidMeasure();
+	}
+
 	/**
 	 * 获取指标计算依赖的指标
 	 */

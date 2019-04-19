@@ -103,7 +103,16 @@ Ext.onReady(function(){
 			}
 			doExecuteProject(cycleTypeId);
 		}
-	}, /**'-',{
+	},'-',{
+        text : '指标计算(p)',
+        id : 'measureExe',
+        toolTip : '指标计算',
+        iconCls : 'publish',
+        disabled : false,
+        handler : function() {
+            doExecuteMeasure(cycleTypeId);
+        }
+    }, /**'-',{
 		text : '发布(p)',
 		id : 'publish',
 		toolTip : '发布方案',

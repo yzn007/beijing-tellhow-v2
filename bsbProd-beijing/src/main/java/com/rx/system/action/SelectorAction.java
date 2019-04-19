@@ -237,6 +237,10 @@ public class SelectorAction extends BaseDispatchAction {
 		Map<String,Object> map = this.getRequestParam(request);
 		String obj_cate_id = map.get("obj_cate_id").toString();
 		String pageIndex = map.get("pageindex").toString();
+		//指标来源
+		String measureSource = map.get("measure_source")==null?null:map.get("measure_source").toString();
+		//指标分类
+		String sourceTypeId = map.get("source_type_id")==null?null:map.get("source_type_id").toString();
 		StringBuffer sb = new StringBuffer();
 		sb.append("select  getMeasureTreePath(measure_id) as path");
 		sb.append(" from bsc_measure");
@@ -244,6 +248,12 @@ public class SelectorAction extends BaseDispatchAction {
 		sb.append("   and is_private = '"+map.get("is_private")+"'");
 		if(!"".equals(obj_cate_id) && "2".equals(pageIndex)){
 		sb.append("   and obj_cate_id = '"+obj_cate_id+"'");	
+		}
+		if(!"".equals(measureSource) && null != measureSource){
+			sb.append(" and measure_source = '"+measureSource+"'");
+		}
+		if(!"".equals(sourceTypeId) && null != sourceTypeId){
+			sb.append(" and source_type_id = '"+sourceTypeId+"'");
 		}
 		sb.append(" order by global_order_id");
 		

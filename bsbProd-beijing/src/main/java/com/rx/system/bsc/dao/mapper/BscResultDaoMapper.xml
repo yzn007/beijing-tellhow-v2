@@ -162,7 +162,7 @@
 		</if>
             order by a.measure_id-->
 
-		select  measure_id, mea_definition from bsc_proj_mea
+		select  a.measure_id, a.mea_definition, b.source_id from bsc_proj_mea a left join bsc_measure b on a.measure_id = b.measure_id
 		where project_id  = #{project_id}
 		order by measure_id
 	</select>
@@ -217,6 +217,20 @@
 		</if>
 		and t.year_id= #{year_id}
 		group by j.obj_id,j.obj_name
+		UNION
+		select t.object_id as obj_id, concat('[',t.object_id,']',' ',t.object_name) as object_name ,concat(max(substr(COALESCE (b.month_id,#{year_id}),1,4)),'年') as month_name
+		<if test="case_sql != null and case_sql != ''">
+			,${case_sql}
+		</if>
+		from bsc_proj_obj t
+		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
+		left join (select * from  bsc_proj_mea_obj_val_measure where month_id = #{year_id}) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
+		where t.project_id = #{project_id}
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		group by t.object_id,t.object_name
+
 		<include refid="pageDataEnd"/>
 		<!--<include refid="pageDataHeader"/>-->
 			<!--select t.object_id, -->
@@ -241,6 +255,16 @@
 			where t.project_id = #{project_id} 
 			      and t.year_id= #{year_id} 
 			group by t.object_id,t.object_name
+		UNION
+		select t.object_id , concat('[',t.object_id,']',' ',t.object_name) as object_name
+		from bsc_proj_obj t
+		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
+		left join (select * from  bsc_proj_mea_obj_val_measure where month_id = #{year_id}) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
+		where t.project_id = #{project_id}
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		group by t.object_id,t.object_name
 		<include refid="totalCountEnd"/>
 	</select>
 	
@@ -359,7 +383,8 @@
 	<select id="listProjectMeasureByIndexId" parameterType="map" resultType="map">
 		select
 		measure_id  as measure_id,
-		measure_name as mea_definition
+		measure_name as mea_definition,
+		source_id
 		from bsc_measure
 		where measure_id in (${meaId})
 		order by measure_id
@@ -371,12 +396,33 @@
 		from bsc_proj_obj_h t
 		where t.project_id = #{project_id}
 		group by t.year_id
+		union
+		select b.month_id as object_id, concat(substr(b.month_id,1,4),'年') as  object_name
+		from bsc_proj_obj t
+		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
+		left join (select * from  bsc_proj_mea_obj_val_measure where case when
+		<if test="tId != null and tId != ''">
+			concat(${tId}) is not null then  month_id in (${tId})
+		</if>
+		<if test="tId == null or tId == ''">
+			#{year_id} is not null then  month_id = #{year_id}
+		</if>
+		when ${oId} is not null then
+		object_id in (${oId}) else null is null end) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
+		where t.project_id = #{project_id} and b.month_id is not null
+		<if test="tId != null and tId != ''">
+			and b.month_id in (${tId})
+		</if>
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		group by b.month_id,case when  #{year_id} is not null then b.object_id else null end
 		<include refid="totalCountEnd"/>
 	</select>
 	<!--根据年份查询指标结果 -->
 	<select id="listScoreResultByYear" parameterType="map" resultType="map">
 		<include refid="pageDataHeader"/>
-		select c.cycle_id as month_id,
+		select * from (select c.cycle_id as month_id,
 		concat(c.cycle_id,'年') as month_name,
 		max(t.object_name) object_name,
 		${case_sql}
@@ -400,7 +446,29 @@
 			and t.year_id in (${tId})
 		</if>
 		group by c.cycle_id
-		order by c.cycle_id  desc
+		union
+		select b.month_id as month_id, concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') as month_name,max(t.object_name) as object_name,
+		${case_sql}
+		from bsc_proj_obj t
+		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
+		left join (select * from  bsc_proj_mea_obj_val_measure where case when
+		<if test="tId != null and tId != ''">
+			concat(${tId}) is not null then  month_id in (${tId})
+		</if>
+		<if test="tId == null or tId == ''">
+			#{year_id} is not null then  month_id = #{year_id}
+		</if>
+		when ${oId} is not null then
+		object_id in (${oId}) else null is null end) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
+		where t.project_id = #{project_id} and b.month_id is not null
+		<if test="tId != null and tId != ''">
+			and b.month_id in (${tId})
+		</if>
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		group by b.month_id,case when  #{year_id} is not null then b.object_id else null end
+		) ua order by month_id  desc
 		<include refid="pageDataEnd"/>
 
 	</select>

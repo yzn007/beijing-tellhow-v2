@@ -16,7 +16,7 @@ function addSearchToolbar(config){
                 specialkey : function(field, e) {
                     var str_id=field.getValue();
                     if (e.getKey() == Ext.EventObject.ENTER && str_id) {
-                        searchNode(str_id,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private);
+                        searchNode(str_id,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null);
                     }
                 }
             }
@@ -26,7 +26,7 @@ function addSearchToolbar(config){
         handler : function(){
             var str_keyword=Ext.getCmp('textfield'+treePanelId).getValue();
             if(str_keyword){
-              	  searchNode(str_keyword,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private);
+              	  searchNode(str_keyword,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null);
             }else{
                 Ext.getCmp('nextBtn' + treePanelId).setDisabled(true);
                 Ext.getCmp('nextBtn' + treePanelId).setText('下一个');
@@ -62,11 +62,11 @@ function addSearchToolbar(config){
 }
 
 
-function searchNode(keyword , expendMethod , treePanelId , Pathurl , is_private){
+function searchNode(keyword , expendMethod , treePanelId , Pathurl , is_private,sourceType,measureSource){
 	
     Ext.Ajax.request({
         url : Pathurl,
-        params : {keyword: keyword , is_private : is_private,obj_cate_id : obj_cate_id,pageindex : pageindex},
+        params : {keyword: keyword , is_private : is_private,obj_cate_id : obj_cate_id,pageindex : pageindex,source_type_id:sourceType,measure_source:measureSource},
         failure : function(response, options) {
             Ext.MessageBox.alert('消息',Ext.util.JSON.decode(response.responseText).info);
 		},

@@ -137,8 +137,9 @@ public class BscResultServiceImpl extends BaseService implements IBscResultServi
 		for (int i = 0; i < measureList.size(); i++) {
 			Map<String, Object> map = measureList.get(i);
 			String measure_id = getStringValue(map,"measure_id");
+			String source_id =  getStringValue(map,"source_id");
 			
-			case_sql += "sum(case when b.measure_id ='"+measure_id+"' then b.value else 0 end) as col_"+i;
+			case_sql += "max(case when b.measure_id ='"+measure_id+"' and b.source_id = '"+ source_id + "' then b.value else 0 end) as col_"+i;
 			if(i != measureList.size()-1)
 				case_sql += ",";
 		}
@@ -162,8 +163,8 @@ public class BscResultServiceImpl extends BaseService implements IBscResultServi
 		for (int i = 0; i < measureList.size(); i++) {
 			Map<String, Object> map = measureList.get(i);
 			String measure_id = getStringValue(map,"measure_id");
-			
-			case_sql += "sum(case when b.measure_id ='"+measure_id+"' then b.value else 0 end) as col_"+i;
+			String source_id =  getStringValue(map,"source_id");
+			case_sql += "sum(case when b.measure_id ='"+measure_id+"' and b.source_id = '"+ source_id + "' then b.value else 0 end) as col_"+i;
 			if(i != measureList.size()-1)
 				case_sql += ",";
 		}
@@ -244,8 +245,8 @@ public class BscResultServiceImpl extends BaseService implements IBscResultServi
 		for (int i = 0; i < measureList.size(); i++) {
 			Map<String, Object> map = measureList.get(i);
 			String measure_id = getStringValue(map,"measure_id");
-
-			case_sql += "sum(case when b.measure_id ='"+measure_id+"' then b.value else 0 end) as col_"+i;
+			String source_id = getStringValue(map,"source_id");
+			case_sql += "max(case when b.measure_id ='"+measure_id+"' and b.source_id = '"+ source_id +"' then b.value else 0 end) as col_"+i;
 			if(i != measureList.size()-1)
 				case_sql += ",";
 		}

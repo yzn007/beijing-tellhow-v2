@@ -33,6 +33,11 @@ public interface IMeasure {
 	 * 目录指标，即指标没有数据源，仅用于分类
 	 * */
 	public String SOURCE_TYPE_FOLDER 		= "03";
+
+	/**
+	 * 预警指标，即指标结果用来预警
+	 * */
+	public String SOURCE_TYPE_ALERT 		= "04";
 	
 	public String getMeasureId();
 	public String getMeasureName();
@@ -40,6 +45,7 @@ public interface IMeasure {
 	public String getResultTypeId();
 	public String getSourceId();
 	public String getFormula();
+	public String getObjLinkId();
 	
 	/**
 	 * @return 获取基础指标的数据源字段，其他指标返回null

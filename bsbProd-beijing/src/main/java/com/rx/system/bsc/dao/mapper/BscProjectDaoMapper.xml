@@ -79,8 +79,15 @@
 	
 	<!-- 查询方案已经执行的月份 -->
 	<select id="listExecutedMonth" parameterType="map" resultType="map">
-		select month_id as month_id,concat(substr(month_id,1,4),'年') as month_name from bsc_proj_exe_mth where project_id = #{project_id}
-		order by month_id desc
+		select * from (select month_id as month_id,concat(substr(month_id,1,4),'年') as month_name from bsc_proj_exe_mth where project_id = #{project_id}
+		union
+		select  r.month_id as month_id,concat(substr(r.month_id,1,4),'年') as month_name from (select * from bsc_project p where PROJECT_ID =  #{project_id}) p
+ left join bsc_proj_obj o on p.PROJECT_ID = o.PROJECT_ID
+and p.PROJECT_ID = #{project_id}
+left join (select * from bsc_result_measure )r on r.OBJECT_ID = o.OBJECT_ID  JOIN
+bsc_proj_mea m on p.project_id = m.PROJECT_ID and m.measure_id = r.measure_id
+		) u
+		order by u.month_id desc
 	</select>
 	
 	<!-- 添加平衡计分卡方案 -->

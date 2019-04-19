@@ -11,6 +11,15 @@
 			and b.project_id = #{projectId}
 		order by exe_order_id
 	</select>
+
+	<!-- 获取所有需要计算的有效指标====调试模式 ===limit 6 -->
+	<select id="getValidMeasure" resultType="BscMeasure">
+		select a.*
+		from bsc_measure a join bsc_datasource b on a.SOURCE_ID = b.SOURCE_ID
+		where a.source_type_id != '03' and a.formula_expr is not null
+
+	</select>
+
 	
 	<!-- 获取指标计算依赖的指标 -->
 	<select id="getRelaMeasure" parameterType="string" resultType="BscMeasure">

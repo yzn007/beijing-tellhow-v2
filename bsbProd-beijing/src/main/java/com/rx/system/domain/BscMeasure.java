@@ -25,6 +25,7 @@ public class BscMeasure implements IMeasure{
 	private String obj_cate_id;
 	private String is_private;
 	private String owner_org_id;
+	private String obj_link_id;
 	
 	private String parseFilters(String cond) throws Exception
 	{
@@ -99,6 +100,12 @@ public class BscMeasure implements IMeasure{
 	public String getFormula() {
 		return this.formula_expr;
 	}
+
+	@Override
+	public String getObjLinkId() {
+		return this.obj_link_id;
+	}
+
 	public String getMeasureId() {
 		return this.measure_id;
 	}

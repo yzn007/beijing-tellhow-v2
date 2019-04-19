@@ -38,6 +38,14 @@ Ext.onReady(function() {
 			doEdit();
 		}
 	}, '-', {
+        id : 'search_menu',
+        text : '高级查询(s)',
+        tooltip : '查询指标',
+        iconCls : 'search',
+        handler : function() {
+            doSearch();
+        }
+    }, '-', {
 		id : 'delete_menu',
 		text : '删除(d)',
 		tooltip : '删除指标',
@@ -114,7 +122,7 @@ Ext.onReady(function() {
                                 case "0":
                                     val = "阈值";
                                     break;
-                                case "1":
+                                case "2":
                                     val = "复杂类型";
                                     break;
                                 default:

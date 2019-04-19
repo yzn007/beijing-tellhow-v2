@@ -180,6 +180,7 @@
 		<property name="measureService" ref="bscMeasureService"></property>
 		<property name="dataSourceService" ref="dataSourceConfigService"></property>
 		<property name="bscProjectService" ref="bscProjectService"></property>
+		<property name="dimLinkService" ref="dimLinkService"></property>
 		<property name="jdbcManager" ref="RXJdbcManager" />
 	</bean>
 	

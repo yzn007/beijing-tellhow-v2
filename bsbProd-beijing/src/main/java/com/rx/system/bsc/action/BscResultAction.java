@@ -721,6 +721,11 @@ public class BscResultAction extends BaseDispatchAction {
 			}
 			paramMap.put("measureList", measureList);
 
+//			//调用归档历史数据->产生维度参数表
+//			String monthID = getStringValue(paramMap, "month_id");
+//			String projectID = getStringValue(paramMap, "project_id");
+//			this.jdbcManager.execute("call pbsc_proj_obj_h('"+(monthID.length()==4?monthID+"01":monthID)+"','"+projectID+"')");
+
 			String ids = this.getStringById(measureList);
 			//2统计年份 -》  统计年份（单） -》统计维度（多）-》指标（多）
 			//1统计维度-》统计维度（单）-》 统计年份（多）-》指标（多）
@@ -787,6 +792,7 @@ public class BscResultAction extends BaseDispatchAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		return null;
 
 	}
@@ -798,6 +804,18 @@ public class BscResultAction extends BaseDispatchAction {
 	 */
 	public String scoreDhtmlCountByCondExt() throws Exception {
 		Map<String, Object> paramMap = this.getRequestParam(request);
+		String timeId = getStringValue( paramMap,"time_id");
+		if(null != timeId && !"".equals(timeId)){
+			timeId = getStringById(timeId);
+			paramMap.put("tId", timeId);
+		}
+		//是否过滤维度
+		String oId = null;
+		String objId = getStringValue(paramMap, "obj_id");
+		if(null != objId && !"".equals(objId)){
+			oId = getStringById(objId);
+			paramMap.put("oId", oId);
+		}
 		try {
 			String totalCount = this.bscResultService.listScoreResultCountExt(paramMap);
 			doSuccessInfoResponse(totalCount + ",0");

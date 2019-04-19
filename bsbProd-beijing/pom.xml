@@ -541,7 +541,7 @@
             <id>dev</id>
             <properties>
                 <profiles.active>dev</profiles.active>
-                <cas.server.ip>http://10.10.10.41:17001/cas</cas.server.ip>
+                <cas.server.ip>http://172.26.52.167:17001/cas</cas.server.ip>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -552,7 +552,7 @@
             <id>test</id>
             <properties>
                 <profiles.active>test</profiles.active>
-                <cas.server.ip>http://10.10.10.41:17001/cas</cas.server.ip>
+                <cas.server.ip>http://172.26.52.167:17001/cas</cas.server.ip>
             </properties>
 
         </profile>
@@ -570,7 +570,7 @@
             <id>tellhow</id>
             <properties>
                 <profiles.active>tellhow</profiles.active>
-                <cas.server.ip>http://10.10.10.41:17001/cas</cas.server.ip>
+                <cas.server.ip>http://172.26.52.167:17001/cas</cas.server.ip>
             </properties>
 
         </profile>
@@ -643,6 +643,16 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
         <resources>
             <resource>
                 <directory>src/main/java</directory>

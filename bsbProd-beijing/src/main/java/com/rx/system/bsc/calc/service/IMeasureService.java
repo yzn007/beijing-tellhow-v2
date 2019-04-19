@@ -18,6 +18,13 @@ public interface IMeasureService {
 	 * @throws Exception
 	 */
 	public List<IMeasure> getMeasureByProjectId(String projectId) throws Exception;
+
+	/**
+	 * 取得运行的有效指标
+	 * @return
+	 * @throws Exception
+	 */
+	public List<IMeasure> getValidMeasure() throws Exception;
 	
 	/**
 	 * 获取指标计算依赖的指标
