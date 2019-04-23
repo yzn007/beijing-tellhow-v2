@@ -433,8 +433,8 @@ function addProject() {
 			valueField : 'cycle_type_id',
 			hiddenName : 'cycle_type_id',
 			store : cycleTypeDS,
-            editable : false,
-            disabled:true,
+            editable : true,
+            disabled:false,
 			triggerAction : 'all',
 			fieldLabel : '统计周期<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
             name : 'cycle_type_id',
@@ -1132,7 +1132,7 @@ function deleteResultRank(rankIds) {
 };
 
  /**
- * 考核周期 00：月 01：季 02：年
+ * 考核周期 00：月 01：季 02：年 04：日
  */
 function cycleType(val) {
 	if (val == '00')
@@ -1141,6 +1141,8 @@ function cycleType(val) {
 		return '季'
 	else if (val == '02')
 		return '年'
+    else if (val == '04')
+        return '日'
 	else
 		return val
 };

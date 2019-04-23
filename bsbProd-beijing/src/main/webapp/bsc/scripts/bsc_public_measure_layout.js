@@ -425,21 +425,21 @@ Ext.extend(SourceTypeSelector, Ext.form.ComboBox);
  * 统计周期(年季月日)
  */
 
+
+var cycleTypeDS = new Ext.data.JsonStore({
+    url : pathUrl + '/selector_listProjCycleType.action',
+    root : 'results',
+    totalProperty : 'totalCount',
+    fields : ['cycle_type_id', 'cycle_type_desc']
+});
+cycleTypeDS.load();
+
 ObjectCountPeriod = function () {
-    var store = new Ext.data.SimpleStore({
-        fields: ["retrunValue", "displayText"],
-        data: [
-            ['01','年'],
-            ['02','季'],
-            ['03','月'],
-            ['04','日']
-        ]
-    });
 
     ObjectCountPeriod.superclass.constructor.call(this,{
-        store: store,
-        valueField :'retrunValue',
-        displayField:'displayText',
+        store: cycleTypeDS,
+        valueField :'cycle_type_id',
+        displayField:'cycle_type_desc',
         mode: 'local',
         hiddenName:'obj_period_id',
         editable: false,

@@ -32,7 +32,9 @@
 		districtdimension_desc,
 		ohterdimension,
 		ohterdimension_desc,
-		alerttype
+		alerttype,
+		districtobjecttable,
+		otherobjecttable
 		)
 		values
 		  (#{measure_id},
@@ -57,7 +59,9 @@
 		#{objDistrictDimSet_desc},
 		#{objDimSet},
 		#{objDimSet_desc},
-		#{obj_type_id}
+		#{obj_type_id},
+		#{district_object_table},
+		#{other_object_table}
 		)
 	</insert>
 	
@@ -129,6 +133,12 @@
 		   <if test="obj_cate_id != null and obj_cate_id != ''">
 		   	and a.obj_cate_id = '${obj_cate_id}'
 		   </if>
+		<if test="countperiod != null and countperiod != ''">
+			and a.countperiod = '${countperiod}'
+		</if>
+		<if test="dimension != null and dimension != ''">
+			and (a.districtobjecttable = '${dimension}' or a.otherobjecttable = '${dimension}')
+		</if>
 		   order by a.inner_level_order,a.measure_id
 	</select>
 	

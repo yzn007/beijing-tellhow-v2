@@ -157,8 +157,8 @@ public class SelectorAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	public String listProjCycleType() throws Exception {
-//		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_proj_cycle_type ");
-		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_proj_cycle_type e where e.cycle_type_id='02'");
+		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_proj_cycle_type ");
+//		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_proj_cycle_type e where e.cycle_type_id='02'");
 		doJSONResponse(dataList);
 		return null;
 	}
@@ -241,19 +241,29 @@ public class SelectorAction extends BaseDispatchAction {
 		String measureSource = map.get("measure_source")==null?null:map.get("measure_source").toString();
 		//指标分类
 		String sourceTypeId = map.get("source_type_id")==null?null:map.get("source_type_id").toString();
+		//周期
+		String period = map.get("period")==null?null:map.get("period").toString();
+		//维度
+		String dimension = map.get("dimension")==null?null:map.get("dimension").toString();
 		StringBuffer sb = new StringBuffer();
 		sb.append("select  getMeasureTreePath(measure_id) as path");
 		sb.append(" from bsc_measure");
 		sb.append(" where (measure_name like '%"+map.get("keyword")+"%' or measure_id like '%"+map.get("keyword")+"%')");
 		sb.append("   and is_private = '"+map.get("is_private")+"'");
 		if(!"".equals(obj_cate_id) && "2".equals(pageIndex)){
-		sb.append("   and obj_cate_id = '"+obj_cate_id+"'");	
+			sb.append("   and obj_cate_id = '"+obj_cate_id+"'");
 		}
 		if(!"".equals(measureSource) && null != measureSource){
 			sb.append(" and measure_source = '"+measureSource+"'");
 		}
 		if(!"".equals(sourceTypeId) && null != sourceTypeId){
 			sb.append(" and source_type_id = '"+sourceTypeId+"'");
+		}
+		if(!"".equals(period) && null != period){
+			sb.append(" and countperiod = '"+period+"'");
+		}
+		if(!"".equals(dimension) && null != dimension){
+			sb.append(" and( districtobjecttable = '"+dimension+"' or otherobjecttable ='" +dimension+"') ");
 		}
 		sb.append(" order by global_order_id");
 		

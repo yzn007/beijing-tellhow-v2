@@ -138,6 +138,8 @@ AddWindow = Ext.extend(Ext.Window, {
                                 objDimDS.reload({params : {
                                     link_id : record.get('link_id')
                                 }})
+								var otherObject = Ext.getCmp('other_object_table');
+                                otherObject.setValue(record.get('link_id'));
                             }
                         },
                         name : 'obj_link_id',
@@ -168,6 +170,8 @@ AddWindow = Ext.extend(Ext.Window, {
                                 objDistrictDim.reload({params : {
                                     link_id : record.get('link_id')
                                 }});
+                                var districtObject = Ext.getCmp('district_object_table');
+                                districtObject.setValue(record.get('link_id'));
                             }
                         },
                         name : 'obj_district_id',
@@ -210,6 +214,14 @@ AddWindow = Ext.extend(Ext.Window, {
                     , {
                         xtype : 'hidden',
                         id : 'objDimSet_desc'
+                    }
+                    , {
+                        xtype : 'hidden',
+                        id : 'district_object_table'
+                    }
+                    , {
+                        xtype : 'hidden',
+                        id : 'other_object_table'
                     }
 				]
 			}],
@@ -690,7 +702,7 @@ SearchWindow = Ext.extend(Ext.Window, {
                         var treePanelId = 'measureTreePanel';
                         var sourceTypeId = Ext.getCmp("sourceTypeId").getValue();
                         var measuerSource = Ext.getCmp("objSourceId").getValue();
-                        searchNode(str_id,expandMyMeasureTreeNode,treePanelId,pathUrl+'/selector_getPath.action','N',sourceTypeId,measuerSource);
+                        searchNode(str_id,expandMyMeasureTreeNode,treePanelId,pathUrl+'/selector_getPath.action','N',sourceTypeId,measuerSource,null,null);
 
                         _searchCount+=1;
                         _searchCount=_searchCount==_searchPaths.length?0:_searchCount;

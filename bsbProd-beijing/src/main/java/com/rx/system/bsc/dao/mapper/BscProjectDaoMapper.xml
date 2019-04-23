@@ -74,6 +74,12 @@
 		<if test="searchKey != null and searchKey != ''">
 			and project_name like '%${searchKey}%'
 		</if>
+		<if test="dimension != null and dimension != ''">
+			and t.obj_link_id = #{dimension}
+		</if>
+		<if test="countPeriod != null and countPeriod != ''">
+			and t.cycle_type_id = #{countPeriod}
+		</if>
 			order by record_status,project_name 
 	</select>
 	

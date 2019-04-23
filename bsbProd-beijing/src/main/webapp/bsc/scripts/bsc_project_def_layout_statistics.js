@@ -12,6 +12,10 @@ var projectId = '', cycleTypeId = '', objCateId = '', appTypeId = '', dimensionI
 
 var showDisabledProject = false;
 
+var countPeriodSel = '';
+
+var dimensionSel = '';
+
 /**
  * 方案定义Store
  */
@@ -29,7 +33,9 @@ projectStore.on('beforeload',function(){
 	var record_status = showDisabledProject?'All':''
 	projectStore.baseParams = {
 		is_template : 'Y',
-		record_status: record_status
+		record_status: record_status,
+        dimension : dimensionSel,
+        countPeriod : countPeriodSel
 	}
 	Ext.getCmp('copyProject').setDisabled(true);
 	Ext.getCmp('editProject').setDisabled(true);
@@ -46,7 +52,7 @@ var cycleTypeDS = new Ext.data.JsonStore({
 	totalProperty : 'totalCount',
 	fields : ['cycle_type_id', 'cycle_type_desc']
 });
-
+cycleTypeDS.load();
 
 /**
  * 考核对象类型Store
@@ -70,6 +76,36 @@ var	dimensionStore=new Ext.data.JsonStore({
 });
 
 dimensionStore.load();
+
+/**
+ * 统计周期(年季月日)
+ */
+
+ObjectCountPeriod = function () {
+    var store = cycleTypeDS;
+
+    ObjectCountPeriod.superclass.constructor.call(this,{
+        store: store,
+        valueField :'cycle_type_id',
+        displayField:'cycle_type_desc',
+        mode: 'local',
+        width:60,
+        editable: false,
+        triggerAction: 'all',
+        fieldLabel:'统计周期',
+		emptyText:'统计周期',
+        name: 'obj_period_id',
+        id:'objPeriodId',
+        anchor:'91%',
+        listeners: {
+            select : function(combo, record, index){
+                countPeriodSel = record.get('cycle_type_id');
+                projectStore.reload();
+            }
+        }
+    });
+}
+Ext.extend(ObjectCountPeriod,Ext.form.ComboBox);
 
 
 Ext.onReady(function() {
@@ -241,7 +277,28 @@ Ext.onReady(function() {
 				projectStore.reload();
 			}
 		}
-	},'-', '搜索:', {
+	}, '->','周期',new ObjectCountPeriod(),
+       '->', '维度',{
+            xtype : 'combo',
+            store : dimensionStore,
+            valueField : 'link_id',
+            displayField : 'link_name',
+            mode : 'local',
+            width : 150,
+            editable : false,
+            triggerAction : 'all',
+            emptyText :  '请选择统计维度',
+            listeners: {
+                select : function(combo, record, index){
+                    dimensionSel = record.get('link_id');
+                    projectStore.reload();
+                }
+            },
+            name : 'obj_link_id_cap',
+            id : 'isDimension_cap',			//对象维度
+            anchor : '95%'
+        },
+		'->', '搜索:', {
 		xtype : 'textfield',
 		id : 'searchKey',
 		emptyText : '请输入方案名...',
@@ -249,7 +306,7 @@ Ext.onReady(function() {
 		listeners : {
 			specialkey : function(field, e) {
 				if (e.getKey() == Ext.EventObject.ENTER) {
-					projectStore.load({
+					projectStore.reload({
 						params : {
 							searchKey : Ext.getCmp("searchKey").getValue()
 						}
@@ -261,7 +318,7 @@ Ext.onReady(function() {
 		xtype : 'button',
 		iconCls : 'search',
 		handler : function() {
-			projectStore.load({
+			projectStore.reload({
 				params : {
 					searchKey : Ext.getCmp("searchKey").getValue()
 				}

@@ -15,6 +15,25 @@
 	return root;
 }
 
+function getRootNodeByConf(id, text,period,object, fn) {
+    var root = new Ext.tree.AsyncTreeNode({
+        id : id,
+        text : text,
+		period : period,
+		object : object,
+        qtip: text,
+        children : [{
+            text : 'loading',
+            cls : 'x-tree-node-loading',
+            leaf : true
+        }]
+    });
+    if (fn != undefined)
+        root.on('expand', fn);
+
+    return root;
+}
+
 function getCheckedNode(id,text,checked,fn){
 	var root = new Ext.tree.AsyncTreeNode({
 		id:id,
@@ -170,6 +189,7 @@ function expandBasicMeasureTreeNode(node) {
  * @param {}
  *            node
  */
+// function expandMyMeasureTreeNode(node) {
 function expandMyMeasureTreeNode(node) {
 	if (node.firstChild.text == 'loading') {
 		var url = pathUrl + '/privateMeasure_common.action';
@@ -301,6 +321,163 @@ function expandMyMeasureTreeNode(node) {
         if(scd_pub_searchPath && scd_pub_searchPath.length>0){
             var obj_child=node.findChild('id',scd_pub_searchPath.shift());
             
+            if(obj_child){
+                if(scd_pub_searchPath.length==0){
+                    obj_child.select();
+                }else{
+                    if(obj_child.isLoaded()){//节点加载过则返回true
+                        expandMyMeasureTreeNode(obj_child);
+                    }else{
+                        obj_child.expand(true);
+                    }
+                }
+            }else{
+                Ext.Msg.alert('消息','未找到对象.');
+            }
+        }
+    }
+    //添加完毕
+}
+
+/**
+ * 展开指标树方法(新增条件）
+ *
+ * @param {}
+ *            node
+ *            countperiod
+ *            dimension
+ */
+function expandMyMeasureTreeNodeByConf(node,countperiod,dimension) {
+    if (node.firstChild.text == 'loading') {
+        var url = pathUrl + '/privateMeasure_common.action';
+        var is_private = node.attributes.is_private;
+        if(is_private == 'N') {
+            url = pathUrl + '/publicMeasure_common.action'
+        }
+
+        Ext.Ajax.request({
+            url : url,
+            waitMsg : '正在处理,请稍候......',
+            method : 'POST',
+            params : {
+                method : 'listEngMeasure',
+                parent_measure_id : node.id
+            },
+
+            callback : function(options, success, response) {
+                var json = Ext.util.JSON.decode(response.responseText);
+                var tl = json.results;
+                var cls='';
+                if (tl) {
+                    for (var i = 0; i < tl.length; i++) {
+                        if ('00' == tl[i].source_type_id) {
+                            cls = 'x-tree-node-datasource';
+                        } else if ('01' == tl[i].source_type_id) {
+                            cls = 'x-tree-node-compound';
+                        } else if ('02' == tl[i].source_type_id) {
+                            cls = 'x-tree-node-external';
+                        } else {
+                            cls = '';
+                        }
+                        var cnode = new Ext.tree.AsyncTreeNode({
+                            id : tl[i].measure_id,
+                            text :(i+1)+'. [' + tl[i].measure_id + ']'
+                            + tl[i].measure_name,
+                            leaf : tl[i].is_leaf == 'Y' ? true : false,
+                            source_type_id : tl[i].source_type_id,
+                            is_private : tl[i].is_private,
+                            obj_cate_id : tl[i].obj_cate_id,
+                            measure_name : tl[i].measure_name,
+                            qtip: tl[i].measure_desc,
+                            cls : cls,
+                            children : [{
+                                text : 'loading',
+                                cls : 'x-tree-node-loading',
+                                leaf : true
+                            }]
+                        });
+                        cnode.on('expand', expandMyMeasureTreeNode);
+                        node.appendChild(cnode);
+                    }
+                    //添加bsc_public_measure页面搜索
+                    if (_searchPath && _searchPath.length > 0) {
+                        var obj_child = node.findChild('id', _searchPath.shift());
+                        if (obj_child) {
+                            if (_searchPath.length == 0) {
+                                obj_child.select();
+                                if(page == 'bsc_public_measure' || page =='bsc_private_measure'){
+                                    Ext.getCmp('measureTreePanel').fireEvent('click',obj_child);
+                                }else if(page =='bsc_project_measure' && node.attributes.is_private=='N'){
+                                    Ext.getCmp('baseMeasureTreePanel').fireEvent('click',obj_child);
+                                }
+                            } else {
+                                obj_child.expand();
+                            }
+                        } else {
+                            Ext.Msg.alert('消息', '未找到对象.');
+                        }
+                    }
+                    //添加完毕
+                    //添加bsc_project_measure搜索
+                    if (scd_pub_searchPath && scd_pub_searchPath.length > 0) {
+                        var obj_child = node.findChild('id', scd_pub_searchPath.shift());
+                        if (obj_child) {
+                            if (scd_pub_searchPath.length == 0) {
+                                obj_child.select();
+                            } else {
+                                obj_child.expand();
+                            }
+                        } else {
+                            Ext.Msg.alert('消息', '未找到对象.');
+                        }
+                    }
+                    //添加完毕
+                } else {
+                    Ext.MessageBox.alert('错误', json.info);
+                }
+                node.firstChild.remove();
+            },
+
+            failure : function(response, options) {
+                Ext.MessageBox.alert('错误', response.responseText);
+            },
+
+            success : function(response, options) {
+            }
+        });
+    }
+    //添加搜索
+    else{
+        if(node.isLoaded()){
+            node.expand();
+        }
+        //bsc_public_measure页面
+        if(_searchPath && _searchPath.length>0){
+            var obj_child=node.findChild('id',_searchPath.shift());
+
+            if(obj_child){
+                if(_searchPath.length==0){
+                    obj_child.select();
+                    if(page == 'bsc_public_measure' || page =='bsc_private_measure'){
+                        Ext.getCmp('measureTreePanel').fireEvent('click',obj_child);
+                    }else if(page =='bsc_project_measure' && node.attributes.is_private=='N'){
+                        Ext.getCmp('baseMeasureTreePanel').fireEvent('click',obj_child);
+                    }
+                }else{
+                    if(obj_child.isLoaded()){//节点加载过则返回true
+                        expandMyMeasureTreeNode(obj_child);
+                    }else{
+                        obj_child.expand(true);
+                    }
+                }
+            }else{
+                Ext.Msg.alert('消息','未找到对象.');
+            }
+        }
+        //bsc_project_measure页面
+        if(scd_pub_searchPath && scd_pub_searchPath.length>0){
+            var obj_child=node.findChild('id',scd_pub_searchPath.shift());
+
             if(obj_child){
                 if(scd_pub_searchPath.length==0){
                     obj_child.select();

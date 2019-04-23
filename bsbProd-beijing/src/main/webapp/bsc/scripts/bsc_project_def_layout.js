@@ -46,8 +46,8 @@ var cycleTypeDS = new Ext.data.JsonStore({
 	totalProperty : 'totalCount',
 	fields : ['cycle_type_id', 'cycle_type_desc']
 });
-
 cycleTypeDS.load();
+
 /**
  * 考核对象类型Store
  */
@@ -70,6 +70,7 @@ var	dimensionStore=new Ext.data.JsonStore({
 });
 
 dimensionStore.load();
+
 
 
 Ext.onReady(function() {

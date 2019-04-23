@@ -17,6 +17,51 @@ var projectDS = new Ext.data.JsonStore({
 	totalProperty : 'totalCount',
 	fields : ['project_id', 'project_name', 'app_type_id', 'is_template', 'role_id','role_name', 'obj_cate_id', 'cycle_type_id','full_score','icon']
 });
+
+// //对象维度
+// var	dimensionStoreProject=new Ext.data.JsonStore({
+//     url :pathUrl + '/selector_listDimension.action',
+//     root : 'results',
+//     totalProperty : 'totalCount',
+//     fields : [ 'link_id', 'link_name']
+//
+// });
+//
+// dimensionStoreProject.load();
+//
+// /**
+//  * 统计周期(年季月日)
+//  */
+//
+//
+// var cycleTypeDS = new Ext.data.JsonStore({
+//     url : pathUrl + '/selector_listProjCycleType.action',
+//     root : 'results',
+//     totalProperty : 'totalCount',
+//     fields : ['cycle_type_id', 'cycle_type_desc']
+// });
+// cycleTypeDS.load();
+//
+// ObjectCountPeriodProject = function () {
+//
+//     ObjectCountPeriodProject.superclass.constructor.call(this,{
+//         store: cycleTypeDS,
+//         valueField :'cycle_type_id',
+//         displayField:'cycle_type_desc',
+//         mode: 'local',
+//         hiddenName:'obj_period_id',
+//         editable: false,
+//         triggerAction: 'all',
+//         allowBlank:false,
+//         fieldLabel:'统计周期',
+//         name: 'obj_period_id',
+//         value: '01',
+//         id:'objPeriodId',
+//         anchor:'95%'
+//     });
+// }
+// Ext.extend(ObjectCountPeriodProject,Ext.form.ComboBox);
+
 projectDS.on("load",function(){
 	if(projectDS.getCount() > 0) {
 		var record = projectDS.getAt(0);
@@ -57,9 +102,6 @@ function disableEdit(b) {
 }
 
 Ext.onReady(function() {
-	/**
-	 * 考核指标操作菜单
-	 */
 	var ctrlMB = [{
 		id : 'addMeasure',
 		text : '添加(a)',

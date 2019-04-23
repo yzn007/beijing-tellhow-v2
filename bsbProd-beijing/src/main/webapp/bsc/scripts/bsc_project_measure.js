@@ -26,14 +26,88 @@ var pub_node = getRootNode('root', '公有指标树', expandMyMeasureTreeNode);
 pri_node.attributes.is_private = 'Y';
 pub_node.attributes.is_private = 'N';
 
-var pub_tbar = new Ext.Toolbar();
+//对象维度
+var	dimensionStoreProject=new Ext.data.JsonStore({
+    url :pathUrl + '/selector_listDimension.action',
+    root : 'results',
+    totalProperty : 'totalCount',
+    fields : [ 'link_id', 'link_name']
+
+});
+
+dimensionStoreProject.load();
+
+/**
+ * 统计周期(年季月日)
+ */
+
+
+var cycleTypeDS = new Ext.data.JsonStore({
+    url : pathUrl + '/selector_listProjCycleType.action',
+    root : 'results',
+    totalProperty : 'totalCount',
+    fields : ['cycle_type_id', 'cycle_type_desc']
+});
+cycleTypeDS.load();
+
+ObjectCountPeriodProject = function () {
+
+    ObjectCountPeriodProject.superclass.constructor.call(this,{
+        store: cycleTypeDS,
+        valueField :'cycle_type_id',
+        displayField:'cycle_type_desc',
+        mode: 'local',
+        width : 40,
+        hiddenName:'obj_period_id',
+        editable: false,
+        triggerAction: 'all',
+        allowBlank:false,
+        fieldLabel:'统计周期',
+        name: 'obj_period_id',
+        value: '01',
+        id:'objPeriodId',
+        anchor:'95%'
+    });
+}
+Ext.extend(ObjectCountPeriodProject,Ext.form.ComboBox);
+
+ObjectDimension = function () {
+    ObjectDimension.superclass.constructor.call(this, {
+        store: dimensionStoreProject,
+        valueField: 'link_id',
+        displayField: 'link_name',
+        mode: 'local',
+        width: 80,
+        editable: false,
+        triggerAction: 'all',
+        emptyText: '请选择统计维度',
+        name : 'obj_link_id_cap',
+        id : 'isDimension_cap',			//对象维度
+        anchor : '95%',
+        listeners: {
+            select: function (combo, record, index) {
+                dimensionSel = record.get('link_id');
+                // projectStore.reload();
+            }
+        }
+    });
+}
+Ext.extend(ObjectDimension,Ext.form.ComboBox);
+
+var objectCountPeriodProject =  new ObjectCountPeriodProject();
+var objectDimension = new ObjectDimension();
+
+var pub_tbar = new Ext.Toolbar(['周期',objectCountPeriodProject,
+    '->', '维度',objectDimension]);
 var pageindex = '',page = 'bsc_project_measure';
 //添加公有树形索引
 addSearchToolbar({
 	oldToolbar : pub_tbar,
 	expandMethod : expandMyMeasureTreeNode,
 	treePanelId : 'baseMeasureTreePanel',
-	is_private : 'N'
+	is_private : 'N',
+	period:objectCountPeriodProject,
+	dimension:objectDimension
 });
 
 var tabPanel = new Ext.TabPanel({
@@ -211,7 +285,9 @@ var listenerAdded = false;
 //公共指标树
 var pub_rn = getRootNode('root', '公共指标树', expandMyMeasureTreeNode);
 pub_rn.attributes.is_private = 'N';
-var pub_rn_tbar = new Ext.Toolbar();
+var pub_rn_tbar = new Ext.Toolbar(
+
+);
 //添加公有树形索引
 addSearchToolbar({
 	oldToolbar : pub_rn_tbar,
@@ -917,23 +993,23 @@ var addWindow = new Ext.Window({
 			id : 'saveCtrlMeasure',
 			handler : function() {
 				var mea_definition = Ext.getCmp("mea_definition").getValue();
-				
+
 				var actionUrl = '';
 				if(activeType == 'add')
 					actionUrl = pathUrl + '/bscmeasure_common.action?method=addBscMeasure';
 				else
 					actionUrl = pathUrl + '/bscmeasure_common.action?method=editBscMeasure';
-				
+
 				if(measure_type=='03'){
 					Ext.MessageBox.alert('提示信息', "方案不能关联文件夹类型的指标!");
 					return ;
 				}
-				
+
 				if(measure_cate != obj_cate_id){
 					Ext.MessageBox.alert('提示信息', "方案不能关联【对象类型】不一致的指标!");
 					return ;
 				}
-				
+
 				if(infoPanel.getForm().isValid()){
 					Ext.Ajax.request({
 						url : actionUrl,
@@ -961,6 +1037,7 @@ var addWindow = new Ext.Window({
 	}]
 });
 
+
 function resetAddWinow(){
 	bscMeasure = '';
 	addWindow.hide();
@@ -983,7 +1060,6 @@ function doAddCtrlInfo() {
 	activeType = 'add';
 	addWindow.setTitle( '添加方案考核指标');
 	addWindow.show();
-	
 	var layout = Ext.getCmp('card-wizard-panel').getLayout();
     layout.setActiveItem(0);
 	Ext.getCmp("saveCtrlMeasure").setVisible(true);
