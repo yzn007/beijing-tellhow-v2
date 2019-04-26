@@ -15,12 +15,12 @@
 	return root;
 }
 
-function getRootNodeByConf(id, text,period,object, fn) {
-    var root = new Ext.tree.AsyncTreeNode({
+function getRootNodeByConf(id, text,period,dimension, fn) {
+	var root = new Ext.tree.AsyncTreeNode({
         id : id,
         text : text,
-		period : period,
-		object : object,
+        countperiod : period,
+        dimension : dimension,
         qtip: text,
         children : [{
             text : 'loading',
@@ -29,7 +29,9 @@ function getRootNodeByConf(id, text,period,object, fn) {
         }]
     });
     if (fn != undefined)
-        root.on('expand', fn);
+        root.on('expand', function(){
+        	fn(this);
+		});
 
     return root;
 }
@@ -189,7 +191,6 @@ function expandBasicMeasureTreeNode(node) {
  * @param {}
  *            node
  */
-// function expandMyMeasureTreeNode(node) {
 function expandMyMeasureTreeNode(node) {
 	if (node.firstChild.text == 'loading') {
 		var url = pathUrl + '/privateMeasure_common.action';
@@ -344,13 +345,15 @@ function expandMyMeasureTreeNode(node) {
  *
  * @param {}
  *            node
- *            countperiod
- *            dimension
+ *            	countperiod 周期
+ *            	dimension 维度
+ *            baseMeasureTreePanel 树
  */
-function expandMyMeasureTreeNodeByConf(node,countperiod,dimension) {
-    if (node.firstChild.text == 'loading') {
+function expandMyMeasureTreeNodeByConf(node) {
+    if ( node.childNodes.length == 0        ||
+		node.firstChild.text == 'loading'  ) {
         var url = pathUrl + '/privateMeasure_common.action';
-        var is_private = node.attributes.is_private;
+        var is_private = node.childNodes.length == 0?'N':node.attributes.is_private;
         if(is_private == 'N') {
             url = pathUrl + '/publicMeasure_common.action'
         }
@@ -361,7 +364,9 @@ function expandMyMeasureTreeNodeByConf(node,countperiod,dimension) {
             method : 'POST',
             params : {
                 method : 'listEngMeasure',
-                parent_measure_id : node.id
+                parent_measure_id : node.id,
+                dimension :node.attributes.dimension?node.attributes.dimension.getValue():null,
+                countperiod:node.attributes.countperiod?node.attributes.countperiod.getValue():null
             },
 
             callback : function(options, success, response) {
@@ -396,7 +401,7 @@ function expandMyMeasureTreeNodeByConf(node,countperiod,dimension) {
                                 leaf : true
                             }]
                         });
-                        cnode.on('expand', expandMyMeasureTreeNode);
+                        cnode.on('expand', expandMyMeasureTreeNodeByConf);
                         node.appendChild(cnode);
                     }
                     //添加bsc_public_measure页面搜索
@@ -431,11 +436,13 @@ function expandMyMeasureTreeNodeByConf(node,countperiod,dimension) {
                             Ext.Msg.alert('消息', '未找到对象.');
                         }
                     }
+
                     //添加完毕
                 } else {
                     Ext.MessageBox.alert('错误', json.info);
                 }
-                node.firstChild.remove();
+                if(node!=null)
+                	node.firstChild.remove();
             },
 
             failure : function(response, options) {
@@ -445,7 +452,7 @@ function expandMyMeasureTreeNodeByConf(node,countperiod,dimension) {
             success : function(response, options) {
             }
         });
-    }
+     }
     //添加搜索
     else{
         if(node.isLoaded()){
@@ -465,7 +472,7 @@ function expandMyMeasureTreeNodeByConf(node,countperiod,dimension) {
                     }
                 }else{
                     if(obj_child.isLoaded()){//节点加载过则返回true
-                        expandMyMeasureTreeNode(obj_child);
+                        expandMyMeasureTreeNodeByConf(obj_child);
                     }else{
                         obj_child.expand(true);
                     }

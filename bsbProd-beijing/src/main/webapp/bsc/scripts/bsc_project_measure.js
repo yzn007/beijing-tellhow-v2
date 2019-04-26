@@ -21,10 +21,7 @@ var dimTreePanel = new Ext.Panel({
 
 Ext.form.Field.prototype.msgTarget = 'under';
 
-var pri_node = getRootNode('root', '私有指标树', expandMyMeasureTreeNode);
-var pub_node = getRootNode('root', '公有指标树', expandMyMeasureTreeNode);
-pri_node.attributes.is_private = 'Y';
-pub_node.attributes.is_private = 'N';
+
 
 //对象维度
 var	dimensionStoreProject=new Ext.data.JsonStore({
@@ -64,9 +61,18 @@ ObjectCountPeriodProject = function () {
         allowBlank:false,
         fieldLabel:'统计周期',
         name: 'obj_period_id',
-        value: '01',
+        emptyText: '请选择周期',
         id:'objPeriodId',
-        anchor:'95%'
+        anchor:'95%',
+        listeners: {
+            select: function (combo, record, index) {
+                var baseMeasureTreePanel = Ext.getCmp('baseMeasureTreePanel');
+                var loader = new Ext.tree.TreeLoader();
+                baseMeasureTreePanel.render();
+                loader.load(baseMeasureTreePanel.root);
+                baseMeasureTreePanel.expandAll();
+            }
+        }
     });
 }
 Ext.extend(ObjectCountPeriodProject,Ext.form.ComboBox);
@@ -80,22 +86,32 @@ ObjectDimension = function () {
         width: 80,
         editable: false,
         triggerAction: 'all',
-        emptyText: '请选择统计维度',
+        emptyText: '请选择维度',
         name : 'obj_link_id_cap',
         id : 'isDimension_cap',			//对象维度
         anchor : '95%',
         listeners: {
             select: function (combo, record, index) {
-                dimensionSel = record.get('link_id');
-                // projectStore.reload();
+                var baseMeasureTreePanel = Ext.getCmp('baseMeasureTreePanel');
+               	var loader = new Ext.tree.TreeLoader();
+                baseMeasureTreePanel.render();
+                loader.load(baseMeasureTreePanel.root);
+                baseMeasureTreePanel.expandAll();
             }
         }
     });
 }
 Ext.extend(ObjectDimension,Ext.form.ComboBox);
 
+
 var objectCountPeriodProject =  new ObjectCountPeriodProject();
 var objectDimension = new ObjectDimension();
+
+var pri_node = getRootNode('root', '私有指标树', expandMyMeasureTreeNode);
+var pub_node = getRootNodeByConf('root', '公有指标树',objectCountPeriodProject, objectDimension,expandMyMeasureTreeNodeByConf);
+// var pub_node = getRootNode('root', '公有指标树',expandMyMeasureTreeNode);
+pri_node.attributes.is_private = 'Y';
+pub_node.attributes.is_private = 'N';
 
 var pub_tbar = new Ext.Toolbar(['周期',objectCountPeriodProject,
     '->', '维度',objectDimension]);
@@ -103,11 +119,11 @@ var pageindex = '',page = 'bsc_project_measure';
 //添加公有树形索引
 addSearchToolbar({
 	oldToolbar : pub_tbar,
-	expandMethod : expandMyMeasureTreeNode,
+	expandMethod : expandMyMeasureTreeNodeByConf,
 	treePanelId : 'baseMeasureTreePanel',
 	is_private : 'N',
 	period:objectCountPeriodProject,
-	dimension:objectDimension
+    dimension:objectDimension
 });
 
 var tabPanel = new Ext.TabPanel({
