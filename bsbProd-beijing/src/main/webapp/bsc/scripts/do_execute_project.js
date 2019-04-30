@@ -131,6 +131,7 @@ function doExecuteMeasure(cycleTypeId) {
         }
     });
     cycleDS.load({params:{cycle_type : cycleTypeId,projectId:projectId}});
+
     var cwin = new Ext.Window({
         title : '指标计算',
         width : 400,
@@ -150,26 +151,40 @@ function doExecuteMeasure(cycleTypeId) {
             bodyStyle : 'padding:10px 10px 0px 10px',
             buttonAlign : 'center',
             layout : 'form',
-            items : [{
-                xtype : 'textfield',
-                fieldLabel : '方案名称',
-                value : projectName,
-                readOnly : true,
-                anchor : '91%'
-            }, {
-                xtype : 'combo',
-                mode : 'local',
-                displayField : 'cycle_name',
-                valueField : 'cycle_id',
-                store : cycleDS,
-                editable : false,
-                triggerAction : 'all',
-                fieldLabel : '周期',
+            items : [
+            // 	{
+            //     xtype : 'textfield',
+            //     fieldLabel : '方案名称',
+            //     value : projectName,
+            //     readOnly : true,
+            //     anchor : '91%'
+            // },
+				{
+                // xtype : 'combo',
+                // mode : 'local',
+                // displayField : 'cycle_name',
+                // valueField : 'cycle_id',
+                // store : cycleDS,
+                // editable : false,
+                // triggerAction : 'all',
                 name : 'cycle_id',
                 id : 'cycleSelector',
-                anchor : '91%'
+                xtype: 'datefield',
+                labelWidth: 65,
+                fieldLabel: '日期',
+                // style:"margin-left:20px;",
+                format: 'Y-m-d',
+                width:250,
+				listeners: {
+                    "select": function () {
+                        var selectDate = Ext.getCmp('cycleSelector').getValue();
+                        if (selectDate) {
+                            cycleTypeId = Ext.util.Format.date(selectDate,'Y-m-d');
+                        }
+                    }
+                }
             }],
-            buttons : [{
+			buttons : [{
                 text : '计算',
                 id : 'execute',
                 handler : function() {

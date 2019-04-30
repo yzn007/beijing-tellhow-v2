@@ -46,7 +46,7 @@ public interface IMeasure {
 	public String getSourceId();
 	public String getFormula();
 	public String getObjLinkId();
-	
+	public String getCountPeriod();
 	/**
 	 * @return 获取基础指标的数据源字段，其他指标返回null
 	 * */

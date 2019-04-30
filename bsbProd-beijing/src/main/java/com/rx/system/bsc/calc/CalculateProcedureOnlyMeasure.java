@@ -1,5 +1,6 @@
 package com.rx.system.bsc.calc;
 
+import java.io.File;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.text.html.HTMLDocument;
 
 import com.rx.framework.jdbc.JdbcManager;
+import com.rx.framework.jdbc.SupportedJdbcManager;
 import com.rx.system.bsc.calc.parameter.ParameterHandler;
 import com.rx.system.bsc.calc.parse.IExpression;
 import com.rx.system.bsc.calc.parse.StackExpression;
@@ -18,10 +20,24 @@ import com.rx.system.bsc.calc.service.IDataSource;
 import com.rx.system.bsc.calc.service.IDataSourceService;
 import com.rx.system.bsc.calc.service.IMeasure;
 import com.rx.system.bsc.calc.service.IMeasureService;
+import com.rx.system.bsc.dao.BscMeasureDao;
+import com.rx.system.bsc.dao.BscProjectDao;
+import com.rx.system.bsc.dao.DataSourceConfigDao;
+import com.rx.system.bsc.dao.DimLinkDao;
 import com.rx.system.bsc.service.IBscProjectService;
 import com.rx.system.bsc.service.IDimLinkService;
+import com.rx.system.bsc.service.impl.BscMeasureServiceImpl;
+import com.rx.system.bsc.service.impl.BscProjectServiceImpl;
+import com.rx.system.bsc.service.impl.DataSourceConfigServiceImpl;
+import com.rx.system.bsc.service.impl.DimLinkServiceImpl;
 import com.rx.system.domain.DataSource;
 import com.rx.system.domain.DimLink;
+import org.apache.struts2.components.Else;
+import org.apache.struts2.components.ElseIf;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
 import static java.time.LocalDateTime.*;
@@ -94,7 +110,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         status.addLogExecutInfo("正在初始化执行参数......");
         this.context = context;
         paramHandler = new ParameterHandler(context);
-        this.date = this.context.getEnv("date");
+        this.date = this.context.getEnv("cycleTypeId");
         if (date==""|| null==date) {
             date = now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }
@@ -161,16 +177,61 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         }
     }
 
+    /**
+     * date 日期格式 2019-04-29
+     * 返回季度格式，21:表示一季度……24:表示四季度
+     */
+    private String getSeasonString(String date){
+        String season = date.substring(0,4) + "-21";//第一季度
+        if(Integer.parseInt(date.substring(5,7))>9){
+            season = date.substring(0,4) +"-24" ;//第四季度
+        }else if(Integer.parseInt(date.substring(5,7))>6){
+            season = date.substring(0,4) +"-23" ;//第三季度
+        }else if(Integer.parseInt(date.substring(5,7))>3){
+            season = date.substring(0,4) +"-22" ;//第二季度
+        }
+        return season;
+    }
+
 
     protected void clearTargetData() throws Exception{
 //        //执行方案前的准备操作(为以后数据库表建分区做准备)
 //        this.jdbcManager.execute("call prepareExecuteProject('"+this.projectID+"', '"+this.monthID+"')");
 
         //清空结果表
+        //删除日数据
         this.jdbcManager.execute("delete from "+this.resultTable+" where date = '"+this.date+"'");
         this.jdbcManager.execute("delete from " +this.bsc_proj_mea_obj_val_measure+" where date='"+this.date+"'");
         this.jdbcManager.execute("delete from " +this.bsc_proj_exe_mth_measure+" where date = '"+this.date+"'");
         this.jdbcManager.execute("delete from " + this.commandTable +" where date = '"+this.date+"'");
+        //删除月数据
+        this.jdbcManager.execute("delete from "+this.resultTable+" where date = '"+this.date.substring(0,7)
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '00')" );
+        this.jdbcManager.execute("delete from " +this.bsc_proj_mea_obj_val_measure+" where date='"+this.date.substring(0,7)
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '00')" );
+//        this.jdbcManager.execute("delete from " +this.bsc_proj_exe_mth_measure+" where date = '"+this.date.substring(0,7)
+//                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '00')" );
+        this.jdbcManager.execute("delete from " + this.commandTable +" where date = '"+this.date.substring(0,7)
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '00')" );
+        //删除季数据
+        String season = getSeasonString(this.date);
+        this.jdbcManager.execute("delete from "+this.resultTable+" where date = '"+season
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '01')" );
+        this.jdbcManager.execute("delete from " +this.bsc_proj_mea_obj_val_measure+" where date='"+season
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '01')" );
+//        this.jdbcManager.execute("delete from " +this.bsc_proj_exe_mth_measure+" where date = '"+season
+//                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '01')" );
+        this.jdbcManager.execute("delete from " + this.commandTable +" where date = '"+season
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '01')" );
+        //删除年数据
+        this.jdbcManager.execute("delete from "+this.resultTable+" where date = '"+this.date.substring(0,4)
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '02')" );
+        this.jdbcManager.execute("delete from " +this.bsc_proj_mea_obj_val_measure+" where date='"+this.date.substring(0,4)
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '02')" );
+//        this.jdbcManager.execute("delete from " +this.bsc_proj_exe_mth_measure+" where date = '"+this.date.substring(0,4)
+//                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '02')" );
+        this.jdbcManager.execute("delete from " + this.commandTable +" where date = '"+this.date.substring(0,4)
+                +"' and measure_id in  (select measure_id from bsc_measure where countperiod = '02')" );
     }
 
     protected void parseLowLevelMeasure(List<IMeasure> measureList) throws Exception{
@@ -184,7 +245,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             String command = this.parseMeasure(measure);
             if("".equals(command)||null==command)
                 continue;
-            insertExeCommand(measure.getMeasureId(), command,i+1);
+            insertExeCommand(measure, command,i+1);
             measureCache.put(measure.getMeasureId(), measure);
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
@@ -203,7 +264,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             String meausre_id = map.getMeasureId();
 
             String command = this.parseProjectMeasureFormula(map);
-            this.insertProjectMeasureCommand(meausre_id, command);
+            this.insertProjectMeasureCommand(map, command);
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -216,7 +277,9 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
 
     @SuppressWarnings("unchecked")
     protected void executeLowLevelMeasure() throws Exception{
-        String sql = "select * from " + this.commandTable + " where date='"+this.date+"' order by exe_order_id";
+        //日期取得
+        String dateFrm = this.date;
+        String sql = "select * from " + this.commandTable + " where date='"+dateFrm+"' order by exe_order_id";
         List<Map<String, Object>> lowMeaCommandList = this.jdbcManager.queryForList(sql);
 
         if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
@@ -238,15 +301,77 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             this.status.updateLogExecutInfo("正在计算底层指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
             this.session.setAttribute("status", this.status);
         }
+        //月
+        dateFrm = this.date.substring(0,7);
+        sql = "select * from " + this.commandTable + " where date='"+dateFrm+"' order by exe_order_id";
+        lowMeaCommandList.clear();
+        lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
+            Map<String, Object> map = lowMeaCommandList.get(i);
+            String command = String.valueOf(map.get("exe_command".toUpperCase()));
+            if (StringUtils.isEmpty(command) || command == "null")
+                continue;
+            command = this.replaceContextVar(command);
+            this.jdbcManager.execute(command);
+
+            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                return;
+            }
+            this.status.setIndex(++runStep);
+            this.status.updateLogExecutInfo("正在计算底层指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
+            this.session.setAttribute("status", this.status);
+        }
+        //季
+        dateFrm = getSeasonString(this.date);
+        sql = "select * from " + this.commandTable + " where date='"+dateFrm+"' order by exe_order_id";
+        lowMeaCommandList.clear();
+        lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
+            Map<String, Object> map = lowMeaCommandList.get(i);
+            String command = String.valueOf(map.get("exe_command".toUpperCase()));
+            if (StringUtils.isEmpty(command) || command == "null")
+                continue;
+            command = this.replaceContextVar(command);
+            this.jdbcManager.execute(command);
+
+            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                return;
+            }
+            this.status.setIndex(++runStep);
+            this.status.updateLogExecutInfo("正在计算底层指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
+            this.session.setAttribute("status", this.status);
+        }
+        //年
+        dateFrm = this.date.substring(0,4);
+        sql = "select * from " + this.commandTable + " where date='"+dateFrm+"' order by exe_order_id";
+        lowMeaCommandList.clear();
+        lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
+            Map<String, Object> map = lowMeaCommandList.get(i);
+            String command = String.valueOf(map.get("exe_command".toUpperCase()));
+            if (StringUtils.isEmpty(command) || command == "null")
+                continue;
+            command = this.replaceContextVar(command);
+            this.jdbcManager.execute(command);
+
+            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                return;
+            }
+            this.status.setIndex(++runStep);
+            this.status.updateLogExecutInfo("正在计算底层年指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
+            System.out.println("正在计算底层年指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
+        }
     }
 
 
     @SuppressWarnings("unchecked")
     protected void executeProjectMeasure() throws Exception{
-        String bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+this.date+"' order by exe_order_id";
+        //日
+        String dateFrm = this.date;
+        String bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
         List<Map<String, Object>> projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
 
-        //执行积分公式SQL
+        //执行积分公式SQL日
         for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
             Map<String, Object> map = projMeaCommandList.get(i);
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
@@ -257,7 +382,61 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
                 return;
             }
             this.status.setIndex(++runStep);
-            this.status.updateLogExecutInfo("正在计算方案指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+            this.status.updateLogExecutInfo("正在计算方案日指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+            this.session.setAttribute("status", this.status);
+        }
+        //月
+        dateFrm = this.date.substring(0,7);
+        bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
+        projMeaCommandList.clear();
+        projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+        for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
+            Map<String, Object> map = projMeaCommandList.get(i);
+            String command = String.valueOf(map.get("exe_command".toUpperCase()));
+            command = this.replaceContextVar(command);
+            this.jdbcManager.execute(command);
+
+            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                return;
+            }
+            this.status.setIndex(++runStep);
+            this.status.updateLogExecutInfo("正在计算方案月指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+            this.session.setAttribute("status", this.status);
+        }
+        //季
+        dateFrm = getSeasonString(this.date);
+        bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
+        projMeaCommandList.clear();
+        projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+        for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
+            Map<String, Object> map = projMeaCommandList.get(i);
+            String command = String.valueOf(map.get("exe_command".toUpperCase()));
+            command = this.replaceContextVar(command);
+            this.jdbcManager.execute(command);
+
+            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                return;
+            }
+            this.status.setIndex(++runStep);
+            this.status.updateLogExecutInfo("正在计算方案季指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+            this.session.setAttribute("status", this.status);
+        }
+        //年
+        dateFrm = this.date.substring(0,4);
+        bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
+        projMeaCommandList.clear();
+        projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+        for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
+            Map<String, Object> map = projMeaCommandList.get(i);
+            String command = String.valueOf(map.get("exe_command".toUpperCase()));
+            command = this.replaceContextVar(command);
+            this.jdbcManager.execute(command);
+
+            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                return;
+            }
+            this.status.setIndex(++runStep);
+            this.status.updateLogExecutInfo("正在计算方案年指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
             this.session.setAttribute("status", this.status);
         }
     }
@@ -415,12 +594,20 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             v_sourceExpr = v_sourceExpr.toUpperCase().replace(monthPlace," " + noEqMonthPlace + " in " + sqlsel);
             v_sourceExpr = v_sourceExpr.replace("'[%MONTHID]'","");
         }
-
+        //日期取得
+        String dateFrm = this.date;
+        if(measure.getCountPeriod().equals("00")){//月
+            dateFrm = this.date.substring(0,7);
+        }else if(measure.getCountPeriod() .equals("01")){//季
+            dateFrm = getSeasonString(this.date);
+        }else if(measure.getCountPeriod() .equals("02")){//年
+            dateFrm = this.date.substring(0,4);
+        }
         //4. 拼接SQL语句
         String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,value)" +
                 "select " +
-                "m."+  noEqMonthPlace +" as month_id," +
-                "DATE_FORMAT(SYSDATE(),'%Y-%m-%d') 			 as date," +
+                "m."+  noEqMonthPlace +" as month_id,'" + dateFrm +
+                "'			 as date," +
                 "'" + exprMeasureID + "' as measure_id," +
                 "m."   + exprObjectID+ " as object_id," +
                 "ifnull(sum(" + exprValue + "),0) as value " +
@@ -540,11 +727,21 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
 
         //拆解monthId
 
+        //日期取得
+        String dateFrm = this.date;
+        if(measure.getCountPeriod().equals("00")){//月
+            dateFrm = this.date.substring(0,7);
+        }else if(measure.getCountPeriod() .equals("01")){//季
+            dateFrm = getSeasonString(this.date);
+        }else if(measure.getCountPeriod() .equals("02")){//年
+            dateFrm = this.date.substring(0,4);
+        }
+
         // 4. 拼接SQL语句
         String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,value)\n"
                 + "select "
-                + "'[%monthID]' as month_id,"
-                + "DATE_FORMAT(SYSDATE(),'%Y-%m-%d') 			 as date,"
+                + "'[%monthID]' as month_id,'" + dateFrm
+                + "' 			 as date,"
                 + "'"+ exprMeasureID+ "' as measure_id,"
                 + "m0.object_id as object_id,\n"
                 + "ifnull("+ exprValue+ ",0) as value \n"
@@ -614,7 +811,15 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             //取得当前维度
             sqlsel = obj.toString().replace("[","").replace("]","").substring(obj.toString().length() - 8).replaceAll(",","");
         }
-
+        //日期取得
+        String dateFrm = this.date;
+        if(measure.getCountPeriod().equals("00")){//月
+            dateFrm = this.date.substring(0,7);
+        }else if(measure.getCountPeriod() .equals("01")){//季
+            dateFrm = getSeasonString(this.date);
+        }else if(measure.getCountPeriod() .equals("02")){//年
+            dateFrm = this.date.substring(0,4);
+        }
 
         StringBuilder sb = new StringBuilder();
         sb.append("insert into " +this.bsc_proj_mea_obj_val_measure+" (month_id,date,measure_id,object_id,value,source_id)\n");
@@ -632,7 +837,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         sb.append(" left join (" + sqlsel + ") m ");
         sb.append("on c.object_id = m.object_id ");
         sb.append(" where a.measure_id='" + measure.getMeasureId() + "'");
-        sb.append(" and c.date = '"+this.date+"'");
+        sb.append(" and c.date = '"+dateFrm+"'");
 
         return sb.toString();
     }
@@ -698,8 +903,17 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
      * @return
      */
     protected String getMeasureResultSQL(IMeasure measure) {
+        //日期取得
+        String dateFrm = this.date;
+        if(measure.getCountPeriod().equals("00")){//月
+            dateFrm = this.date.substring(0,7);
+        }else if(measure.getCountPeriod() .equals("01")){//季
+            dateFrm = getSeasonString(this.date);
+        }else if(measure.getCountPeriod() .equals("02")){//年
+            dateFrm = this.date.substring(0,4);
+        }
         String v_sql = "select object_id,value from "+this.resultTable+" where month_id='[%monthID]' and date='"
-                + this.date
+                + dateFrm
                 + "' and measure_id = '" + measure.getMeasureId() + "'";
 
         // 如果指标是标量指标，则数据源再加上对象ID
@@ -713,22 +927,40 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
      * 更新指标计算执行命令
      * @throws Exception
      */
-    protected void insertExeCommand(String measure_id,String command,int order_id) throws Exception {
+    protected void insertExeCommand(IMeasure measure,String command,int order_id) throws Exception {
+        //日期取得
+        String dateFrm = this.date;
+        if(measure.getCountPeriod().equals("00")){//月
+            dateFrm = this.date.substring(0,7);
+        }else if(measure.getCountPeriod() .equals("01")){//季
+            dateFrm = getSeasonString(this.date);
+        }else if(measure.getCountPeriod() .equals("02")){//年
+            dateFrm = this.date.substring(0,4);
+        }
         String sql = "insert into  "+this.commandTable+"(date,measure_id,exe_order_id,exe_command) " +
-                "values('" + this.date + "',"+"'"+measure_id+"',"+ order_id +
+                "values('" + dateFrm + "',"+"'"+measure.getMeasureId()+"',"+ order_id +
                 ",'"+command.replaceAll("'", "''")+"') ";
         this.jdbcManager.execute(sql);
     }
 
     /**
      * 插入方案指标计算命令
-     * @param measure_id
+     * @param measure
      * @param command
      * @throws Exception
      */
-    protected void insertProjectMeasureCommand(String measure_id, String command) throws Exception {
+    protected void insertProjectMeasureCommand(IMeasure measure, String command) throws Exception {
+        //日期取得
+        String dateFrm = this.date;
+        if(measure.getCountPeriod().equals("00")){//月
+            dateFrm = this.date.substring(0,7);
+        }else if(measure.getCountPeriod() .equals("01")){//季
+            dateFrm = getSeasonString(this.date);
+        }else if(measure.getCountPeriod() .equals("02")){//年
+            dateFrm = this.date.substring(0,4);
+        }
         String sql = "insert into " +this.bsc_proj_val_cmd_measure+"(date,measure_id,exe_order_id,exe_command) "
-                +"values('"+this.date+"','"+measure_id+"','1','"+command.replaceAll("'", "''")+"')";
+                +"values('"+this.date+"','"+measure.getMeasureId()+"','1','"+command.replaceAll("'", "''")+"')";
         this.jdbcManager.execute(sql);
     }
 

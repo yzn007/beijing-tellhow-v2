@@ -123,7 +123,10 @@ public class SelectorAction extends BaseDispatchAction {
 	
 	/*对象维度*/
 	public String listDimension() throws Exception{
-		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_dim_link ");
+//		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_dim_link ");
+		List<Map<String, Object>> dataList = this.selectorService.queryForList("select '' LINK_ID," +
+				"'全部' LINK_NAME, null SOURCE_EXPRESSION ,'N' IS_TREE ,'' ID_FIELD ,'' PARENT_ID_FIELD,'' " +
+				"LABEL_FIELD,'' ROOT_VALUE from dual union select * from bsc_dim_link ");
 		doJSONResponse(dataList);
 		return null;
 	}

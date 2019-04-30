@@ -50,7 +50,7 @@ function initBbar(totalCount, path) {
 }
 
 var menu = [{
-	text : '导出(e)',
+	text : '导出(E)',
 	tooltip : '导出查询结果',
 	iconCls : 'export',
 	handler : function() {

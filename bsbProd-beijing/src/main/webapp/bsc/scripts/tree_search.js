@@ -6,8 +6,8 @@ function addSearchToolbar(config){
 	var expandMethod = config.expandMethod ? config.expandMethod : '';
 	var treePanelId = config.treePanelId ? config.treePanelId : '';
 	var is_private = config.is_private ? config.is_private : '';
-	var period = config.period?config.period.getValue():null;
-	var dimension = config.dimension?config.dimension.getValue() :null;
+	var period = config.period?config.period:null;
+	var dimension = config.dimension?config.dimension :null;
 	var _toolbar = ['-','搜索: ',
         {
             xtype : 'textfield',
@@ -19,7 +19,12 @@ function addSearchToolbar(config){
                     var str_id=field.getValue();
                     if (e.getKey() == Ext.EventObject.ENTER && str_id) {
                         var periodValue = null;
-                        searchNode(str_id,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,period,dimension);
+                        if(period!=null)
+                            periodValue = period.getValue();
+                        var dimensionValue = null;
+                        if(dimension!=null)
+                        	dimensionValue = dimension.getValue();
+                        searchNode(str_id,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,periodValue,dimensionValue);
                     }
                 }
             }
@@ -29,7 +34,13 @@ function addSearchToolbar(config){
         handler : function(){
             var str_keyword=Ext.getCmp('textfield'+treePanelId).getValue();
             if(str_keyword){
-            	searchNode(str_keyword,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,period,dimension);
+                var periodValue = null;
+                if(period!=null)
+                    periodValue = period.getValue();
+                var dimensionValue = null;
+                if(dimension!=null)
+                    dimensionValue = dimension.getValue();
+            	searchNode(str_keyword,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,periodValue,dimensionValue);
             }else{
                 Ext.getCmp('nextBtn' + treePanelId).setDisabled(true);
                 Ext.getCmp('nextBtn' + treePanelId).setText('下一个');

@@ -26,6 +26,7 @@ public class BscMeasure implements IMeasure{
 	private String is_private;
 	private String owner_org_id;
 	private String obj_link_id;
+	private String countperiod;
 	
 	private String parseFilters(String cond) throws Exception
 	{
@@ -104,6 +105,11 @@ public class BscMeasure implements IMeasure{
 	@Override
 	public String getObjLinkId() {
 		return this.obj_link_id;
+	}
+
+	@Override
+	public String getCountPeriod() {
+		return this.countperiod!=null?this.countperiod:"";
 	}
 
 	public String getMeasureId() {

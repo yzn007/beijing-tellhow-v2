@@ -130,8 +130,9 @@ AddWindow = Ext.extend(Ext.Window, {
                         hiddenName : 'obj_link_id',
                         editable : false,
                         triggerAction : 'all',
-                        allowBlank : false,
-                        fieldLabel : '其它维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+                        allowBlank : true,
+                        emptyText : '请选择维度',
+                        fieldLabel : '其它维度',
                         listeners: {
                             select : function(combo, record, index){
                                 beforeMeaClose(this.id);
@@ -301,12 +302,12 @@ function doAddLoad(){
             }
         }
 
-        if (dimensionOtherStore.getCount() > 0) {
-
-            var  dimensionId = dimensionOtherStore.getAt(0).get('link_id');
-
-            Ext.getCmp("isDimension").setValue(dimensionId);
-        }
+        // if (dimensionOtherStore.getCount() > 0) {
+        //
+        //     var  dimensionId = dimensionOtherStore.getAt(0).get('link_id');
+        //
+        //     Ext.getCmp("isDimension").setValue(dimensionId);
+        // }
     });
     dimensionOtherStore.load();
 

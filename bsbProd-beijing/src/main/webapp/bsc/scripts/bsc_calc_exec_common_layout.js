@@ -13,6 +13,7 @@ var cycleTypeId = '';
 var objCateId = '';
 var appTypeId = '';
 var projectGrid_bar = null;
+var projectName = '';
 /**
  * 方案定义Store
  */

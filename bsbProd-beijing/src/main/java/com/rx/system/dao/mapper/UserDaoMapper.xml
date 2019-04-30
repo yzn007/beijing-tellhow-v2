@@ -89,8 +89,8 @@
 			user_address,
 			user_post,
 			user_status,
-			begin_date,
-			end_date,
+			<!--begin_date,
+			end_date,-->
 			busi_line_id,
 			job_type_id
 		) values (
@@ -106,8 +106,18 @@
 			#{user_address},
 			#{user_post},
 			#{user_status},
-			str_to_date(#{begin_date},'%Y-%m-%d'),
-			str_to_date(#{end_date},'%Y-%m-%d'),
+			<!-- <if test ="begin_date != null and begin_date != ''">
+				str_to_date(#{begin_date},'%Y-%m-%d %H:%i:%s'),
+			</if>
+			<if test ="begin_date == null or begin_date == ''">
+				str_to_date(now(),'%Y-%m-%d %H:%i:%s'),
+			</if>
+			<if test ="end_date != null and end_date != ''">
+				str_to_date(#{end_date},'%Y-%m-%d %H:%i:%s'),
+			</if>
+			<if test ="end_date == null or end_date == ''">
+				str_to_date(now(),'%Y-%m-%d %H:%i:%s'),
+			</if>-->
 			#{busi_line_id},
 			#{job_type_id}
 		)
