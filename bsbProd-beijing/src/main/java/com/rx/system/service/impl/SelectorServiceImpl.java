@@ -12,7 +12,12 @@ public class SelectorServiceImpl extends BaseService implements ISelectorService
 	public void execute(String sql) throws Exception {
 		this.jdbcManager.execute(sql);
 	}
-	
+
+	@Override
+	public Integer queryForInt(String sql) throws Exception {
+		return this.jdbcManager.queryForInt(sql);
+	}
+
 	//查询SQL返回List
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> queryForList(String sql) throws Exception {

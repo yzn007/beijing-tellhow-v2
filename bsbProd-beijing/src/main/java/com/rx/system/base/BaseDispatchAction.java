@@ -60,7 +60,7 @@ public class BaseDispatchAction extends ActionSupport implements ServletRequestA
 	}
 	
 	protected void doJSONResponse(Object obj) throws Exception{
-		response.setContentType("application/json");
+		response.setContentType("application/json;charset=utf-8");
 		JSONObject json = new JSONObject(obj);
 		response.getWriter().write(json.toString());
 	}

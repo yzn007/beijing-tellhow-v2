@@ -24,7 +24,7 @@ function addSearchToolbar(config){
                         var dimensionValue = null;
                         if(dimension!=null)
                         	dimensionValue = dimension.getValue();
-                        searchNode(str_id,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,periodValue,dimensionValue);
+                        searchNode(str_id,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,periodValue,dimensionValue, null, null);
                     }
                 }
             }
@@ -40,7 +40,7 @@ function addSearchToolbar(config){
                 var dimensionValue = null;
                 if(dimension!=null)
                     dimensionValue = dimension.getValue();
-            	searchNode(str_keyword,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,periodValue,dimensionValue);
+            	searchNode(str_keyword,expandMethod,treePanelId,pathUrl+'/selector_getPath.action',is_private,null,null,periodValue,dimensionValue,null,null);
             }else{
                 Ext.getCmp('nextBtn' + treePanelId).setDisabled(true);
                 Ext.getCmp('nextBtn' + treePanelId).setText('下一个');
@@ -76,12 +76,14 @@ function addSearchToolbar(config){
 }
 
 
-function searchNode(keyword , expendMethod , treePanelId , Pathurl , is_private,sourceType,measureSource,period,dimension){
+function searchNode(keyword, expendMethod, treePanelId, Pathurl, is_private, sourceType, measureSource, period, dimension,
+					measure_id, measure_name) {
 	
     Ext.Ajax.request({
         url : Pathurl,
-        params : {keyword: keyword , is_private : is_private,obj_cate_id : obj_cate_id,pageindex :
-		pageindex,source_type_id:sourceType,measure_source:measureSource,period:period,dimension:dimension},
+        params : {keyword: keyword , is_private : is_private,obj_cate_id : obj_cate_id,pageindex : pageindex,
+			source_type_id:sourceType,measure_source:measureSource,period:period,dimension:dimension,
+			measure_id:measure_id, measure_name:measure_name},
         failure : function(response, options) {
             Ext.MessageBox.alert('消息',Ext.util.JSON.decode(response.responseText).info);
 		},

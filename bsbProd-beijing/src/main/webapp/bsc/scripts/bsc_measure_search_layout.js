@@ -3,292 +3,348 @@ var selectNode = null;
 var engMeasureTree ;
 var sourceTypeId = "";
 var sourceData = null;
+var sourceTypeData = [['','所有','搜索所有类型'],
+    ['03','分类目录','作为指标分类的目录,不能配置公式和参与计算'],
+    ['00','基础指标','指标的值从数据库表中查询得出'],
+    ['01','衍生指标','指标的值经过其他指标加工得出'],
+    ['04','预警指标','预警指标分阈值范围和复杂类型']];
+
+var gridStore = new Ext.data.JsonStore({
+    extend: "Ext.data.Model",
+    fields : ['measure_id', 'measure_name', 'source_type_desc', 'measure_source_desc'],
+    url:pathUrl+'/selector_searchAll.action',
+    root : 'data',
+    totalProperty : 'totalCount',
+});
+
+gridStore.on("beforeload", function() {
+    gridStore.baseParams = {
+        start : 0,
+        limit : 20,
+        keyword: null,
+        is_private: 'N',
+        obj_cate_id: obj_cate_id,
+        pageindex: pageindex,
+        source_type_id: Ext.getCmp("sourceTypeId").getValue(),
+        measure_source: Ext.getCmp("objSourceId").getValue(),
+        period: Ext.getCmp('objPeriodId').value,
+        dimension: null,
+        measure_id: Ext.getCmp('measure_id').getValue(), measure_name: Ext.getCmp('measure_name').getValue()
+    }
+});
 
 Ext.onReady(function() {
-	var treeMenu = new Ext.Toolbar([{
-		id : 'add_menu',
-		text : '添加(a)',
-		tooltip : '添加指标',
-		iconCls : 'add',
-		handler : function() {
-			if (engMeasureTree.getSelectionModel().getSelectedNode() == null) {
-				Ext.MessageBox.alert('提示信息', '请选择一个新增指标的父节点');
-				return;
-			}
-			if(engMeasureTree.getSelectionModel().getSelectedNode().attributes.source_type_id != '03'
-				&& engMeasureTree.getSelectionModel().getSelectedNode().id !='root'){
-				Ext.Msg.alert('提示信息','只能在分类目录下添加指标!');
-				return;
-			}
-			// var addWindow = new AddWindow();
-			// addWindow.show();
-			doAddLoad();
-		}
-	}, '-', {
-		id : 'edit_menu',
-		text : '编辑(e)',
-		tooltip : '编辑指标',
-		iconCls : 'edit',
-		handler : function() {
-		if (engMeasureTree.getSelectionModel().getSelectedNode() == null) {
-			Ext.MessageBox.alert('提示信息', '请选择需要编辑的指标节点');
-			return;
-		}
-		if (engMeasureTree.getSelectionModel().getSelectedNode().id == 'root')
-			return;
-			doEdit();
-		}
-	}, '-', {
-        id : 'search_menu',
-        text : '高级查询(s)',
-        tooltip : '查询指标',
-        iconCls : 'search',
-        handler : function() {
-            doSearch();
-            console.info("adv search")
-            url = "/bsc/pages/bsc_measure_search.jsp"
-            window.parent.gotoPage('search_menu','高级搜索',url);
-        }
-    }, '-', {
-		id : 'delete_menu',
-		text : '删除(d)',
-		tooltip : '删除指标',
-		iconCls : 'delete',
-		handler : function() {
-			if (engMeasureTree.getSelectionModel().getSelectedNode() == null) {
-				Ext.MessageBox.alert('提示信息', '请选择要删除的指标!');
-				return;
-			}
-			if (engMeasureTree.getSelectionModel().getSelectedNode().id == 'root')
-				return;
-
-			doDeleteMeasure(engMeasureTree.getSelectionModel().getSelectedNode());
-		}
-	}]);
-	//添加树形索引
-	addSearchToolbar({
-		oldToolbar : treeMenu,
-		expandMethod : expandMyMeasureTreeNode,
-		treePanelId : 'measureTreePanel',
-		is_private : 'N'
-	});
-	
-	var rnode = getRootNode('root', '公共指标树', expandMyMeasureTreeNode);
-	rnode.attributes.is_private = 'N';
-	
-	engMeasureTree = new Ext.tree.TreePanel({
-		region : 'center',
-		title : '公共指标树',
-		id : 'measureTreePanel',
-		tbar : treeMenu,
-		animate : true,
-		frame : false,
-		border : true,
-		loader : new Ext.tree.TreeLoader(),
-		lines : false,
-		listeners : {
-			click : function(node) {
-				propertyPanel.form.reset();
-				selectNode = node;
-				selectNodeId = node.id;
-				if (!node || node.id == 'root'){
-					selectNode = null;
-					selectNodeId = '';
-					return;
-				};
-				
-				propertyPanel.form.load({
-					url : pathUrl + '/publicMeasure_common.action?method=getEngMeasureById&measure_id='+node.id+'&is_private=N',
+    var grid = new Ext.grid.GridPanel({
+        store: gridStore,
+        columns: [
+            {
+                id       :'measure_id',
+                name     :'measure_id',
+                header   : '指标Id'
+            },
+            {
+                id       :'measure_name',
+                name     :'measure_name',
+                header   : '指标名称',
+            },
+            {
+                id: 'source_type_desc',
+                name : 'source_type_desc',
+                header   : '指标类型',
+            },
+            {
+                name : 'measure_source_desc',
+                id: 'measure_source_desc',
+                header: '指标来源',
+            }
+        ],
+        region : 'center',
+        stripeRows: true,
+        autoExpandColumn: 'measure_id',
+        height: 350,
+        width: 600,
+        title: '搜索结果',
+        stateful: true,
+        stateId: 'grid',
+        listeners : {
+            cellclick: function (grid, rowIndex, columnIndex, e) {
+                var data = this.getSelectionModel().getSelected();
+                console.info(data);
+                attsPanel.form.load({
+                    url : pathUrl + '/publicMeasure_common.action?method=getEngMeasureById&measure_id='+data.data.measure_id+'&is_private=N',
                     success:function(){
-                        if (selectNode!=null){
-                            var val = "";
-                            //统计周期
-                            switch (Ext.getCmp('countperiod').getValue()){
-                                case "01":
-                                    val = "年";
-                                    break;
-                                case "02":
-                                    val = "季";
-                                    break;
-                                case "03":
-                                    val = "月";
-                                    break;
-                                case "04":
-                                    val = "日";
-                                    break;
-                                default:
-                                    val = "";
-                                    break;
-                            }
-                            Ext.getCmp('countperiod').setValue(val);
-                            //预警指标类型
-                            switch (Ext.getCmp('alerttype').getValue()){
-                                case "0":
-                                    val = "阈值";
-                                    break;
-                                case "2":
-                                    val = "复杂类型";
-                                    break;
-                                default:
-                                    val = "";
-                                    break;
-                            }
-                            Ext.getCmp('alerttype').setValue(val);
-                            //指标来源
-                            var ms_val = Ext.getCmp("measure_source").getValue();
-                            for(var i = 0; i < sourceData.length; i++) {
-                                if (sourceData[i][0] == ms_val) {
-                                    Ext.getCmp("measure_source").setValue(sourceData[i][1]);
-                                    break;
-                                }
+                        var val = "";
+                        //统计周期
+                        switch (Ext.getCmp('countperiod').getValue()){
+                            case "01":
+                                val = "年";
+                                break;
+                            case "02":
+                                val = "季";
+                                break;
+                            case "03":
+                                val = "月";
+                                break;
+                            case "04":
+                                val = "日";
+                                break;
+                            default:
+                                val = "";
+                                break;
+                        }
+                        Ext.getCmp('countperiod').setValue(val);
+                        //预警指标类型
+                        switch (Ext.getCmp('alerttype').getValue()){
+                            case "0":
+                                val = "阈值";
+                                break;
+                            case "2":
+                                val = "复杂类型";
+                                break;
+                            default:
+                                val = "";
+                                break;
+                        }
+                        Ext.getCmp('alerttype').setValue(val);
+                        // 指标来源
+                        var ms_val = Ext.getCmp("measure_source").getValue();
+                        for(var i = 0; i < sourceData.length; i++) {
+                            if (sourceData[i][0] == ms_val) {
+                                Ext.getCmp("measure_source").setValue(sourceData[i][1]);
+                                break;
                             }
                         }
+                        // 指标类型
+                        var st_val = Ext.getCmp('source_type_desc').getValue();
+                        st_val == '预警指标' ? Ext.getCmp('source_type_desc').show() : Ext.getCmp('source_type_desc').hide();
+
+
                     }
-				});
-			}
-		},
-		bodyStyle : 'padding:5px 5px',
-		autoScroll : true,
-		root : rnode,
-		rootVisible : true
-	});	
-	var viewport = new Ext.Viewport({
-		layout : 'border',
-		items : [engMeasureTree, propertyPanel = new Ext.form.FormPanel({
-				region : 'east',
-				width : '320',
-				title : '指标属性',
-				bodyStyle : 'padding: 5px 5px,5px 12px',
-				labelWidth : 95,
-				labelAlign : 'top',
-				layout : 'form',
-				split : true,
-				frame : true,
-				reader : new Ext.data.JsonReader({
-					root : 'results'
-				},[
-					{name : 'measure_id'},
-					{name : 'source_id'},
-					{name : 'measure_name'},
-					{name : 'source_type_desc'},
-					{name : 'obj_cate_desc'},
-					{name : 'formula_expr'},
-					{name : 'formula_desc'},
-					{name : 'measure_desc'},
-					{name : 'obj_cate_id'},
-					{name : 'measure_source'},
-                    {name : 'measure_unit'},
-                    {name : 'countperiod'},
-                    {name : 'districtdimension'},
-                    {name : 'ohterdimension'},
-                    {name : 'countperiod_desc'},
-                    {name : 'districtdimension_desc'},
-                    {name : 'ohterdimension_desc'},
-                    {name : 'alerttype'}
-				]),
-				items : [{
-					xtype : 'hidden',
-					name : 'obj_cate_id',
-					id : 'obj_cate_id'
-				},{
-					xtype : 'hidden',
-					name : 'formula_desc',
-					id : 'load_formula_desc'
-				},{
-					xtype : 'hidden',
-					name : 'source_id',
-					id : 'sid',
-					readOnly : true,
-					anchor : '95%'
-				},{
-					xtype : 'textfield',
-					name : 'measure_id',
-					id : 'mid',
-					fieldLabel : '指标ID',
-					readOnly : true,
-					anchor : '95%'
-				},{
-					xtype : 'textfield',
-					name : 'measure_name',
-					fieldLabel : '指标名',
-					readOnly : true,
-					anchor : '95%'
-				}, {
-                    xtype : 'textfield',
-                    name : 'measure_unit',
-                    fieldLabel : '指标单位',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'measure_source',
-                    id: 'measure_source',
-                    fieldLabel : '指标来源',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'source_type_desc',
-                    fieldLabel : '指标类型',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'countperiod',
-					id : 'countperiod',
-                    fieldLabel : '统计周期',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'ohterdimension_desc',
-                    fieldLabel : '其它维度',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'districtdimension_desc',
-                    fieldLabel : '地区维度',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    id : 'alerttype',
-                    fieldLabel : '预警类型',
-                    readOnly : true,
-                    anchor : '95%'
-                }, /*{
+                });
+            },
+
+        },
+        bbar: new Ext.PagingToolbar({
+            pageSize: 20,
+            store: gridStore,
+            displayInfo: true,
+            displayMsg: '搜索结果 {0} - {1} of {2}',
+            emptyMsg: "高级搜索",
+        })
+    });
+
+    var attsPanel = new Ext.form.FormPanel({
+        region : 'east',
+        width : '320',
+        title : '指标属性',
+        bodyStyle : 'padding: 5px 5px,5px 12px',
+        labelWidth : 95,
+        labelAlign : 'top',
+        layout : 'form',
+        split : true,
+        frame : true,
+        reader : new Ext.data.JsonReader({
+            root : 'results'
+        },[
+            {name : 'measure_id'},
+            {name : 'source_id'},
+            {name : 'measure_name'},
+            {name : 'source_type_desc'},
+            {name : 'obj_cate_desc'},
+            {name : 'formula_expr'},
+            {name : 'formula_desc'},
+            {name : 'measure_desc'},
+            {name : 'obj_cate_id'},
+            {name : 'measure_source'},
+            {name : 'measure_unit'},
+            {name : 'countperiod'},
+            {name : 'districtdimension'},
+            {name : 'ohterdimension'},
+            {name : 'countperiod_desc'},
+            {name : 'districtdimension_desc'},
+            {name : 'ohterdimension_desc'},
+            {name : 'alerttype'}
+        ]),
+        items : [{
+            xtype : 'hidden',
+            name : 'obj_cate_id',
+            id : 'obj_cate_id'
+        },{
+            xtype : 'hidden',
+            name : 'formula_desc',
+            id : 'load_formula_desc'
+        },{
+            xtype : 'hidden',
+            name : 'source_id',
+            id : 'sid',
+            readOnly : true,
+            anchor : '95%'
+        },{
+            xtype : 'textfield',
+            name : 'measure_id',
+            id : 'mid',
+            fieldLabel : '指标ID',
+            readOnly : true,
+            anchor : '95%'
+        },{
+            xtype : 'textfield',
+            name : 'measure_name',
+            fieldLabel : '指标名',
+            readOnly : true,
+            anchor : '95%'
+        }, {
+            xtype : 'textfield',
+            name : 'measure_unit',
+            fieldLabel : '指标单位',
+            readOnly : true,
+            anchor : '95%'
+        }, {
+            xtype : 'textfield',
+            name : 'measure_source',
+            id: 'measure_source',
+            fieldLabel : '指标来源',
+            readOnly : true,
+            anchor : '95%'
+        }, {
+            xtype : 'textfield',
+            name : 'source_type_desc',
+            id: 'source_type_desc',
+            fieldLabel : '指标类型',
+            readOnly : true,
+            anchor : '95%'
+        }, {
+            xtype : 'textfield',
+            name : 'countperiod',
+            id : 'countperiod',
+            fieldLabel : '统计周期',
+            readOnly : true,
+            anchor : '95%'
+        }, {
+            xtype : 'textfield',
+            name : 'ohterdimension_desc',
+            fieldLabel : '其它维度',
+            readOnly : true,
+            anchor : '95%'
+        }, {
+            xtype : 'textfield',
+            name : 'districtdimension_desc',
+            fieldLabel : '地区维度',
+            readOnly : true,
+            anchor : '95%'
+        }, {
+            xtype : 'textfield',
+            id : 'alerttype',
+            fieldLabel : '预警类型',
+            readOnly : true,
+            anchor : '95%'
+        }, /*{
 					xtype : 'textfield',
 					name : 'obj_cate_desc',
 					fieldLabel : '考核对象类型',
 					readOnly : true,
 					anchor : '95%'
 				}, */{
-					xtype : 'textfield',
-					id : 'formula_expr',
-					name : 'formula_expr',
-					fieldLabel : '指标公式',
-					readOnly : true,
-					anchor : '89%'
-				}, {
-					xtype : 'textarea',
-					name : 'measure_desc',
-					fieldLabel : '指标描述',
-					readOnly : true,
-					anchor : '95%'
-				}]
-			})]
-	});
-	
-	var div=Ext.getDom('formula_expr').parentNode;
-	var span=document.createElement("span");
-	span.style.border="1px solid #B5B8C8";
-	span.style.padding="1px 1px 1px 1px";
-	span.style.verticalAlign="MIDDLE";
-	span.innerHTML="<a href='javascript:doEditFormula()'><img src=\"../../public/images/icons/change.png\"></a>";
-	div.appendChild(span);
-	
-	engMeasureTree.getRootNode().expand();
+            xtype : 'textfield',
+            id : 'formula_expr',
+            name : 'formula_expr',
+            fieldLabel : '指标公式',
+            readOnly : true,
+            anchor : '89%'
+        }, {
+            xtype : 'textarea',
+            name : 'measure_desc',
+            fieldLabel : '指标描述',
+            readOnly : true,
+            anchor : '95%'
+        }]
+    })
+    var seachForm = new Ext.FormPanel({
+        frame:true,
+        title: '高级搜索',
+        bodyStyle:'padding:5px 5px 0',
+        height:220,
+        defaults: {width: 230},
+        defaultType: 'textfield',
+        region : 'north',
+        items: [
+            {
+                xtype: 'hidden',
+                id: 'objTypeId',
+            },
+            {
+                xtype: 'hidden',
+                id: 'measure_unit'
+            },
+            {
+                xtype: 'hidden',
+                id: 'districtDimension'
+            },
+            {
+                xtype: 'hidden',
+                id: 'isDimension'
+            },
+            {
+                xtype: 'textfield',
+                fieldLabel: '指标id',
+                allowBlank: true,
+                id: 'measure_id',
+                name: 'measure_id',
+                anchor: '95%'
+            },
+            {
+                xtype: 'textfield',
+                fieldLabel: '指标名称',
+                allowBlank: true,
+                id: 'measure_name',
+                name: 'measure_name',
+                anchor: '95%'
+            },
+            new SourceTypeSelector(),
+            new ObjectSourceFromSelector(),
+            new ObjectCountPeriod(),
+        ],
+        buttons : [{
+            text: '查询',
+            handler: function () {
+                gridStore.load({
+                        callback: function (record, options, success) {
+
+                            for (var i = 0; i < record.length; i++) {
+                                for(var j=0; j<sourceTypeData.length; j++) {
+                                    if(record[i]['json']['source_type_id'] == sourceTypeData[j][0]) {
+                                        var rec = this.getAt(i);
+                                        rec.set('source_type_desc', sourceTypeData[j][1]);
+                                        rec.commit();
+                                    }
+                                }
+
+                            }
+                            console.info(record);
+                        }
+                    }
+                )
+            }
+        }, {
+            text : '清空',
+            handler : function() {
+                seachForm.form.reset();
+            }
+        }]
+    });
+
+    new Ext.Viewport({
+        title : 'Border布局示例',
+        layout : 'border',
+        items : [
+            {
+                region : 'center',
+                layout : 'border',
+                items:[
+                    grid, seachForm
+                ]
+            }, attsPanel ],
+        renderTo : Ext.getBody()
+    });
 });
 
 function beforeMeaClose(fid) {
@@ -312,7 +368,7 @@ function beforeMeaClose(fid) {
             }
         }
         Ext.getCmp("objDistrictDimSet").doLayout(true);
-	}
+    }
 }
 
 //对象维度
@@ -370,8 +426,8 @@ objDistrictDim.on("load",function(){
     }
     var comb =  Ext.getCmp("objDistrictDimSet");
     comb.on('select',function(comboBox){
-		alert('ddddd');
-	});
+        alert('ddddd');
+    });
     Ext.getCmp("objDistrictDimSet").doLayout(true);
 });
 
@@ -382,44 +438,38 @@ objDistrictDim.on("load",function(){
  * 数据源类型下拉框
  */
 SourceTypeSelector=function(){
-	var template = new Ext.XTemplate(
-   	'<tpl for="."><div style="border-top: solid 1px gray;width:100%;" class="x-combo-list-item">' 
-   	+ '<p>{displayText}</p>' 
-   	+ "<p><font size=2 color='green'>说明:{descript}</font></p>"
-   	+ '</div></tpl>');
-	var store = new Ext.data.SimpleStore({
-		fields: ["retrunValue", "displayText","descript"],
-		data: [
-			['03','分类目录','作为指标分类的目录,不能配置公式和参与计算'],
-			['00','基础指标','指标的值从数据库表中查询得出'],
-			['01','衍生指标','指标的值经过其他指标加工得出'],
-			['04','预警指标','预警指标分阈值范围和复杂类型'],
-			/*['02','外部指标','指标的值需要从外部Excel导入'] */
-		]
-	});
-	
-	SourceTypeSelector.superclass.constructor.call(this,{
-		store: store,
-		valueField :'retrunValue',
-		displayField:'displayText',
-		mode: 'local',
-		hiddenName:'source_type_id',
-		editable: false,
-		tpl : template,
-		triggerAction: 'all',
-		allowBlank:false,
-		fieldLabel:'指标类型',
-		name: 'source_type_id',
-		value: '03',
-		id:'sourceTypeId',
-	    anchor:'95%',
-		listeners: {
+    var template = new Ext.XTemplate(
+        '<tpl for="."><div style="border-top: solid 1px gray;width:100%;" class="x-combo-list-item">'
+        + '<p>{displayText}</p>'
+        + "<p><font size=2 color='green'>说明:{descript}</font></p>"
+        + '</div></tpl>');
+    var store = new Ext.data.SimpleStore({
+        fields: ["retrunValue", "displayText","descript"],
+        data: sourceTypeData
+    });
+
+    SourceTypeSelector.superclass.constructor.call(this,{
+        store: store,
+        valueField :'retrunValue',
+        displayField:'displayText',
+        mode: 'local',
+        hiddenName:'source_type_id',
+        editable: false,
+        tpl : template,
+        triggerAction: 'all',
+        allowBlank:false,
+        fieldLabel:'指标类型',
+        name: 'source_type_id',
+        value: '',
+        id:'sourceTypeId',
+        anchor:'95%',
+        listeners: {
             select: function (combo, record, index) {
                 if (combo.getValue() != "04") {
                     Ext.getCmp("objTypeId").hide();
                 }else{
                     Ext.getCmp("objTypeId").show();
-				}
+                }
                 if (combo.getValue() == "03") {
                     Ext.getCmp("objPeriodId").hide();
                     Ext.getCmp("objSourceId").hide();
@@ -432,10 +482,10 @@ SourceTypeSelector=function(){
                     Ext.getCmp("measure_unit").show();
                     Ext.getCmp("districtDimension").show();
                     Ext.getCmp("isDimension").show();
-				}
+                }
             }
         }
-	});
+    });
 
 }
 Ext.extend(SourceTypeSelector, Ext.form.ComboBox);
@@ -449,9 +499,19 @@ var cycleTypeDS = new Ext.data.JsonStore({
     url : pathUrl + '/selector_listProjCycleType.action',
     root : 'results',
     totalProperty : 'totalCount',
-    fields : ['cycle_type_id', 'cycle_type_desc']
+    fields : ['cycle_type_id', 'cycle_type_desc'],
+    listeners : {
+        load : function(st, rds, opts) {
+
+        }
+    }
 });
-cycleTypeDS.load();
+cycleTypeDS.load({
+    callback : function(record, options, success) {
+        var allArea = new Ext.data.Record({'cycle_type_id':'','cycle_type_desc':'全部'});
+        this.insert(0,allArea);
+    }
+});
 
 ObjectCountPeriod = function () {
 
@@ -463,10 +523,10 @@ ObjectCountPeriod = function () {
         hiddenName:'obj_period_id',
         editable: false,
         triggerAction: 'all',
-        allowBlank:false,
-        fieldLabel:'统计周期<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+        allowBlank:true,
+        fieldLabel:'统计周期',
         name: 'obj_period_id',
-        value: '01',
+        value: '',
         id:'objPeriodId',
         anchor:'95%'
     });
@@ -560,7 +620,7 @@ ObjectSourceFromSelector = function () {
         listeners: {
             select: function (combo, record, index) {
                 if (combo.lastSelectionText != "") {
-                   Ext.getCmp("measure_source_desc").setValue(combo.lastSelectionText);
+                    Ext.getCmp("measure_source_desc").setValue(combo.lastSelectionText);
                 }
             }
         }
@@ -573,26 +633,26 @@ Ext.extend(ObjectSourceFromSelector,Ext.form.ComboBox);
  * 考核对象类型下拉框
  */
 ObjCateSelector=function(){
-	var store = new Ext.data.SimpleStore({
-		fields: ["retrunValue", "displayText"],
-		data: [['BM','区属部门'],['CBM','市属部门'],['ZJ','镇街']]
-	});
-	 
-	ObjCateSelector.superclass.constructor.call(this,{
-		store: store,
-		valueField :'retrunValue',
-		displayField:'displayText',
-		mode: 'local',
-		hiddenName:'obj_cate_id',
-		editable: false,
-		triggerAction: 'all',
-		allowBlank:false,
-		fieldLabel:'考核对象类型',
-		name: 'obj_cate_id',
-		value: 'BM',
-		id:'objCateId',
-	    anchor:'95%'
-	});
+    var store = new Ext.data.SimpleStore({
+        fields: ["retrunValue", "displayText"],
+        data: [['BM','区属部门'],['CBM','市属部门'],['ZJ','镇街']]
+    });
+
+    ObjCateSelector.superclass.constructor.call(this,{
+        store: store,
+        valueField :'retrunValue',
+        displayField:'displayText',
+        mode: 'local',
+        hiddenName:'obj_cate_id',
+        editable: false,
+        triggerAction: 'all',
+        allowBlank:false,
+        fieldLabel:'考核对象类型',
+        name: 'obj_cate_id',
+        value: 'BM',
+        id:'objCateId',
+        anchor:'95%'
+    });
 
 }
 
@@ -622,12 +682,12 @@ ObjAlertTypeSelector=function(){
             select: function (combo, record, index) {
                 if (combo.lastSelectionText.indexOf("复杂") >=0) {
                     Ext.getCmp("measure_desc").fieldLabel = (Ext.getCmp("measure_desc").fieldLabel+
-					'<span style="color:red;font-weight:bold" data-qtip="Required">*</span>');
+                        '<span style="color:red;font-weight:bold" data-qtip="Required">*</span>');
                     Ext.getCmp("measure_desc").allowBlank = false;
                 }else{
                     Ext.getCmp("measure_desc").fieldLabel = "指标描述";
                     Ext.getCmp("measure_desc").allowBlank = true;
-				}
+                }
             }
         }
     });
@@ -744,9 +804,9 @@ objGridSelector = function(obj) {
                 var rowText = null;
                 if (obj.id.indexOf("Zone_Cd")>=0){ //地区
                     rowText = Ext.getCmp("objDistrictDimSet_desc").getValue();
-				}else{//其它
+                }else{//其它
                     rowText = Ext.getCmp("objDimSet_desc").getValue();
-				}
+                }
 
                 if(rowVal !=null && rowVal.length >0){
                     if(rowVal.endsWith(",")==true){
@@ -760,15 +820,15 @@ objGridSelector = function(obj) {
                 if(rowVal.indexOf(record.get('value_field')+",") == -1){
                     rowVal += record.get('value_field')+",";
                     rowText += record.get('display_field') + ",";
-				}
+                }
 
                 Ext.getCmp(obj.id).setRawValue(rowVal);
                 if (rowText.indexOf("["+obj.fieldLabel+"]")<0){
                     rowText = "["+obj.fieldLabel+"]"+rowText;
-				}
+                }
 
                 if (obj.id.indexOf("Zone_Cd")>=0){ //地区
-                     Ext.getCmp("objDistrictDimSet_desc").setValue(rowText);
+                    Ext.getCmp("objDistrictDimSet_desc").setValue(rowText);
                 }else{//其它
                     Ext.getCmp("objDimSet_desc").setValue(rowText);
                 }
@@ -831,7 +891,7 @@ objDimDS.on("load",function(){
 });
 
 function activeMenu(b) {
-	Ext.getCmp("add_menu").setDisabled(!b);
-	Ext.getCmp("edit_menu").setDisabled(!b);
-	Ext.getCmp("delete_menu").setDisabled(!b);
+    Ext.getCmp("add_menu").setDisabled(!b);
+    Ext.getCmp("edit_menu").setDisabled(!b);
+    Ext.getCmp("delete_menu").setDisabled(!b);
 }

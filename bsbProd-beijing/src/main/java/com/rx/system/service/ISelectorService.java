@@ -7,6 +7,9 @@ public interface ISelectorService {
 	
 	//查询List
 	public List<Map<String, Object>> queryForList(String sql) throws Exception;
+
+	// 查询一个字段
+	Integer queryForInt(String sql) throws Exception;
 	
 	//执行Sql
 	public void execute(String sql) throws Exception;

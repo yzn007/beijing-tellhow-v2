@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rx.system.util.PageQueryResult;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.rx.system.base.BaseDispatchAction;
@@ -230,16 +231,72 @@ public class SelectorAction extends BaseDispatchAction {
 		doJSONResponse(dataList);
 		return null;
 	}
-	
+
+	/**
+	 * 搜索内容
+	 * @return
+	 * @throws Exception
+	 */
+	public String searchAll() throws Exception {
+		Map<String,Object> map = this.getRequestParam(request);
+		String sqlQuery = null;
+		String countQuery = null;
+		List<Map<String, Object>> dataList = null;
+		Integer count = null;
+		PageQueryResult result = new PageQueryResult();
+		String start = map.get("start") == "0" ? null : map.get("start").toString();
+		String limit = map.get("limit") == "20" ? null : map.get("limit").toString();
+
+		sqlQuery = buildSearchMeasureSql(" * ");
+		sqlQuery += " limit " + start + "," + limit;
+
+		countQuery = buildSearchMeasureSql(" count(0) ");
+		try {
+			dataList = this.selectorService.queryForList(sqlQuery);
+			count = this.selectorService.queryForInt(countQuery);
+			result.setData(dataList);
+			result.setLimit(20);
+			result.setStart(Integer.parseInt(start));
+			result.setTotalCount(count);
+			doJSONResponse(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	/**
 	 * 获取树形结构路径
 	 * @return
 	 * @throws Exception
 	 */
 	public String getPath() throws Exception {
+		String sql = buildSearchMeasureSql(" getMeasureTreePath(measure_id) as path ");
+
+		try {
+			List<Map<String, Object>> dataList = this.selectorService.queryForList(sql);
+			doJSONResponse(dataList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 搜索
+	 * @return
+	 * @throws Exception
+	 */
+	private String buildSearchMeasureSql(String columns) throws Exception {
 		Map<String,Object> map = this.getRequestParam(request);
 		String obj_cate_id = map.get("obj_cate_id").toString();
 		String pageIndex = map.get("pageindex").toString();
+		//搜索关键字
+		String keyword = map.get("keyword") == null?null:map.get("keyword").toString();
+		//指标id
+		String measure_id = map.get("measure_id") == null?null:map.get("measure_id").toString();
+		//指标名称
+		String measure_name = map.get("measure_name") == null?null:map.get("measure_name").toString();
 		//指标来源
 		String measureSource = map.get("measure_source")==null?null:map.get("measure_source").toString();
 		//指标分类
@@ -249,12 +306,22 @@ public class SelectorAction extends BaseDispatchAction {
 		//维度
 		String dimension = map.get("dimension")==null?null:map.get("dimension").toString();
 		StringBuffer sb = new StringBuffer();
-		sb.append("select  getMeasureTreePath(measure_id) as path");
-		sb.append(" from bsc_measure");
-		sb.append(" where (measure_name like '%"+map.get("keyword")+"%' or measure_id like '%"+map.get("keyword")+"%')");
-		sb.append("   and is_private = '"+map.get("is_private")+"'");
+		sb.append("select  ");
+		sb.append(columns);
+		sb.append(" from bsc_measure where");
+		//sb.append(" where (measure_name like '%"+map.get("keyword")+"%' or measure_id like '%"+map.get("keyword")+"%')");
+		sb.append(" is_private = '"+map.get("is_private")+"'");
+		if(!"".equals(keyword) && null != keyword){
+			sb.append(" and (measure_name like '%"+map.get("keyword")+"%' or measure_id like '%"+map.get("keyword")+"%')");
+		}
+		if(!"".equals(measure_name) && null != measure_name){
+			sb.append(" and measure_name like '%" + measure_name + "%'");
+		}
+		if(!"".equals(measure_id) && null != measure_id){
+			sb.append(" and measure_id like '%" + measure_id + "%'");
+		}
 		if(!"".equals(obj_cate_id) && "2".equals(pageIndex)){
-			sb.append("   and obj_cate_id = '"+obj_cate_id+"'");
+			sb.append(" and obj_cate_id = '"+obj_cate_id+"'");
 		}
 		if(!"".equals(measureSource) && null != measureSource){
 			sb.append(" and measure_source = '"+measureSource+"'");
@@ -269,17 +336,8 @@ public class SelectorAction extends BaseDispatchAction {
 			sb.append(" and( districtobjecttable = '"+dimension+"' or otherobjecttable ='" +dimension+"') ");
 		}
 		sb.append(" order by global_order_id");
-		
-		try {
-			List<Map<String, Object>> dataList = this.selectorService.queryForList(sb.toString());
-			
-			doJSONResponse(dataList);
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
-		
-		return null;		
+
+		return sb.toString();
 	}
 
 	public void setDataStore(DataStore dataStore) {

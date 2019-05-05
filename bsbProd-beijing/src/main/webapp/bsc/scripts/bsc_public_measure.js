@@ -681,16 +681,26 @@ SearchWindow = Ext.extend(Ext.Window, {
                 url : pathUrl
                 + '/selector_getPath.action',
                 timeout : 600000,
-                items : [{
+                items : [
+					{
+						xtype : 'textfield',
+						fieldLabel : '指标id',
+						allowBlank : true,
+						id : 'measure_id',
+						name : 'measure_id',
+						anchor : '95%'
+					},
+                	{
                     xtype : 'textfield',
                     fieldLabel : '指标名称',
-                    allowBlank : false,
+                    allowBlank : true,
                     id : 'measure_name',
                     name : 'measure_name',
                     anchor : '95%'
                 },
                     new SourceTypeSelector(),
-                    compSource
+                    compSource,
+					new ObjectCountPeriod(),
                 ]
             }
             ],
@@ -699,11 +709,15 @@ SearchWindow = Ext.extend(Ext.Window, {
                 handler : function() {
                     var formPanel = Ext.getCmp("searchForm");
                     if (formPanel.form.isValid()){
-                        var str_id = Ext.getCmp('measure_name').getValue();
+                    	var measure_id = Ext.getCmp('measure_id').getValue();
+                        var measure_name = Ext.getCmp('measure_name').getValue();
+                        var peroid = null;//Ext.getCmp('objPeriodId').getValue();
                         var treePanelId = 'measureTreePanel';
                         var sourceTypeId = Ext.getCmp("sourceTypeId").getValue();
                         var measuerSource = Ext.getCmp("objSourceId").getValue();
-                        searchNode(str_id,expandMyMeasureTreeNode,treePanelId,pathUrl+'/selector_getPath.action','N',sourceTypeId,measuerSource,null,null);
+                        searchNode(null,expandMyMeasureTreeNode,treePanelId,pathUrl+'/selector_getPath.action',
+							'N',sourceTypeId,measuerSource,peroid,null,
+							measure_id, measure_name);
 
                         _searchCount+=1;
                         _searchCount=_searchCount==_searchPaths.length?0:_searchCount;
