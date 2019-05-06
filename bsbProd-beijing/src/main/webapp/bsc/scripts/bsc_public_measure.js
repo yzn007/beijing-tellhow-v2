@@ -1,6 +1,6 @@
 /**
  * 添加公共指标
- * 
+ *
  * @class AddWindow
  * @extends Ext.Window
  */
@@ -278,26 +278,14 @@ AddWindow = Ext.extend(Ext.Window, {
 	}
 });
 
-function doAddLoad(){
-    var addwindow = new AddWindow();
-    // Ext.getCmp("addForm").form.load({
-    //   success: function (store, op, options) {
-    //
-    //    },
-    //    failure: function (form, action) {
-    //        // var combo = Ext.getCmp("sourceTypeId");
-    //        // var uid = combo.getValue();
-    //        // combo.fireEvent('select', combo, combo.getStore().getById(uid));
-    //    }
-    // });
-    addwindow.show();
+function initCompons() {
     //其它对象维度
     dimensionOtherStore.on("load", function() {
         //删除统计年份维度
-		for(var i=dimensionOtherStore.getCount()-1;i>=0;i--){
+        for(var i=dimensionOtherStore.getCount()-1;i>=0;i--){
             if(dimensionOtherStore.data.items[i].data.link_name.indexOf('地区代码')>=0
-				|| dimensionOtherStore.data.items[i].data.link_name.indexOf('统计年份')>=0
-                ){
+                || dimensionOtherStore.data.items[i].data.link_name.indexOf('统计年份')>=0
+            ){
                 dimensionOtherStore.data.items[i].store.removeAt(i);
             }
         }
@@ -337,8 +325,22 @@ function doAddLoad(){
     var combo = Ext.getCmp("objSourceId");
     var uid = combo.getValue();
     combo.fireEvent("select",combo,combo.getStore().getById(uid));
+}
 
-
+function doAddLoad(){
+    var addwindow = new AddWindow();
+    // Ext.getCmp("addForm").form.load({
+    //   success: function (store, op, options) {
+    //
+    //    },
+    //    failure: function (form, action) {
+    //        // var combo = Ext.getCmp("sourceTypeId");
+    //        // var uid = combo.getValue();
+    //        // combo.fireEvent('select', combo, combo.getStore().getById(uid));
+    //    }
+    // });
+    addwindow.show();
+    initCompons();
 }
 var compSource = null;
 /**
@@ -356,16 +358,32 @@ function doEdit() {
 			measure_id : selectNode.id
 		},
         success:function(form ,action){
+            console.info(action.result.data);
             //指标来源
 			var record = eval(action.result.data);
 			var comb = Ext.getCmp("objSourceId");
 			comb.setValue(record.measure_source);
+
+
+            Ext.getCmp('sourceTypeId').setValue(record.source_type_id);
+            Ext.getCmp('sourceTypeId').disabled = true;
+
+            Ext.getCmp('measure_unit').show();
+            Ext.getCmp('objSourceId').show();
+
+
+            Ext.getCmp('obj_district_id').setValue(record.districtdimension_desc);
+            Ext.getCmp('obj_district_id').disabled = true;
+
+            Ext.getCmp('obj_link_id').setValue(record.ohterdimension_desc);
+            Ext.getCmp('obj_link_id').disabled = true;
+
+            Ext.getCmp('inner_level_order').setValue(record.inner_level_order)
         }
 	});
 
 	editWindow.show();
-
-
+    initCompons();
 }
 /**
  * 编辑公共指标
@@ -373,7 +391,7 @@ function doEdit() {
 EditWindow = Ext.extend(Ext.Window, {
 	title : '编辑公共指标',
 	width : 500,
-	height : 290,
+	height : 400,
 	layout : 'fit',
 	plain : true,
 	modal : true,
@@ -404,115 +422,141 @@ EditWindow = Ext.extend(Ext.Window, {
                 timeout : 600000,
 				reader : new Ext.data.JsonReader({
 					root : 'results'
-				}, [{
-					name : 'measure_id'
-				}, {
-					name : 'measure_name'
-				}, {
-					name : 'measure_desc'
-				}, {
-					name : 'parent_measure_id'
-				}, {
-					name : 'obj_cate_id'
-				}, {
-					name : 'inner_level_order'
-				}, {
-					name : 'obj_cate_desc'
-				}, {
-                    name : 'measure_unit'
-                }, {
-                    name : 'measure_source'
-                }, {
-                    name : 'measure_source_desc'
-                }]),
+				}, [{name : 'measure_id'},
+                    {name : 'source_type_id'},
+                    {name : 'measure_name'},
+                    {name : 'source_type_desc'},
+                    {name : 'obj_cate_desc'},
+                    {name : 'formula_expr'},
+                    {name : 'formula_desc'},
+                    {name : 'measure_desc'},
+                    {name : 'obj_cate_id'},
+                    {name : 'measure_source'},
+                    {name : 'measure_unit'},
+                    {name : 'countperiod'},
+                    {name : 'districtdimension'},
+                    {name : 'ohterdimension'},
+                    {name : 'countperiod_desc'},
+                    {name : 'districtdimension_desc'},
+                    {name : 'ohterdimension_desc'},
+                    {name : 'alerttype'},
+                    {name : 'districtdimension_desc'},
+                    {name : 'ohterdimension_desc'},
+                    {name : 'inner_level_order'}
+                    ]
+                ),
 				items : [{
-					xtype : 'hidden',
-					fieldLabel : '上级节点',
-					id : 'pmid',
-					name : 'pMeasureID',
-					readOnly : true,
-					anchor : '95%'
-				}, {
-					xtype : 'textfield',
-					fieldLabel : '指标代码',
-					allowBlank : false,
-					id : 'tmid',
-					disabled : true,
-					name : 'new_measure_id',
-					anchor : '95%'
-				}, {
-					xtype : 'textfield',
-					fieldLabel : '指标名称',
-					allowBlank : false,
-					id : 'measure_name',
-					name : 'measure_name',
-					anchor : '95%'
-				},{
-                    xtype : 'textfield',
-                    fieldLabel : '指标单位',
-                    allowBlank : true,
-                    id : 'measure_unit',
-                    name : 'measure_unit',
-                    anchor : '95%'
+                    xtype: 'hidden',
+                    fieldLabel: '上级节点',
+                    id: 'pmid',
+                    name: 'pMeasureID',
+                    readOnly: true,
+                    anchor: '95%'
                 },
-                    compSource,
                     {
+                        xtype : 'textfield',
+                        fieldLabel : '指标代码',
+                        allowBlank : false,
+                        id : 'tmid',
+                        disabled : true,
+                        name : 'new_measure_id',
+                        anchor : '95%'
+                    }, {
+                        xtype : 'textfield',
+                        fieldLabel : '指标名称',
+                        allowBlank : false,
+                        id : 'measure_name',
+                        name : 'measure_name',
+                        anchor : '95%'
+                    },{
+                        xtype : 'textfield',
+                        fieldLabel : '指标单位',
+                        allowBlank : true,
+                        id : 'measure_unit',
+                        name : 'measure_unit',
+                        anchor : '95%'
+                    },
+                    new ObjectSourceFromSelector(),
+                    new SourceTypeSelector(),
+                    new ObjAlertTypeSelector(),
+                    /*comp,*/
+                    new ObjectCountPeriod(),
+                    {
+                        xtype : 'textfield',
+                        fieldLabel : '其它维度',
+                        allowBlank : false,
+                        id : 'obj_link_id',
+                        disabled : true,
+                        anchor : '95%'
+                    },
+                    {
+                        id : 'objDimSet',
+                        columnWidth : .35,
+                        anchor : '95%',
+                        layout : 'form'
+                    },
+                    {
+                        xtype : 'textfield',
+                        fieldLabel : '地区维度',
+                        allowBlank : false,
+                        id : 'obj_district_id',
+                        disabled : true,
+                        anchor : '95%'
+                    },
+                    {
+                        id : 'objDistrictDimSet',
+                        columnWidth : .35,
+                        anchor : '95%',
+                        layout : 'form'
+                    },
+                    {
+                        xtype : 'numberfield',
+                        id : 'inner_level_order',
+                        name : 'inner_level_order',
+                        fieldLabel : '同级顺序',
+                        allowBlank : true,
+                        anchor : '95%'
+                    }, {
+                        xtype : 'textarea',
+                        fieldLabel : '指标描述',
+                        id : 'measure_desc',
+                        name : 'measure_desc',
+                        height : 60,
+                        anchor : '95%'
+                    }, {
                         xtype : 'hidden',
-                        name : 'measure_source_desc',
-						id : 'measure_source_desc'
+                        id : 'tpmid',
+                        name : 'parent_measure_id',
+                        anchor : '95%',
+                        value : selectNodeId == '' ? 'root' : selectNodeId
                     },
                     {
                         xtype : 'hidden',
-                        name : 'obj_cate_id'
-                    }/**,{
-					xtype : 'textfield',
-					name : 'obj_cate_desc',
-					fieldLabel : '考核对象类型',
-					readOnly : true,
-					disabled : true,
-					anchor : '95%'
-				}		 ,new ObjCateSelector() */
-                    /* ,{
-                        xtype : 'textfield',
-                        name : 'obj_period_id',
-                        fieldLabel : '统计周期',
-                        allowBlank : false,
-                        anchor : '95%'
-                    } ,{
-                        xtype : 'textfield',
-                        name : 'obj_link_id',
-                        fieldLabel : '对象维度',
-                        allowBlank : false,
-                        anchor : '95%'
-                    }*/
-						, {
-							xtype : 'numberfield',
-							name : 'inner_level_order',
-							fieldLabel : '同级顺序',
-							allowBlank : true,
-							anchor : '95%'
-						}, {
-							xtype : 'textarea',
-							fieldLabel : '指标描述',
-							id : 'measure_desc',
-							name : 'measure_desc',
-							height : 60,
-							anchor : '95%'
-						}, {
-							xtype : 'hidden',
-							id : 'tpmid',
-							name : 'parent_measure_id'
-						}, {
-							xtype : 'hidden',
-							id : 'oldMeasureID',
-							name : 'measure_id'
-						}/**
-							 * , { xtype : 'panel', baseCls : 'x-plain', html : '<div
-							 * align=left><br>
-							 * 注：若指标代码变动请手工修改相关公式引用.<br>
-							 * </div> ' }
-							 */
-				]
+                        id : 'oldMeasureID',
+                        name : 'measure_id'
+                    },
+                    {
+                        xtype : 'hidden',
+                        id : 'measure_source_desc'
+                    }
+                    ,{
+                        xtype : 'hidden',
+                        id : 'objDistrictDimSet_desc'
+                    }
+                    , {
+                        xtype : 'hidden',
+                        id : 'objDimSet_desc'
+                    }
+                    , {
+                        xtype : 'hidden',
+                        id : 'district_object_table'
+                    }
+                    , {
+                        xtype : 'hidden',
+                        id : 'other_object_table'
+                    }
+
+                ]
 			}/**
 				 * , { xtype : 'treepanel', id : 'mTree', region : 'center',
 				 * frame : false, title : '变更上级节点', loader : new
@@ -761,7 +805,7 @@ function doDeleteMeasure(n) {
 								params : {
 									measure_id : n.id
 								},
-				
+
 								callback : function(options, success, response) {
 									var json = Ext.util.JSON.decode(response.responseText);
 									if (json.results[0].success) {
@@ -832,7 +876,7 @@ function removeDependMeasure(measure_id, measure_name) {
 
 
 function showFailureData(id,data){
-	
+
 	var failureData = new Ext.data.SimpleStore({
 		fields:[
 		{name:'dependId',type:'string'},
@@ -842,7 +886,7 @@ function showFailureData(id,data){
 		]
 	})
 	failureData.loadData(data);
-	
+
 	var gridPanel = new Ext.grid.GridPanel({
 		region : 'center',
 		store : failureData,
@@ -854,7 +898,7 @@ function showFailureData(id,data){
 		{id:'dependOwnerBankName',header:'归属机构名称',width:100,sortable:true,dataIndex:'dependOwnerBankName'}
 		]
 	})
-	
+
 	var win = new Ext.Window({
 		width:600,
 		height:300,
@@ -870,6 +914,6 @@ function showFailureData(id,data){
 	})
 	win.setTitle("指标为["+id+"]存在以下依赖关系");
 	win.show();
-	
+
 }
 
