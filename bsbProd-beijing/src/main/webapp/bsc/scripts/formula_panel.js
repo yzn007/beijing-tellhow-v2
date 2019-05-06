@@ -774,11 +774,12 @@ function doEditFormula(){
 //			Ext.Msg.alert("",sid);
 			sourceComboBox.setValue(sid);
 			sourceFormulaTextArea.setValue(formula);
-			valueFieldDS.reload({ 
-				params : {
-					source_id : sid
-				}
-			});
+			// console.info('------start------');
+			// valueFieldDS.reload({
+			// 	params : {
+			// 		source_id : sid
+			// 	}
+			// });
 //			currField = "";
 			fwindow.show();
 		}else {
