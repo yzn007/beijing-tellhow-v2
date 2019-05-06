@@ -26,15 +26,15 @@
 		var scrollTop = field.getPositionEl().dom.scrollTop;
 		var scrollLeft = field.getPositionEl().dom.scrollLeft;
 		if (startPos != endPos) {
-			field.setValue( field.value.substring(0, startPos)
+			field.setValue( field.getValue().substring(0, startPos)
 			              + txt
-			              + field.value.substring(endPos, field.value.length));
+			              + field.getValue().substring(endPos, field.getValue().length));
 			cursorPos += txt.length;
 		}
 		else {
-				field.setValue (field.value.substring(0, startPos)
+				field.setValue (field.getValue().substring(0, startPos)
 				              + txt
-				              + field.value.substring(endPos, field.value.length));
+				              + field.getValue().substring(endPos, field.getValue().length));
 				cursorPos = startPos + txt.length;
 		}
         field.focus();
@@ -44,7 +44,7 @@
 		field.scrollLeft = scrollLeft;
 	}
 	else {
-		//field.value += txt;
+		//field.getValue() += txt;
 		field.setValue(field.getValue()+txt);
 		field.focus();
 	}

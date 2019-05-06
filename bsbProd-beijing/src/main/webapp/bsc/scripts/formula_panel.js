@@ -129,6 +129,7 @@ publicTree.on('dblclick', function(node, e) {
 		}
 		
 	if(node.attributes.source_type_id != '03'){
+		console.info('--插入公式---');
 		RangeInsert(formulaTextArea, "[@" + node.id + "]");
 	}
 });
