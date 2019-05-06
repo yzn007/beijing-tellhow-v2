@@ -370,24 +370,24 @@ Ext.onReady(function() {
 			
 			Ext.getCmp('deleteProject').setDisabled(false);
 			Ext.getCmp('editProject').setDisabled(false);
-			Ext.getCmp('public').setDisabled(false);
-			Ext.getCmp('callback').setDisabled(false);
+			//Ext.getCmp('public').setDisabled(false);
+			//Ext.getCmp('callback').setDisabled(false);
 			
 			if(record_status == 'I'){
 				//已经停用方案 只能删除
 				Ext.getCmp('deleteProject').setDisabled(true);
 				Ext.getCmp('dropProject').setDisabled(false);
 				Ext.getCmp('editProject').setDisabled(true);
-				Ext.getCmp('public').setDisabled(true);
-				Ext.getCmp('callback').setDisabled(true);
+				// Ext.getCmp('public').setDisabled(true);
+				// Ext.getCmp('callback').setDisabled(true);
 				Ext.getCmp('gotoEdit').setDisabled(true);
 				Ext.getCmp('copyProject').setDisabled(true);
 			}else if (ownerOrgId != orgId) {
 				Ext.getCmp('deleteProject').setDisabled(true);
 				Ext.getCmp('dropProject').setDisabled(true);
 				Ext.getCmp('editProject').setDisabled(true);
-				Ext.getCmp('public').setDisabled(true);
-				Ext.getCmp('callback').setDisabled(true);
+				// Ext.getCmp('public').setDisabled(true);
+				// Ext.getCmp('callback').setDisabled(true);
 				Ext.getCmp('gotoEdit').setDisabled(true);
 
 //				Ext.getCmp('addResult').setDisabled(true);
@@ -399,20 +399,20 @@ Ext.onReady(function() {
 					Ext.getCmp('deleteProject').setDisabled(false);
 					Ext.getCmp('dropProject').setDisabled(false);
 					Ext.getCmp('editProject').setDisabled(true);
-					Ext.getCmp('public').setDisabled(true);
-					Ext.getCmp('callback').setDisabled(false);
+					// Ext.getCmp('public').setDisabled(true);
+					// Ext.getCmp('callback').setDisabled(false);
 
 				} else {
 					Ext.getCmp('deleteProject').setDisabled(false);
 					Ext.getCmp('dropProject').setDisabled(false);
 					Ext.getCmp('editProject').setDisabled(false);
-					Ext.getCmp('public').setDisabled(false);
-					Ext.getCmp('callback').setDisabled(true);
+					// Ext.getCmp('public').setDisabled(false);
+					// Ext.getCmp('callback').setDisabled(true);
 				}
 			}
 			if(projectGrid.getSelectionModel().getSelections()[0].get('is_template') == 'Y'){
-				Ext.getCmp('public').setDisabled(true);
-				Ext.getCmp('callback').setDisabled(true);
+				// Ext.getCmp('public').setDisabled(true);
+				// Ext.getCmp('callback').setDisabled(true);
 				if(ownerOrgId != orgId){
 					Ext.getCmp('deleteProject').setDisabled(true);
 					Ext.getCmp('dropProject').setDisabled(true);
