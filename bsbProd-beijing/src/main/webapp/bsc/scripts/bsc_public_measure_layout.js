@@ -44,7 +44,7 @@ Ext.onReady(function() {
         tooltip : '查询指标',
         iconCls : 'search',
         handler : function() {
-            doSearch();
+            // doSearch();
             console.info("adv search")
             url = "/bsc/pages/bsc_measure_search.jsp"
             window.parent.gotoPage('search_menu','高级搜索',url);
