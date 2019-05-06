@@ -129,14 +129,16 @@ Ext.onReady(function() {
 	}, {
 		header : '对象类型',
 		dataIndex : 'obj_cate_id',
-		renderer : objCate
+		renderer : objCate,
+		hidden: true
 	},{
 		header : '对象维度',
 		dataIndex : 'obj_link_name'
 		}, {
 		header : '是否发布',
 		dataIndex : 'app_type_id',
-		renderer : appTypeId
+		renderer : appTypeId,
+		hidden: true
 	},{
 		header : '归属机构ID',
 		dataIndex : 'owner_org_id',
