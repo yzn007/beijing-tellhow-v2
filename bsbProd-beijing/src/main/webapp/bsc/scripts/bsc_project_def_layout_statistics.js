@@ -234,41 +234,43 @@ Ext.onReady(function() {
 			window.parent.tabManager.removeTabItem(rid);
 			window.parent.gotoPage(rid,'方案与指标',url);
 		}
-	}, '-',{
-		text : '发布(p)',
-		id : 'public',
-		disabled : true,
-		toolTip : '发布方案',
-		iconCls : 'publish',
-		handler : function() {
-			if (projectId == '') {
-				Ext.MessageBox.alert("提示信息", "请选择需要发布的方案");
-				return;
-			}
-			Ext.MessageBox.confirm('提示','确认要发布吗?',function(btn,text){
-				if(btn == 'yes'){
-					doPublish("00");
-				}
-			});
-		}
-	}, '-', {
-		text : '撤回(r)',
-		id : 'callback',
-		toolTip : '撤回方案',
-		disabled : true,
-		iconCls : 'revoke',
-		handler : function() {
-			if (projectId == '') {
-				Ext.MessageBox.alert("提示信息", "请选择需要撤回的方案");
-				return;
-			}
-			Ext.Msg.confirm('提示', '确认要撤回?', function(btn) {
-				if (btn == 'yes') {
-					doPublish("01");
-				}
-			});
-		}
-	}, '->',{
+	},
+	// 	'-',{
+	// 	text : '发布(p)',
+	// 	id : 'public',
+	// 	disabled : true,
+	// 	toolTip : '发布方案',
+	// 	iconCls : 'publish',
+	// 	handler : function() {
+	// 		if (projectId == '') {
+	// 			Ext.MessageBox.alert("提示信息", "请选择需要发布的方案");
+	// 			return;
+	// 		}
+	// 		Ext.MessageBox.confirm('提示','确认要发布吗?',function(btn,text){
+	// 			if(btn == 'yes'){
+	// 				doPublish("00");
+	// 			}
+	// 		});
+	// 	}
+	// }, '-', {
+	// 	text : '撤回(r)',
+	// 	id : 'callback',
+	// 	toolTip : '撤回方案',
+	// 	disabled : true,
+	// 	iconCls : 'revoke',
+	// 	handler : function() {
+	// 		if (projectId == '') {
+	// 			Ext.MessageBox.alert("提示信息", "请选择需要撤回的方案");
+	// 			return;
+	// 		}
+	// 		Ext.Msg.confirm('提示', '确认要撤回?', function(btn) {
+	// 			if (btn == 'yes') {
+	// 				doPublish("01");
+	// 			}
+	// 		});
+	// 	}
+	// },
+		'->',{
 		xtype : 'checkbox',
 		boxLabel : '显示已停用方案 ',
 		listeners : {
