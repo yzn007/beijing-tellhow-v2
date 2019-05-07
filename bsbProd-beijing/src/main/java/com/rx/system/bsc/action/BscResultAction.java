@@ -1569,20 +1569,22 @@ public class BscResultAction extends BaseDispatchAction {
 			String projcetName = "指标查询结果导出";
 			String conf = "";
 			//指标id
-			if( paramMap.get("measure_id") != null)
+			if( paramMap.get("measure_id") != null && !"".equals(paramMap.get("measure_id").toString()))
 				conf += "[指标Id]"+paramMap.get("measure_id").toString().concat("|");
 			//指标名称
-			if( paramMap.get("measure_name") != null)
+			if( paramMap.get("measure_name") != null && !"".equals(paramMap.get("measure_name").toString()))
 				conf += "[指标名称]"+paramMap.get("measure_name").toString().concat("|");
 			//指标来源
-			if(paramMap.get("objSourceName")!=null)
+			if(paramMap.get("objSourceName")!=null && !"".equals(paramMap.get("objSourceName").toString()))
 				conf += "[指标来源]"+ paramMap.get("objSourceName").toString().concat("|");
 			//指标分类
-			if(paramMap.get("source_type_name")!=null)
+			if(paramMap.get("source_type_name")!=null && !"".equals(paramMap.get("source_type_name").toString()))
 				conf += "[指标分类]"+ paramMap.get("source_type_name").toString().concat("|");
 			//周期
-			if( paramMap.get("objPeriodName")!=null)
+			if( paramMap.get("objPeriodName")!=null && !"".equals(paramMap.get("objPeriodName").toString()))
 				conf += "[周期]"+ paramMap.get("objPeriodName").toString();
+			if(conf.lastIndexOf("|")==conf.length()-1)
+				conf = conf.substring(0,conf.length() -1);
 			String exportHeader = "";
 			exportHeader = "条件:"+conf+","+"日期:"+ DateFormat.getDateInstance().format(new Date());
 			String [] titles  = header.split(",");

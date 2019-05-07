@@ -31,11 +31,11 @@
       <file leaf-file-name="BscResultAction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="1568" column="40" lean-forward="false" selection-start-line="1568" selection-start-column="40" selection-end-line="1568" selection-end-column="40" />
+            <state relative-caret-position="185">
+              <caret line="1587" column="0" lean-forward="false" selection-start-line="1587" selection-start-column="0" selection-end-line="1587" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#59722#59743#0" expanded="true" />
+                <element signature="e#60094#60115#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1582,12 +1582,12 @@
       <workItem from="1556502787032" duration="24132000" />
       <workItem from="1556588290415" duration="20110000" />
       <workItem from="1556786514634" duration="6208000" />
-      <workItem from="1557021464411" duration="48925000" />
+      <workItem from="1557021464411" duration="51121000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="593431000" />
+    <option name="totallyTimeSpent" value="595627000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1755,13 +1755,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>1639</line>
+          <line>1641</line>
           <properties />
           <option name="timeStamp" value="195" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>1664</line>
+          <line>1666</line>
           <properties />
           <option name="timeStamp" value="198" />
         </line-breakpoint>
@@ -1775,9 +1775,13 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="223" />
+      <option name="time" value="226" />
     </breakpoint-manager>
-    <watches-manager />
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="conf.lastIndexOf(&quot;|&quot;)" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -2254,11 +2258,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="1568" column="40" lean-forward="false" selection-start-line="1568" selection-start-column="40" selection-end-line="1568" selection-end-column="40" />
+        <state relative-caret-position="185">
+          <caret line="1587" column="0" lean-forward="false" selection-start-line="1587" selection-start-column="0" selection-end-line="1587" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#59722#59743#0" expanded="true" />
+            <element signature="e#60094#60115#0" expanded="true" />
           </folding>
         </state>
       </provider>
