@@ -119,10 +119,9 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 		第二阶段开发 22 统计维度 改成 其它维度 变成不是必选
 	 */
 	public void addProjectStatOjbect(Map<String, Object> paramMap) throws Exception {
-		String objKey = paramMap.get("obj_link_id").toString();
-		if (StringUtil.isNullString(objKey))
+		if (!paramMap.containsKey("obj_link_id") || StringUtil.isNullString(paramMap.get("obj_link_id").toString()))
 			return;
-
+		String objKey = paramMap.get("obj_link_id").toString();
 		paramMap = this.getSourceExpressionByLinkID(paramMap);
 		String sourceExpress = paramMap.get("sourceExp").toString();
 		String  project_id = paramMap.get("project_id").toString();
@@ -168,6 +167,8 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 	 */
 
 	public void addProjectStatCycle(Map<String, Object> paramMap) throws Exception {
+		if (!paramMap.containsKey("stat_cycle_cd"))
+			return;
 		String statCyc = paramMap.get("stat_cycle_cd").toString();
 		String  project_id = paramMap.get("project_id").toString();
 		StringBuffer sb  = new StringBuffer();

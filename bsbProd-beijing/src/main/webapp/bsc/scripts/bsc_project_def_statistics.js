@@ -470,7 +470,7 @@ projectTypes = [
     {id:"04", name:"社情民意线"}
 ];
 
-ProjectTypeSelector = function () {
+ProjectTypeSelector = function (fieldLabel) {
     var typeStore = new Ext.data.JsonStore({
         fields: ["id", "name"],
         data: projectTypes
@@ -485,7 +485,7 @@ ProjectTypeSelector = function () {
         editable: false,
         triggerAction: 'all',
         allowBlank:false,
-        fieldLabel:'分类方案<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+        fieldLabel:fieldLabel,
         name: 'project_type',
         value: '',
         id:'project_type',
@@ -542,7 +542,7 @@ function addProject() {
 				}
 			}
 		},
-            new ProjectTypeSelector(),
+            new ProjectTypeSelector('分类方案<span style="color:red;font-weight:bold" data-qtip="Required">*</span>'),
             {
 			xtype : 'combo',
 			mode : 'local',
@@ -674,8 +674,6 @@ function addProject() {
 	addWindow.show();
 
 	cycleTypeDS.on("load", function() {
-/*        Ext.getCmp('objCateSelector').readOnly = true;
-        Ext.getCmp('objCateSelector').addClass('readOnlyColor');*/
 		if (cycleTypeDS.getCount() > 0) {
 			if (cycleTypeId == '')
 				cycleTypeId = cycleTypeDS.getAt(0).get('cycle_type_id');
@@ -785,70 +783,111 @@ function editProject(record) {
 			}
 
 		},
-          {
-			xtype : 'combo',
-			mode : 'local',
-			displayField : 'cycle_type_desc',
-			valueField : 'cycle_type_id',
-			hiddenName : 'cycle_type_id',
-			store : cycleTypeDS,
-			editable : false,
-            disabled:true,
-			triggerAction : 'all',
-			fieldLabel : '统计周期',
-			name : 'cycle_type_id',
-			id : 'cycleTypeSelector',
-			anchor : '95%'
-		},
-        {
-            id : 'cycleDimSet',
-            columnWidth : .35,
-            anchor : '95%',
-            layout : 'form'
-        }
-        , {
-        xtype : 'combo',
-        store : dimensionStore,
-        valueField : 'link_id',
-        displayField : 'link_name',
-        mode : 'local',
-        forceSelection : true,
-        hiddenName : 'obj_link_id',
-        editable : false,
-        triggerAction : 'all',
-        allowBlank : false,
-        fieldLabel : '其它维度',
-        listeners: {
-            select : function(combo, record, index){
-                beforeObjClose();
-                objDimDS.reload({params : {
-                        link_id : record.get('link_id')
-                    }})
-            }
-        },
-        name : 'obj_link_id',
-        id : 'isDimension',			//对象维度
-        anchor : '95%'
-		},
-        {
-            id : 'objDimSet',
-            columnWidth : .35,
-            anchor : '95%',
-            layout : 'form'
-        },
-        {
-        xtype : 'textarea',
-        name : 'project_desc',
-        id : 'project_desc',
-        fieldLabel : '方案备注',
-        autoScroll : true,
-        height : 80,
-        anchor : '95%'
-		}]
-	});
+            new ProjectTypeSelector('分类方案'),
+            {
+                xtype: 'combo',
+                mode: 'local',
+                displayField: 'cycle_type_desc',
+                valueField: 'cycle_type_id',
+                hiddenName: 'cycle_type_id',
+                store: cycleTypeDS,
+                editable: false,
+                disabled: true,
+                triggerAction: 'all',
+                fieldLabel: '统计周期',
+                name: 'cycle_type_id',
+                id: 'cycleTypeSelector',
+                anchor: '95%'
+            },
+            {
+                id: 'cycleDimSet',
+                columnWidth: .35,
+                anchor: '95%',
+                layout: 'form',
+                hidden: true,
+            },
+            {
+                xtype: 'combo',
+                store: districtDimensionStore,
+                valueField: 'link_id',
+                displayField: 'link_name',
+                mode: 'local',
+                forceSelection: true,
+                hiddenName: 'district_id',
+                editable: false,
+                disabled: true,
+                triggerAction: 'all',
+                allowBlank: false,
+                fieldLabel: '地区维度',
+                name: 'obj_district_id',
+                id: 'districtDimension',			//地区维度
+                anchor: '95%'
+            },
+            {
+                xtype : 'hidden',
+                id : 'district_object_table'
+            },{
+                id : 'objDistrictDimSet',
+                columnWidth : .35,
+                anchor : '95%',
+                layout : 'form'
+            },
+            {
+                xtype: 'combo',
+                store: dimensionStore,
+                valueField: 'link_id',
+                displayField: 'link_name',
+                mode: 'local',
+                forceSelection: true,
+                hiddenName: 'obj_link_id',
+                editable: false,
+                triggerAction: 'all',
+                allowBlank: false,
+                fieldLabel: '其它维度',
+                name: 'obj_link_id',
+                id: 'isDimension',
+                disabled: true,
+                anchor: '95%'
+            },
+            {
+                id: 'objDimSet',
+                columnWidth: .35,
+                anchor: '95%',
+                layout: 'form',
+                hidden: true
+            },
+            {
+                xtype: 'textarea',
+                name: 'project_desc',
+                id: 'project_desc',
+                fieldLabel: '方案备注',
+                autoScroll: true,
+                height: 80,
+                anchor: '95%'
+            }]
+    });
 
+	console.info(record);
 	editPanel.getForm().loadRecord(record);
-	
+	Ext.getCmp('project_type').setValue(record.data['project_type']);
+    //地区维度
+    districtDimensionStore.on('load',function(){
+        //删除其它维度
+        for(var i=districtDimensionStore.getCount()-1;i>=0;i--){
+            if(districtDimensionStore.data.items[i].data.link_name.indexOf('地区代码') < 0 ){
+                districtDimensionStore.data.items[i].store.removeAt(i);
+            }
+        }
+        if (districtDimensionStore.getCount() > 0) {
+
+            var  dimensionId = districtDimensionStore.getAt(0).get('link_id');
+
+            Ext.getCmp("districtDimension").setValue(dimensionId);
+        }
+        Ext.getCmp('districtDimension').setValue(record.data['district_id']);
+    });
+    districtDimensionStore.load();
+
 	Ext.Ajax.request({
 		url : pathUrl + '/bscProject_hasRelation.action?project_id='+projectId,
 		method : 'POST',

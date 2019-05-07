@@ -22,11 +22,11 @@ var dimensionSel = '';
 var projectStore = new Ext.data.JsonStore({
 	url : pathUrl + '/bscProject_common.action?method=listProject',
 	root : 'results',
-	fields : ["project_id", "project_name", "project_id","project_desc", "cycle_type_id",
+	fields : ["project_id", "project_name", "project_id", "project_desc", 'project_type', "cycle_type_id",
 			"obj_cate_id",  "obj_link_id","obj_link_name","app_type_id", "view_id", "full_score",
 			"score_limit_low", "score_limit_high", "is_template",
 			"owner_org_id", "create_user", "create_time", "update_user",
-			"update_time","record_status"]
+			"update_time","record_status", 'district_id']
 });
 
 projectStore.on('beforeload',function(){

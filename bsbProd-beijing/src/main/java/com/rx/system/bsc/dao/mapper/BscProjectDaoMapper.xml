@@ -49,7 +49,8 @@
 	<select id="listProject" parameterType="map" resultType="map">
 		 select t.project_id,
 				t.project_name, 
-				t.project_desc, 
+				t.project_desc,
+				t.project_type,
 				t.cycle_type_id, 
 				t.obj_cate_id, 
 				t.app_type_id, 
@@ -61,7 +62,8 @@
 				t.update_user, 
 				t.update_time,
 				t.obj_cate_id as icon,
-				t.record_status
+				t.record_status,
+				t.district_id
 		 from bsc_project t
 		 left join
 		 	bsc_dim_link b
@@ -137,7 +139,7 @@ bsc_proj_mea m on p.project_id = m.PROJECT_ID and m.measure_id = r.measure_id
 		update bsc_project t
 		   set t.project_name     = #{project_name},
 		       t.project_desc     = #{project_desc},
-		       t.obj_link_id      = #{obj_link_id},
+		       t.project_type	  = #{project_type},
 		       t.update_user      = #{login_user_id},
 		       t.update_time      = sysdate()
 		 where t.project_id = #{project_id}
