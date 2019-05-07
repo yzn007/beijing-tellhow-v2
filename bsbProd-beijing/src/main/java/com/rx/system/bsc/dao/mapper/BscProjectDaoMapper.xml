@@ -102,6 +102,7 @@ bsc_proj_mea m on p.project_id = m.PROJECT_ID and m.measure_id = r.measure_id
 		  (project_id,
 		   project_name,
 		   project_desc,
+		   project_type,
 		   cycle_type_id,
 		   obj_cate_id,
 		   app_type_id,
@@ -111,11 +112,13 @@ bsc_proj_mea m on p.project_id = m.PROJECT_ID and m.measure_id = r.measure_id
 		   create_time,
 		   update_user,
 		   update_time,
-		   record_status)
+		   record_status,
+		   DISTRICT_ID)
 		values
 		  (#{project_id},
 		   #{project_name},
 		   #{project_desc},
+		   #{project_type},
 		   '02',
 		   'BM',
 		   '01',
@@ -125,7 +128,8 @@ bsc_proj_mea m on p.project_id = m.PROJECT_ID and m.measure_id = r.measure_id
 		   sysdate(),
 		   #{login_user_id},
 		   sysdate(),
-		   'A')
+		   'A',
+		   #{district_id})
 	</insert>
 	
 	<!-- 编辑平衡计分卡方案 -->

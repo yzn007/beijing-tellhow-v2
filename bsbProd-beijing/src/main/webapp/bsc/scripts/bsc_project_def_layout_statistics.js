@@ -132,7 +132,7 @@ Ext.onReady(function() {
 		renderer : objCate,
 		hidden: true
 	},{
-		header : '对象维度',
+		header : '其它维度',
 		dataIndex : 'obj_link_name'
 		}, {
 		header : '是否发布',

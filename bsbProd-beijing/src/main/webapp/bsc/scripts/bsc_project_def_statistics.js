@@ -384,8 +384,123 @@ objGridSelector = function(obj) {
 Ext.extend(objGridSelector,Ext.form.ComboBox);
 /***-----------------------------------**/
 
+function beforeMeaClose(fid) {
+    if(fid=='isDimension'){
+        for (var i = 0; i < objDimDS.getCount(); i++) {
+            var record = objDimDS.getAt(i);
+            var id = record.get('link_id');
+            var comp = Ext.getCmp(id);
+            if(comp != null){
+                comp.destroy();
+            }
+        }
+        Ext.getCmp("objDimSet").doLayout(true);
+    }else {
+        for (var i = 0; i < objDistrictDim.getCount(); i++) {
+            var record = objDistrictDim.getAt(i);
+            var id = record.get('link_id');
+            var comp = Ext.getCmp(id);
+            if(comp != null){
+                comp.destroy();
+            }
+        }
+        Ext.getCmp("objDistrictDimSet").doLayout(true);
+    }
+}
+
+var objDistrictDim = new Ext.data.Store({
+    proxy: new Ext.data.HttpProxy({
+        url : pathUrl + '/datasourceconfig_sourceFieldList.action'
+    }),
+    reader: new Ext.data.JsonReader({
+            root: 'results',
+            id:'column_name'
+        },
+        [{name: 'column_name'},
+            {name: 'dim_fullname'},
+            {name: 'column_biz_name'},
+            {name: 'link_id'},
+            {name: 'data_type_id'},
+            {name: 'is_tree'},
+            {name: 'label_field'},
+            {name: 'id_field'},
+            {name: 'root_value'},
+            {name: 'parent_id_field'}]),
+    remoteSort: false
+});
+
+objDistrictDim.on("load",function(){
+    for (var i = 0; i < objDistrictDim.getCount(); i++) {
+        var record = objDistrictDim.getAt(i);
+        var comp = getComponmentObj(record);
+        if(comp != null){
+            Ext.getCmp("objDistrictDimSet").add(comp);
+        }
+    }
+    var comb =  Ext.getCmp("objDistrictDimSet");
+    comb.on('select',function(comboBox){
+        alert('ddddd');
+    });
+    Ext.getCmp("objDistrictDimSet").doLayout(true);
+});
 
 
+//对象维度
+var	districtDimensionStore=new Ext.data.JsonStore({
+    url :pathUrl + '/selector_listDimension.action',
+    root : 'results',
+    totalProperty : 'totalCount',
+    fields : [ 'link_id', 'link_name']
+
+});
+
+//对象维度
+var	dimensionOtherStore=new Ext.data.JsonStore({
+    url :pathUrl + '/selector_listDimension.action',
+    root : 'results',
+    totalProperty : 'totalCount',
+    fields : [ 'link_id', 'link_name']
+});
+
+// 方案分类
+projectTypes = [
+    {id:"01", name:"城市生命线"},
+    {id:"02", name:"城市事件线"},
+    {id:"03", name:"城市生活线"},
+    {id:"04", name:"社情民意线"}
+];
+
+ProjectTypeSelector = function () {
+    var typeStore = new Ext.data.JsonStore({
+        fields: ["id", "name"],
+        data: projectTypes
+    });
+
+    ProjectTypeSelector.superclass.constructor.call(this,{
+        store: typeStore,
+        valueField :'id',
+        displayField:'name',
+        mode: 'local',
+        hiddenName:'project_type',
+        editable: false,
+        triggerAction: 'all',
+        allowBlank:false,
+        fieldLabel:'分类方案<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+        name: 'project_type',
+        value: '',
+        id:'project_type',
+        anchor:'95%',
+        listeners: {
+            select: function (combo, record, index) {
+                if (combo.lastSelectionText != "") {
+                    Ext.getCmp("measure_source_desc").setValue(combo.lastSelectionText);
+                }
+            }
+        }
+    });
+}
+
+Ext.extend(ProjectTypeSelector,Ext.form.ComboBox);
 
 /**
  * 添加方案定义
@@ -426,7 +541,9 @@ function addProject() {
 					});
 				}
 			}
-		}, {
+		},
+            new ProjectTypeSelector(),
+            {
 			xtype : 'combo',
 			mode : 'local',
 			displayField : 'cycle_type_desc',
@@ -444,8 +561,36 @@ function addProject() {
             id : 'cycleDimSet',
             columnWidth : .35,
             anchor : '95%',
-            layout : 'form'
-        }, {
+            layout : 'form',
+            hidden: true
+        },
+            {
+                xtype : 'combo',
+                store : districtDimensionStore,
+                valueField : 'link_id',
+                displayField : 'link_name',
+                mode : 'local',
+                forceSelection : true,
+                hiddenName : 'district_id',
+                editable : false,
+                triggerAction : 'all',
+                allowBlank : false,
+                fieldLabel : '地区维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+                name : 'obj_district_id',
+                id : 'districtDimension',			//地区维度
+                anchor : '95%'
+            },
+            {
+                xtype : 'hidden',
+                id : 'district_object_table'
+            },
+            {
+                id : 'objDistrictDimSet',
+                columnWidth : .35,
+                anchor : '95%',
+                layout : 'form'
+            },
+            {
 			xtype : 'combo',
 			store : dimensionStore,
 			valueField : 'link_id',
@@ -454,15 +599,7 @@ function addProject() {
 			hiddenName : 'obj_link_id',
 			editable : false,
 			triggerAction : 'all',
-			fieldLabel : '统计维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
-            listeners: {
-                select : function(combo, record, index){
-                    beforeObjClose();
-                    objDimDS.reload({params : {
-                            link_id : record.get('link_id')
-                        }})
-                }
-            },
+			fieldLabel : '其它维度',
             name : 'obj_link_id',
 			id : 'isDimension',			//对象维度
 			anchor : '95%'
@@ -475,7 +612,7 @@ function addProject() {
 			xtype : 'textarea',
 			name : 'project_desc',
 			id : 'project_desc',
-			fieldLabel : '方案备注&nbsp;&nbsp;',
+			fieldLabel : '方案备注',
 			autoScroll : true,
 			height : 80,
 			anchor : '95%'
@@ -559,6 +696,45 @@ function addProject() {
             objDimDS.reload({params: {link_id : dimensionId}});
 		}
 	});
+
+    //其它对象维度
+    dimensionOtherStore.on("load", function() {
+        //删除统计年份维度
+        for(var i=dimensionOtherStore.getCount()-1;i>=0;i--){
+            if(dimensionOtherStore.data.items[i].data.link_name.indexOf('地区代码')>=0
+                || dimensionOtherStore.data.items[i].data.link_name.indexOf('统计年份')>=0
+            ){
+                dimensionOtherStore.data.items[i].store.removeAt(i);
+            }
+        }
+
+        // if (dimensionOtherStore.getCount() > 0) {
+        //
+        //     var  dimensionId = dimensionOtherStore.getAt(0).get('link_id');
+        //
+        //     Ext.getCmp("isDimension").setValue(dimensionId);
+        // }
+
+        Ext.getCmp('isDimension').setValue("");
+    });
+    dimensionOtherStore.load();
+
+    //地区维度
+    districtDimensionStore.on('load',function(){
+        //删除其它维度
+        for(var i=districtDimensionStore.getCount()-1;i>=0;i--){
+            if(districtDimensionStore.data.items[i].data.link_name.indexOf('地区代码') < 0 ){
+                districtDimensionStore.data.items[i].store.removeAt(i);
+            }
+        }
+        if (districtDimensionStore.getCount() > 0) {
+
+            var  dimensionId = districtDimensionStore.getAt(0).get('link_id');
+
+            Ext.getCmp("districtDimension").setValue(dimensionId);
+        }
+    });
+    districtDimensionStore.load();
 //	dimensionStore.load();
 	
 /*	if (ownerOrgId != '8888') {
@@ -641,7 +817,7 @@ function editProject(record) {
         editable : false,
         triggerAction : 'all',
         allowBlank : false,
-        fieldLabel : '对象维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+        fieldLabel : '其它维度',
         listeners: {
             select : function(combo, record, index){
                 beforeObjClose();

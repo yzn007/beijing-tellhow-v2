@@ -7,6 +7,7 @@ import java.util.Map;
 import com.rx.system.base.BaseService;
 import com.rx.system.bsc.dao.BscProjectDao;
 import com.rx.system.bsc.service.IBscProjectService;
+import com.rx.system.model.excel.StringUtil;
 import com.rx.system.util.CommonUtil;
 import com.rx.system.util.GlobalUtil;
 
@@ -32,7 +33,9 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> objDimLinkList = this.jdbcManager.queryForList(sql);
 		
-		
+		if (objDimLinkList.size() == 0)
+			return;
+
 		Map<String, Object> map = GlobalUtil.lowercaseMapKey(objDimLinkList.get(0));
 		
 		String idField 		= (String) map.get("id_field");
@@ -104,8 +107,8 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 		this.addProjectStatOjbect(paramMap);
 
 		//插入统计方案周期表数据
-		this.addProjectStatCycle(paramMap);
-		
+		//this.addProjectStatCycle(paramMap); 第二阶段需求22 去掉 统计年份
+ 		
 		this.refreshProjectObjects((String)paramMap.get("project_id")); //刷新方案下的对象
 	}
 
@@ -113,17 +116,21 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 	/*
 		统计方案维度表
 		"Family_Type_Cd" -> "01,02,"
+		第二阶段开发 22 统计维度 改成 其它维度 变成不是必选
 	 */
 	public void addProjectStatOjbect(Map<String, Object> paramMap) throws Exception {
 		String objKey = paramMap.get("obj_link_id").toString();
+		if (StringUtil.isNullString(objKey))
+			return;
+
 		paramMap = this.getSourceExpressionByLinkID(paramMap);
 		String sourceExpress = paramMap.get("sourceExp").toString();
 		String  project_id = paramMap.get("project_id").toString();
 		String  id_field = paramMap.get("id_field").toString();
 		String  label_field = paramMap.get("label_field").toString();
-		String statObj = paramMap.get(objKey).toString();
 		StringBuffer sb  = new StringBuffer ();
-		if(null != statObj && !"".equals(statObj)){
+		if(paramMap.containsKey(objKey) && !"".equals(paramMap.get(objKey).toString())){
+			String statObj = paramMap.get(objKey).toString();
 			String objVal = getStringById(statObj);
 			String sourceExp = sourceExpress.concat(" WHERE ").concat(paramMap.get("id_field").toString());
 			String table = sourceExp.concat(" IN ("+objVal+")");
@@ -179,7 +186,6 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 		//统计方案周期表
 		this.bscProjectDao.addProjectStatCycle(paramMap);
 	}
-
 	
 	/**
 	 * 编辑平衡计分卡方案
