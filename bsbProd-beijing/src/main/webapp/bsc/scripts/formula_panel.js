@@ -129,6 +129,7 @@ publicTree.on('dblclick', function(node, e) {
 		}
 		
 	if(node.attributes.source_type_id != '03'){
+		console.info('--插入公式---');
 		RangeInsert(formulaTextArea, "[@" + node.id + "]");
 	}
 });
@@ -773,11 +774,12 @@ function doEditFormula(){
 //			Ext.Msg.alert("",sid);
 			sourceComboBox.setValue(sid);
 			sourceFormulaTextArea.setValue(formula);
-			valueFieldDS.reload({ 
-				params : {
-					source_id : sid
-				}
-			});
+			// console.info('------start------');
+			// valueFieldDS.reload({
+			// 	params : {
+			// 		source_id : sid
+			// 	}
+			// });
 //			currField = "";
 			fwindow.show();
 		}else {

@@ -148,8 +148,9 @@ function doAddParameter(dataStore) {
 			}
 			Ext.getCmp("paramTypeSelector").setValue(paramTypeId)
 		}
+		Ext.getCmp('paramTypeSelector').hide();
 	});
-	paramTypeStore.load();	
+	paramTypeStore.load();
 };
 
 /**

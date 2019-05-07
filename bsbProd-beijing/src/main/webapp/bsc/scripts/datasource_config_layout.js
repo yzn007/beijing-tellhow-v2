@@ -34,7 +34,7 @@ var souceColumn = new Ext.grid.ColumnModel([
 	{header: '数据源ID', dataIndex: 'source_id'},
 	{header: '数据源名', dataIndex: 'source_name'},
 	{header: '考核对象类型ID', dataIndex: 'obj_cate_id',hidden : true},
-	{header: '考核对象类型',dataIndex:'obj_cate_desc'},
+	{header: '考核对象类型',dataIndex:'obj_cate_desc', hidden: true},
 	{header: '对象维度字段',dataIndex:'obj_column'}
 ]);
 

@@ -71,6 +71,7 @@ Ext.onReady(function() {
 	}, {
 		header : "参数类型",
 		dataIndex : 'param_type_id',
+		hidden:true,
 		renderer : function(v) {
 			if (v == '01') {
 				v = "<font color='red'>全局参数</font>";

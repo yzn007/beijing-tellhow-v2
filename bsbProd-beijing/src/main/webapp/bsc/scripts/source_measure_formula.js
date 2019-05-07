@@ -16,9 +16,10 @@ function loadDataSource() {
 		var record = dataSourceDS.getAt(0);
 		var val = record.get('source_id');
 		sourceComboBox.setValue(val);
-		valueFieldDS.load({
-			params : {source_id : val}
-		})
+		// console.info('----AA---')
+		// valueFieldDS.load({
+		// 	params : {source_id : val}
+		// })
 	}
 }
 
@@ -36,6 +37,7 @@ valueFieldDS.on("load",function(){
 	beforeClose();
 	if (valueFieldDS.getCount() > 0) {
 		var source_id = valueFieldDS.getAt(0).get('source_id');
+		console.info('----BB---')
 		dimFieldDS.reload({
 			params : {
 				source_id : source_id

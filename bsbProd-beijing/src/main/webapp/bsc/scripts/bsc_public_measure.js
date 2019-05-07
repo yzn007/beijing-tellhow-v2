@@ -296,6 +296,8 @@ function initCompons() {
         //
         //     Ext.getCmp("isDimension").setValue(dimensionId);
         // }
+
+        Ext.getCmp('isDimension').setValue("");
     });
     dimensionOtherStore.load();
 

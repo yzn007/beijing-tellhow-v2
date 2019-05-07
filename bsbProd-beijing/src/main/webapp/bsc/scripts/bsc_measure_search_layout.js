@@ -40,22 +40,26 @@ Ext.onReady(function() {
             {
                 id       :'measure_id',
                 name     :'measure_id',
-                header   : '指标Id'
+                header   : '指标Id',
+                width    : 60
             },
             {
                 id       :'measure_name',
                 name     :'measure_name',
                 header   : '指标名称',
+                width    : 300
             },
             {
                 id: 'source_type_desc',
                 name : 'source_type_desc',
                 header   : '指标类型',
+                width    : 100
             },
             {
                 name : 'measure_source_desc',
                 id: 'measure_source_desc',
                 header: '指标来源',
+                width    : 360
             }
         ],
         region : 'center',
@@ -308,7 +312,6 @@ Ext.onReady(function() {
             handler: function () {
                 gridStore.load({
                         callback: function (record, options, success) {
-
                             for (var i = 0; i < record.length; i++) {
                                 for(var j=0; j<sourceTypeData.length; j++) {
                                     if(record[i]['json']['source_type_id'] == sourceTypeData[j][0]) {
@@ -318,6 +321,13 @@ Ext.onReady(function() {
                                     }
                                 }
 
+                                for(var j = 0; j < sourceData.length; j++) {
+                                    if (record[i]['json']['measure_source'] == sourceData[j][0]) {
+                                        var rec = this.getAt(i);
+                                        rec.set('measure_source_desc', sourceData[j][1]);
+                                        rec.commit();
+                                    }
+                                }
                             }
                             console.info(record);
                         }

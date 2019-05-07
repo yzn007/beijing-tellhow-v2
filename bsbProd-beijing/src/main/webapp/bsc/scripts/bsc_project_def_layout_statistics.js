@@ -129,14 +129,16 @@ Ext.onReady(function() {
 	}, {
 		header : '对象类型',
 		dataIndex : 'obj_cate_id',
-		renderer : objCate
+		renderer : objCate,
+		hidden: true
 	},{
-		header : '对象维度',
+		header : '其它维度',
 		dataIndex : 'obj_link_name'
 		}, {
 		header : '是否发布',
 		dataIndex : 'app_type_id',
-		renderer : appTypeId
+		renderer : appTypeId,
+		hidden: true
 	},{
 		header : '归属机构ID',
 		dataIndex : 'owner_org_id',
@@ -234,41 +236,43 @@ Ext.onReady(function() {
 			window.parent.tabManager.removeTabItem(rid);
 			window.parent.gotoPage(rid,'方案与指标',url);
 		}
-	}, '-',{
-		text : '发布(p)',
-		id : 'public',
-		disabled : true,
-		toolTip : '发布方案',
-		iconCls : 'publish',
-		handler : function() {
-			if (projectId == '') {
-				Ext.MessageBox.alert("提示信息", "请选择需要发布的方案");
-				return;
-			}
-			Ext.MessageBox.confirm('提示','确认要发布吗?',function(btn,text){
-				if(btn == 'yes'){
-					doPublish("00");
-				}
-			});
-		}
-	}, '-', {
-		text : '撤回(r)',
-		id : 'callback',
-		toolTip : '撤回方案',
-		disabled : true,
-		iconCls : 'revoke',
-		handler : function() {
-			if (projectId == '') {
-				Ext.MessageBox.alert("提示信息", "请选择需要撤回的方案");
-				return;
-			}
-			Ext.Msg.confirm('提示', '确认要撤回?', function(btn) {
-				if (btn == 'yes') {
-					doPublish("01");
-				}
-			});
-		}
-	}, '->',{
+	},
+	// 	'-',{
+	// 	text : '发布(p)',
+	// 	id : 'public',
+	// 	disabled : true,
+	// 	toolTip : '发布方案',
+	// 	iconCls : 'publish',
+	// 	handler : function() {
+	// 		if (projectId == '') {
+	// 			Ext.MessageBox.alert("提示信息", "请选择需要发布的方案");
+	// 			return;
+	// 		}
+	// 		Ext.MessageBox.confirm('提示','确认要发布吗?',function(btn,text){
+	// 			if(btn == 'yes'){
+	// 				doPublish("00");
+	// 			}
+	// 		});
+	// 	}
+	// }, '-', {
+	// 	text : '撤回(r)',
+	// 	id : 'callback',
+	// 	toolTip : '撤回方案',
+	// 	disabled : true,
+	// 	iconCls : 'revoke',
+	// 	handler : function() {
+	// 		if (projectId == '') {
+	// 			Ext.MessageBox.alert("提示信息", "请选择需要撤回的方案");
+	// 			return;
+	// 		}
+	// 		Ext.Msg.confirm('提示', '确认要撤回?', function(btn) {
+	// 			if (btn == 'yes') {
+	// 				doPublish("01");
+	// 			}
+	// 		});
+	// 	}
+	// },
+		'->',{
 		xtype : 'checkbox',
 		boxLabel : '显示已停用方案 ',
 		listeners : {
@@ -366,24 +370,24 @@ Ext.onReady(function() {
 			
 			Ext.getCmp('deleteProject').setDisabled(false);
 			Ext.getCmp('editProject').setDisabled(false);
-			Ext.getCmp('public').setDisabled(false);
-			Ext.getCmp('callback').setDisabled(false);
+			//Ext.getCmp('public').setDisabled(false);
+			//Ext.getCmp('callback').setDisabled(false);
 			
 			if(record_status == 'I'){
 				//已经停用方案 只能删除
 				Ext.getCmp('deleteProject').setDisabled(true);
 				Ext.getCmp('dropProject').setDisabled(false);
 				Ext.getCmp('editProject').setDisabled(true);
-				Ext.getCmp('public').setDisabled(true);
-				Ext.getCmp('callback').setDisabled(true);
+				// Ext.getCmp('public').setDisabled(true);
+				// Ext.getCmp('callback').setDisabled(true);
 				Ext.getCmp('gotoEdit').setDisabled(true);
 				Ext.getCmp('copyProject').setDisabled(true);
 			}else if (ownerOrgId != orgId) {
 				Ext.getCmp('deleteProject').setDisabled(true);
 				Ext.getCmp('dropProject').setDisabled(true);
 				Ext.getCmp('editProject').setDisabled(true);
-				Ext.getCmp('public').setDisabled(true);
-				Ext.getCmp('callback').setDisabled(true);
+				// Ext.getCmp('public').setDisabled(true);
+				// Ext.getCmp('callback').setDisabled(true);
 				Ext.getCmp('gotoEdit').setDisabled(true);
 
 //				Ext.getCmp('addResult').setDisabled(true);
@@ -395,20 +399,20 @@ Ext.onReady(function() {
 					Ext.getCmp('deleteProject').setDisabled(false);
 					Ext.getCmp('dropProject').setDisabled(false);
 					Ext.getCmp('editProject').setDisabled(true);
-					Ext.getCmp('public').setDisabled(true);
-					Ext.getCmp('callback').setDisabled(false);
+					// Ext.getCmp('public').setDisabled(true);
+					// Ext.getCmp('callback').setDisabled(false);
 
 				} else {
 					Ext.getCmp('deleteProject').setDisabled(false);
 					Ext.getCmp('dropProject').setDisabled(false);
 					Ext.getCmp('editProject').setDisabled(false);
-					Ext.getCmp('public').setDisabled(false);
-					Ext.getCmp('callback').setDisabled(true);
+					// Ext.getCmp('public').setDisabled(false);
+					// Ext.getCmp('callback').setDisabled(true);
 				}
 			}
 			if(projectGrid.getSelectionModel().getSelections()[0].get('is_template') == 'Y'){
-				Ext.getCmp('public').setDisabled(true);
-				Ext.getCmp('callback').setDisabled(true);
+				// Ext.getCmp('public').setDisabled(true);
+				// Ext.getCmp('callback').setDisabled(true);
 				if(ownerOrgId != orgId){
 					Ext.getCmp('deleteProject').setDisabled(true);
 					Ext.getCmp('dropProject').setDisabled(true);
