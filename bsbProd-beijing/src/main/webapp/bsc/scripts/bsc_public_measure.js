@@ -75,7 +75,7 @@ AddWindow = Ext.extend(Ext.Window, {
 						+ '/publicMeasure_common.action?method=addEngMeasure',
 				items : [{
 					xtype : 'textfield',
-					fieldLabel : '指标代码<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
+					fieldLabel : '指标ID<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
 					allowBlank : false,
 					id : 'measure_id',
 					name : 'measure_id',
@@ -457,7 +457,7 @@ EditWindow = Ext.extend(Ext.Window, {
                 },
                     {
                         xtype : 'textfield',
-                        fieldLabel : '指标代码',
+                        fieldLabel : '指标ID',
                         allowBlank : false,
                         id : 'tmid',
                         disabled : true,

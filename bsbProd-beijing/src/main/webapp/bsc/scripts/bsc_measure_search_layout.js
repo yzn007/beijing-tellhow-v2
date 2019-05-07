@@ -40,7 +40,7 @@ Ext.onReady(function() {
             {
                 id       :'measure_id',
                 name     :'measure_id',
-                header   : '指标Id',
+                header   : '指标ID',
                 width    : 60
             },
             {

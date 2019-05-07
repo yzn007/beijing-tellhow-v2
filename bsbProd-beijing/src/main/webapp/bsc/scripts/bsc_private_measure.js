@@ -61,7 +61,7 @@ AddWindow = Ext.extend(Ext.Window, {
 						+ '/privateMeasure_common.action?method=addEngMeasure',
 				items : [{
 					xtype : 'textfield',
-					fieldLabel : '指标代码',
+					fieldLabel : '指标ID',
 					allowBlank : false,
 					id : 'measure_id',
 					name : 'measure_id',
@@ -228,7 +228,7 @@ EditWindow = Ext.extend(Ext.Window, {
 					anchor : '95%'
 				}, {
 					xtype : 'textfield',
-					fieldLabel : '指标代码',
+					fieldLabel : '指标ID',
 					allowBlank : false,
 					disabled : true,
 					id : 'tmid',
@@ -275,7 +275,7 @@ EditWindow = Ext.extend(Ext.Window, {
 				}, {
 					xtype : 'panel',
 					baseCls : 'x-plain',
-					html : '<div align=left><br>注：若指标代码变动请手工修改相关公式引用.<br></div> '
+					html : '<div align=left><br>注：若指标ID变动请手工修改相关公式引用.<br></div> '
 				}]
 			}/**, {
 				xtype : 'treepanel',
