@@ -225,9 +225,21 @@
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
 		left join (select * from  bsc_proj_mea_obj_val_measure where month_id = #{year_id}) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
+		<if test="(obj_link_id != null and obj_link_id != '') or (project_type != null and project_type != '') or (cycle_type_id != null and cycle_type_id != '')">
+			left join bsc_project bp on bp.PROJECT_ID = t.PROJECT_ID
+		</if>
 		where t.project_id = #{project_id}
 		<if test="oId != null and oId != ''">
 			and t.object_id in (${oId})
+		</if>
+		<if test="obj_link_id != null and obj_link_id != ''">
+			and bp.OBJ_LINK_ID = #{obj_link_id}
+		</if>
+		<if test="project_type != null and project_type != ''">
+			and bp.project_type = #{project_type}
+		</if>
+		<if test="cycle_type_id != null and cycle_type_id != ''">
+			and bp.cycle_type_id = #{cycle_type_id}
 		</if>
 		group by t.object_id,t.object_name
 
@@ -260,9 +272,21 @@
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
 		left join (select * from  bsc_proj_mea_obj_val_measure where month_id = #{year_id}) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
+		<if test="(obj_link_id != null and obj_link_id != '') or (project_type != null and project_type != '') or (cycle_type_id != null and cycle_type_id != '')">
+			left join bsc_project bp on bp.PROJECT_ID = t.PROJECT_ID
+		</if>
 		where t.project_id = #{project_id}
 		<if test="oId != null and oId != ''">
 			and t.object_id in (${oId})
+		</if>
+		<if test="obj_link_id != null and obj_link_id != ''">
+			and bp.OBJ_LINK_ID = #{obj_link_id}
+		</if>
+		<if test="project_type != null and project_type != ''">
+			and bp.project_type = #{project_type}
+		</if>
+		<if test="cycle_type_id != null and cycle_type_id != ''">
+			and bp.cycle_type_id = #{cycle_type_id}
 		</if>
 		group by t.object_id,t.object_name
 		<include refid="totalCountEnd"/>
