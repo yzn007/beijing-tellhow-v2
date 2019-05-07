@@ -2,15 +2,28 @@ package com.rx.system.bsc.action;
 
 import static com.rx.system.util.CommonUtil.getCurrentDateString;
 
+import org.apache.axis2.databinding.types.xsd.DateTime;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.formula.functions.Now;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import java.awt.Dimension;
-import java.io.File;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.util.*;
 
+import com.rx.framework.jdbc.SupportedJdbcManager;
+import com.rx.system.bsc.dao.BscResultDao;
+import com.rx.system.bsc.dao.DimLinkDao;
+import com.rx.system.bsc.service.impl.BscResultServiceImpl;
+import com.rx.system.domain.BscMeasure;
+import org.apache.http.entity.ContentType;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 
 import com.rx.framework.jdbc.JdbcManager;
@@ -28,6 +41,13 @@ import com.rx.system.model.excel.utils.ExcelUtil;
 import com.rx.system.service.ISelectorService;
 import com.rx.system.table.DhtmlTableTemplate;
 import com.rx.system.table.ITableTemplate;
+import org.apache.struts2.views.jsp.ui.SelectTag;
+import org.jgroups.protocols.FILE_PING;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 平衡计分卡考核结果Action
@@ -1422,8 +1442,266 @@ public class BscResultAction extends BaseDispatchAction {
 		return null;
 	}
 
-	
-    private List<ExcelField> getExcelFields(String showID,String [] titles) {   			
+	public static void main(String args[]){
+		ApplicationContext ioc = new ClassPathXmlApplicationContext("classpath*:spring/applicationContext.xml");
+		JdbcTemplate template= (JdbcTemplate)ioc.getBean("jdbcTemplate");
+		BscResultAction bscResultAction = new BscResultAction();
+		bscResultAction.setJdbcManager(new SupportedJdbcManager(template));
+		BscResultServiceImpl bscResultService = new BscResultServiceImpl();
+//		bscResultService.setBscResultDao((BscResultDao) ioc.getBean("bscResultDao"));
+		bscResultAction.setBscResultService(bscResultService);
+		try{
+			bscResultAction.importMeasureFromExcel();
+			bscResultAction.exportBscMeasureDhtmlByConf();
+		}catch (Exception e){
+			System.out.print(e);
+		}
+	}
+
+	private String buildSearchMeasureSql(String columns) throws Exception {
+		Map<String,Object> map = this.getRequestParam(request);
+		String obj_cate_id = map.get("obj_cate_id").toString();
+		String pageIndex = map.get("pageindex").toString();
+		//搜索关键字
+		String keyword = map.get("keyword") == null?null:map.get("keyword").toString();
+		//指标id
+		String measure_id = map.get("measure_id") == null?null:map.get("measure_id").toString();
+		//指标名称
+		String measure_name = map.get("measure_name") == null?null:map.get("measure_name").toString();
+		//指标来源
+		String measureSource = map.get("measure_source")==null?null:map.get("measure_source").toString();
+		//指标分类
+		String sourceTypeId = map.get("source_type_id")==null?null:map.get("source_type_id").toString();
+		//周期
+		String period = map.get("period")==null?null:map.get("period").toString();
+		//维度
+		String dimension = map.get("dimension")==null?null:map.get("dimension").toString();
+		StringBuffer sb = new StringBuffer();
+		sb.append("select  ");
+		sb.append(columns);
+		sb.append(" from bsc_measure where");
+		//sb.append(" where (measure_name like '%"+map.get("keyword")+"%' or measure_id like '%"+map.get("keyword")+"%')");
+		sb.append(" is_private = '"+map.get("is_private")+"'");
+		if(!"".equals(keyword) && null != keyword){
+			sb.append(" and (measure_name like '%"+map.get("keyword")+"%' or measure_id like '%"+map.get("keyword")+"%')");
+		}
+		if(!"".equals(measure_name) && null != measure_name){
+			sb.append(" and measure_name like '%" + measure_name + "%'");
+		}
+		if(!"".equals(measure_id) && null != measure_id){
+			sb.append(" and measure_id like '%" + measure_id + "%'");
+		}
+		if(!"".equals(obj_cate_id) && "2".equals(pageIndex)){
+			sb.append(" and obj_cate_id = '"+obj_cate_id+"'");
+		}
+		if(!"".equals(measureSource) && null != measureSource){
+			sb.append(" and measure_source = '"+measureSource+"'");
+		}
+		if(!"".equals(sourceTypeId) && null != sourceTypeId){
+			sb.append(" and source_type_id = '"+sourceTypeId+"'");
+		}
+		if(!"".equals(period) && null != period){
+			sb.append(" and countperiod = '"+period+"'");
+		}
+		if(!"".equals(dimension) && null != dimension){
+			sb.append(" and( districtobjecttable = '"+dimension+"' or otherobjecttable ='" +dimension+"') ");
+		}
+		sb.append(" order by global_order_id");
+
+		return sb.toString();
+	}
+
+	@FunDesc(code="BSC_0025")
+	@UseLog
+	public String exportBscMeasureDhtmlByConf() throws Exception {
+		List<Map<String, Object>> measureList = null;
+		Map<String, Object> paramMap = null;
+		String sqlQuery = null;
+		if (request != null){
+			paramMap = this.getRequestParam(request);
+			sqlQuery = buildSearchMeasureSql(" * ");
+		}
+		try {
+			List<Map<String, Object>> dataList = selectorService.queryForList(sqlQuery);
+			ITableTemplate template = new DhtmlTableTemplate();
+			String[] mapKey = new String[14];
+
+			String columnType = "ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,ro,";
+			String formatType = "0,0,0,0,0,0,0,0,0,0,0,0,0,0,";
+			String header = "指标代码,指标父代码,指标名称,指标描述,指标类型,指标源表,指标公式表达式," +
+					"指标单位,指标来源,来源名称,统计周期,预警指标类型,地区维度表名,其它维度表名,";
+			String columnWidth = "140,140,180,260,90,130,180," +
+					"80,80,160,80,80,140,140,";
+			String columnAlign = "center,center,center,center,center,center,center," +
+					"center,center,center,center,center,center,center,";
+			mapKey[0] = "measure_id";
+			mapKey[1] = "parent_measure_id";
+			mapKey[2] = "measure_name";
+			mapKey[3] = "measure_desc";
+			mapKey[4] = "source_type_id";
+			mapKey[5] = "source_id";
+			mapKey[6] = "formula_expr";
+			mapKey[7] = "measure_unit";
+			mapKey[8] = "measure_source";
+			mapKey[9] = "measure_source_desc";
+			mapKey[10] = "countperiod";
+			mapKey[11] = "alerttype";
+			mapKey[12] = "districtobjecttable";
+			mapKey[13] = "otherobjecttable";
+
+			template.setHeader(new String[]{header});
+			template.setColumnAlign(columnAlign);
+			template.setColumnType(columnType);
+			template.setColumnWidth(columnWidth);
+			template.setColumnFormatType(formatType);
+			template.setDataMapKey(mapKey);
+			template.setData(dataList);
+			if(paramMap != null)
+				template.setTitle(paramMap.get("title").toString());
+			else
+				template.setTitle("");
+			String []titiles = header.split(HEADER_SPLIT);
+
+			String objName = "指标明细导出";
+
+
+//			String webBasePath = ServletActionContext.getServletContext().getRealPath("/");
+			String projcetName = "指标查询结果导出";
+			String conf = "";
+			//指标id
+			if( paramMap.get("measure_id") != null)
+				conf += "[指标Id]"+paramMap.get("measure_id").toString().concat("|");
+			//指标名称
+			if( paramMap.get("measure_name") != null)
+				conf += "[指标名称]"+paramMap.get("measure_name").toString().concat("|");
+			//指标来源
+			if(paramMap.get("objSourceName")!=null)
+				conf += "[指标来源]"+ paramMap.get("objSourceName").toString().concat("|");
+			//指标分类
+			if(paramMap.get("source_type_name")!=null)
+				conf += "[指标分类]"+ paramMap.get("source_type_name").toString().concat("|");
+			//周期
+			if( paramMap.get("objPeriodName")!=null)
+				conf += "[周期]"+ paramMap.get("objPeriodName").toString();
+			String exportHeader = "";
+			exportHeader = "条件:"+conf+","+"日期:"+ DateFormat.getDateInstance().format(new Date());
+			String [] titles  = header.split(",");
+			List<ExcelField>  excelFields = getExcelFields(titles,mapKey);
+
+			String title= "指标明细导出";
+			SXSSFWorkbook wb = new SXSSFWorkbook(ROW_ACCESS_WINDOW_SIZE);
+			ExcelUtil excelUtil = new ExcelUtil(wb,excelFields,title,exportHeader);
+			int startNum = 0;
+			excelUtil.exportXLSX(wb,dataList,startNum);
+			String fileName = projcetName+".xlsx";
+			response.reset();
+
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			fileName = new String(fileName.getBytes(),"iso-8859-1");
+			response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+			OutputStream out = response.getOutputStream();
+//			FileOutputStream out = new FileOutputStream(
+//					"D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\"
+//							+ Constant.FILE_DOWNLOAD_DIR +
+//							DateFormat.getDateInstance().format(new Date())+"_指标导出.xlsx");
+			try {
+				wb.write(out);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (out != null) {
+					try {
+						out.flush();
+						out.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				wb.dispose();
+			}
+			return "excelDownload";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private List<ExcelField> getExcelFields(String [] titles,String [] values) {
+		List<ExcelField> excelFields = new ArrayList();
+		if(titles.length == values.length )
+			for(int i=0;i<titles.length;i++){
+				excelFields.add(new ExcelField(titles[i], values[i]));
+			}
+		return excelFields;
+	}
+
+	public void importMeasureFromExcel() throws IOException {
+		String webBasePath = "";
+		try{
+			ServletActionContext.getServletContext();
+			webBasePath = ServletActionContext.getServletContext().getRealPath("/");
+		}catch (NullPointerException nullEx){
+			webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
+		}
+		if("".equals(webBasePath))
+			webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
+
+		String localFileName =  webBasePath + Constant.FILE_UPLOAD_DIR +"\\指标导入模板.xlsx";
+
+		File fileSave = new File(localFileName);
+		FileInputStream fileInputStream = new FileInputStream(fileSave);
+		MultipartFile multipartFile = new MockMultipartFile(fileSave.getName(),fileSave.getName(),
+				ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
+
+		int beginRowIndex = 4;
+		int cellType = 1;
+		Workbook wookbook = null;
+
+		try{
+			//wookbook = new HSSFWorkbook(fileInputStream);
+			wookbook = new XSSFWorkbook(fileInputStream);
+			cellType = HSSFCell.CELL_TYPE_STRING;
+			List<BscMeasure> listMeasure = ExcelUtil.read2003Excel(multipartFile,beginRowIndex,BscMeasure.class);
+		}catch (Exception e){
+			try{
+				fileInputStream =  new FileInputStream(fileSave);
+//				wookbook = new HSSFWorkbook(fileInputStream);
+				wookbook = new XSSFWorkbook(fileInputStream);
+				cellType = HSSFCell.CELL_TYPE_STRING;
+				List<BscMeasure> listMeasure = ExcelUtil.read2003Excel(multipartFile,beginRowIndex,BscMeasure.class);
+			}catch (Exception ex){
+				LOG.debug(ex.toString());
+			}
+
+		}
+		Sheet sheet = wookbook.getSheetAt(0);
+		//总数
+		int totalRowNum = sheet.getLastRowNum();
+		List<Map<Integer,String>> list = new ArrayList<Map<Integer,String>>();
+		Map<Integer,String> map = null;
+		for(int x = 1 ; x <= totalRowNum ; x++){
+			map = new HashMap<Integer,String>();
+			//取得行
+			Row row = sheet.getRow(x);
+			int cellLength = row.getLastCellNum();
+			int a = 0;
+			for(int y=0;y<cellLength;y++){
+				Cell cell = row.getCell(y);
+				if(cell == null){
+					map.put(y,"");
+				}else {
+					cell.setCellType(cellType);
+					map.put(y, cell.getStringCellValue().toString());
+				}
+			}
+			list.add(map);
+		}
+
+
+	}
+
+	private List<ExcelField> getExcelFields(String showID, String [] titles) {
         List<ExcelField> excelFields = new ArrayList();          
         if(SHOW_FLAG.equals(showID)){
         	   excelFields.add(new ExcelField("地区名称", "zone_cd_desc"));

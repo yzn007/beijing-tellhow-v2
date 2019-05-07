@@ -86,7 +86,8 @@ public class ExcelUtil {
 //                    initHeaderAndSheet(workbook, headList, title);
                 }
             }*/
-            rowIndex += EXCEL_BEGIN_ROW_INDEX;
+            if(rowIndex == startRow)
+                rowIndex += EXCEL_BEGIN_ROW_INDEX;
 
             Row dataRow = sheet.createRow(rowIndex);
             for (int i = 0; i < properties.length; i++) {       	

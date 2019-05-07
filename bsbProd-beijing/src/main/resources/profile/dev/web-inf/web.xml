@@ -164,7 +164,7 @@
 		<filter-class>org.jasig.cas.client.session.SingleSignOutFilter</filter-class>
 		<init-param>
 			<param-name>casServerUrlPrefix</param-name>
-			<param-value>http://10.10.10.41:17001/cas</param-value>
+			<param-value>http://172.26.52.167:17001/cas</param-value>
 		</init-param>
 	</filter>
 
@@ -177,7 +177,7 @@
 		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
 		<init-param>
 			<param-name>casServerLoginUrl</param-name>
-			<param-value>http://10.10.10.41:17001/cas/login?locale=zh_CN</param-value>
+			<param-value>http://172.26.52.167:17001/cas/login?locale=zh_CN</param-value>
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
@@ -190,7 +190,7 @@
 		<filter-class>org.jasig.cas.client.validation.Cas30ProxyReceivingTicketValidationFilter</filter-class>
 		<init-param>
 			<param-name>casServerUrlPrefix</param-name>
-			<param-value>http://10.10.10.41:17001/cas</param-value>
+			<param-value>http://172.26.52.167:17001/cas</param-value>
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>

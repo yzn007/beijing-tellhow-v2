@@ -181,7 +181,7 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://172.26.52.167:8080/bsbProd/main.jsp</param-value>
+			<param-value>http://172.26.52.167:8088/bsbProd/main.jsp</param-value>
 		</init-param>
 	</filter>
 
@@ -194,7 +194,7 @@
 		</init-param>
 		<init-param>
 			<param-name>serverName</param-name>
-			<param-value>http://172.26.52.167:8080/bsbProd/main.jsp</param-value>
+			<param-value>http://172.26.52.167:8088/bsbProd/main.jsp</param-value>
 		</init-param>
 		<init-param>
 			<param-name>redirectAfterValidation</param-name>

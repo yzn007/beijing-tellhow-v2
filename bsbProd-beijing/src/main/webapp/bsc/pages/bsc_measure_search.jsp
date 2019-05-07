@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/scripts/ext3.4.0/resources/css/ext-all.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/css/icon.css" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/public/scripts/dhtmlx/dhtmlxtree.css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/public/scripts/dhtmlx/dhtmlxcommon.js"></script>
 
     <%@ include file="/skin.jsp"%>
 
@@ -38,5 +39,31 @@
 
 </head>
 <body>
+<!-- 导出Excel文件Form -->
+<form id="excelForm" name="excelForm" action="bscresult_exportBscMeasureDhtmlByConf.action" method="post" target="">
+    <input type="hidden" name="project_id" />
+    <input type="hidden" name="role_id" />
+    <input type="hidden" name="month_id" />
+    <input type="hidden" name="file_name" />
+    <input type="hidden" name="title" />
+    <input type="hidden" name="obj_cate_id" />
+    <input type="hidden" name="project_name" />
+    <input type="hidden" name="month_name" />
+    <input type="hidden" name="measure_id"/>
+    <input type="hidden" name="show_id"/>
+    <input type="hidden" name="obj_id"/>
+    <input type="hidden" name="time_id"/>
+    <input type="hidden" name="zone_id"/>
+    <input type="hidden" name="pageindex">
+    <input type="hidden" name="keyword">
+    <input type="hidden" name="measure_name">
+    <input type="hidden" name="source_type_id">
+    <input type="hidden" name="source_type_name">
+    <input type="hidden" name="measure_source">
+    <input type="hidden" name="objSourceName">
+    <input type="hidden" name="period">
+    <input type="hidden" name="objPeriodName">
+    <input type="hidden" name="is_private">
+</form>
 </body>
 </html>

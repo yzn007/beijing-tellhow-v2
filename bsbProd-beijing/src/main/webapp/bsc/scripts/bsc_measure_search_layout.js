@@ -329,6 +329,31 @@ Ext.onReady(function() {
             handler : function() {
                 seachForm.form.reset();
             }
+        }, {
+            text : '导出Excel',
+            handler : function() {
+                if(gridStore.data.length<=0){
+                    Ext.MessageBox.alert('提示信息','请查询数据后再导出！');
+                    return;
+                }
+                document.excelForm.month_id.value = 'monthID';
+                document.excelForm.project_id.value = 'projectID';
+                document.excelForm.title.value = '标题';
+                document.excelForm.project_name.value = '指标导出';
+                document.excelForm.month_name.value = 'monthName';
+                document.excelForm.measure_id.value = Ext.getCmp("measure_id").getValue();
+                document.excelForm.measure_name.value = Ext.getCmp("measure_name").getValue();
+                document.excelForm.source_type_id.value = Ext.getCmp("sourceTypeId").getValue();
+                document.excelForm.source_type_name.value = Ext.getCmp("sourceTypeId").lastSelectionText;
+                document.excelForm.measure_source.value = Ext.getCmp("objSourceId").getValue();
+                document.excelForm.objSourceName.value = Ext.getCmp("objSourceId").lastSelectionText;
+                document.excelForm.period.value = Ext.getCmp('objPeriodId').getValue();
+                document.excelForm.objPeriodName.value = Ext.getCmp('objPeriodId').lastSelectionText;
+                document.excelForm.is_private.value = 'N';
+
+                document.excelForm.file_name.value = '指标导出结果.xls';
+                document.excelForm.submit();
+            }
         }]
     });
 
