@@ -99,8 +99,10 @@ Ext.onReady(function() {
 				
 				propertyPanel.form.load({
 					url : pathUrl + '/publicMeasure_common.action?method=getEngMeasureById&measure_id='+node.id+'&is_private=N',
-                    success:function(){
+                    success:function(form ,action){
                         if (selectNode!=null){
+                            var record = eval(action.result.data);
+                            console.info(record);
                             var val = "";
                             //统计周期
                             switch (Ext.getCmp('countperiod').getValue()){
@@ -142,6 +144,7 @@ Ext.onReady(function() {
                                     break;
                                 }
                             }
+                            "预警指标" == record['source_type_desc'] ? Ext.getCmp('alerttype').show() : Ext.getCmp('alerttype').hide()
                         }
                     }
 				});
@@ -256,7 +259,8 @@ Ext.onReady(function() {
                     id : 'alerttype',
                     fieldLabel : '预警类型',
                     readOnly : true,
-                    anchor : '95%'
+                    anchor : '95%',
+                    hidden: true
                 }, /*{
 					xtype : 'textfield',
 					name : 'obj_cate_desc',
