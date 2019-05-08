@@ -297,7 +297,8 @@ function initCompons() {
         //     Ext.getCmp("isDimension").setValue(dimensionId);
         // }
 
-        Ext.getCmp('isDimension').setValue("");
+        if (Ext.getCmp('isDimension') != null)
+            Ext.getCmp('isDimension').setValue("");
     });
     dimensionOtherStore.load();
 
@@ -313,7 +314,8 @@ function initCompons() {
 
             var  dimensionId = districtDimensionStore.getAt(0).get('link_id');
 
-            Ext.getCmp("districtDimension").setValue(dimensionId);
+            if (Ext.getCmp("districtDimension") != null)
+                Ext.getCmp("districtDimension").setValue(dimensionId);
         }
     });
     districtDimensionStore.load();
@@ -380,7 +382,27 @@ function doEdit() {
             Ext.getCmp('obj_link_id').setValue(record.ohterdimension_desc);
             Ext.getCmp('obj_link_id').disabled = true;
 
-            Ext.getCmp('inner_level_order').setValue(record.inner_level_order)
+            Ext.getCmp('inner_level_order').setValue(record.inner_level_order);
+
+            switch (record.countperiod){
+                case "01":
+                    val = "年";
+                    break;
+                case "02":
+                    val = "季";
+                    break;
+                case "03":
+                    val = "月";
+                    break;
+                case "04":
+                    val = "日";
+                    break;
+                default:
+                    val = "";
+                    break;
+            }
+            Ext.getCmp('countperiod_txt').setValue(val);
+
         }
 	});
 
@@ -482,7 +504,15 @@ EditWindow = Ext.extend(Ext.Window, {
                     new SourceTypeSelector(),
                     new ObjAlertTypeSelector(),
                     /*comp,*/
-                    new ObjectCountPeriod(),
+                    {
+                        xtype : 'textfield',
+                        fieldLabel : '统计周期',
+                        allowBlank : true,
+                        name: 'countperiod_txt',
+                        id: 'countperiod_txt',
+                        disabled: true,
+                        anchor : '95%'
+                    },
                     {
                         xtype : 'textfield',
                         fieldLabel : '其它维度',

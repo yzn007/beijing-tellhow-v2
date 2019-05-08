@@ -441,11 +441,11 @@ SourceTypeSelector=function(){
                     Ext.getCmp("objTypeId").show();
 				}
                 if (combo.getValue() == "03") {
-                    Ext.getCmp("objPeriodId").hide();
+                    //Ext.getCmp("objPeriodId").hide();
                     Ext.getCmp("objSourceId").hide();
                     Ext.getCmp("measure_unit").hide();
-                    Ext.getCmp("districtDimension").hide();
-                    Ext.getCmp("isDimension").hide();
+                    //Ext.getCmp("districtDimension").hide();
+                    //Ext.getCmp("isDimension").hide();
                 }else{
                     Ext.getCmp("objPeriodId").show();
                     Ext.getCmp("objSourceId").show();
