@@ -189,99 +189,115 @@ Ext.onReady(function() {
                     {name : 'ohterdimension_desc'},
                     {name : 'alerttype'}
 				]),
-				items : [{
-					xtype : 'hidden',
-					name : 'obj_cate_id',
-					id : 'obj_cate_id'
-				},{
-					xtype : 'hidden',
-					name : 'formula_desc',
-					id : 'load_formula_desc'
-				},{
-					xtype : 'hidden',
-					name : 'source_id',
-					id : 'sid',
-					readOnly : true,
-					anchor : '95%'
-				},{
-					xtype : 'textfield',
-					name : 'measure_id',
-					id : 'mid',
-					fieldLabel : '指标ID',
-					readOnly : true,
-					anchor : '95%'
-				},{
-					xtype : 'textfield',
-					name : 'measure_name',
-					fieldLabel : '指标名',
-					readOnly : true,
-					anchor : '95%'
-				}, {
-                    xtype : 'textfield',
-                    name : 'measure_unit',
-                    fieldLabel : '指标单位',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'measure_source',
-                    id: 'measure_source',
-                    fieldLabel : '指标来源',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'source_type_desc',
-                    fieldLabel : '指标类型',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'countperiod',
-					id : 'countperiod',
-                    fieldLabel : '统计周期',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'ohterdimension_desc',
-                    fieldLabel : '其它维度',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    name : 'districtdimension_desc',
-                    fieldLabel : '地区维度',
-                    readOnly : true,
-                    anchor : '95%'
-                }, {
-                    xtype : 'textfield',
-                    id : 'alerttype',
-                    fieldLabel : '预警类型',
-                    readOnly : true,
-                    anchor : '95%',
-                    hidden: true
-                }, /*{
-					xtype : 'textfield',
-					name : 'obj_cate_desc',
-					fieldLabel : '考核对象类型',
-					readOnly : true,
-					anchor : '95%'
-				}, */{
-					xtype : 'textfield',
-					id : 'formula_expr',
-					name : 'formula_expr',
-					fieldLabel : '指标公式',
-					readOnly : true,
-					anchor : '89%'
-				}, {
-					xtype : 'textarea',
-					name : 'measure_desc',
-					fieldLabel : '指标描述',
-					readOnly : true,
-					anchor : '95%'
-				}]
-			})]
+                items: [
+                    {
+                        xtype: 'hidden',
+                        name: 'obj_cate_id',
+                        id: 'obj_cate_id'
+                    }, {
+                        xtype: 'hidden',
+                        name: 'formula_desc',
+                        id: 'load_formula_desc'
+                    }, {
+                        xtype: 'hidden',
+                        name: 'source_id',
+                        id: 'sid',
+                        readOnly: true,
+                        anchor: '95%'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'measure_id',
+                        id: 'mid',
+                        fieldLabel: '指标ID',
+                        readOnly: true,
+                        anchor: '95%'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'measure_name',
+                        fieldLabel: '指标名',
+                        readOnly: true,
+                        anchor: '95%'
+                    },
+
+                    {
+                        layout: 'column',
+                        items: [{
+                            columnWidth: .5,
+                            layout: 'form',
+                            items: [{
+                                xtype: 'textfield',
+                                name: 'measure_unit',
+                                fieldLabel: '指标单位',
+                                readOnly: true,
+                                anchor: '90%'
+                            }, {
+                                xtype: 'textfield',
+                                name: 'source_type_desc',
+                                fieldLabel: '指标类型',
+                                readOnly: true,
+                                anchor: '90%'
+                            }]
+                        }, {
+                            columnWidth: .5,
+                            layout: 'form',
+                            items: [{
+                                xtype: 'textfield',
+                                name: 'countperiod',
+                                id: 'countperiod',
+                                fieldLabel: '统计周期',
+                                readOnly: true,
+                                anchor: '90%'
+                            }, {
+                                xtype: 'textfield',
+                                id: 'alerttype',
+                                fieldLabel: '预警类型',
+                                readOnly: true,
+                                anchor: '90%',
+                                hidden: true
+                            }]
+                        }]
+                    },
+
+                    {
+                        xtype: 'textfield',
+                        name: 'measure_source',
+                        id: 'measure_source',
+                        fieldLabel: '指标来源',
+                        readOnly: true,
+                        anchor: '95%'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'ohterdimension_desc',
+                        fieldLabel: '其它维度',
+                        readOnly: true,
+                        anchor: '95%'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'districtdimension_desc',
+                        fieldLabel: '地区维度',
+                        readOnly: true,
+                        anchor: '95%'
+                    }, /*{
+                        xtype : 'textfield',
+                        name : 'obj_cate_desc',
+                        fieldLabel : '考核对象类型',
+                        readOnly : true,
+                        anchor : '95%'
+                    }, */{
+                        xtype: 'textfield',
+                        id: 'formula_expr',
+                        name: 'formula_expr',
+                        fieldLabel: '指标公式',
+                        readOnly: true,
+                        anchor: '89%'
+                    }, {
+                        xtype: 'textarea',
+                        name: 'measure_desc',
+                        fieldLabel: '指标描述',
+                        readOnly: true,
+                        anchor: '95%'
+                    }]
+            })]
 	});
 	
 	var div=Ext.getDom('formula_expr').parentNode;
