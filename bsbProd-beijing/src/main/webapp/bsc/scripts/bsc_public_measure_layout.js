@@ -47,7 +47,7 @@ Ext.onReady(function() {
             // doSearch();
             console.info("adv search")
             url = "/bsc/pages/bsc_measure_search.jsp"
-            window.parent.gotoPage('search_menu','高级搜索',url);
+            window.parent.gotoPage('search_menu','高级查询',url);
         }
     }, '-', {
 		id : 'delete_menu',

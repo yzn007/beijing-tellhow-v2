@@ -133,7 +133,7 @@ Ext.onReady(function() {
             store: gridStore,
             displayInfo: true,
             displayMsg: '搜索结果 {0} - {1} of {2}',
-            emptyMsg: "高级搜索",
+            emptyMsg: "高级查询",
         })
     });
 
@@ -264,7 +264,7 @@ Ext.onReady(function() {
     })
     var seachForm = new Ext.FormPanel({
         frame:true,
-        title: '高级搜索',
+        title: '高级查询',
         bodyStyle:'padding:5px 5px 0',
         height:220,
         defaults: {width: 230},
