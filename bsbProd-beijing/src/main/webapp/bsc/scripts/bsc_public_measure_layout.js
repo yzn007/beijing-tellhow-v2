@@ -68,7 +68,7 @@ Ext.onReady(function() {
         id : 'import_menu',
         text : '导入(i)',
         tooltip : '导入指标',
-        iconCls : '',
+        iconCls : 'importdata',
         handler : function() {
             doImport();
         }

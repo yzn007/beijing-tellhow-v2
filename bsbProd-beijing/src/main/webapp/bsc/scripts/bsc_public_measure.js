@@ -728,8 +728,8 @@ function doImport(){
 
 ImportWindow = Ext.extend(Ext.Window, {
     title : '导入指标窗口',
-    width : 300,
-    height : 290,
+    width : 330,
+    height : 200,
     layout : 'fit',
     plain : true,
     modal : true,
@@ -746,10 +746,10 @@ ImportWindow = Ext.extend(Ext.Window, {
         Ext.applyIf(this, {
             items : [{
                 xtype : 'form',
-                // region : 'center',
+                region : 'center',
                 id : 'importForm',
-                width : 270,
-                bodyStyle : 'padding:10px;',
+                width : 300,
+                bodyStyle : 'padding:10px;10px;55px;10px',
                 border : false,
                 labelWidth : 80,
                 labelAlign : 'left',
@@ -760,17 +760,18 @@ ImportWindow = Ext.extend(Ext.Window, {
                 items : [
                     {
                         id : 'template_id',
+                        fieldLabel : '模板下载',
                         anchor : '95%',
-                        title: '导入模板下载',
+                        // title: '模板下载',
                         width: '80%',
-                        html: '<a href="'+pathUrl + '/bscresult_importBscMeasureTemplateDownload.action">'+'下载导入模板</a>'
+                        html: '<a href="'+pathUrl + '/bscresult_importBscMeasureTemplateDownload.action" >'+'下载导入模板</a>'
                     },
                     {
                         id:'file',
                         anchor : '95%',
                         xtype : 'textfield',
                         allowBlank :false,
-                        width:"90%",
+                        // width:"90%",
                         blankText:"请选择文件",
                         inputType:'file'//文件组件
                     }
