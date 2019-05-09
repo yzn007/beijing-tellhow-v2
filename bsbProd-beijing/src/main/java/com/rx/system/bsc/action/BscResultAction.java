@@ -3,6 +3,10 @@ package com.rx.system.bsc.action;
 import static com.rx.system.util.CommonUtil.getCurrentDateString;
 
 import org.apache.axis2.databinding.types.xsd.DateTime;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUpload;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.formula.functions.Now;
@@ -1638,8 +1642,11 @@ public class BscResultAction extends BaseDispatchAction {
 		return excelFields;
 	}
 
-	public void importMeasureFromExcel() throws IOException {
+	@FunDesc(code="BSC_0026")
+	@UseLog
+	public String importBscMeasureTemplateDownload() throws Exception {
 		String webBasePath = "";
+		String filename = "指标导入模板.xlsx";
 		try{
 			ServletActionContext.getServletContext();
 			webBasePath = ServletActionContext.getServletContext().getRealPath("/");
@@ -1649,7 +1656,137 @@ public class BscResultAction extends BaseDispatchAction {
 		if("".equals(webBasePath))
 			webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
 
-		String localFileName =  webBasePath + Constant.FILE_UPLOAD_DIR +"\\指标导入模板.xlsx";
+		String localFileName =  webBasePath + Constant.FILE_UPLOAD_DIR +"\\"+filename;
+
+		File fileSave = new File(localFileName);
+		FileInputStream fileInputStream = new FileInputStream(fileSave);
+
+		Workbook wb = null;
+		try{
+			wb = new XSSFWorkbook(fileInputStream);
+			response.reset();
+			response.setContentType("application/x-download");
+			response.setCharacterEncoding("UTF-8");
+			response.setHeader("Content-Disposition", "attachment; filename="
+					+ java.net.URLEncoder.encode(filename, "utf-8"));
+			OutputStream out = response.getOutputStream();
+			try {
+				wb.write(out);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (out != null) {
+					try {
+						out.flush();
+						out.close();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+//				wb.destroy();
+			}
+			return "excelDownload";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private File file ;
+	private String contentType;
+	private String fileName;
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public void importMeasureFromExcel() throws IOException {
+		String webBasePath = "";
+		String filename = "指标导入模板上传.xlsx";
+		Map <String,Object> paramMap = null;
+
+		try{
+			ServletActionContext.getServletContext();
+			webBasePath = ServletActionContext.getServletContext().getRealPath("/");
+		}catch (NullPointerException nullEx){
+			webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
+		}
+
+		String localFileName =  webBasePath + Constant.FILE_UPLOAD_DIR +"\\"+DateFormat.getDateInstance().format(new Date())+"_"+filename;
+//		//上传到服务器目录
+		if(file.isFile()){
+			//定义并初始化io流的读写操作
+			BufferedInputStream bis = new BufferedInputStream(
+					new FileInputStream(file));
+			BufferedOutputStream bos = null;
+			try {
+				bos = new BufferedOutputStream(new FileOutputStream(localFileName));
+				// 从源文件中取数据，写到目标文件中
+				byte[] buff = new byte[8192];
+				for (int len = -1; (len = bis.read(buff)) != -1;) {
+					bos.write(buff, 0, len);
+				}
+				bos.flush();
+			} catch (IOException ie) {
+				ie.printStackTrace();
+			} finally {
+				if (bis != null) {
+					try {
+						bis.close();
+					} catch (IOException ie) {
+						ie.printStackTrace();
+					}
+				}
+				if (bos != null) {
+					try {
+						bos.close();
+					} catch (IOException ie) {
+						ie.printStackTrace();
+					}
+				}
+			}
+		}
+//		try{
+//			//创建DiskFileItemFactory工厂
+//			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
+//			//创建文件上传解析器
+//			ServletFileUpload upload = new ServletFileUpload(diskFileItemFactory);
+//			upload.setHeaderEncoding("UTF-8");
+//			if(!ServletFileUpload.isMultipartContent(request)){
+//				return;
+//			}
+//			//获取表单数据
+//			List<FileItem> fileItems = upload.parseRequest(request);
+//			Map itemMap = new HashMap();
+//			for(FileItem fileItem :fileItems){
+//				if(fileItem.isFormField()){
+//
+//				}
+//			}
+//		}catch (Exception e){
+//			System.out.println(e.toString());
+//		}
+
 
 		File fileSave = new File(localFileName);
 		FileInputStream fileInputStream = new FileInputStream(fileSave);
@@ -1671,36 +1808,200 @@ public class BscResultAction extends BaseDispatchAction {
 //				wookbook = new HSSFWorkbook(fileInputStream);
 				wookbook = new XSSFWorkbook(fileInputStream);
 				cellType = HSSFCell.CELL_TYPE_STRING;
-				List<BscMeasure> listMeasure = ExcelUtil.read2003Excel(multipartFile,beginRowIndex,BscMeasure.class);
+//				List<BscMeasure> listMeasure = ExcelUtil.read2003Excel(multipartFile,beginRowIndex,BscMeasure.class);
 			}catch (Exception ex){
 				LOG.debug(ex.toString());
 			}
 
 		}
 		Sheet sheet = wookbook.getSheetAt(0);
+		//开始处理上传行号-跳过标题和表头
+		int startRowNum = 3;
+		int startColumn = 1;
 		//总数
 		int totalRowNum = sheet.getLastRowNum();
 		List<Map<Integer,String>> list = new ArrayList<Map<Integer,String>>();
 		Map<Integer,String> map = null;
-		for(int x = 1 ; x <= totalRowNum ; x++){
-			map = new HashMap<Integer,String>();
+		for(int x = startRowNum ; x <= totalRowNum ; x++){
+			boolean isExists = false;
 			//取得行
 			Row row = sheet.getRow(x);
 			int cellLength = row.getLastCellNum();
-			int a = 0;
-			for(int y=0;y<cellLength;y++){
+
+			for(int y=startColumn;y<cellLength;y++){
 				Cell cell = row.getCell(y);
-				if(cell == null){
+				if(cell == null || cell.toString().equals("")){
+					if(y==startColumn)
+						break;
 					map.put(y,"");
 				}else {
 					cell.setCellType(cellType);
+					if(y==startColumn){
+						isExists =  true;
+						map = new HashMap<Integer,String>();
+					}
 					map.put(y, cell.getStringCellValue().toString());
 				}
 			}
-			list.add(map);
+			if(isExists)
+				list.add(map);
 		}
+		//开始处理数据
+		if(list.size()>0){
+			int i = 1;
+			List<String> listInsertCmd = new ArrayList<>();
+			List<String> listInsertMeaRely = new ArrayList<>();
+			String ids = "";
+			for(Map m :list){
+				ids += i++==list.size()?m.get(1).toString():m.get(1).toString()+",";
+				//衍生指标
+				if(m.get(4).toString().equals("01")){
+					listInsertMeaRely.add("insert into bsc_measure_exe(measure_id,rely_measure_id)values('"+m.get(4)+
+							"','"+
+							"')");
+				}
+				String insertSql
+						= "insert into bsc_measure "+
+						"(measure_id," +
+						"parent_measure_id," +
+						"measure_name," +
+						"source_type_id," +
+						"source_id," +
+						"formula_expr," +
+						"is_private," +
+						"obj_cate_id," +
+						"owner_org_id," +
+						"measure_desc," +
+						"measure_unit," +
+						"measure_source," +
+						"measure_source_desc," +
+						"countperiod," +
+//						"districtdimension," +
+//						"districtdimension_desc," +
+//						"ohterdimension," +
+//						"ohterdimension_desc," +
+						"districtobjecttable," +
+						"otherobjecttable," +
+						"alerttype" +
+						" )values("+
+						"'"+ m.get(1)+ "',"+
+						"'"+ m.get(2)+ "',"+
+						"'"+ m.get(3)+ "',"+
+						"'"+ getMeasureKey(m.get(4).toString())+ "',"+
+						"'"+ m.get(5)+ "',"+
+						"'"+ m.get(6)+ "',"+
+						"'N'," +
+						"'BM',"+
+						"'460106'," +
+						"'"+ m.get(7)+ "',"+
+						"'"+ m.get(8)+ "',"+
+						"'"+ m.get(9)+ "',"+
+						","+getMeasureKey(m.get(9).toString())+"',"+
+						"'"+ getMeasureKey(m.get(10).toString())+ "',"+
+						"'"+ m.get(11)+ "',"+
+						"'"+ m.get(12)+ "',"+
+						"'"+ getMeasureKey(m.get(13).toString())+ "' " +
+						")";
+				listInsertCmd.add(insertSql);
+			}
+			try{
+				//删除已有
+				this.jdbcManager.execute("delete from bsc_measure where measure_id in( "+getStringById(ids)+")");
+				listInsertCmd.forEach(s->{
+					try {
+						this.jdbcManager.execute(s);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
 
+	/**
+	 * 根据值取得key
+	 * @param value
+	 * @return
+	 */
+	private String getMeasureKey(String value){
+		Map<String,Object> mapSource = new HashMap<>();
+		//指标类型
+		mapSource.put("分类目录" ,"03");
+		mapSource.put("基础指标" ,"00");
+		mapSource.put("衍生指标" ,"01");
+		mapSource.put("预警指标" ,"04");
+		//指标来源
+		mapSource.put("北京市发展和改革委员会" ,"bj01");
+		mapSource.put("北京市民族事务委员会" ,"bj02");
+		mapSource.put("北京市人力资源和社会保障局" ,"bj03");
+		mapSource.put("北京市城市管理委员会" ,"bj04");
+		mapSource.put("北京市商务委员会" ,"bj05");
+		mapSource.put("北京市审计局" ,"bj06");
+		mapSource.put("北京市教育委员会" ,"bj07");
+		mapSource.put("北京市公安局" ,"bj08");
+		mapSource.put("北京市规划和国土资源管理委员会" ,"bj09");
+		mapSource.put("北京市交通委员会" ,"bj10");
+		mapSource.put("北京市旅游发展委员会" ,"bj11");
+		mapSource.put("北京市人民政府外事办公室" ,"bj12");
+		mapSource.put("北京市科学技术委员会" ,"bj13");
+		mapSource.put("北京市司法局" ,"bj14");
+		mapSource.put("北京市环境保护局" ,"bj15");
+		mapSource.put("北京市农村工作委员会" ,"bj16");
+		mapSource.put("北京市文化局" ,"bj17");
+		mapSource.put("北京市经济和信息化委员会" ,"bj18");
+		mapSource.put("北京市财政局" ,"bj19");
+		mapSource.put("北京市住房和城乡建设委员会" ,"bj20");
+		mapSource.put("北京市水务局" ,"bj21");
+		mapSource.put("北京市卫生和计划生育委员会" ,"bj22");
+		mapSource.put("北京市人民政府国有资产监督管理委员会" ,"bj23");
+		mapSource.put("北京市地方税务局" ,"bj24");
+		mapSource.put("北京市食品药品监督管理局" ,"bj25");
+		mapSource.put("北京市体育局" ,"bj26");
+		mapSource.put("北京市知识产权局" ,"bj27");
+		mapSource.put("北京市人民政府信访办公室" ,"bj28");
+		mapSource.put("北京市国有文化资产监督管理办公室" ,"bj29");
+		mapSource.put("北京市统计局" ,"bj30");
+		mapSource.put("北京市民防局" ,"bj31");
+		mapSource.put("北京市质量技术监督局" ,"bj32");
+		mapSource.put("北京市新闻出版广电局（北京市版权局);" ,"bj33");
+		mapSource.put("北京市园林绿化局" ,"bj34");
+		mapSource.put("北京市人民政府侨务办公室" ,"bj35");
+		mapSource.put("北京市安全生产监督管理局" ,"bj36");
+		mapSource.put("北京市文物局" ,"bj37");
+		mapSource.put("北京市金融工作局" ,"bj38");
+		mapSource.put("北京市人民政府法制办公室" ,"bj39");
+		mapSource.put("北京市工商行政管理局" ,"bj40");
+		mapSource.put("北京市农业局" ,"bj41");
+		mapSource.put("北京市粮食局" ,"bj42");
+		mapSource.put("北京市中医管理局" ,"bj43");
+		mapSource.put("北京市医院管理局" ,"bj44");
+		mapSource.put("北京市城市管理综合行政执法局" ,"bj45");
+		mapSource.put("北京市文化市场行政执法总队" ,"bj46");
+		mapSource.put("北京市社会建设工作办公室" ,"bj47");
+		mapSource.put("北京市人民政府天安门地区管理委员会" ,"bj48");
+		mapSource.put("北京经济技术开发区管理委员会" ,"bj49");
+		mapSource.put("北京西站地区管理委员会" ,"bj50");
+		mapSource.put("中关村科技园区管理委员会" ,"bj51");
+		mapSource.put("北京市气象局" ,"bj52");
+		mapSource.put("北京市交通管理局" ,"bj53");
+		mapSource.put("外部网站" ,"bj99");
+		mapSource.put("北京市人民政府办公厅" ,"bj54");
+		mapSource.put("12345北京市人民政府便民电话中心","bj55");
+		mapSource.put("北京市应急管理局" ,"bj56");
+		mapSource.put("北京市民政局" ,"bj57");
+		mapSource.put("北京市政务服务管理局" ,"bj58");
+		//周期
+		mapSource.put("年","02");
+		mapSource.put("季","01");
+		mapSource.put("月","00");
+		mapSource.put("日","03");
+		//预警指标类型
+		mapSource.put("阀值范围","0");
+		mapSource.put("复杂类型","2");
 
+		return mapSource.get(value)!=null&&!"".equals(mapSource.get(value).toString().trim())?mapSource.get(value).toString():"";
 	}
 
 	private List<ExcelField> getExcelFields(String showID, String [] titles) {

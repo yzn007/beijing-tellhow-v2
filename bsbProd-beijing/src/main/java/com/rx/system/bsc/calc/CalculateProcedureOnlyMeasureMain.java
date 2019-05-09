@@ -318,13 +318,18 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
             return;
         }
+        List<String> commdFailList = new ArrayList<>();
         for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
             Map<String, Object> map = lowMeaCommandList.get(i);
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -343,8 +348,12 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -363,8 +372,12 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -383,8 +396,12 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -393,7 +410,15 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             this.status.updateLogExecutInfo("正在计算底层年指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
             System.out.println("正在计算底层年指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
         }
-
+        if(commdFailList.size()>0){
+            for(String command:commdFailList){
+                try {
+                    this.jdbcManager.execute(command);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 
@@ -759,7 +784,7 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         // 4. 拼接SQL语句
         String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,value)\n"
                 + "select "
-                + "'[%monthID]' as month_id,'" + dateFrm
+                + "m0.month_id as month_id,'" + dateFrm
                 + "' 			 as date,"
                 + "'"+ exprMeasureID+ "' as measure_id,"
                 + "m0.object_id as object_id,\n"
@@ -931,7 +956,7 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         }else if(measure.getCountPeriod().equals("02")){//年
             dateFrm = this.date.substring(0,4);
         }
-        String v_sql = "select object_id,value from "+this.resultTable+" where month_id='[%monthID]' and date='"
+        String v_sql = "select object_id,value,month_id from "+this.resultTable+" where date='"
                 + dateFrm
                 + "' and measure_id = '" + measure.getMeasureId() + "'";
 

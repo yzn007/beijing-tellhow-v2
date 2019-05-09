@@ -285,14 +285,18 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
             return;
         }
-
+        List<String> commdFailList = new ArrayList<>();
         for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
             Map<String, Object> map = lowMeaCommandList.get(i);
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -311,8 +315,12 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -331,8 +339,12 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -351,8 +363,12 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
             if (StringUtils.isEmpty(command) || command == "null")
                 continue;
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            try {
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
+            }catch (Exception e){
+                commdFailList.add(command);
+            }
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
@@ -360,6 +376,16 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             this.status.setIndex(++runStep);
             this.status.updateLogExecutInfo("正在计算底层年指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
             System.out.println("正在计算底层年指标值......("+ (i+1) +"/"+lowMeaCommandList.size()+")");
+        }
+
+        if(commdFailList.size()>0){
+            for(String command:commdFailList){
+                try {
+                    this.jdbcManager.execute(command);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -912,7 +938,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         }else if(measure.getCountPeriod() .equals("02")){//年
             dateFrm = this.date.substring(0,4);
         }
-        String v_sql = "select object_id,value from "+this.resultTable+" where month_id='[%monthID]' and date='"
+        String v_sql = "select object_id,value from "+this.resultTable+" where date='"
                 + dateFrm
                 + "' and measure_id = '" + measure.getMeasureId() + "'";
 

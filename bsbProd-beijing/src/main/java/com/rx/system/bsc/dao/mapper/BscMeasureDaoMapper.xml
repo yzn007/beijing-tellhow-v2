@@ -17,7 +17,8 @@
 		select a.*
 		from bsc_measure a join bsc_datasource b on a.SOURCE_ID = b.SOURCE_ID
 		where a.source_type_id != '03' and a.formula_expr is not null
-
+	  	union
+		select a.* from bsc_measure a where a.source_type_id = '01' and a.formula_expr is not null and a.formula_expr!=''
 	</select>
 
 	

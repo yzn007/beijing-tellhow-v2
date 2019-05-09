@@ -64,7 +64,15 @@ Ext.onReady(function() {
 
 			doDeleteMeasure(engMeasureTree.getSelectionModel().getSelectedNode());
 		}
-	}]);
+	},'-', {
+        id : 'import_menu',
+        text : '导入(i)',
+        tooltip : '导入指标',
+        iconCls : '',
+        handler : function() {
+            doImport();
+        }
+    }]);
 	//添加树形索引
 	addSearchToolbar({
 		oldToolbar : treeMenu,

@@ -297,8 +297,10 @@ function initCompons() {
         //     Ext.getCmp("isDimension").setValue(dimensionId);
         // }
 
+
         if (Ext.getCmp('isDimension') != null)
             Ext.getCmp('isDimension').setValue("");
+
     });
     dimensionOtherStore.load();
 
@@ -714,6 +716,132 @@ EditWindow = Ext.extend(Ext.Window, {
 		})
 		EditWindow.superclass.initComponent.call(this);
 	}
+});
+
+/**
+ * 导入指标
+ */
+function doImport(){
+    var importWindow = new ImportWindow();
+    importWindow.show();
+}
+
+ImportWindow = Ext.extend(Ext.Window, {
+    title : '导入指标窗口',
+    width : 300,
+    height : 290,
+    layout : 'fit',
+    plain : true,
+    modal : true,
+    bodyStyle : 'padding:10px;',
+    buttonAlign : 'center',
+    id : 'importWindow',
+    listeners : {
+        close : function() {
+            Ext.getCmp("importWindow").destroy();
+        }
+    },
+    initComponent : function() {
+
+        Ext.applyIf(this, {
+            items : [{
+                xtype : 'form',
+                // region : 'center',
+                id : 'importForm',
+                width : 270,
+                bodyStyle : 'padding:10px;',
+                border : false,
+                labelWidth : 80,
+                labelAlign : 'left',
+                layout : 'form',
+                url : pathUrl
+                + '/selector_getPath.action',
+                timeout : 6000,
+                fileUpload: true,
+                items : [
+                    {
+                        id : 'template_id',
+                        anchor : '95%',
+                        title: '导入模板下载',
+                        width: '50%',
+                        html: '<a href="'+pathUrl + '/bscresult_importBscMeasureTemplateDownload.action">'+'下载导入模板</a>'
+                    },
+                    {
+                        id:'file',
+                        anchor : '95%',
+                        xtype : 'textfield',
+                        allowBlank :false,
+                        blankText:"请选择文件",
+                        inputType:'file'//文件组件
+                    }
+                ],
+                buttons:[{
+                    text : '提交',
+                    handler : function() {
+                        var formPanel = Ext.getCmp('importForm');
+                        if(formPanel.form.isValid()){
+                            var file=formPanel.form.findField("file");
+                            var str = file.getValue();
+                            var filename=str;
+                            str = str.substr(str.indexOf('.'),str.length - 1);
+                            if("" == str || str==".exe") {
+                                Ext.MessageBox.alert("提示","文件不能为空或者以.exe结尾！");
+                                return;
+                            };
+                            Ext.Msg.show({
+                                modal:false,
+                                title:"请稍等...",
+                                msg:"正在提交信息...",
+                                closable:true,
+                                width:300,
+                                wait:true
+                            });
+
+                            formPanel.form.submit({
+                                type:'ajax',
+                                url : pathUrl + '/bscresult_importMeasureFromExcel.action',
+                                params:{fileName:filename},
+                                // waitMsg: '正在提交数据...',
+                                success: function(){
+                                    Ext.Msg.alert('成功','上传成功.');
+                                    Ext.getCmp('importWindow').destroy();
+                                },
+                                failure: function(){
+                                    Ext.Msg.alert('失败', '上传失败.');
+                                    Ext.getCmp('importWindow').destroy();
+                                }
+                            });
+
+                            // Ext.Ajax.request({
+                            //     url : pathUrl + '/bscresult_importMeasureFromExcel.action',
+                            //     params : {filename : Ext.getCmp('filename').getValue()},
+                            //     method : 'POST',
+                            //     callback : function(options, success, response) {
+                            //         var json = Ext.util.JSON.decode(response.responseText);
+                            //         if (json.success) {
+                            //             Ext.MessageBox.alert("提示信息",json.info);
+                            //             return;
+                            //         }else{
+                            //             Ext.MessageBox.alert("提示信息",'导入指标信息失败！');
+                            //         }
+                            //         Ext.getCmp('importWindow').destroy();
+                            //     }
+                            // });
+                        }else{
+                            Ext.MessageBox.alert("提示信息",'请选择导入的数据文件！');
+                        }
+
+                    }
+                },{
+                    text : '取消',
+                    handler : function() {
+                        Ext.getCmp('importWindow').destroy();
+                    }
+                }]
+            }]}
+        )
+        EditWindow.superclass.initComponent.call(this);
+    }
 });
 
 /**
