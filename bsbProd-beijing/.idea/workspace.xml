@@ -9,10 +9,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f65f38ba-5abc-4d62-9e8b-a7db299d75c5" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/file/upload/指标导入模板 - 副本.xlsx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/webapp/file/upload/指标导入模板.xlsx" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -1426,7 +1425,7 @@
       <workItem from="1556786514634" duration="6208000" />
       <workItem from="1557021464411" duration="55508000" />
       <workItem from="1557212289908" duration="37962000" />
-      <workItem from="1557366193890" duration="18398000" />
+      <workItem from="1557366193890" duration="18468000" />
     </task>
     <task id="LOCAL-00001" summary="上传文件不能关闭提示框bug修改">
       <created>1557387361555</created>
@@ -1435,11 +1434,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557387361555</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="下载指标导入模板实现">
+      <created>1557391620570</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1557391620570</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="656374000" />
+    <option name="totallyTimeSpent" value="656444000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1547,7 +1553,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="上传文件不能关闭提示框bug修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="上传文件不能关闭提示框bug修改" />
+    <MESSAGE value="下载指标导入模板实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="下载指标导入模板实现" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
