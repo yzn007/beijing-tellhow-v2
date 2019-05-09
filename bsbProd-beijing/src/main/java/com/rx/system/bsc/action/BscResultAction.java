@@ -1647,17 +1647,15 @@ public class BscResultAction extends BaseDispatchAction {
 	@UseLog
 	public String importBscMeasureTemplateDownload() throws Exception {
 		String webBasePath = "";
-		String filename = "指标导入模板.xlsx";
+		String filename = "importMeasureTemplate.xlsx";
 		try{
 			ServletActionContext.getServletContext();
 			webBasePath = ServletActionContext.getServletContext().getRealPath("/");
 		}catch (NullPointerException nullEx){
 			webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
 		}
-		if("".equals(webBasePath))
-			webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
 
-		String localFileName =  webBasePath + Constant.FILE_UPLOAD_DIR +"\\"+filename;
+		String localFileName =  webBasePath + Constant.UPLOAD_DIR +filename;
 
 		File fileSave = new File(localFileName);
 		FileInputStream fileInputStream = new FileInputStream(fileSave);
@@ -1735,6 +1733,11 @@ public class BscResultAction extends BaseDispatchAction {
 		return ids.length()>0?ids.substring(0,ids.length()-1):ids;
 	}
 
+	/**
+	 * 上传并处理指标导入数据
+	 * @return
+	 * @throws Exception
+	 */
 	public String importMeasureFromExcel() throws Exception {
 		String webBasePath = "";
 		String filename = "指标导入模板上传.xlsx";
@@ -1748,7 +1751,7 @@ public class BscResultAction extends BaseDispatchAction {
 		}
 
 		String localFileName =  webBasePath + Constant.FILE_UPLOAD_DIR +"\\"+DateFormat.getDateInstance().format(new Date())+"_"+filename;
-//		//上传到服务器目录
+		//上传到服务器目录
 		if(file.isFile()){
 			//定义并初始化io流的读写操作
 			BufferedInputStream bis = new BufferedInputStream(
@@ -1781,27 +1784,6 @@ public class BscResultAction extends BaseDispatchAction {
 				}
 			}
 		}
-//		try{
-//			//创建DiskFileItemFactory工厂
-//			DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
-//			//创建文件上传解析器
-//			ServletFileUpload upload = new ServletFileUpload(diskFileItemFactory);
-//			upload.setHeaderEncoding("UTF-8");
-//			if(!ServletFileUpload.isMultipartContent(request)){
-//				return;
-//			}
-//			//获取表单数据
-//			List<FileItem> fileItems = upload.parseRequest(request);
-//			Map itemMap = new HashMap();
-//			for(FileItem fileItem :fileItems){
-//				if(fileItem.isFormField()){
-//
-//				}
-//			}
-//		}catch (Exception e){
-//			System.out.println(e.toString());
-//		}
-
 
 		File fileSave = new File(localFileName);
 		FileInputStream fileInputStream = new FileInputStream(fileSave);
@@ -1839,6 +1821,7 @@ public class BscResultAction extends BaseDispatchAction {
 		Map<Integer,String> map = null;
 		for(int x = startRowNum ; x <= totalRowNum ; x++){
 			boolean isExists = false;
+			boolean isParentExist = false;
 			//取得行
 			Row row = sheet.getRow(x);
 			int cellLength = row.getLastCellNum();
@@ -1846,19 +1829,22 @@ public class BscResultAction extends BaseDispatchAction {
 			for(int y=startColumn;y<cellLength;y++){
 				Cell cell = row.getCell(y);
 				if(cell == null || cell.toString().equals("")){
-					if(y==startColumn)
+					if(y==startColumn ||  y== startColumn + 1)
 						break;
 					map.put(y,"");
 				}else {
 					cell.setCellType(cellType);
-					if(y==startColumn){
+					if(y==startColumn){//id
 						isExists =  true;
 						map = new HashMap<Integer,String>();
+					}else if(y==startColumn+1){//parentid
+						isParentExist = true;
 					}
+
 					map.put(y, cell.getStringCellValue().toString());
 				}
 			}
-			if(isExists)
+			if(isExists&&isParentExist)
 				list.add(map);
 		}
 		//开始处理数据

@@ -53,7 +53,7 @@ public class Constant {
 	/**
 	 * 文件上传保存路径
 	 */
-    public static final String UPLOAD_DIR = "/bsc/download/";  
+    public static final String UPLOAD_DIR = "file/upload/";
     
     /**
      * 文件上传保存路径temp

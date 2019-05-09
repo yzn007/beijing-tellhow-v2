@@ -11,6 +11,7 @@
     <list default="true" id="f65f38ba-5abc-4d62-9e8b-a7db299d75c5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -34,42 +35,52 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="bsc_public_measure.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bsc_public_measure.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-538">
-              <caret line="756" column="73" lean-forward="false" selection-start-line="756" selection-start-column="73" selection-end-line="756" selection-end-column="73" />
+            <state relative-caret-position="260">
+              <caret line="768" column="34" lean-forward="true" selection-start-line="768" selection-start-column="34" selection-end-line="768" selection-end-column="34" />
               <folding>
-                <marker date="1557386330134" expanded="true" signature="1824:1850" ph="..." />
-                <marker date="1557386330134" expanded="true" signature="5191:5217" ph="..." />
+                <marker date="1557391510250" expanded="true" signature="1824:1850" ph="..." />
+                <marker date="1557391510250" expanded="true" signature="5191:5217" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BscResultAction.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BscResultAction.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="69">
-              <caret line="1952" column="5" lean-forward="true" selection-start-line="1952" selection-start-column="5" selection-end-line="1952" selection-end-column="5" />
+            <state relative-caret-position="128">
+              <caret line="1651" column="41" lean-forward="false" selection-start-line="1651" selection-start-column="41" selection-end-line="1651" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1557386483186" expanded="false" signature="60217:60222" ph=" { " />
-                <marker date="1557386483186" expanded="false" signature="60234:60237" ph=" }" />
-                <marker date="1557386483186" expanded="false" signature="60270:60275" ph=" { " />
-                <marker date="1557386483186" expanded="false" signature="60292:60295" ph=" }" />
-                <marker date="1557386483186" expanded="false" signature="60328:60333" ph=" { " />
-                <marker date="1557386483186" expanded="false" signature="60352:60355" ph=" }" />
-                <marker date="1557386483186" expanded="false" signature="60404:60409" ph=" { " />
-                <marker date="1557386483186" expanded="false" signature="60440:60443" ph=" }" />
-                <marker date="1557386483186" expanded="false" signature="60473:60478" ph=" { " />
-                <marker date="1557386483186" expanded="false" signature="60494:60497" ph=" }" />
-                <marker date="1557386483186" expanded="false" signature="60540:60545" ph=" { " />
-                <marker date="1557386483186" expanded="false" signature="60570:60573" ph=" }" />
-                <marker date="1557386483186" expanded="false" signature="64217:64238" ph="&lt;~&gt;" />
-                <marker date="1557386483186" expanded="false" signature="71912:71917" ph=" { " />
-                <marker date="1557386483186" expanded="false" signature="71956:71959" ph=" }" />
+                <marker date="1557390694115" expanded="false" signature="60098:60103" ph=" { " />
+                <marker date="1557390694115" expanded="false" signature="60115:60118" ph=" }" />
+                <marker date="1557390694115" expanded="false" signature="60151:60156" ph=" { " />
+                <marker date="1557390694115" expanded="false" signature="60173:60176" ph=" }" />
+                <marker date="1557390694115" expanded="false" signature="60209:60214" ph=" { " />
+                <marker date="1557390694115" expanded="false" signature="60233:60236" ph=" }" />
+                <marker date="1557390694115" expanded="false" signature="60285:60290" ph=" { " />
+                <marker date="1557390694115" expanded="false" signature="60321:60324" ph=" }" />
+                <marker date="1557390694115" expanded="false" signature="60354:60359" ph=" { " />
+                <marker date="1557390694115" expanded="false" signature="60375:60378" ph=" }" />
+                <marker date="1557390694115" expanded="false" signature="60421:60426" ph=" { " />
+                <marker date="1557390694115" expanded="false" signature="60451:60454" ph=" }" />
+                <marker date="1557390694115" expanded="false" signature="63557:63578" ph="&lt;~&gt;" />
+                <marker date="1557390694115" expanded="false" signature="71401:71406" ph=" { " />
+                <marker date="1557390694115" expanded="false" signature="71445:71448" ph=" }" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BscCtrlMeasureAction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscCtrlMeasureAction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -264,8 +275,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>insert bsc_me</find>
-      <find>m</find>
       <find>measure_</find>
       <find>measure</find>
       <find>bmeasure</find>
@@ -293,7 +302,9 @@
       <find>addwindow</find>
       <find>editEngMeasure</find>
       <find>importMeasureFromExcel</find>
+      <find>upload</find>
       <find>importWindow</find>
+      <find>importBscMeasureTemplateDownload</find>
     </findStrings>
     <replaceStrings>
       <replace>http://10.10.10.42:8081</replace>
@@ -341,7 +352,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/kpi/scripts/Selection.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/Selection.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/dao/mapper/LogDaoMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def.js" />
@@ -390,8 +400,9 @@
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" />
       </list>
     </option>
   </component>
@@ -728,7 +739,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
+              <option name="myItemId" value="constant" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -754,7 +765,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
+              <option name="myItemId" value="action" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1415,12 +1426,20 @@
       <workItem from="1556786514634" duration="6208000" />
       <workItem from="1557021464411" duration="55508000" />
       <workItem from="1557212289908" duration="37962000" />
-      <workItem from="1557366193890" duration="14188000" />
+      <workItem from="1557366193890" duration="18398000" />
     </task>
+    <task id="LOCAL-00001" summary="上传文件不能关闭提示框bug修改">
+      <created>1557387361555</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1557387361555</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="652164000" />
+    <option name="totallyTimeSpent" value="656374000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1447,9 +1466,9 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38360655" sideWeight="0.5484115" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38360655" sideWeight="0.5484115" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288364" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1613,17 +1632,11 @@
           <properties />
           <option name="timeStamp" value="256" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>1957</line>
-          <properties />
-          <option name="timeStamp" value="269" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="270" />
+      <option name="time" value="271" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1632,21 +1645,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$PROJECT_DIR$/lib/spring-web-3.2.4.RELEASE.jar!/org/springframework/web/multipart/MultipartFile.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-57">
-          <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="45" column="46" lean-forward="false" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bsbProd.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2117,17 +2115,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-538">
-          <caret line="756" column="73" lean-forward="false" selection-start-line="756" selection-start-column="73" selection-end-line="756" selection-end-column="73" />
-          <folding>
-            <marker date="1557386330134" expanded="true" signature="1824:1850" ph="..." />
-            <marker date="1557386330134" expanded="true" signature="5191:5217" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProjectAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -2147,27 +2134,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscCtrlMeasureAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="1952" column="5" lean-forward="true" selection-start-line="1952" selection-start-column="5" selection-end-line="1952" selection-end-column="5" />
+        <state relative-caret-position="128">
+          <caret line="1651" column="41" lean-forward="false" selection-start-line="1651" selection-start-column="41" selection-end-line="1651" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1557386483186" expanded="false" signature="60217:60222" ph=" { " />
-            <marker date="1557386483186" expanded="false" signature="60234:60237" ph=" }" />
-            <marker date="1557386483186" expanded="false" signature="60270:60275" ph=" { " />
-            <marker date="1557386483186" expanded="false" signature="60292:60295" ph=" }" />
-            <marker date="1557386483186" expanded="false" signature="60328:60333" ph=" { " />
-            <marker date="1557386483186" expanded="false" signature="60352:60355" ph=" }" />
-            <marker date="1557386483186" expanded="false" signature="60404:60409" ph=" { " />
-            <marker date="1557386483186" expanded="false" signature="60440:60443" ph=" }" />
-            <marker date="1557386483186" expanded="false" signature="60473:60478" ph=" { " />
-            <marker date="1557386483186" expanded="false" signature="60494:60497" ph=" }" />
-            <marker date="1557386483186" expanded="false" signature="60540:60545" ph=" { " />
-            <marker date="1557386483186" expanded="false" signature="60570:60573" ph=" }" />
-            <marker date="1557386483186" expanded="false" signature="64217:64238" ph="&lt;~&gt;" />
-            <marker date="1557386483186" expanded="false" signature="71912:71917" ph=" { " />
-            <marker date="1557386483186" expanded="false" signature="71956:71959" ph=" }" />
+            <marker date="1557390694115" expanded="false" signature="60098:60103" ph=" { " />
+            <marker date="1557390694115" expanded="false" signature="60115:60118" ph=" }" />
+            <marker date="1557390694115" expanded="false" signature="60151:60156" ph=" { " />
+            <marker date="1557390694115" expanded="false" signature="60173:60176" ph=" }" />
+            <marker date="1557390694115" expanded="false" signature="60209:60214" ph=" { " />
+            <marker date="1557390694115" expanded="false" signature="60233:60236" ph=" }" />
+            <marker date="1557390694115" expanded="false" signature="60285:60290" ph=" { " />
+            <marker date="1557390694115" expanded="false" signature="60321:60324" ph=" }" />
+            <marker date="1557390694115" expanded="false" signature="60354:60359" ph=" { " />
+            <marker date="1557390694115" expanded="false" signature="60375:60378" ph=" }" />
+            <marker date="1557390694115" expanded="false" signature="60421:60426" ph=" { " />
+            <marker date="1557390694115" expanded="false" signature="60451:60454" ph=" }" />
+            <marker date="1557390694115" expanded="false" signature="63557:63578" ph="&lt;~&gt;" />
+            <marker date="1557390694115" expanded="false" signature="71401:71406" ph=" { " />
+            <marker date="1557390694115" expanded="false" signature="71445:71448" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="768" column="34" lean-forward="true" selection-start-line="768" selection-start-column="34" selection-end-line="768" selection-end-column="34" />
+          <folding>
+            <marker date="1557391510250" expanded="true" signature="1824:1850" ph="..." />
+            <marker date="1557391510250" expanded="true" signature="5191:5217" ph="..." />
           </folding>
         </state>
       </provider>
