@@ -1720,10 +1720,24 @@ public class BscResultAction extends BaseDispatchAction {
 		this.fileName = fileName;
 	}
 
-	public void importMeasureFromExcel() throws IOException {
+	private String processComplexMeausure(String formulaExp){
+		String  markString = "[@";
+		String  markEnd = "]";
+		String exp = formulaExp;
+		String ids = "";
+		while(exp.indexOf(markString)>=0){
+			String measureId = exp.substring(exp.indexOf(markString)+2,exp.indexOf(markEnd));
+			if(measureId!=null && !"".equals(measureId))
+				ids += measureId + ",";
+			exp = exp.substring(exp.indexOf(markEnd)+1,exp.length());
+		}
+		return ids.length()>0?ids.substring(0,ids.length()-1):ids;
+	}
+
+	public String importMeasureFromExcel() throws Exception {
 		String webBasePath = "";
 		String filename = "指标导入模板上传.xlsx";
-		Map <String,Object> paramMap = null;
+		Map <String,Object> paramMap = getRequestParam(request);
 
 		try{
 			ServletActionContext.getServletContext();
@@ -1855,10 +1869,17 @@ public class BscResultAction extends BaseDispatchAction {
 			for(Map m :list){
 				ids += i++==list.size()?m.get(1).toString():m.get(1).toString()+",";
 				//衍生指标
-				if(m.get(4).toString().equals("01")){
-					listInsertMeaRely.add("insert into bsc_measure_exe(measure_id,rely_measure_id)values('"+m.get(4)+
-							"','"+
-							"')");
+				if(getMeasureKey(m.get(4).toString()).equals("01")){
+					if(m.get(6)!=null && !"".equals(m.get(6).toString())){
+						String measureIds = processComplexMeausure(m.get(6).toString());
+						if(measureIds.length()>0){
+							String [] strIds = measureIds.split(",");
+							for(String s :strIds){
+								listInsertMeaRely.add("insert into bsc_measure_exe(measure_id,rely_measure_id)values('"+m.get(1)+
+										"','"+s +"')");
+							}
+						}
+					}
 				}
 				String insertSql
 						= "insert into bsc_measure "+
@@ -1895,8 +1916,8 @@ public class BscResultAction extends BaseDispatchAction {
 						"'460106'," +
 						"'"+ m.get(7)+ "',"+
 						"'"+ m.get(8)+ "',"+
+						"'"+getMeasureKey(m.get(9).toString())+"',"+
 						"'"+ m.get(9)+ "',"+
-						","+getMeasureKey(m.get(9).toString())+"',"+
 						"'"+ getMeasureKey(m.get(10).toString())+ "',"+
 						"'"+ m.get(11)+ "',"+
 						"'"+ m.get(12)+ "',"+
@@ -1907,7 +1928,15 @@ public class BscResultAction extends BaseDispatchAction {
 			try{
 				//删除已有
 				this.jdbcManager.execute("delete from bsc_measure where measure_id in( "+getStringById(ids)+")");
+				this.jdbcManager.execute("delete from bsc_measure_exe where measure_id in ("+getStringById(ids)+")");
 				listInsertCmd.forEach(s->{
+					try {
+						this.jdbcManager.execute(s);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				});
+				listInsertMeaRely.forEach(s->{
 					try {
 						this.jdbcManager.execute(s);
 					} catch (Exception e) {
@@ -1918,6 +1947,8 @@ public class BscResultAction extends BaseDispatchAction {
 				e.printStackTrace();
 			}
 		}
+		doSuccessInfoResponse("处理完成[" + paramMap.get("fileName")+"]文件数据，请核对！");
+		return null;
 	}
 
 	/**

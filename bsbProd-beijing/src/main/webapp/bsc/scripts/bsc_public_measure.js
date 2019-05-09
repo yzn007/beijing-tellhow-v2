@@ -754,8 +754,7 @@ ImportWindow = Ext.extend(Ext.Window, {
                 labelWidth : 80,
                 labelAlign : 'left',
                 layout : 'form',
-                url : pathUrl
-                + '/selector_getPath.action',
+                url : pathUrl + '/bscresult_importMeasureFromExcel.action',
                 timeout : 6000,
                 fileUpload: true,
                 items : [
@@ -787,26 +786,26 @@ ImportWindow = Ext.extend(Ext.Window, {
                             if("" == str || str==".exe") {
                                 Ext.MessageBox.alert("提示","文件不能为空或者以.exe结尾！");
                                 return;
-                            };
-                            Ext.Msg.show({
-                                modal:false,
-                                title:"请稍等...",
-                                msg:"正在提交信息...",
-                                closable:true,
-                                width:300,
-                                wait:true
-                            });
+                            }
+                            // Ext.Msg.show({
+                            //     modal:false,
+                            //     title:"请稍等...",
+                            //     msg:"正在提交信息...",
+                            //     closable:true,
+                            //     width:300,
+                            //     wait:true
+                            // });
 
                             formPanel.form.submit({
                                 type:'ajax',
-                                url : pathUrl + '/bscresult_importMeasureFromExcel.action',
                                 params:{fileName:filename},
-                                // waitMsg: '正在提交数据...',
+                                method : 'POST',
+                                waitMsg: '正在提交数据...',
                                 success: function(){
                                     Ext.Msg.alert('成功','上传成功.');
                                     Ext.getCmp('importWindow').destroy();
                                 },
-                                failure: function(){
+                                failure: function(form, action){
                                     Ext.Msg.alert('失败', '上传失败.');
                                     Ext.getCmp('importWindow').destroy();
                                 }
