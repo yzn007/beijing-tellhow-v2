@@ -47,6 +47,7 @@ import com.rx.system.table.DhtmlTableTemplate;
 import com.rx.system.table.ITableTemplate;
 import org.apache.struts2.views.jsp.ui.SelectTag;
 import org.jgroups.protocols.FILE_PING;
+import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -1949,6 +1950,15 @@ public class BscResultAction extends BaseDispatchAction {
 		}
 		doSuccessInfoResponse("处理完成[" + paramMap.get("fileName")+"]文件数据，请核对！");
 		return null;
+	}
+
+	protected void doSuccessInfoResponse(String info) throws Exception{
+		Map<String, Object> results = new HashMap<String, Object>();
+		results.put("success", Boolean.valueOf(true));
+		results.put("info", info);
+		response.setHeader("Content-Type", "text/html;charset = utf-8");
+		JSONObject json = new JSONObject(results);
+		response.getWriter().write(json.toString());
 	}
 
 	/**

@@ -755,7 +755,7 @@ ImportWindow = Ext.extend(Ext.Window, {
                 labelAlign : 'left',
                 layout : 'form',
                 url : pathUrl + '/bscresult_importMeasureFromExcel.action',
-                timeout : 6000,
+                timeout : 60000,
                 fileUpload: true,
                 items : [
                     {
@@ -770,6 +770,7 @@ ImportWindow = Ext.extend(Ext.Window, {
                         anchor : '95%',
                         xtype : 'textfield',
                         allowBlank :false,
+                        width:"90%",
                         blankText:"请选择文件",
                         inputType:'file'//文件组件
                     }
@@ -797,7 +798,7 @@ ImportWindow = Ext.extend(Ext.Window, {
                             // });
 
                             formPanel.form.submit({
-                                type:'ajax',
+                                // type:'ajax',
                                 params:{fileName:filename},
                                 method : 'POST',
                                 waitMsg: '正在提交数据...',
@@ -839,7 +840,7 @@ ImportWindow = Ext.extend(Ext.Window, {
                 }]
             }]}
         )
-        EditWindow.superclass.initComponent.call(this);
+        ImportWindow.superclass.initComponent.call(this);
     }
 });
 

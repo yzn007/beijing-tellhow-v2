@@ -34,52 +34,42 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="bsc_public_measure.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bsc_public_measure.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="748" column="37" lean-forward="true" selection-start-line="748" selection-start-column="37" selection-end-line="748" selection-end-column="37" />
+            <state relative-caret-position="-538">
+              <caret line="756" column="73" lean-forward="false" selection-start-line="756" selection-start-column="73" selection-end-line="756" selection-end-column="73" />
               <folding>
-                <marker date="1557384064966" expanded="true" signature="1824:1850" ph="..." />
-                <marker date="1557384064966" expanded="true" signature="5191:5217" ph="..." />
+                <marker date="1557386330134" expanded="true" signature="1824:1850" ph="..." />
+                <marker date="1557386330134" expanded="true" signature="5191:5217" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BscResultAction.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BscResultAction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4420">
-              <caret line="1857" column="17" lean-forward="true" selection-start-line="1857" selection-start-column="17" selection-end-line="1857" selection-end-column="17" />
+            <state relative-caret-position="69">
+              <caret line="1952" column="5" lean-forward="true" selection-start-line="1952" selection-start-column="5" selection-end-line="1952" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1557382263910" expanded="false" signature="60189:60194" ph=" { " />
-                <marker date="1557382263910" expanded="false" signature="60206:60209" ph=" }" />
-                <marker date="1557382263910" expanded="false" signature="60242:60247" ph=" { " />
-                <marker date="1557382263910" expanded="false" signature="60264:60267" ph=" }" />
-                <marker date="1557382263910" expanded="false" signature="60300:60305" ph=" { " />
-                <marker date="1557382263910" expanded="false" signature="60324:60327" ph=" }" />
-                <marker date="1557382263910" expanded="false" signature="60376:60381" ph=" { " />
-                <marker date="1557382263910" expanded="false" signature="60412:60415" ph=" }" />
-                <marker date="1557382263910" expanded="false" signature="60445:60450" ph=" { " />
-                <marker date="1557382263910" expanded="false" signature="60466:60469" ph=" }" />
-                <marker date="1557382263910" expanded="false" signature="60512:60517" ph=" { " />
-                <marker date="1557382263910" expanded="false" signature="60542:60545" ph=" }" />
-                <marker date="1557382263910" expanded="false" signature="64189:64210" ph="&lt;~&gt;" />
-                <marker date="1557382263910" expanded="false" signature="71511:71516" ph=" { " />
-                <marker date="1557382263910" expanded="false" signature="71555:71558" ph=" }" />
+                <marker date="1557386483186" expanded="false" signature="60217:60222" ph=" { " />
+                <marker date="1557386483186" expanded="false" signature="60234:60237" ph=" }" />
+                <marker date="1557386483186" expanded="false" signature="60270:60275" ph=" { " />
+                <marker date="1557386483186" expanded="false" signature="60292:60295" ph=" }" />
+                <marker date="1557386483186" expanded="false" signature="60328:60333" ph=" { " />
+                <marker date="1557386483186" expanded="false" signature="60352:60355" ph=" }" />
+                <marker date="1557386483186" expanded="false" signature="60404:60409" ph=" { " />
+                <marker date="1557386483186" expanded="false" signature="60440:60443" ph=" }" />
+                <marker date="1557386483186" expanded="false" signature="60473:60478" ph=" { " />
+                <marker date="1557386483186" expanded="false" signature="60494:60497" ph=" }" />
+                <marker date="1557386483186" expanded="false" signature="60540:60545" ph=" { " />
+                <marker date="1557386483186" expanded="false" signature="60570:60573" ph=" }" />
+                <marker date="1557386483186" expanded="false" signature="64217:64238" ph="&lt;~&gt;" />
+                <marker date="1557386483186" expanded="false" signature="71912:71917" ph=" { " />
+                <marker date="1557386483186" expanded="false" signature="71956:71959" ph=" }" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseDispatchAction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/base/BaseDispatchAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="74" column="19" lean-forward="false" selection-start-line="74" selection-start-column="19" selection-end-line="74" selection-end-column="19" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -88,7 +78,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProjectAction.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="176">
-              <caret line="75" column="75" lean-forward="true" selection-start-line="75" selection-start-column="16" selection-end-line="75" selection-end-column="75" />
+              <caret line="75" column="29" lean-forward="true" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
               <folding>
                 <element signature="e#3414#3415#0" expanded="true" />
                 <element signature="e#3463#3464#0" expanded="true" />
@@ -169,11 +159,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="551">
               <caret line="43" column="43" lean-forward="false" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="43" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#7792#7793#0" expanded="false" />
-                <element signature="e#7839#7840#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -278,11 +264,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>insert</find>
-      <find>insert bsc</find>
-      <find>insert bsc_</find>
-      <find>insert bsc_m</find>
-      <find>insert bsc_mes</find>
       <find>insert bsc_me</find>
       <find>m</find>
       <find>measure_</find>
@@ -305,9 +286,14 @@
       <find>executeLowLevelMeasure</find>
       <find>复合</find>
       <find>getMeasureResultSQL</find>
-      <find>importMeasureFromExcel</find>
-      <find>导入</find>
       <find>getRequestParam</find>
+      <find>processComplexMeausure</find>
+      <find>导入</find>
+      <find>initCompons</find>
+      <find>addwindow</find>
+      <find>editEngMeasure</find>
+      <find>importMeasureFromExcel</find>
+      <find>importWindow</find>
     </findStrings>
     <replaceStrings>
       <replace>http://10.10.10.42:8081</replace>
@@ -344,6 +330,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="GradleLocalSettings">
@@ -403,8 +390,8 @@
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" />
       </list>
     </option>
   </component>
@@ -782,60 +769,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-core-3.2.4.RELEASE.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-core-3.2.4.RELEASE.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="proxy" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1482,12 +1415,12 @@
       <workItem from="1556786514634" duration="6208000" />
       <workItem from="1557021464411" duration="55508000" />
       <workItem from="1557212289908" duration="37962000" />
-      <workItem from="1557366193890" duration="11092000" />
+      <workItem from="1557366193890" duration="14188000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="649068000" />
+    <option name="totallyTimeSpent" value="652164000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1500,7 +1433,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1517,7 +1449,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38360655" sideWeight="0.5484115" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288364" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1528,6 +1460,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27912253" sideWeight="0.4902439" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22541603" sideWeight="0.5097561" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49918166" sideWeight="0.49394855" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22541603" sideWeight="0.5097561" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1537,7 +1470,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49918166" sideWeight="0.49394855" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1594,6 +1526,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="上传文件不能关闭提示框bug修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="上传文件不能关闭提示框bug修改" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -1617,13 +1553,13 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>843</line>
+          <line>844</line>
           <properties />
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>716</line>
+          <line>717</line>
           <properties />
           <option name="timeStamp" value="121" />
         </line-breakpoint>
@@ -1658,12 +1594,6 @@
           <option name="timeStamp" value="186" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>1860</line>
-          <properties />
-          <option name="timeStamp" value="239" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <condition expression="measure.getMeasureId().equals(&quot;0315&quot;)" language="JAVA" />
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java</url>
           <line>268</line>
@@ -1685,27 +1615,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>1872</line>
+          <line>1957</line>
           <properties />
-          <option name="timeStamp" value="259" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>1865</line>
-          <properties />
-          <option name="timeStamp" value="261" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
-          <line>1925</line>
-          <properties />
-          <option name="timeStamp" value="264" />
+          <option name="timeStamp" value="269" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="266" />
+      <option name="time" value="270" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1990,11 +1908,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
           <caret line="43" column="43" lean-forward="false" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#7792#7793#0" expanded="false" />
-            <element signature="e#7839#7840#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2195,14 +2109,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/base/BaseDispatchAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="74" column="19" lean-forward="false" selection-start-line="74" selection-start-column="19" selection-end-line="74" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/DataSourceConfigAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -2211,10 +2117,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-538">
+          <caret line="756" column="73" lean-forward="false" selection-start-line="756" selection-start-column="73" selection-end-line="756" selection-end-column="73" />
+          <folding>
+            <marker date="1557386330134" expanded="true" signature="1824:1850" ph="..." />
+            <marker date="1557386330134" expanded="true" signature="5191:5217" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProjectAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
-          <caret line="75" column="75" lean-forward="true" selection-start-line="75" selection-start-column="16" selection-end-line="75" selection-end-column="75" />
+          <caret line="75" column="29" lean-forward="true" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
           <folding>
             <element signature="e#3414#3415#0" expanded="true" />
             <element signature="e#3463#3464#0" expanded="true" />
@@ -2222,38 +2139,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/base/BaseDispatchAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4420">
-          <caret line="1857" column="17" lean-forward="true" selection-start-line="1857" selection-start-column="17" selection-end-line="1857" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1557382263910" expanded="false" signature="60189:60194" ph=" { " />
-            <marker date="1557382263910" expanded="false" signature="60206:60209" ph=" }" />
-            <marker date="1557382263910" expanded="false" signature="60242:60247" ph=" { " />
-            <marker date="1557382263910" expanded="false" signature="60264:60267" ph=" }" />
-            <marker date="1557382263910" expanded="false" signature="60300:60305" ph=" { " />
-            <marker date="1557382263910" expanded="false" signature="60324:60327" ph=" }" />
-            <marker date="1557382263910" expanded="false" signature="60376:60381" ph=" { " />
-            <marker date="1557382263910" expanded="false" signature="60412:60415" ph=" }" />
-            <marker date="1557382263910" expanded="false" signature="60445:60450" ph=" { " />
-            <marker date="1557382263910" expanded="false" signature="60466:60469" ph=" }" />
-            <marker date="1557382263910" expanded="false" signature="60512:60517" ph=" { " />
-            <marker date="1557382263910" expanded="false" signature="60542:60545" ph=" }" />
-            <marker date="1557382263910" expanded="false" signature="64189:64210" ph="&lt;~&gt;" />
-            <marker date="1557382263910" expanded="false" signature="71511:71516" ph=" { " />
-            <marker date="1557382263910" expanded="false" signature="71555:71558" ph=" }" />
-          </folding>
+        <state relative-caret-position="185">
+          <caret line="119" column="67" lean-forward="true" selection-start-line="119" selection-start-column="67" selection-end-line="119" selection-end-column="67" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="748" column="37" lean-forward="true" selection-start-line="748" selection-start-column="37" selection-end-line="748" selection-end-column="37" />
+        <state relative-caret-position="69">
+          <caret line="1952" column="5" lean-forward="true" selection-start-line="1952" selection-start-column="5" selection-end-line="1952" selection-end-column="5" />
           <folding>
-            <marker date="1557384064966" expanded="true" signature="1824:1850" ph="..." />
-            <marker date="1557384064966" expanded="true" signature="5191:5217" ph="..." />
+            <element signature="imports" expanded="true" />
+            <marker date="1557386483186" expanded="false" signature="60217:60222" ph=" { " />
+            <marker date="1557386483186" expanded="false" signature="60234:60237" ph=" }" />
+            <marker date="1557386483186" expanded="false" signature="60270:60275" ph=" { " />
+            <marker date="1557386483186" expanded="false" signature="60292:60295" ph=" }" />
+            <marker date="1557386483186" expanded="false" signature="60328:60333" ph=" { " />
+            <marker date="1557386483186" expanded="false" signature="60352:60355" ph=" }" />
+            <marker date="1557386483186" expanded="false" signature="60404:60409" ph=" { " />
+            <marker date="1557386483186" expanded="false" signature="60440:60443" ph=" }" />
+            <marker date="1557386483186" expanded="false" signature="60473:60478" ph=" { " />
+            <marker date="1557386483186" expanded="false" signature="60494:60497" ph=" }" />
+            <marker date="1557386483186" expanded="false" signature="60540:60545" ph=" { " />
+            <marker date="1557386483186" expanded="false" signature="60570:60573" ph=" }" />
+            <marker date="1557386483186" expanded="false" signature="64217:64238" ph="&lt;~&gt;" />
+            <marker date="1557386483186" expanded="false" signature="71912:71917" ph=" { " />
+            <marker date="1557386483186" expanded="false" signature="71956:71959" ph=" }" />
           </folding>
         </state>
       </provider>
