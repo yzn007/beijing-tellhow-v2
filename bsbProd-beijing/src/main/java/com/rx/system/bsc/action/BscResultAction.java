@@ -1890,7 +1890,8 @@ public class BscResultAction extends BaseDispatchAction {
 //						"ohterdimension_desc," +
 						"districtobjecttable," +
 						"otherobjecttable," +
-						"alerttype" +
+						"alerttype," +
+						"result_type_id"+
 						" )values("+
 						"'"+ m.get(1)+ "',"+
 						"'"+ m.get(2)+ "',"+
@@ -1908,7 +1909,8 @@ public class BscResultAction extends BaseDispatchAction {
 						"'"+ getMeasureKey(m.get(10).toString())+ "',"+
 						"'"+ m.get(11)+ "',"+
 						"'"+ m.get(12)+ "',"+
-						"'"+ getMeasureKey(m.get(13).toString())+ "' " +
+						"'"+ getMeasureKey(m.get(13).toString())+ "'," +
+						"'00'"+
 						")";
 				listInsertCmd.add(insertSql);
 			}
