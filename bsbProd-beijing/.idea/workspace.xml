@@ -8,8 +8,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f65f38ba-5abc-4d62-9e8b-a7db299d75c5" name="Default" comment="指标计算日期没有选择可以开始&#10;指标计算日期最大日期不能大于今天bug修复">
+    <list default="true" id="f65f38ba-5abc-4d62-9e8b-a7db299d75c5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_execute.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_execute.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,6 +33,7 @@
   <component name="FavoritesManager">
     <favorites_list name="bsbProd-beijing">
       <favorite_root url="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+      <favorite_root url="file://$PROJECT_DIR$/src/main/webapp/file/upload/importMeasureTemplate.xlsx" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
     </favorites_list>
   </component>
   <component name="FileEditorManager">
@@ -35,8 +41,8 @@
       <file leaf-file-name="progress.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+            <state relative-caret-position="133">
+              <caret line="13" column="33" lean-forward="true" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -45,8 +51,8 @@
       <file leaf-file-name="bsc_public_measure.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="739" column="28" lean-forward="true" selection-start-line="739" selection-start-column="28" selection-end-line="739" selection-end-column="28" />
+            <state relative-caret-position="14649">
+              <caret line="795" column="44" lean-forward="true" selection-start-line="795" selection-start-column="44" selection-end-line="795" selection-end-column="44" />
               <folding>
                 <marker date="1557393760287" expanded="true" signature="1824:1850" ph="..." />
                 <marker date="1557393760287" expanded="true" signature="5191:5217" ph="..." />
@@ -55,11 +61,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="do_execute_project.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/do_execute_project.js">
+      <file leaf-file-name="bsc_public_measure_layout.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="181" column="51" lean-forward="false" selection-start-line="181" selection-start-column="51" selection-end-line="181" selection-end-column="51" />
+            <state relative-caret-position="213">
+              <caret line="81" column="42" lean-forward="true" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
+              <folding>
+                <marker date="1557476987178" expanded="true" signature="13892:13930" ph="..." />
+                <marker date="1557476987178" expanded="true" signature="16341:16367" ph="..." />
+                <marker date="1557476987178" expanded="true" signature="20180:20206" ph="..." />
+                <marker date="1557476987178" expanded="true" signature="20594:20620" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bsc_public_measure.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="27" column="120" lean-forward="true" selection-start-line="27" selection-start-column="120" selection-end-line="27" selection-end-column="120" />
               <folding />
             </state>
           </provider>
@@ -68,45 +89,18 @@
       <file leaf-file-name="bsc_calc_exec_common_layout.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_calc_exec_common_layout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="113" column="28" lean-forward="false" selection-start-line="113" selection-start-column="12" selection-end-line="113" selection-end-column="28" />
+            <state relative-caret-position="1026">
+              <caret line="106" column="11" lean-forward="true" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BscResultAction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
+      <file leaf-file-name="bsc_proj_execute.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_execute.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2427">
-              <caret line="1913" column="28" lean-forward="true" selection-start-line="1913" selection-start-column="28" selection-end-line="1913" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1557394337601" expanded="false" signature="60098:60103" ph=" { " />
-                <marker date="1557394337601" expanded="false" signature="60115:60118" ph=" }" />
-                <marker date="1557394337601" expanded="false" signature="60151:60156" ph=" { " />
-                <marker date="1557394337601" expanded="false" signature="60173:60176" ph=" }" />
-                <marker date="1557394337601" expanded="false" signature="60209:60214" ph=" { " />
-                <marker date="1557394337601" expanded="false" signature="60233:60236" ph=" }" />
-                <marker date="1557394337601" expanded="false" signature="60285:60290" ph=" { " />
-                <marker date="1557394337601" expanded="false" signature="60321:60324" ph=" }" />
-                <marker date="1557394337601" expanded="false" signature="60354:60359" ph=" { " />
-                <marker date="1557394337601" expanded="false" signature="60375:60378" ph=" }" />
-                <marker date="1557394337601" expanded="false" signature="60421:60426" ph=" { " />
-                <marker date="1557394337601" expanded="false" signature="60451:60454" ph=" }" />
-                <marker date="1557394337601" expanded="false" signature="63557:63578" ph="&lt;~&gt;" />
-                <marker date="1557394337601" expanded="false" signature="71440:71445" ph=" { " />
-                <marker date="1557394337601" expanded="false" signature="71484:71487" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BscCtrlMeasureAction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscCtrlMeasureAction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1990">
-              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            <state relative-caret-position="-95">
+              <caret line="16" column="6" lean-forward="false" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="125" />
               <folding />
             </state>
           </provider>
@@ -115,19 +109,25 @@
       <file leaf-file-name="BscProcedureExecuteAction.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="123" column="42" lean-forward="true" selection-start-line="123" selection-start-column="42" selection-end-line="123" selection-end-column="42" />
+            <state relative-caret-position="171">
+              <caret line="50" column="65" lean-forward="false" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalculateProcedureOnlyMeasure.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CalculateProcedureOnlyMeasure.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+            <state relative-caret-position="58">
+              <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
               <folding>
+                <element signature="e#2458#2479#0" expanded="true" />
+                <element signature="e#2569#2588#0" expanded="true" />
+                <element signature="e#2665#2683#0" expanded="true" />
+                <element signature="e#2761#2780#0" expanded="true" />
+                <element signature="e#12422#12452#0" expanded="true" />
+                <element signature="e#17496#17526#0" expanded="true" />
                 <element signature="e#26450#26458#0" expanded="true" />
                 <element signature="e#34640#34656#0" expanded="true" />
                 <element signature="e#34756#34764#0" expanded="true" />
@@ -137,12 +137,57 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CalculateProcedure.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedure.java">
+      <file leaf-file-name="BscResultDaoMapper.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscResultDaoMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="98" column="43" lean-forward="false" selection-start-line="98" selection-start-column="43" selection-end-line="98" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="305">
+              <caret line="228" column="68" lean-forward="true" selection-start-line="228" selection-start-column="68" selection-end-line="228" selection-end-column="68" />
+              <folding>
+                <marker date="1557367124926" expanded="true" signature="262:310" ph="select * fro... *" />
+                <marker date="1557367124926" expanded="true" signature="277:310" ph="select t1.*,... " />
+                <marker date="1557367124926" expanded="true" signature="515:537" ph="select count... " />
+                <marker date="1557367124926" expanded="true" signature="646:663" ph="select cnt f... " />
+                <marker date="1557367124926" expanded="true" signature="747:855" ph="update bsc_p... " />
+                <marker date="1557367124926" expanded="true" signature="1467:3198" ph="select a.*, bsc_calc_ctrl" />
+                <marker date="1557367124926" expanded="true" signature="3298:3960" ph="select a.*,b... parent_dim_id" />
+                <marker date="1557367124926" expanded="true" signature="3330:3858" ph="select b.par... " />
+                <marker date="1557367124926" expanded="true" signature="4339:4523" ph="select a.mea... bsc_proj_mea" />
+                <marker date="1557367124926" expanded="true" signature="5402:6168" ph="select j.obj... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="5402:7350" ph="select j.obj... " />
+                <marker date="1557367124926" expanded="true" signature="6179:7350" ph="select t.obj... bsc_proj_obj" />
+                <marker date="1557367124926" expanded="true" signature="6514:6585" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557367124926" expanded="true" signature="8160:8390" ph="select t.obj... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="8160:9412" ph="select t.obj... " />
+                <marker date="1557367124926" expanded="true" signature="8401:9412" ph="select t.obj... bsc_proj_obj" />
+                <marker date="1557367124926" expanded="true" signature="8576:8647" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557367124926" expanded="true" signature="9535:10001" ph="select t.obj... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="10091:10567" ph="select t.obj... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="10656:11317" ph="select t.*,@... " />
+                <marker date="1557367124926" expanded="true" signature="11419:11834" ph="select ifnul... bsc_proj_obj_score" />
+                <marker date="1557367124926" expanded="true" signature="11977:12204" ph="select case bsc_proj_exe_mth" />
+                <marker date="1557367124926" expanded="true" signature="12322:13084" ph="select s.mon... *" />
+                <marker date="1557367124926" expanded="true" signature="12437:13052" ph="select d.* f... month_id" />
+                <marker date="1557367124926" expanded="true" signature="12454:13004" ph="select a.mon... bsc_proj_obj_score" />
+                <marker date="1557367124926" expanded="true" signature="13202:13357" ph="select measu... bsc_measure" />
+                <marker date="1557367124926" expanded="true" signature="13491:13642" ph="select t.yea... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="13491:14540" ph="select t.yea... " />
+                <marker date="1557367124926" expanded="true" signature="13653:14484" ph="select b.mon... bsc_proj_obj" />
+                <marker date="1557367124926" expanded="true" signature="13829:14171" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557367124926" expanded="true" signature="14723:16398" ph="select * fro... cycle_id" />
+                <marker date="1557367124926" expanded="true" signature="14738:15397" ph="select c.cyc... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="15408:16307" ph="select b.mon... bsc_proj_obj" />
+                <marker date="1557367124926" expanded="true" signature="15652:15994" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557367124926" expanded="true" signature="16544:17310" ph="select j.obj... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="16544:18492" ph="select j.obj... " />
+                <marker date="1557367124926" expanded="true" signature="17321:18492" ph="select t.obj... bsc_proj_obj" />
+                <marker date="1557367124926" expanded="true" signature="17656:17727" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557367124926" expanded="true" signature="18605:19202" ph="select t.yea... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="19293:19605" ph="select t.yea... bsc_proj_obj_h" />
+                <marker date="1557367124926" expanded="true" signature="20925:21142" ph="select i.mea... bsc_measure" />
+                <marker date="1557367124926" expanded="true" signature="21264:21384" ph="select ind_i... B04_IND" />
+                <marker date="1557367124926" expanded="true" signature="21470:21563" ph="select obj_n... bsc_proj_stat_obj" />
+                <marker date="1557367124926" expanded="true" signature="21651:21758" ph="select dim_c... b04_data_col_adim_scope" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -158,11 +203,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>复合</find>
-      <find>getRequestParam</find>
-      <find>processComplexMeausure</find>
-      <find>initCompons</find>
-      <find>addwindow</find>
       <find>editEngMeasure</find>
       <find>importMeasureFromExcel</find>
       <find>upload</find>
@@ -184,10 +224,15 @@
       <find>progressBar</find>
       <find>setStatus</find>
       <find>session</find>
-      <find>measureExe</find>
       <find>importWindow</find>
-      <find>cycleTypeId</find>
       <find>doExecuteMeasure</find>
+      <find>cycleTypeId</find>
+      <find>active</find>
+      <find>measureExe</find>
+      <find>jquery</find>
+      <find>union</find>
+      <find>date</find>
+      <find>listScoreResult</find>
     </findStrings>
     <replaceStrings>
       <replace>http://10.10.10.42:8081</replace>
@@ -235,15 +280,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/Selection.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/dao/mapper/LogDaoMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/PublicMeasureServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp" />
         <option value="$PROJECT_DIR$/src/main/resources/profile/dev/spring/jdbc_oracle_local.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/service/IMeasureService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/BscMeasureDao.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js" />
         <option value="$PROJECT_DIR$/src/main/resources/spring/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedure.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscMeasureDaoMapper.xml" />
@@ -280,12 +322,15 @@
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_measure_search_layout.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/do_execute_project.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_execute.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp" />
       </list>
     </option>
   </component>
@@ -420,6 +465,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -428,132 +476,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.apache.httpcomponents:httpcore:4.4.4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpcore-4.4.4.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Maven: org.apache.httpcomponents:httpcore:4.4.4" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="httpcore-4.4.4.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.8 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.8 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rt.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.8 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rt.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="net" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; 1.8 &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rt.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="net" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="bsbProd-beijing" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -575,8 +497,26 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
+              <option name="myItemId" value="bsbProd-beijing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bsbProd-beijing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -598,41 +538,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
+              <option name="myItemId" value="spring" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -654,93 +564,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
+              <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ext3.4.0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="spring" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -788,85 +616,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="constant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
+              <option name="myItemId" value="mapper" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -964,9 +714,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1463,6 +1210,33 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
+    <configuration default="false" name="mvnCalMea" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="package" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map>
+                <entry key="tellhow" value="false" />
+              </map>
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
     <configuration default="false" name="Unnamed" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.31" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/bsbProd" />
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
@@ -1539,36 +1313,9 @@
         </option>
       </method>
     </configuration>
-    <configuration default="false" name="mvnCalMea" type="MavenRunConfiguration" factoryName="Maven">
-      <MavenSettings>
-        <option name="myGeneralSettings" />
-        <option name="myRunnerSettings" />
-        <option name="myRunnerParameters">
-          <MavenRunnerParameters>
-            <option name="profiles">
-              <set />
-            </option>
-            <option name="goals">
-              <list>
-                <option value="clean" />
-                <option value="package" />
-              </list>
-            </option>
-            <option name="profilesMap">
-              <map>
-                <entry key="tellhow" value="false" />
-              </map>
-            </option>
-            <option name="resolveToWorkspace" value="false" />
-            <option name="workingDirPath" value="$PROJECT_DIR$" />
-          </MavenRunnerParameters>
-        </option>
-      </MavenSettings>
-      <method />
-    </configuration>
     <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
-      <item index="1" class="java.lang.String" itemvalue="Maven.mvnCalMea" />
+      <item index="0" class="java.lang.String" itemvalue="Maven.mvnCalMea" />
+      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.Unnamed" />
       <item index="2" class="java.lang.String" itemvalue="Application.CalculateProcedureOnlyMeasureMain" />
       <item index="3" class="java.lang.String" itemvalue="Application.BscResultAction" />
     </list>
@@ -1607,7 +1354,8 @@
       <workItem from="1556786514634" duration="6208000" />
       <workItem from="1557021464411" duration="55508000" />
       <workItem from="1557212289908" duration="37962000" />
-      <workItem from="1557366193890" duration="35953000" />
+      <workItem from="1557366193890" duration="40863000" />
+      <workItem from="1557475735148" duration="6690000" />
     </task>
     <task id="LOCAL-00001" summary="上传文件不能关闭提示框bug修改">
       <created>1557387361555</created>
@@ -1665,13 +1413,20 @@
       <option name="project" value="LOCAL" />
       <updated>1557469000479</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="导入模板文件增加">
+      <created>1557469914829</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1557469914829</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="673929000" />
+    <option name="totallyTimeSpent" value="685529000" />
   </component>
-  <component name="TodoView">
+  <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
     </todo-panel>
@@ -1686,7 +1441,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49918166" sideWeight="0.5060514" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5229508" sideWeight="0.48335856" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1697,19 +1452,19 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5229508" sideWeight="0.5484115" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288364" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39016393" sideWeight="0.51664144" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.38683787" sideWeight="0.46769458" order="2" side_tool="false" content_ui="tabs" x="1" y="33" width="1362" height="694" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.38683787" sideWeight="0.46769458" order="2" side_tool="false" content_ui="tabs" x="1" y="33" width="1362" height="694" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27912253" sideWeight="0.4902439" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22541603" sideWeight="0.5097561" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16717096" sideWeight="0.47766322" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27912253" sideWeight="0.5223368" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49918166" sideWeight="0.49394855" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22541603" sideWeight="0.5097561" order="7" side_tool="true" content_ui="tabs" />
@@ -1745,7 +1500,8 @@
     <MESSAGE value="增加导入指标默认值设置" />
     <MESSAGE value="指标计算开始后按钮还能点击bug修复" />
     <MESSAGE value="指标计算日期没有选择可以开始&#10;指标计算日期最大日期不能大于今天bug修复" />
-    <option name="LAST_COMMIT_MESSAGE" value="指标计算日期没有选择可以开始&#10;指标计算日期最大日期不能大于今天bug修复" />
+    <MESSAGE value="导入模板文件增加" />
+    <option name="LAST_COMMIT_MESSAGE" value="导入模板文件增加" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1787,12 +1543,6 @@
           <option name="timeStamp" value="132" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java</url>
-          <line>137</line>
-          <properties />
-          <option name="timeStamp" value="154" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java</url>
           <line>673</line>
           <properties />
@@ -1812,11 +1562,23 @@
           <properties />
           <option name="timeStamp" value="256" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java</url>
+          <line>129</line>
+          <properties />
+          <option name="timeStamp" value="278" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java</url>
+          <line>113</line>
+          <properties />
+          <option name="timeStamp" value="279" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="278" />
+      <option name="time" value="280" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1825,51 +1587,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/spring/jdbc_oracle_local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/poi-ooxml-3.9.jar!/org/apache/poi/xssf/streaming/SXSSFWorkbook.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="90" column="16" lean-forward="false" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/action/ExcelDownloadAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/BscResultServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="382" column="0" lean-forward="false" selection-start-line="382" selection-start-column="0" selection-end-line="382" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_index_rpt_result_statistics_ext.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="58" column="64" lean-forward="false" selection-start-line="58" selection-start-column="64" selection-end-line="58" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/spring-aop-3.2.4.RELEASE.jar!/org/springframework/aop/interceptor/ExposeInvocationInterceptor.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_result_layout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3984">
@@ -1903,7 +1620,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1786">
           <caret line="94" column="51" lean-forward="false" selection-start-line="94" selection-start-column="51" selection-end-line="94" selection-end-column="51" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1933,14 +1649,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="36" column="31" lean-forward="false" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/action/LoginAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="170" column="45" lean-forward="true" selection-start-line="170" selection-start-column="41" selection-end-line="170" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -1948,11 +1656,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
           <caret line="57" column="19" lean-forward="false" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1183#1184#0" expanded="false" />
-            <element signature="e#1208#1209#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1971,44 +1674,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="40" column="94" lean-forward="false" selection-start-line="40" selection-start-column="94" selection-end-line="40" selection-end-column="94" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscMeasureDaoMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
           <caret line="17" column="31" lean-forward="false" selection-start-line="17" selection-start-column="29" selection-end-line="17" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscCardDaoMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="59" column="40" lean-forward="false" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="40" />
-          <folding>
-            <marker date="1552961211000" expanded="true" signature="257:300" ph="select * fro... *" />
-            <marker date="1552961211000" expanded="true" signature="280:300" ph="select m.* f... " />
-            <marker date="1552961211000" expanded="true" signature="486:508" ph="select count... " />
-            <marker date="1552961211000" expanded="true" signature="672:918" ph="select a.*, bsc_proj_mea_obj_score" />
-            <marker date="1552961211000" expanded="true" signature="1028:1346" ph="select a.*,b... bsc_strat_mea_rslt" />
-            <marker date="1552961211000" expanded="true" signature="1537:2034" ph="select a.*,c... bsc_strat_mea_obj" />
-            <marker date="1552961211000" expanded="true" signature="2234:2439" ph="select disti... bsc_strat_mea_obj" />
-            <marker date="1552961211000" expanded="true" signature="2605:3089" ph="select a.*,b... bsc_strat_mea_obj" />
-            <marker date="1552961211000" expanded="true" signature="3235:3450" ph="select a.*,b... bsc_strat_mea_obj" />
-            <marker date="1552961211000" expanded="true" signature="3560:3809" ph="select disti... bsc_strat_mea_obj" />
-            <marker date="1552961211000" expanded="true" signature="3918:5805" ph="select a.*, bsc_proj_mea_h" />
-            <marker date="1552961211000" expanded="true" signature="5955:7183" ph="select a.mea... bsc_proj_mea_h" />
-            <marker date="1552961211000" expanded="true" signature="7214:7821" ph="select a.mea... bsc_measure_h" />
-            <marker date="1552961211000" expanded="true" signature="7956:8433" ph="select a.*,b... bsc_measure_h" />
-            <marker date="1552961211000" expanded="true" signature="8534:9093" ph="select a.par... bsc_parameter_h" />
-            <marker date="1552961211000" expanded="true" signature="9193:9504" ph="select a.mon... bsc_proj_obj_score" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2031,7 +1700,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9519">
           <caret line="529" column="0" lean-forward="false" selection-start-line="529" selection-start-column="0" selection-end-line="529" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2039,7 +1707,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2062,19 +1729,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="553" column="37" lean-forward="false" selection-start-line="553" selection-start-column="33" selection-end-line="553" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/spring-core-3.2.4.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2082,7 +1740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
           <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2098,7 +1755,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
           <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2117,7 +1773,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
           <caret line="43" column="43" lean-forward="false" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2165,6 +1820,91 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/public/scripts/ext3.4.0/ext-all-debug.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="29028" column="8" lean-forward="false" selection-start-line="29028" selection-start-column="8" selection-end-line="29028" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscCtrlMeasureAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="35055">
+          <caret line="1913" column="28" lean-forward="false" selection-start-line="1913" selection-start-column="28" selection-end-line="1913" selection-end-column="28" />
+          <folding>
+            <element signature="e#2696#2697#0" expanded="false" />
+            <element signature="e#2721#2722#0" expanded="false" />
+            <element signature="e#2777#2778#0" expanded="false" />
+            <element signature="e#2814#2815#0" expanded="false" />
+            <element signature="e#60099#60100#0" expanded="false" />
+            <element signature="e#60117#60118#0" expanded="false" />
+            <element signature="e#60152#60153#0" expanded="false" />
+            <element signature="e#60175#60176#0" expanded="false" />
+            <element signature="e#60210#60211#0" expanded="false" />
+            <element signature="e#60235#60236#0" expanded="false" />
+            <element signature="e#60286#60287#0" expanded="false" />
+            <element signature="e#60323#60324#0" expanded="false" />
+            <element signature="e#60355#60356#0" expanded="false" />
+            <element signature="e#60377#60378#0" expanded="false" />
+            <element signature="e#60422#60423#0" expanded="false" />
+            <element signature="e#60453#60454#0" expanded="false" />
+            <element signature="e#71247#71248#0" expanded="false" />
+            <element signature="e#71294#71295#0" expanded="false" />
+            <element signature="e#71343#71344#0" expanded="false" />
+            <element signature="e#71372#71373#0" expanded="false" />
+            <element signature="e#71441#71442#0" expanded="false" />
+            <element signature="e#71486#71487#0" expanded="false" />
+            <marker date="1557394337601" expanded="false" signature="63557:63578" ph="&lt;~&gt;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/MeasureAnalysisAjax.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/sun/nio/ch/WindowsSelectorImpl.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="453" column="27" lean-forward="false" selection-start-line="453" selection-start-column="27" selection-end-line="453" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="553" column="55" lean-forward="true" selection-start-line="553" selection-start-column="55" selection-end-line="553" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/spring/jdbc_oracle_local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/profile/dev/spring/jdbc_oracle_local.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/net/DualStackPlainSocketImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -2173,72 +1913,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/public/scripts/ext3.4.0/ext-all-debug.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/action/LoginAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="29028" column="8" lean-forward="false" selection-start-line="29028" selection-start-column="8" selection-end-line="29028" selection-end-column="8" />
+        <state relative-caret-position="88">
+          <caret line="170" column="0" lean-forward="false" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/do_execute_project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="70" column="29" lean-forward="false" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="29" />
-          <folding>
-            <marker date="1557391981357" expanded="true" signature="13662:13700" ph="..." />
-            <marker date="1557391981357" expanded="true" signature="16111:16137" ph="..." />
-            <marker date="1557391981357" expanded="true" signature="19950:19976" ph="..." />
-            <marker date="1557391981357" expanded="true" signature="20364:20390" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscCtrlMeasureAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1990">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="156">
+          <caret line="116" column="25" lean-forward="false" selection-start-line="116" selection-start-column="9" selection-end-line="116" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_calc_exec_common_layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2427">
-          <caret line="1913" column="28" lean-forward="true" selection-start-line="1913" selection-start-column="28" selection-end-line="1913" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1557394337601" expanded="false" signature="60098:60103" ph=" { " />
-            <marker date="1557394337601" expanded="false" signature="60115:60118" ph=" }" />
-            <marker date="1557394337601" expanded="false" signature="60151:60156" ph=" { " />
-            <marker date="1557394337601" expanded="false" signature="60173:60176" ph=" }" />
-            <marker date="1557394337601" expanded="false" signature="60209:60214" ph=" { " />
-            <marker date="1557394337601" expanded="false" signature="60233:60236" ph=" }" />
-            <marker date="1557394337601" expanded="false" signature="60285:60290" ph=" { " />
-            <marker date="1557394337601" expanded="false" signature="60321:60324" ph=" }" />
-            <marker date="1557394337601" expanded="false" signature="60354:60359" ph=" { " />
-            <marker date="1557394337601" expanded="false" signature="60375:60378" ph=" }" />
-            <marker date="1557394337601" expanded="false" signature="60421:60426" ph=" { " />
-            <marker date="1557394337601" expanded="false" signature="60451:60454" ph=" }" />
-            <marker date="1557394337601" expanded="false" signature="63557:63578" ph="&lt;~&gt;" />
-            <marker date="1557394337601" expanded="false" signature="71440:71445" ph=" { " />
-            <marker date="1557394337601" expanded="false" signature="71484:71487" ph=" }" />
-          </folding>
+        <state relative-caret-position="1026">
+          <caret line="106" column="11" lean-forward="true" selection-start-line="106" selection-start-column="11" selection-end-line="106" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_execute.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="123" column="42" lean-forward="true" selection-start-line="123" selection-start-column="42" selection-end-line="123" selection-end-column="42" />
+        <state relative-caret-position="-95">
+          <caret line="16" column="6" lean-forward="false" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="125" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="13" column="33" lean-forward="true" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="739" column="28" lean-forward="true" selection-start-line="739" selection-start-column="28" selection-end-line="739" selection-end-column="28" />
+        <state relative-caret-position="14649">
+          <caret line="795" column="44" lean-forward="true" selection-start-line="795" selection-start-column="44" selection-end-line="795" selection-end-column="44" />
           <folding>
             <marker date="1557393760287" expanded="true" signature="1824:1850" ph="..." />
             <marker date="1557393760287" expanded="true" signature="5191:5217" ph="..." />
@@ -2246,55 +1964,156 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="9" lean-forward="false" selection-start-line="2" selection-start-column="9" selection-end-line="2" selection-end-column="9" />
+        <state relative-caret-position="213">
+          <caret line="81" column="42" lean-forward="true" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
+          <folding>
+            <marker date="1557476987178" expanded="true" signature="13892:13930" ph="..." />
+            <marker date="1557476987178" expanded="true" signature="16341:16367" ph="..." />
+            <marker date="1557476987178" expanded="true" signature="20180:20206" ph="..." />
+            <marker date="1557476987178" expanded="true" signature="20594:20620" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_public_measure.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="27" column="120" lean-forward="true" selection-start-line="27" selection-start-column="120" selection-end-line="27" selection-end-column="120" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_calc_exec_common_layout.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="113" column="28" lean-forward="false" selection-start-line="113" selection-start-column="12" selection-end-line="113" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/MeasureAnalysisAjax.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        <state relative-caret-position="171">
+          <caret line="50" column="65" lean-forward="false" selection-start-line="50" selection-start-column="65" selection-end-line="50" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="98" column="43" lean-forward="false" selection-start-line="98" selection-start-column="43" selection-end-line="98" selection-end-column="43" />
+        <state relative-caret-position="304">
+          <caret line="98" column="44" lean-forward="false" selection-start-line="98" selection-start-column="44" selection-end-line="98" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/do_execute_project.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscCardDaoMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="181" column="51" lean-forward="false" selection-start-line="181" selection-start-column="51" selection-end-line="181" selection-end-column="51" />
-          <folding />
+        <state relative-caret-position="1276">
+          <caret line="193" column="33" lean-forward="true" selection-start-line="193" selection-start-column="33" selection-end-line="193" selection-end-column="33" />
+          <folding>
+            <marker date="1552961211000" expanded="true" signature="257:300" ph="select * fro... *" />
+            <marker date="1552961211000" expanded="true" signature="280:300" ph="select m.* f... " />
+            <marker date="1552961211000" expanded="true" signature="486:508" ph="select count... " />
+            <marker date="1552961211000" expanded="true" signature="672:918" ph="select a.*, bsc_proj_mea_obj_score" />
+            <marker date="1552961211000" expanded="true" signature="1028:1346" ph="select a.*,b... bsc_strat_mea_rslt" />
+            <marker date="1552961211000" expanded="true" signature="1537:2034" ph="select a.*,c... bsc_strat_mea_obj" />
+            <marker date="1552961211000" expanded="true" signature="2234:2439" ph="select disti... bsc_strat_mea_obj" />
+            <marker date="1552961211000" expanded="true" signature="2605:3089" ph="select a.*,b... bsc_strat_mea_obj" />
+            <marker date="1552961211000" expanded="true" signature="3235:3450" ph="select a.*,b... bsc_strat_mea_obj" />
+            <marker date="1552961211000" expanded="true" signature="3560:3809" ph="select disti... bsc_strat_mea_obj" />
+            <marker date="1552961211000" expanded="true" signature="3918:5805" ph="select a.*, bsc_proj_mea_h" />
+            <marker date="1552961211000" expanded="true" signature="5955:7183" ph="select a.mea... bsc_proj_mea_h" />
+            <marker date="1552961211000" expanded="true" signature="7214:7821" ph="select a.mea... bsc_measure_h" />
+            <marker date="1552961211000" expanded="true" signature="7956:8433" ph="select a.*,b... bsc_measure_h" />
+            <marker date="1552961211000" expanded="true" signature="8534:9093" ph="select a.par... bsc_parameter_h" />
+            <marker date="1552961211000" expanded="true" signature="9193:9504" ph="select a.mon... bsc_proj_obj_score" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscCtrlMeasureDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="98" column="4" lean-forward="true" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="4" />
+          <folding>
+            <marker date="1552961211000" expanded="true" signature="286:451" ph="insert into bsc_proj_mea... " />
+            <marker date="1552961211000" expanded="true" signature="537:670" ph="update bsc_p... " />
+            <marker date="1552961211000" expanded="true" signature="758:851" ph="delete from " />
+            <marker date="1552961211000" expanded="true" signature="941:1037" ph="delete from " />
+            <marker date="1552961211000" expanded="true" signature="1139:1402" ph="select a.*, bsc_proj_mea" />
+            <marker date="1552961211000" expanded="true" signature="1507:1576" ph="select measu... bsc_measure" />
+            <marker date="1552961211000" expanded="true" signature="1679:1756" ph="select param... bsc_parameter" />
+            <marker date="1552961211000" expanded="true" signature="1857:1960" ph="delete from " />
+            <marker date="1552961211000" expanded="true" signature="2049:2199" ph="insert into bsc_proj_mea_para... " />
+            <marker date="1552961211000" expanded="true" signature="2932:2990" ph="select * fro... bsc_proj_mea" />
+            <marker date="1552961211000" expanded="true" signature="3074:3196" ph="update bsc_p... " />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+        <state relative-caret-position="58">
+          <caret line="113" column="0" lean-forward="false" selection-start-line="113" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
           <folding>
+            <element signature="e#2458#2479#0" expanded="true" />
+            <element signature="e#2569#2588#0" expanded="true" />
+            <element signature="e#2665#2683#0" expanded="true" />
+            <element signature="e#2761#2780#0" expanded="true" />
+            <element signature="e#12422#12452#0" expanded="true" />
+            <element signature="e#17496#17526#0" expanded="true" />
             <element signature="e#26450#26458#0" expanded="true" />
             <element signature="e#34640#34656#0" expanded="true" />
             <element signature="e#34756#34764#0" expanded="true" />
             <element signature="e#38366#38382#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscResultDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="228" column="68" lean-forward="true" selection-start-line="228" selection-start-column="68" selection-end-line="228" selection-end-column="68" />
+          <folding>
+            <marker date="1557367124926" expanded="true" signature="262:310" ph="select * fro... *" />
+            <marker date="1557367124926" expanded="true" signature="277:310" ph="select t1.*,... " />
+            <marker date="1557367124926" expanded="true" signature="515:537" ph="select count... " />
+            <marker date="1557367124926" expanded="true" signature="646:663" ph="select cnt f... " />
+            <marker date="1557367124926" expanded="true" signature="747:855" ph="update bsc_p... " />
+            <marker date="1557367124926" expanded="true" signature="1467:3198" ph="select a.*, bsc_calc_ctrl" />
+            <marker date="1557367124926" expanded="true" signature="3298:3960" ph="select a.*,b... parent_dim_id" />
+            <marker date="1557367124926" expanded="true" signature="3330:3858" ph="select b.par... " />
+            <marker date="1557367124926" expanded="true" signature="4339:4523" ph="select a.mea... bsc_proj_mea" />
+            <marker date="1557367124926" expanded="true" signature="5402:6168" ph="select j.obj... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="5402:7350" ph="select j.obj... " />
+            <marker date="1557367124926" expanded="true" signature="6179:7350" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557367124926" expanded="true" signature="6514:6585" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557367124926" expanded="true" signature="8160:8390" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="8160:9412" ph="select t.obj... " />
+            <marker date="1557367124926" expanded="true" signature="8401:9412" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557367124926" expanded="true" signature="8576:8647" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557367124926" expanded="true" signature="9535:10001" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="10091:10567" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="10656:11317" ph="select t.*,@... " />
+            <marker date="1557367124926" expanded="true" signature="11419:11834" ph="select ifnul... bsc_proj_obj_score" />
+            <marker date="1557367124926" expanded="true" signature="11977:12204" ph="select case bsc_proj_exe_mth" />
+            <marker date="1557367124926" expanded="true" signature="12322:13084" ph="select s.mon... *" />
+            <marker date="1557367124926" expanded="true" signature="12437:13052" ph="select d.* f... month_id" />
+            <marker date="1557367124926" expanded="true" signature="12454:13004" ph="select a.mon... bsc_proj_obj_score" />
+            <marker date="1557367124926" expanded="true" signature="13202:13357" ph="select measu... bsc_measure" />
+            <marker date="1557367124926" expanded="true" signature="13491:13642" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="13491:14540" ph="select t.yea... " />
+            <marker date="1557367124926" expanded="true" signature="13653:14484" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557367124926" expanded="true" signature="13829:14171" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557367124926" expanded="true" signature="14723:16398" ph="select * fro... cycle_id" />
+            <marker date="1557367124926" expanded="true" signature="14738:15397" ph="select c.cyc... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="15408:16307" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557367124926" expanded="true" signature="15652:15994" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557367124926" expanded="true" signature="16544:17310" ph="select j.obj... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="16544:18492" ph="select j.obj... " />
+            <marker date="1557367124926" expanded="true" signature="17321:18492" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557367124926" expanded="true" signature="17656:17727" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557367124926" expanded="true" signature="18605:19202" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="19293:19605" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557367124926" expanded="true" signature="20925:21142" ph="select i.mea... bsc_measure" />
+            <marker date="1557367124926" expanded="true" signature="21264:21384" ph="select ind_i... B04_IND" />
+            <marker date="1557367124926" expanded="true" signature="21470:21563" ph="select obj_n... bsc_proj_stat_obj" />
+            <marker date="1557367124926" expanded="true" signature="21651:21758" ph="select dim_c... b04_data_col_adim_scope" />
           </folding>
         </state>
       </provider>

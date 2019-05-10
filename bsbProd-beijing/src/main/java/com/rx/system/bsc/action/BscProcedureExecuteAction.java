@@ -47,8 +47,8 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 
 			procedure.setJdbcManager(this.jdbcManager);
 			Context context = new Context();
-			context.put("monthID", getStringValue(paramMap, "monthID"));
-			context.put("projectID", getStringValue(paramMap, "projectID"));
+//			context.put("monthID", getStringValue(paramMap, "monthID"));
+//			context.put("projectID", getStringValue(paramMap, "projectID"));
 			context.put("cycleTypeID", getStringValue(paramMap, "cycleTypeID"));
 			context.put("is_published", "N");
 			procedure.initContext(context);

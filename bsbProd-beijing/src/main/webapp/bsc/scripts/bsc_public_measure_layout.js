@@ -72,6 +72,15 @@ Ext.onReady(function() {
         handler : function() {
             doImport();
         }
+    },'-',{
+        text : '指标计算(p)',
+        id : 'measureExe',
+        toolTip : '指标计算',
+        iconCls : 'publish',
+        disabled : false,
+        handler : function() {
+            doExecuteMeasure(cycleTypeId);
+        }
     }]);
 	//添加树形索引
 	addSearchToolbar({

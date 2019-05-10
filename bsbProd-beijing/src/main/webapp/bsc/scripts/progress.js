@@ -10,10 +10,10 @@ function doExecute() {
         waitMsg : '正在处理,请稍候......',
         method : 'POST',
         params : {
-            projectID : projectID,
-            monthID : monthID,
+            // projectID : projectID,
+            // monthID : monthID,
             cycleTypeID : cycleTypeID,
-            fullScore : fullScore,
+            // fullScore : fullScore,
             published : published
         },
         callback : function(options, success, response) {
