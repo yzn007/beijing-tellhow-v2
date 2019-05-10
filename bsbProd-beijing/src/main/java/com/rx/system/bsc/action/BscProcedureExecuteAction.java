@@ -111,14 +111,23 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 		ThreadStatus status = (ThreadStatus) session.getAttribute("status");
 		
 		Map<String, Object> results = new HashMap<String, Object>();
-		
-		results.put("count", status.getItemCount());
-		results.put("index", status.getIndex());
-		results.put("time", status.getCalculateTime());
-		results.put("state", status.getStatus());
-		results.put("exception", status.getException());
-		results.put("success", true);
-		results.put("log", status.getLogList());
+		if(status!=null) {
+			results.put("count", status.getItemCount());
+			results.put("index", status.getIndex());
+			results.put("time", status.getCalculateTime());
+			results.put("state", status.getStatus());
+			results.put("exception", status.getException());
+			results.put("success", true);
+			results.put("log", status.getLogList());
+		}else{
+			results.put("count", 0);
+			results.put("index", 0);
+			results.put("time", 0);
+			results.put("state", 1);
+			results.put("exception", null);
+			results.put("success", false);
+			results.put("log", null);
+		}
 
 		doJSONResponse(results);
 		

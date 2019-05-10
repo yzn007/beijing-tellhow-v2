@@ -186,7 +186,7 @@ function doExecuteMeasure(cycleTypeId) {
             }],
 			buttons : [{
                 text : '计算',
-                id : 'execute',
+                id : 'start',
                 handler : function() {
                     // monthID = Ext.getCmp("cycleSelector").getValue();
 
