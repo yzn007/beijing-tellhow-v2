@@ -152,21 +152,7 @@ function doExecuteMeasure(cycleTypeId) {
             buttonAlign : 'center',
             layout : 'form',
             items : [
-            // 	{
-            //     xtype : 'textfield',
-            //     fieldLabel : '方案名称',
-            //     value : projectName,
-            //     readOnly : true,
-            //     anchor : '91%'
-            // },
 				{
-                // xtype : 'combo',
-                // mode : 'local',
-                // displayField : 'cycle_name',
-                // valueField : 'cycle_id',
-                // store : cycleDS,
-                // editable : false,
-                // triggerAction : 'all',
                 name : 'cycle_id',
                 id : 'cycleSelector',
                 xtype: 'datefield',
@@ -174,7 +160,9 @@ function doExecuteMeasure(cycleTypeId) {
                 fieldLabel: '日期',
                 // style:"margin-left:20px;",
                 format: 'Y-m-d',
-                width:250,
+                allowBlank : false,
+				maxValue:new Date(),
+				width:250,
 				listeners: {
                     "select": function () {
                         var selectDate = Ext.getCmp('cycleSelector').getValue();
@@ -188,13 +176,11 @@ function doExecuteMeasure(cycleTypeId) {
                 text : '计算',
                 id : 'start',
                 handler : function() {
-                    // monthID = Ext.getCmp("cycleSelector").getValue();
-
-                    // if(monthID == '') {
-                    //     Ext.Msg.alert('提示信息',"请选择考核周期");
-                    //     return;
-                    // }
-                    ProgressRunnerMeasure.run(progressBar);
+                	if(cycleTypeId!=null && cycleTypeId!=""){
+                        ProgressRunnerMeasure.run(progressBar);
+					}else{
+                		Ext.Msg.alert('提示信息',"请选择日期！");
+					}
                 }
             }, {
                 text : '停止',

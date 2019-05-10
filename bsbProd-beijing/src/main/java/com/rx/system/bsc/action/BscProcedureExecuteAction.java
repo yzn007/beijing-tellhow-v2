@@ -120,13 +120,9 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 			results.put("success", true);
 			results.put("log", status.getLogList());
 		}else{
-			results.put("count", 0);
-			results.put("index", 0);
-			results.put("time", 0);
-			results.put("state", 1);
-			results.put("exception", null);
+			//非正常报错
 			results.put("success", false);
-			results.put("log", null);
+			results.put("info", "数据处理中……");
 		}
 
 		doJSONResponse(results);

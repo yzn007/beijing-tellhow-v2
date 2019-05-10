@@ -128,7 +128,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
 
             //查询出所有需要计算的指标
             List<IMeasure> measureList = this.measureService.getValidMeasure();
-
+            Thread.sleep(500);
 //            //查询出方案指标
 //            List<Map<String, Object>> projMeasures = this.measureService.getProjectMeasure(this.projectID);
 
