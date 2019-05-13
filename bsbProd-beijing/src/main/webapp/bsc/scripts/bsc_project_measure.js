@@ -136,12 +136,12 @@ var tabPanel = new Ext.TabPanel({
 		autoScroll : true
 	},
 	listeners: {
-		tabchange : function(tab,panel) {
-			if(tabPanel.getActiveTab().id == 'baseM')
-				baseMeasureTree.getRootNode().expand();
-			else if(tabPanel.getActiveTab().id == 'projectM')
-				projectMeasureTree.getRootNode().expand();
-		}	
+		// tabchange : function(tab,panel) {
+		// 	if(tabPanel.getActiveTab().id == 'baseM')
+		// 		baseMeasureTree.getRootNode().expand();
+		// 	else if(tabPanel.getActiveTab().id == 'projectM')
+		// 		projectMeasureTree.getRootNode().expand();
+		// }
 	},
 	items : [{
 		title : '公共指标',
@@ -160,22 +160,24 @@ var tabPanel = new Ext.TabPanel({
 			rootVisible : true,
 			tbar : pub_tbar
 		})]
-	}, {
-		title : '私有指标',
-		layout : 'border',
-		id : 'projectM',
-		items : [projectMeasureTree = new Ext.tree.TreePanel({
-			region : 'center',
-			id : 'projectMeasureTreePanel',
-			loader : new Ext.tree.TreeLoader(),
-			lines : false,
-			border : false,
-			bodyStyle : 'padding:5px 5px',
-			autoScroll : true,
-			root : pri_node,
-			rootVisible : true
-		})]
-	}]
+	}
+	// , {
+	// 	title : '私有指标',
+	// 	layout : 'border',
+	// 	id : 'projectM',
+	// 	items : [projectMeasureTree = new Ext.tree.TreePanel({
+	// 		region : 'center',
+	// 		id : 'projectMeasureTreePanel',
+	// 		loader : new Ext.tree.TreeLoader(),
+	// 		lines : false,
+	// 		border : false,
+	// 		bodyStyle : 'padding:5px 5px',
+	// 		autoScroll : true,
+	// 		root : pri_node,
+	// 		rootVisible : true
+	// 	})]
+	// }
+	]
 });
 
 baseMeasureTree.on("click",function(node,e){
@@ -186,14 +188,14 @@ baseMeasureTree.on("click",function(node,e){
 		infoPanel.form.load({url: pathUrl + '/publicMeasure_common.action?method=getEngMeasureById', params: {measure_id: node.id,is_private:'N'}});
 	}
 })
-projectMeasureTree.on("click",function(node,e){
-	infoPanel.form.reset();
-	if(node) {
-		measure_type = node.attributes.source_type_id;
-		measure_cate = node.attributes.obj_cate_id;
-		infoPanel.form.load({url: pathUrl + '/privateMeasure_common.action?method=getEngMeasureById', params: {measure_id: node.id}});
-	}
-})
+// projectMeasureTree.on("click",function(node,e){
+// 	infoPanel.form.reset();
+// 	if(node) {
+// 		measure_type = node.attributes.source_type_id;
+// 		measure_cate = node.attributes.obj_cate_id;
+// 		infoPanel.form.load({url: pathUrl + '/privateMeasure_common.action?method=getEngMeasureById', params: {measure_id: node.id}});
+// 	}
+// })
 
 var infoPanel = new Ext.form.FormPanel({
 	title : '衡量指标',
@@ -373,27 +375,27 @@ var formulaTabPanel = new Ext.TabPanel({
 	},publicTree]
 });
 
-var pri_rn = getRootNode('root', '私有指标树', expandMyMeasureTreeNode);
-pri_rn.attributes.is_private = 'Y';
-formulaTabPanel.add(privateTree = new Ext.tree.TreePanel({
-	title : '私有指标',
-	id : 'privateTree',
-	animate : true,
-	frame : false,
-	border : false,
-	loader : new Ext.tree.TreeLoader(),
-	lines : false,
-	bodyStyle : 'padding:5px 5px',
-	autoScroll : true,
-	root : pri_rn,
-	rootVisible : true
-}));
-
-privateTree.on('dblclick', function(node, e) {
-	if (node.id == 'root')
-		return;
-	RangeInsert(formulaTextArea, "[@" + node.id + "]");
-});
+// var pri_rn = getRootNode('root', '私有指标树', expandMyMeasureTreeNode);
+// pri_rn.attributes.is_private = 'Y';
+// formulaTabPanel.add(privateTree = new Ext.tree.TreePanel({
+// 	title : '私有指标',
+// 	id : 'privateTree',
+// 	animate : true,
+// 	frame : false,
+// 	border : false,
+// 	loader : new Ext.tree.TreeLoader(),
+// 	lines : false,
+// 	bodyStyle : 'padding:5px 5px',
+// 	autoScroll : true,
+// 	root : pri_rn,
+// 	rootVisible : true
+// }));
+//
+// privateTree.on('dblclick', function(node, e) {
+// 	if (node.id == 'root')
+// 		return;
+// 	RangeInsert(formulaTextArea, "[@" + node.id + "]");
+// });
 
 formulaTabPanel.add({
 	title : '参数',
