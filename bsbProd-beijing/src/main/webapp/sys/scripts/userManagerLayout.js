@@ -21,7 +21,7 @@ Ext.onReady(function() {
 			var userId = g.getSelectionModel().getSelections()[0].get("user_id");
 			modifyUser(ownerOrgId, bankOrgId, userId, store);
 		}
-	}, '-', {
+	}, /** '-', {
 		text : "删除(d)",
 		tooltip : "删除用户",
 		iconCls : 'delete',
@@ -36,7 +36,7 @@ Ext.onReady(function() {
 					deleteUser(g.getSelectionModel().getSelections()[0].get("user_id"), store)
 			});
 		}
-	}, '-', {
+	},**/ '-', {
 		text : "分配角色(g)",
 		tooltip : "为用户分配角色",
 		iconCls : 'dispatch',

@@ -31,8 +31,8 @@
 		<include refid="pageDataHeader"/>
 		select a.*, d.bank_org_name owner_org_name, c.bank_org_name bank_org_name
 		  from bsc_user_info a, dmd_bank_inter_org c , dmd_bank_relation d 
-		 where a.owner_org_id = d.bank_org_id
-		   and d.bank_rela_type_cd = '00'
+		 where <!--a.owner_org_id = d.bank_org_id
+		   and--> d.bank_rela_type_cd = '00'
 		   and a.bank_org_id = c.bank_org_id
 		<if test="user_id != null and user_id != ''">
 			and a.user_id like '%${user_id}%' 
@@ -131,7 +131,7 @@
 	<!-- 删除用户与用户角色关系 -->
 	<delete id="removeUserRoleRela" parameterType="SysUser">
 		delete from 
-			bsc_user_role_rela a
+			bsc_user_role_rela
 		where 
 			user_id = #{user_id}
 		<!-- 
@@ -292,14 +292,14 @@
 	
 	<delete id="deleteSpeciallyAuthorize" parameterType="map">
 		delete from
-			bsc_user_spec_priv a
+			bsc_user_spec_priv
 		where
-			a.user_id = #{user_id}
+			user_id = #{user_id}
 		<if test="bank_id != null and bank_id != ''"><!-- 删除用户时删除用的特殊授权（bank_id为空） -->
-		and	a.bank_org_id = #{bank_id}
-		and exists(
-				select 
-					0
+		and	bank_org_id = #{bank_id}
+		and resource_id in (
+				select
+			d.resource_id
 				from
 					bsc_user_info b,
 					bsc_user_role_rela c,
@@ -307,7 +307,6 @@
 				where
 					b.user_id = c.user_id
 				and	c.role_id = d.role_id
-				and	d.resource_id = a.resource_id
 				and b.user_id = #{current_user_id}
 			)
 		</if>
@@ -367,17 +366,16 @@
 	
 	<delete id="deleteRoleByUserIdAndBankOrgId" parameterType="map">
 		delete from 
-			bsc_user_role_rela a
+			bsc_user_role_rela
 		where
-			a.user_id = #{user_id}
-		and	exists(
+			user_id = #{user_id}
+		and	role_id in (
 				select 
-					0
+					role_id
 				from
 					bsc_role_info b
-				where	
-					a.role_id = b.role_id
-				and	b.bank_org_id = #{bank_id}
+				where
+					b.bank_org_id = #{bank_id}
 				)
 	</delete>
 	<delete id="deleteUserDataTemp" >

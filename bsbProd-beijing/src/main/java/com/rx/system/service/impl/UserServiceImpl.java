@@ -72,7 +72,7 @@ public class UserServiceImpl extends BaseService implements IUserService {
 	public void modifyUser(HttpServletRequest request,SysUser user)throws Exception{
 		String oldOwnerOrgId = request.getParameter("oldOwerOrgId");
 		String oldBankOrgId = request.getParameter("oldBankOrgId");
-		if(null == oldOwnerOrgId || "".equals(oldOwnerOrgId) || null == oldBankOrgId || "".equals(oldBankOrgId)){
+		if(/*null == oldOwnerOrgId || "".equals(oldOwnerOrgId) ||*/ null == oldBankOrgId || "".equals(oldBankOrgId)){
 			throw new Exception("参数获取失败！");
 		}
 		//归属机构发生变化则权限机构与归属机构保持一致
