@@ -980,7 +980,7 @@ var addWindow = new Ext.Window({
 	width : 770,
 	height : 490,
 	layout : 'fit',
-	title : '添加方案考核指标',
+	title : '添加方案指标',
 	listeners : {
 		beforeclose : function(){
 			resetAddWinow();
@@ -1076,18 +1076,19 @@ function resetAddWinow(){
 function doAddCtrlInfo(cyceleTypeID,dimension) {
 	tabPanel.setDisabled(false);
 	activeType = 'add';
+
     var baseMeasureTreePanel = Ext.getCmp('baseMeasureTreePanel');
     var loader = new Ext.tree.TreeLoader();
     // baseMeasureTreePanel.render();
     loader.load(baseMeasureTreePanel.root);
     // baseMeasureTreePanel.expandAll();
-	addWindow.setTitle( '添加方案考核指标');
     // cycleTypeDS.baseParams ["cycleTypeID"] = cyceleTypeID;
     // cycleTypeDS.load();
     objectCountPeriodProject.setValue(cyceleTypeID);
     objectCountPeriodProject.disable();
     objectDimension.setValue(dimension) ;
     objectDimension.disable();
+	addWindow.setTitle( '添加方案指标');
 	addWindow.show();
 	var layout = Ext.getCmp('card-wizard-panel').getLayout();
     layout.setActiveItem(0);
