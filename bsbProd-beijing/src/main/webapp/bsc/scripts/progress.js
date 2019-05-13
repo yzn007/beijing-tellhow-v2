@@ -1,6 +1,6 @@
 var flag=0;//执行状态代码
 
-function doExecute() {
+function doExecute(cycleTypeID) {
     if (flag = 1) {
         flag = 0;
     }
@@ -252,7 +252,7 @@ var ProgressRunnerMeasure = function() {
     return {
         run : function(pbar) {
             reset(pbar);
-            doExecute();
+            doExecute(pbar.cycleTypeId);
             listener = setInterval(loop(pbar), 1200);
         }
     }

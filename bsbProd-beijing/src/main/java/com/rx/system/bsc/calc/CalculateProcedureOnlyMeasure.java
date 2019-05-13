@@ -110,7 +110,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         status.addLogExecutInfo("正在初始化执行参数......");
         this.context = context;
         paramHandler = new ParameterHandler(context);
-        this.date = this.context.getEnv("cycleTypeId");
+        this.date = this.context.getEnv("cycleTypeID");
         if (date==""|| null==date) {
             date = now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         }

@@ -114,7 +114,7 @@ function doExecuteProject(cycleTypeId) {
 	cwin.show();
 }
 
-function doExecuteMeasure(cycleTypeId) {
+function doExecuteMeasure() {
     /**
      * 月份Store
      */
@@ -167,7 +167,7 @@ function doExecuteMeasure(cycleTypeId) {
                     "select": function () {
                         var selectDate = Ext.getCmp('cycleSelector').getValue();
                         if (selectDate) {
-                            cycleTypeId = Ext.util.Format.date(selectDate,'Y-m-d');
+                            progressBar.cycleTypeId = Ext.util.Format.date(selectDate,'Y-m-d');
                         }
                     }
                 }
@@ -176,7 +176,7 @@ function doExecuteMeasure(cycleTypeId) {
                 text : '计算',
                 id : 'start',
                 handler : function() {
-                	if(cycleTypeId!=null && cycleTypeId!=""){
+                	if(progressBar.cycleTypeId!=null && progressBar.cycleTypeId!=""){
                         ProgressRunnerMeasure.run(progressBar);
 					}else{
                 		Ext.Msg.alert('提示信息',"请选择日期！");
@@ -204,7 +204,8 @@ function doExecuteMeasure(cycleTypeId) {
             layout : 'form',
             items : [progressBar = new Ext.ProgressBar({
                 id : 'progressBar',
-                text : ''
+                text : '',
+                cycleTypeId : cycleTypeId
             }),{
                 split : false,
                 border : false,

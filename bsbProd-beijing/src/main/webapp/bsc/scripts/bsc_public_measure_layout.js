@@ -79,7 +79,7 @@ Ext.onReady(function() {
         iconCls : 'publish',
         disabled : false,
         handler : function() {
-            doExecuteMeasure(cycleTypeId);
+            doExecuteMeasure();
         }
     }]);
 	//添加树形索引
