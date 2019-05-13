@@ -896,11 +896,9 @@ public class BscResultAction extends BaseDispatchAction {
 			//1统计维度-》统计维度（单）-》 统计年份（多）-》指标（多）
 			List<Map<String, Object>> dataList = null;
 			if(show_id.equals("1")){
-//				dataList = this.bscResultService.listScoreTotalResultByObj(paramMap);
-				dataList = this.bscResultService.listScoreResultByYear(paramMap);
+				dataList = this.bscResultService.listScoreTotalResultByYear(paramMap);
 			}else{
 				dataList = this.bscResultService.listScoreTotalResultByObj(paramMap);
-//				dataList = this.bscResultService.listScoreTotalResultByYear(paramMap);
 			}
 
 
