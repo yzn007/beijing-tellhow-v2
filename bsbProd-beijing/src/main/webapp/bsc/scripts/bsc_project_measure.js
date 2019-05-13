@@ -115,8 +115,7 @@ var pub_node = getRootNodeByConf('root', '公有指标树',objectCountPeriodProj
 pri_node.attributes.is_private = 'Y';
 pub_node.attributes.is_private = 'N';
 
-var pub_tbar = new Ext.Toolbar(['周期',objectCountPeriodProject,
-    '->', '维度',objectDimension]);
+var pub_tbar = new Ext.Toolbar([]);
 var pageindex = '',page = 'bsc_project_measure';
 //添加公有树形索引
 addSearchToolbar({
