@@ -107,7 +107,7 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 		this.addProjectStatOjbect(paramMap);
 
 		//插入统计方案周期表数据
-		//this.addProjectStatCycle(paramMap); 第二阶段需求22 去掉 统计年份
+		this.addProjectStatCycle(paramMap);
  		
 		this.refreshProjectObjects((String)paramMap.get("project_id")); //刷新方案下的对象
 	}
@@ -167,10 +167,8 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 	 */
 
 	public void addProjectStatCycle(Map<String, Object> paramMap) throws Exception {
-		if (!paramMap.containsKey("stat_cycle_cd"))
-			return;
-		String statCyc = paramMap.get("stat_cycle_cd").toString();
-		String  project_id = paramMap.get("project_id").toString();
+		String statCyc = paramMap.containsKey("stat_cycle_cd") ? paramMap.get("stat_cycle_cd").toString() : null;
+		String  project_id = paramMap.containsKey("project_id") ? paramMap.get("project_id").toString() : null;
 		StringBuffer sb  = new StringBuffer();
 		if(null != statCyc && !"".equals(statCyc)){
 			String cycles = getStringById(statCyc);

@@ -35,6 +35,53 @@ function multselect(record, index){
 	}
 }
 
+/**
+ * 统计周期(年季月日)
+ */
+
+
+var cycleTypeDS = new Ext.data.JsonStore({
+	url : pathUrl + '/selector_listProjCycleType.action',
+	root : 'results',
+	totalProperty : 'totalCount',
+	fields : ['cycle_type_id', 'cycle_type_desc']
+});
+cycleTypeDS.load();
+
+
+// 方案分类
+projectTypes = [
+	{id:"01", name:"城市生命线"},
+	{id:"02", name:"城市事件线"},
+	{id:"03", name:"城市生活线"},
+	{id:"04", name:"社情民意线"}
+];
+
+ProjectTypeSelector = function (fieldLabel) {
+	var typeStore = new Ext.data.JsonStore({
+		fields: ["id", "name"],
+		data: projectTypes
+	});
+
+	ProjectTypeSelector.superclass.constructor.call(this,{
+		store: typeStore,
+		valueField :'id',
+		displayField:'name',
+		mode: 'local',
+		hiddenName:'project_type',
+		editable: false,
+		triggerAction: 'all',
+		allowBlank:true,
+		fieldLabel:fieldLabel,
+		name: 'project_type',
+		value: '',
+		id:'project_type',
+		anchor:'95%'
+	});
+}
+
+Ext.extend(ProjectTypeSelector,Ext.form.ComboBox);
+
 // 显示分页条 pageSize-分页大小
 function showBbar(pageSize) {
 	var obj_bbar = Ext.getCmp('mainpanel').getBottomToolbar();
@@ -236,6 +283,7 @@ indexDS.on("load",function(){
 		var record = indexDS.getAt(i);
 		var comp = getComponment(record);
 		if(comp != null){
+			Ext.getCmp("dimSet").removeAll();
 			Ext.getCmp("dimSet").add(comp);
 		}
 	}
@@ -410,7 +458,6 @@ function getMOCmpVal(id){
 	return select.getValue();
 }
 function setMOCmp(id, val,num){
-	debugger;
 	var select = getMOC2mpVal(id,num);
 	if(val === ''){
 		select.setValue('');
@@ -428,6 +475,21 @@ function setMOCmp(id, val,num){
 			select.setValue(v);
 		}
 	}
+
+
+	if(showID == "1"){
+		Ext.getCmp("monthSelector1").hide();
+		Ext.getCmp("objSelector1").hide();
+		Ext.getCmp("monthBox2").show();
+		Ext.getCmp("objBox2").show();
+	}
+	else{
+		Ext.getCmp("monthSelector1").show();
+		Ext.getCmp("objSelector1").show();
+		Ext.getCmp("monthBox2").hide();
+		Ext.getCmp("objBox2").hide();
+	}
+	//Ext.getCmp('showSelector').hide()
 }
 /***-----------------------------------**/
 Ext.namespace("Ext.ux.form");
@@ -441,7 +503,7 @@ Ext.onReady(function() {
 			region : 'north',
 			frame : true,
 			border : false,
-			height : 80,
+			height : 110,
 			labelWidth : 33,
 //			buttonAlign : 'right',
 			layout : {
@@ -452,15 +514,23 @@ Ext.onReady(function() {
 			items : [
 				{
 					xtype: 'container',
-					layout:'column',
-					anchor:'100%',
-					items:[
+					layout: 'column',
+					anchor: '100%',
+					items: [
 						{
-							columnWidth : .20,
+							columnWidth : .18,
 							layout : 'form',
-							labelWidth : 32,
-               //             labelAlign : 'left',
-                            border : false,
+							labelWidth : 64,
+							//             labelAlign : 'left',
+							border : false,
+							items : [new ProjectTypeSelector('方案分类')]
+						},
+						{
+							columnWidth : .82,
+							layout : 'form',
+							labelWidth : 64,
+							//             labelAlign : 'left',
+							border : false,
 							items : [{
 								xtype : 'combo',
 								mode : 'local',
@@ -485,11 +555,42 @@ Ext.onReady(function() {
 								id : "projectSelector",
 								anchor : '91%'
 							}]
-						},
+						}
+					]
+				},
+				{
+					xtype: 'container',
+					layout:'column',
+					anchor:'100%',
+					items:[
 						{
-							columnWidth : .15,
+							columnWidth : .18,
 							layout : 'form',
 							labelWidth : 55,
+							labelAlign : 'left',
+							border : false,
+							items:[
+								{
+									xtype : 'combo',
+									mode : 'local',
+									displayField : 'cycle_type_desc',
+									valueField : 'cycle_type_id',
+									hiddenName : 'cycle_type_id',
+									store : cycleTypeDS,
+									editable : true,
+									disabled:false,
+									triggerAction : 'all',
+									fieldLabel : '统计周期',
+									name : 'cycle_type_id',
+									id : 'cycle_type_id',
+									anchor : '95%'
+								},
+							]
+						},
+						{
+							columnWidth : .18,
+							layout : 'form',
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							items : [{
@@ -508,27 +609,27 @@ Ext.onReady(function() {
 								listeners : {
 									render : function(combo) {
 										var r = combo.getStore();
-										showID = r.getAt(1).get('show_id');
+										showID = r.getAt(0).get('show_id');
 										combo.setValue(showID);
 									},
 									select : function(combo,record,index){
 										showID = combo.getValue();
-                                        if(showID == "1"){
-                                            Ext.getCmp("monthSelector1").hide();
-                                            Ext.getCmp("objSelector1").hide();
-                                            Ext.getCmp("monthBox2").show();
-                                            Ext.getCmp("objBox2").show();
-                                            setMOCmp("objSelector", objDS.getAt(0) || '','2');
- //                                           setMOCmp("objSelector",'','2');
-                                        }
-                                        else{
-                                            Ext.getCmp("monthSelector1").show();
-                                            Ext.getCmp("objSelector1").show();
-                                            Ext.getCmp("monthBox2").hide();
-                                            Ext.getCmp("objBox2").hide();
-                                            setMOCmp("monthSelector", monthDS.getAt(0) || '','1');
+										if(showID == "1"){
+											Ext.getCmp("monthSelector1").hide();
+											Ext.getCmp("objSelector1").hide();
+											Ext.getCmp("monthBox2").show();
+											Ext.getCmp("objBox2").show();
+											setMOCmp("objSelector", objDS.getAt(0) || '','2');
+											//                                           setMOCmp("objSelector",'','2');
+										}
+										else{
+											Ext.getCmp("monthSelector1").show();
+											Ext.getCmp("objSelector1").show();
+											Ext.getCmp("monthBox2").hide();
+											Ext.getCmp("objBox2").hide();
+											setMOCmp("monthSelector", monthDS.getAt(0) || '','1');
 //                                            setMOCmp("monthSelector", '','1');
-                                        }
+										}
 									}
 								}
 							}]
@@ -565,7 +666,7 @@ Ext.onReady(function() {
 						{
 							columnWidth : .18,
 							layout : 'form',
-							labelWidth : 55,
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							items : [{
@@ -609,7 +710,7 @@ Ext.onReady(function() {
 								store : objDS,
 								editable : false,
 								triggerAction : 'all',
-								fieldLabel : '统计维度',
+								fieldLabel : '维度统计',
 								name : 'obj_id',
 								emptyText:'请选择...',
 								id : 'objSelector2',
@@ -625,7 +726,7 @@ Ext.onReady(function() {
 						{
 							columnWidth : .18,
 							layout : 'form',
-							labelWidth : 55,
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							id : "monthBox2",
@@ -660,12 +761,12 @@ Ext.onReady(function() {
 
                         {
                             id : 'dimSet',
-                            labelWidth : 55,
+                            labelWidth : 64,
                             columnWidth : .18,
                             labelAlign : 'center',
                             emptyText : '请选择...',
                             anchor : '50%',
-                            layout : 'form'
+                            layout : 'form',
                         },
                         {
                             columnWidth : .10,
@@ -760,6 +861,7 @@ function queryResult() {
         objID = Ext.getCmp("objSelector1").code || '';
         monthID = Ext.getCmp("monthSelector1").getValue();
 	}
+	var project_type = Ext.getCmp('project_type').getValue();
     var param = "?project_id=" + projectID + "&month_id=" + monthID
 			+ "&cycle_type_id="+cycle_type_id
 			+ "&obj_cate_id=" + objCateId + "&monthName=" + encodeURI(encodeURI(monthName))
@@ -767,8 +869,8 @@ function queryResult() {
 			+ "&show_id=" + showID
 			+ "&obj_id=" + objID
 			+ "&time_id=" + timID
+			+ "&project_type=" + project_type
 			+ "&projectName=" + encodeURI(encodeURI(projectName));
-
 
 	mask.show();
 	path = pathUrl + '/bscresult_scoreDhtmlByCondExt.action' + param;
