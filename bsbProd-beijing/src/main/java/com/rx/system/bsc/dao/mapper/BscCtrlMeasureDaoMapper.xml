@@ -42,7 +42,7 @@
 	<!-- 获取考核指标列表 -->
 	<select id="listBscMeasure" parameterType="map" resultType="map">
 		select a.*,
-		    b.measure_name,
+		    b.measure_name, b.measure_source_desc,
 		    b.formula_expr as mea_formula,
 		    b.formula_desc as mea_formula_desc
 		    from bsc_proj_mea a left join bsc_measure b on a.measure_id = b.measure_id

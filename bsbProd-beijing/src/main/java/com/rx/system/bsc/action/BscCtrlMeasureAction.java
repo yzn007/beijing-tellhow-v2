@@ -1,6 +1,9 @@
 package com.rx.system.bsc.action;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +18,10 @@ import com.rx.system.constant.Constant;
 import com.rx.system.table.DhtmlTableTemplate;
 import com.rx.system.table.ITableTemplate;
 import com.rx.system.util.GlobalUtil;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.RequestBody;
+
 /**
  * 平衡计分卡方案指标维护Action
  * @author chenxd
@@ -48,6 +55,26 @@ public class BscCtrlMeasureAction extends BaseDispatchAction {
 		if (GlobalUtil.trimToNull(serviceMethod) != null) {
 			this.doResponse(this.bscMeasureCtrlService, serviceMethod,new Object[] { paramMap }, null);
 		}
+
+		return null;
+	}
+
+	public String addmeasure() throws Exception {
+		String data = request.getParameter("data");
+		JSONArray jarr = new JSONArray(data);
+		JSONObject jobj = null;
+		Map<String, Object> paramMap = null;
+
+		for(int i=0; i<jarr.length(); i++) {
+			jobj = jarr.getJSONObject(i);
+			paramMap = new HashMap();
+			paramMap.put("project_id", jobj.optString("project_id"));
+			paramMap.put("measure_id", jobj.optString("measure_id"));
+			paramMap.put("mea_definition", jobj.optString("measure_name"));
+
+			try{bscMeasureCtrlService.addBscMeasure(paramMap);}catch (Exception ex){}
+		}
+		this.doSuccessInfoResponse("操作成功!");
 
 		return null;
 	}
@@ -108,6 +135,17 @@ public class BscCtrlMeasureAction extends BaseDispatchAction {
 			
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().print(template.getTableString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public String listMeasure() throws Exception {
+		Map<String, Object> paramMap = this.getRequestParam(request);
+		try {
+			List<Map<String, Object>> dataList = this.bscMeasureCtrlService.listBscMeasure(paramMap);
+			doJSONResponse(dataList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
