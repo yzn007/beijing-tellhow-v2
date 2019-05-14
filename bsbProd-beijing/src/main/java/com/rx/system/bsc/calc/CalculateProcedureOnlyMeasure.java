@@ -766,7 +766,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         // 4. 拼接SQL语句
         String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,value)\n"
                 + "select "
-                + "'[%monthID]' as month_id,'" + dateFrm
+                + "m0.month_id  as month_id,'" + dateFrm
                 + "' 			 as date,"
                 + "'"+ exprMeasureID+ "' as measure_id,"
                 + "m0.object_id as object_id,\n"
@@ -938,7 +938,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         }else if(measure.getCountPeriod() .equals("02")){//年
             dateFrm = this.date.substring(0,4);
         }
-        String v_sql = "select object_id,value from "+this.resultTable+" where date='"
+        String v_sql = "select object_id,value,month_id from "+this.resultTable+" where date='"
                 + dateFrm
                 + "' and measure_id = '" + measure.getMeasureId() + "'";
 
