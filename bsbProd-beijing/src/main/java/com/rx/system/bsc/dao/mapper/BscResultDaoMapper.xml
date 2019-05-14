@@ -225,21 +225,9 @@
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
 		left join (select * from  bsc_proj_mea_obj_val_measure where month_id = #{year_id}) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
-		<if test="(obj_link_id != null and obj_link_id != '') or (project_type != null and project_type != '') or (cycle_type_id != null and cycle_type_id != '')">
-			left join bsc_project bp on bp.PROJECT_ID = t.PROJECT_ID
-		</if>
 		where t.project_id = #{project_id}
 		<if test="oId != null and oId != ''">
 			and t.object_id in (${oId})
-		</if>
-		<if test="obj_link_id != null and obj_link_id != ''">
-			and bp.OBJ_LINK_ID = #{obj_link_id}
-		</if>
-		<if test="project_type != null and project_type != ''">
-			and bp.project_type = #{project_type}
-		</if>
-		<if test="cycle_type_id != null and cycle_type_id != ''">
-			and bp.cycle_type_id = #{cycle_type_id}
 		</if>
 		group by t.object_id,t.object_name
 
@@ -272,21 +260,9 @@
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
 		left join (select * from  bsc_proj_mea_obj_val_measure where month_id = #{year_id}) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
-		<if test="(obj_link_id != null and obj_link_id != '') or (project_type != null and project_type != '') or (cycle_type_id != null and cycle_type_id != '')">
-			left join bsc_project bp on bp.PROJECT_ID = t.PROJECT_ID
-		</if>
 		where t.project_id = #{project_id}
 		<if test="oId != null and oId != ''">
 			and t.object_id in (${oId})
-		</if>
-		<if test="obj_link_id != null and obj_link_id != ''">
-			and bp.OBJ_LINK_ID = #{obj_link_id}
-		</if>
-		<if test="project_type != null and project_type != ''">
-			and bp.project_type = #{project_type}
-		</if>
-		<if test="cycle_type_id != null and cycle_type_id != ''">
-			and bp.cycle_type_id = #{cycle_type_id}
 		</if>
 		group by t.object_id,t.object_name
 		<include refid="totalCountEnd"/>
@@ -530,46 +506,61 @@
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
 		left join (select * from  bsc_proj_mea_obj_val_measure where month_id = #{year_id}) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
-		<if test="(obj_link_id != null and obj_link_id != '') or (project_type != null and project_type != '') or (cycle_type_id != null and cycle_type_id != '')">
-			left join bsc_project bp on bp.PROJECT_ID = t.PROJECT_ID
-		</if>
 		where t.project_id = #{project_id}
 		<if test="oId != null and oId != ''">
 			and t.object_id in (${oId})
-		</if>
-		<if test="obj_link_id != null and obj_link_id != ''">
-			and bp.OBJ_LINK_ID = #{obj_link_id}
-		</if>
-		<if test="project_type != null and project_type != ''">
-			and bp.project_type = #{project_type}
-		</if>
-		<if test="cycle_type_id != null and cycle_type_id != ''">
-			and bp.cycle_type_id = #{cycle_type_id}
 		</if>
 		group by t.object_id,t.object_name
 	</select>
 	<!--根据年份查询指标结果 -->
 	<select id="listScoreTotalResultByYear" parameterType="map" resultType="map">
-		select t.year_id month_id,
-		concat(t.year_id,'年') as month_name, max(t.object_name) object_name,
+		select * from (select c.cycle_id as month_id,
+		concat(c.cycle_id,'年') as month_name,
+		max(t.object_name) object_name,
 		${case_sql}
 		from bsc_proj_obj_h t
 		inner join  bsc_proj_stat_cyc c
 		on t.project_id =c.project_id
 		and t.year_id =c.cycle_id
-		left join bsc_proj_mea_obj_val b on
-		t.project_id =  b.project_id
+		left join bsc_proj_mea_obj_val b
+		on  t.project_id =  b.project_id
 		and t.object_id = b.object_id
 		and t.year_id=b.month_id
+		<if test="tId != null and tId != ''">
+			and b.month_id in (${tId})
+		</if>
 		where t.project_id = #{project_id}
+
 		<if test="oId != null and oId != ''">
 			and t.object_id in (${oId})
 		</if>
 		<if test="tId != null and tId != ''">
 			and t.year_id in (${tId})
 		</if>
-		group by t.year_id
-		order by t.year_id desc
+		group by c.cycle_id
+		union
+		select b.month_id as month_id, concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') as month_name,max(t.object_name) as object_name,
+		${case_sql}
+		from bsc_proj_obj t
+		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
+		left join (select * from  bsc_proj_mea_obj_val_measure where case when
+		<if test="tId != null and tId != ''">
+			concat(${tId}) is not null then  month_id in (${tId})
+		</if>
+		<if test="tId == null or tId == ''">
+			#{year_id} is not null then  month_id = #{year_id}
+		</if>
+		when ${oId} is not null then
+		object_id in (${oId}) else null is null end) b on b.OBJECT_ID = t.OBJECT_ID  and b.MEASURE_ID = m.MEASURE_ID
+		where t.project_id = #{project_id} and b.month_id is not null
+		<if test="tId != null and tId != ''">
+			and b.month_id in (${tId})
+		</if>
+		<if test="oId != null and oId != ''">
+			and t.object_id in (${oId})
+		</if>
+		group by b.month_id,case when  #{year_id} is not null then b.object_id else null end
+		) ua order by month_id  desc
 	</select>
 	<select id="listScoreSubResultByYear" parameterType="map" resultType="map">
 		select t.year_id as month_id,
