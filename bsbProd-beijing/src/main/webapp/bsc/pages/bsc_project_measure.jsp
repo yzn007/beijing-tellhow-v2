@@ -36,7 +36,7 @@
 		Ext.QuickTips.init();
 		var parentNodeIds = "${requestScope.parentNodeID}";
 		var dhtmlGrid = null;
-		var projectID="${param.project_id}",parameterID="",roleID="",published="",monthID = "",cycleTypeID = "",fullScore = "",obj_cate_id = null;
+		var projectID="${param.project_id}",parameterID="",roleID="",published="",monthID = "",cycleTypeID = "",fullScore = "",obj_cate_id = null,dimension="";
 		var initProject = "${requestScope.initProject}";
 		var userOrg = "${sessionScope.currentUser.bank_org_id}";
     </script>

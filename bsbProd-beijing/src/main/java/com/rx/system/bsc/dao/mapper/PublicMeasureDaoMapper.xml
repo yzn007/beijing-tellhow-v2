@@ -134,10 +134,10 @@
 		   	and a.obj_cate_id = '${obj_cate_id}'
 		   </if>
 		<if test="countperiod != null and countperiod != ''">
-			and a.countperiod = '${countperiod}'
+			and (a.source_type_id = '03'or a.countperiod = '${countperiod}')
 		</if>
 		<if test="dimension != null and dimension != ''">
-			and (a.districtobjecttable = '${dimension}' or a.otherobjecttable = '${dimension}')
+			and (a.source_type_id = '03'or a.districtobjecttable = '${dimension}' or a.otherobjecttable = '${dimension}')
 		</if>
 		   order by a.inner_level_order,a.measure_id
 	</select>

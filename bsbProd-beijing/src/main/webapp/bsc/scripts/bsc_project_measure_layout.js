@@ -15,7 +15,7 @@ var projectDS = new Ext.data.JsonStore({
 	root : 'results',
 	id : 'project_id',
 	totalProperty : 'totalCount',
-	fields : ['project_id', 'project_name', 'app_type_id', 'is_template', 'role_id','role_name', 'obj_cate_id', 'cycle_type_id','full_score','icon']
+	fields : ['project_id', 'project_name', 'app_type_id', 'is_template', 'role_id','role_name', 'obj_cate_id', 'cycle_type_id','full_score','icon','obj_link_name','obj_link_id']
 });
 
 // //对象维度
@@ -70,6 +70,7 @@ projectDS.on("load",function(){
 			record = projectDS.getById(initProject);
 		}
 		obj_cate_id = record.get('obj_cate_id');
+        dimension = record.get('obj_link_id');
 		if(projectID && projectID!=null){
 			Ext.getCmp("projectSelector").setValue(projectID);
 		}else{
@@ -112,7 +113,7 @@ Ext.onReady(function() {
 				Ext.MessageBox.alert("提示信息","请查询出要添加指标的方案");
 				return;
 			}
-			doAddCtrlInfo();
+			doAddCtrlInfo(cycleTypeID,dimension);
 		}
 	},'-',{
 		id : 'editMeasure',
@@ -124,7 +125,7 @@ Ext.onReady(function() {
 				Ext.MessageBox.alert('提示信息', '请选择需要修改的记录');
 				return;
 			}
-			doEditCtrlInfo(selectedRowId);
+			doEditCtrlInfo(selectedRowId,cycleTypeID,dimension);
 		}
 	},'-' ,{
 		id : 'justPoint',
@@ -239,6 +240,7 @@ Ext.onReady(function() {
 						var record = projectDS.getById(projectID);
 						isTemplate = (record.get('is_template') == 'Y');
 						cycleTypeID = record.get('cycle_type_id');
+						dimension = record.get('obj_link_id');
 						
 						project_id_hidden = projectID,
 						project_name_hidden = projectName,

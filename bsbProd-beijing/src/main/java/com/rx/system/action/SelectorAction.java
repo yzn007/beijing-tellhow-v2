@@ -161,7 +161,16 @@ public class SelectorAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	public String listProjCycleType() throws Exception {
-		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_proj_cycle_type ");
+		String cycle_type_id = null;
+		Map<String,Object > property = getRequestParam(request);
+		cycle_type_id = getStringValue(property, "cycleTypeID");
+		if(request.getParameter("cycleTypeID")!=null)
+			cycle_type_id = request.getParameter("cycleTypeID");
+		String sql = "select * from bsc_proj_cycle_type ";
+		if(!"".equals(cycle_type_id )&& null != cycle_type_id){
+			sql += " where cycle_type_id ='"  + cycle_type_id+"'";
+		}
+		List<Map<String, Object>> dataList = this.selectorService.queryForList(sql);
 //		List<Map<String, Object>> dataList = this.selectorService.queryForList("select * from bsc_proj_cycle_type e where e.cycle_type_id='02'");
 		doJSONResponse(dataList);
 		return null;

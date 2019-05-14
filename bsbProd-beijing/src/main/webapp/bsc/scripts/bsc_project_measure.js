@@ -41,7 +41,8 @@ dimensionStoreProject.load();
 
 var cycleTypeDS = new Ext.data.JsonStore({
     url : pathUrl + '/selector_listProjCycleType.action',
-    root : 'results',
+	root : 'results',
+    baseParams :{cycleTypeID:cycleTypeID},
     totalProperty : 'totalCount',
     fields : ['cycle_type_id', 'cycle_type_desc']
 });
@@ -57,6 +58,7 @@ ObjectCountPeriodProject = function () {
         width : 40,
         hiddenName:'obj_period_id',
         editable: false,
+        typeAhead:false,
         triggerAction: 'all',
         allowBlank:false,
         fieldLabel:'统计周期',
@@ -1071,10 +1073,21 @@ function resetAddWinow(){
 /**
  * 添加方案考核指标
  */
-function doAddCtrlInfo() {
+function doAddCtrlInfo(cyceleTypeID,dimension) {
 	tabPanel.setDisabled(false);
 	activeType = 'add';
+    var baseMeasureTreePanel = Ext.getCmp('baseMeasureTreePanel');
+    var loader = new Ext.tree.TreeLoader();
+    // baseMeasureTreePanel.render();
+    loader.load(baseMeasureTreePanel.root);
+    // baseMeasureTreePanel.expandAll();
 	addWindow.setTitle( '添加方案考核指标');
+    // cycleTypeDS.baseParams ["cycleTypeID"] = cyceleTypeID;
+    // cycleTypeDS.load();
+    objectCountPeriodProject.setValue(cyceleTypeID);
+    objectCountPeriodProject.disable();
+    objectDimension.setValue(dimension) ;
+    objectDimension.disable();
 	addWindow.show();
 	var layout = Ext.getCmp('card-wizard-panel').getLayout();
     layout.setActiveItem(0);
@@ -1085,7 +1098,7 @@ function doAddCtrlInfo() {
 /**
  * 修改衡量指标信息
  */
-function doEditCtrlInfo(row_id) {
+function doEditCtrlInfo(row_id,cycleTypeID,dimension) {
 	var array = row_id.split('@');
 	var measure_id = dhtmlGrid.cellById(row_id,2).getValue();
 	
@@ -1100,7 +1113,18 @@ function doEditCtrlInfo(row_id) {
 	addWindow.setTitle('编辑方案考核指标');
 	addWindow.show();
 	Ext.getCmp("saveCtrlMeasure").setVisible(true);
-	
+
+    var baseMeasureTreePanel = Ext.getCmp('baseMeasureTreePanel');
+    var loader = new Ext.tree.TreeLoader();
+    // baseMeasureTreePanel.render();
+    loader.load(baseMeasureTreePanel.root);
+    // baseMeasureTreePanel.expandAll();
+    // cycleTypeDS.baseParams ["cycleTypeID"] = cycleTypeID;
+    // cycleTypeDS.load();
+    objectCountPeriodProject.setValue(cycleTypeID);
+    objectCountPeriodProject.disable();
+    objectDimension.setValue(dimension) ;
+    objectDimension.disable();
 	tree.setCheck(checkedDimId,1);
 	var layout = Ext.getCmp('card-wizard-panel').getLayout();
     layout.setActiveItem(0);
