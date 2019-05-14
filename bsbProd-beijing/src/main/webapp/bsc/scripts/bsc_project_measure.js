@@ -180,12 +180,36 @@ var tabPanel = new Ext.TabPanel({
 });
 
 baseMeasureTree.on("click",function(node,e){
-	infoPanel.form.reset();
-	if(node) {
-		measure_type = node.attributes.source_type_id;
-		measure_cate = node.attributes.obj_cate_id;
-		infoPanel.form.load({url: pathUrl + '/publicMeasure_common.action?method=getEngMeasureById', params: {measure_id: node.id,is_private:'N'}});
+	console.info(node);
+	// infoPanel.form.reset();
+	// if(node) {
+	// 	measure_type = node.attributes.source_type_id;
+	// 	measure_cate = node.attributes.obj_cate_id;
+	// 	infoPanel.form.load({url: pathUrl + '/publicMeasure_common.action?method=getEngMeasureById', params: {measure_id: node.id,is_private:'N'}});
+	// }
+
+	if(!(node.attributes.source_type_id != '03' && node.id !='root')){
+		Ext.Msg.alert('提示信息','不能分类目录下添加!');
+		return;
 	}
+
+	for (var i = 0; i < gridStore.data.items.length; i++) {
+		var item = gridStore.data.items[i];
+		if (item.data.measure_id == node.attributes.id) {
+			Ext.Msg.alert('提示信息', '指标ID'+item.data.measure_id+'已经存在');
+			return;
+		}
+	}
+
+	var p = new Ext.data.Record({
+		project_id: '',
+		measure_id: node.attributes.id,
+		measure_name: node.attributes.measure_name,
+		measure_source_desc: node.attributes.measure_source_desc,
+	});
+	editGrid.stopEditing();
+	gridStore.add(p);
+	editGrid.startEditing(0, 0);  //激活该行的编辑状态
 })
 // projectMeasureTree.on("click",function(node,e){
 // 	infoPanel.form.reset();
@@ -251,11 +275,97 @@ var infoPanel = new Ext.form.FormPanel({
 	}]
 });
 
+var gridStore = new Ext.data.JsonStore({
+	extend: "Ext.data.Model",
+	fields : ['project_id', 'measure_id', 'measure_name', 'measure_source_desc'],
+	url:pathUrl+'/bscmeasure_listMeasure.action',
+	root : 'results'
+});
+
+var cm = new Ext.grid.ColumnModel({
+	// specify any defaults for each column
+	defaults: {
+		sortable: true // columns are not sortable by default
+	},
+	columns: [
+		{
+			id: 'measure_id',
+			header: '指标ID',
+			dataIndex: 'measure_id',
+			width: 100,
+		},
+		{
+			id: 'measure_name',
+			header: '指标名称',
+			dataIndex: 'measure_name',
+			width: 100,
+		},
+		{
+			id: 'measure_source_desc',
+			header: '指标来源',
+			dataIndex: 'measure_source_desc',
+			width: 100,
+			//editor: new Ext.form.TextField({
+			//	allowBlank: false
+			//})
+		}
+	]
+});
+
+
+var editGrid = new Ext.grid.EditorGridPanel({
+	store: gridStore,
+	clicksToEdit: 1,
+	cm:cm,
+	region : 'east',
+	stripeRows: true,
+	autoExpandColumn: 'measure_id',
+	height: 350,
+	width: 400,
+	title: '已选择指标',
+	stateful: true,
+	stateId: 'grid',
+	listeners : {
+		cellclick: function (grid, rowIndex, columnIndex, e) {
+			// var data = this.getSelectionModel().getSelected();
+			// console.info(data);
+
+		},
+
+	},
+	tbar: new Ext.Toolbar(['-', {
+		text: '删除',
+		handler: function() {
+			//deletemeasure(measure_id);
+			var sm = editGrid.getSelectionModel();
+			var cell = sm.getSelectedCell();
+			var record = gridStore.getAt(cell[0]);
+
+			if (record.data.project_id != '')
+				deletemeasure(record.data.measure_id, function() {
+					gridStore.remove(record);
+				});
+			else
+				gridStore.remove(record);
+		}
+	}]),
+	viewConfig: {
+		forceFit: true, getRowClass: function (record, rowIndex, rowParams, store) {
+			if ("" == record.get('project_id')) {
+				return 'new_grid_row';
+			} else {
+				return 'old_grid_row';
+			}
+		}
+	}
+});
+
+
 var measurePanel = new Ext.Panel({
 	layout : 'border',
 	id : 'card-0',
 	border : false,
-	items : [tabPanel,infoPanel]
+	items : [tabPanel,editGrid]
 });
 
 var activeType = 'add';
@@ -263,7 +373,7 @@ var activeType = 'add';
 var cardNav = function(incr){
     var layout = Ext.getCmp('card-wizard-panel').getLayout();
     var i = layout.activeItem.id.split('card-')[1];
-    
+
     var next = parseInt(i) + incr;
     if(next == 2) {
     	//检查维度选择
@@ -1011,34 +1121,24 @@ var addWindow = new Ext.Window({
 			iconCls : 'save',
 			id : 'saveCtrlMeasure',
 			handler : function() {
-				var mea_definition = Ext.getCmp("mea_definition").getValue();
-
-				var actionUrl = '';
-				if(activeType == 'add')
-					actionUrl = pathUrl + '/bscmeasure_common.action?method=addBscMeasure';
-				else
-					actionUrl = pathUrl + '/bscmeasure_common.action?method=editBscMeasure';
-
-				if(measure_type=='03'){
-					Ext.MessageBox.alert('提示信息', "方案不能关联文件夹类型的指标!");
-					return ;
+				var new_data = [];
+				for (var i = 0; i < gridStore.data.items.length; i++) {
+					var item = gridStore.data.items[i];
+					if (item.data.project_id == '') {
+						new_data.push({
+							project_id: projectID,
+							measure_id: item.data['measure_id'],
+							measure_name: item.data['measure_name']
+						});
+					}
 				}
-
-				if(measure_cate != obj_cate_id){
-					Ext.MessageBox.alert('提示信息', "方案不能关联【对象类型】不一致的指标!");
-					return ;
-				}
-
-				if(infoPanel.getForm().isValid()){
+				if (new_data.length > 0) {
 					Ext.Ajax.request({
-						url : actionUrl,
+						url : pathUrl + '/bscmeasure_addmeasure.action',
 						method : 'POST',
 						params : {
-							project_id : projectID,
-							measure_id : Ext.getCmp("measure_id").getValue(),
-							mea_definition : mea_definition
+							data:JSON.stringify(new_data)
 						},
-
 						callback : function(options, success, response) {
 							var json = Ext.util.JSON.decode(response.responseText);
 							if (json.success) {
@@ -1050,6 +1150,45 @@ var addWindow = new Ext.Window({
 						}
 					});
 				}
+				// var mea_definition = Ext.getCmp("mea_definition").getValue();
+				//
+				// var actionUrl = '';
+				// if(activeType == 'add')
+				// 	actionUrl = pathUrl + '/bscmeasure_common.action?method=addBscMeasure';
+				// else
+				// 	actionUrl = pathUrl + '/bscmeasure_common.action?method=editBscMeasure';
+				//
+				// if(measure_type=='03'){
+				// 	Ext.MessageBox.alert('提示信息', "方案不能关联文件夹类型的指标!");
+				// 	return ;
+				// }
+				//
+				// if(measure_cate != obj_cate_id){
+				// 	Ext.MessageBox.alert('提示信息', "方案不能关联【对象类型】不一致的指标!");
+				// 	return ;
+				// }
+				//
+				// if(infoPanel.getForm().isValid()){
+				// 	Ext.Ajax.request({
+				// 		url : actionUrl,
+				// 		method : 'POST',
+				// 		params : {
+				// 			project_id : projectID,
+				// 			measure_id : Ext.getCmp("measure_id").getValue(),
+				// 			mea_definition : mea_definition
+				// 		},
+				//
+				// 		callback : function(options, success, response) {
+				// 			var json = Ext.util.JSON.decode(response.responseText);
+				// 			if (json.success) {
+				// 				doQueryCtrlInfos();
+				// 				resetAddWinow();
+				// 			} else {
+				// 				Ext.MessageBox.alert('提示信息', json.info);
+				// 			}
+				// 		}
+				// 	});
+				// }
 			}
 		}],
 		items : [measurePanel]
@@ -1074,7 +1213,13 @@ function resetAddWinow(){
 /**
  * 添加方案考核指标
  */
+
 function doAddCtrlInfo(cyceleTypeID,dimension) {
+	gridStore.load({
+		params : {
+			project_id : projectID
+		}
+	});
 	tabPanel.setDisabled(false);
 	activeType = 'add';
 
@@ -1100,16 +1245,22 @@ function doAddCtrlInfo(cyceleTypeID,dimension) {
 /**
  * 修改衡量指标信息
  */
+
 function doEditCtrlInfo(row_id,cycleTypeID,dimension) {
+	gridStore.load({
+		params : {
+			project_id : projectID
+		}
+	});
 	var array = row_id.split('@');
 	var measure_id = dhtmlGrid.cellById(row_id,2).getValue();
-	
+
 	//=====指标定义======
 	var mea_name = dhtmlGrid.cellById(row_id,3).getValue();
 	var mea_define = dhtmlGrid.cellById(row_id,1).getValue();
 	var mea_formula = dhtmlGrid.cellById(row_id,5).getValue();
 	//=====指标定义======
-	
+
 	bscMeasure = measure_id;
 	activeType = 'edit';
 	addWindow.setTitle('编辑方案考核指标');
@@ -1127,6 +1278,7 @@ function doEditCtrlInfo(row_id,cycleTypeID,dimension) {
     objectCountPeriodProject.disable();
     objectDimension.setValue(dimension) ;
     objectDimension.disable();
+
 	tree.setCheck(checkedDimId,1);
 	var layout = Ext.getCmp('card-wizard-panel').getLayout();
     layout.setActiveItem(0);
@@ -1145,6 +1297,10 @@ function doEditCtrlInfo(row_id,cycleTypeID,dimension) {
 function doDeleteCtrlInfo(id) {
 	var array = id.split("@");
 	var measure_id = dhtmlGrid.cellById(id,2).getValue();
+	deletemeasure(measure_id, function(){});
+}
+
+function deletemeasure(measure_id, callback2) {
 	Ext.MessageBox.confirm('Message', '确认删除选中的考核指标吗?', function(btn) {
 		if (btn == 'yes') {
 			Ext.Ajax.request({
@@ -1162,6 +1318,7 @@ function doDeleteCtrlInfo(id) {
 					} else {
 						Ext.MessageBox.alert('提示信息', json.info);
 					}
+					callback2();
 				}
 			});
 		}

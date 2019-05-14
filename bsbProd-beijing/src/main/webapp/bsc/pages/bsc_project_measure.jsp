@@ -48,7 +48,10 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/bsc/scripts/AsyncTree.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/bsc/scripts/bsc_project_measure.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/bsc/scripts/bsc_project_measure_layout.js"></script>
-	
+	<style type="text/css">
+	  .new_grid_row table{ background: #aaccf6;}
+      .old_grid_row table{ background: #aaaaaa;}
+	</style>
   </head>
   
   <body>
