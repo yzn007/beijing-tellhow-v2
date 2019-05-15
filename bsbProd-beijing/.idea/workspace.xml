@@ -10,8 +10,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f65f38ba-5abc-4d62-9e8b-a7db299d75c5" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscProjectDaoMapper.xml" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscProjectDaoMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_obj_index_score_ext.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_proj_obj_index_score_ext.jsp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -74,8 +72,18 @@
       <file leaf-file-name="bsc_proj_obj_index_score_ext_layout.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="605" column="49" lean-forward="false" selection-start-line="605" selection-start-column="38" selection-end-line="605" selection-end-column="49" />
+            <state relative-caret-position="694">
+              <caret line="759" column="25" lean-forward="true" selection-start-line="759" selection-start-column="25" selection-end-line="759" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bsc_proj_obj_index_score_ext_detail_layout.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_detail_layout.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -86,7 +94,43 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="96">
               <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-              <folding />
+              <folding>
+                <marker date="1557915939603" expanded="true" signature="5698:6372" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="6376:6440" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="6513:6993" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="6998:7062" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="7137:7204" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="7208:7272" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="7345:7708" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="7711:7770" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="7841:7887" ph="{...}" />
+                <marker date="1557915939603" expanded="false" signature="7948:7953" ph=" { " />
+                <marker date="1557915939603" expanded="false" signature="7988:7991" ph=" }" />
+                <marker date="1557915939603" expanded="true" signature="8065:8457" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="8461:8536" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="8630:8958" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="9037:9097" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="9099:9118" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="9194:9279" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="9366:9444" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="9706:9832" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="9953:10450" ph="{...}" />
+                <marker date="1557915939603" expanded="false" signature="10064:10080" ph="&lt;~&gt;" />
+                <marker date="1557915939603" expanded="true" signature="10500:10720" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="10791:10993" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="10996:11095" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="11203:11326" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="11329:11415" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="11521:11641" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="11644:11717" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="11825:11948" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="11951:12026" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="12135:12259" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="12262:12337" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="12448:12574" ph="{...}" />
+                <marker date="1557915939603" expanded="true" signature="12578:12657" ph="/**...*/" />
+                <marker date="1557915939603" expanded="true" signature="12766:12890" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1474,11 +1518,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557901289094</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;bsbProd-beijing/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js">
+      <created>1557916486241</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1557916486241</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="760076000" />
+    <option name="totallyTimeSpent" value="760720000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -1491,6 +1542,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1505,7 +1557,7 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39016393" sideWeight="0.5136157" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39016393" sideWeight="0.5136157" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1560,7 +1612,8 @@
     <MESSAGE value="修改指标中引用了参数，方案查询时，结果有误bug" />
     <MESSAGE value="方案添加指标根据指标周期和维度进行过滤指标，并隐藏周期和维度下拉框" />
     <MESSAGE value="方案定义时需要支持统计周期、地区维度、其他维度的选择，用于指标过滤，复杂指标不参与指标计算&#10;方案定义页面，方案分类，用于查询方案&#10;方案结果查询：增加方案分类，便于检索" />
-    <option name="LAST_COMMIT_MESSAGE" value="方案定义时需要支持统计周期、地区维度、其他维度的选择，用于指标过滤，复杂指标不参与指标计算&#10;方案定义页面，方案分类，用于查询方案&#10;方案结果查询：增加方案分类，便于检索" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;bsbProd-beijing/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;bsbProd-beijing/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1660,13 +1713,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/constant/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="55" column="31" lean-forward="false" selection-start-line="55" selection-start-column="31" selection-end-line="55" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/PublicMeasureServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -1710,7 +1756,7 @@
             <element signature="e#2721#2722#0" expanded="false" />
             <element signature="e#2777#2778#0" expanded="false" />
             <element signature="e#2814#2815#0" expanded="false" />
-            <marker date="1557811066212" expanded="false" signature="63409:63430" ph="&lt;~&gt;" />
+            <marker date="1557915939591" expanded="false" signature="63408:63429" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>
@@ -2159,55 +2205,55 @@
         <state relative-caret-position="210">
           <caret line="226" column="80" lean-forward="false" selection-start-line="226" selection-start-column="80" selection-end-line="226" selection-end-column="80" />
           <folding>
-            <marker date="1557811066217" expanded="true" signature="262:310" ph="select * fro... *" />
-            <marker date="1557811066217" expanded="true" signature="277:310" ph="select t1.*,... " />
-            <marker date="1557811066217" expanded="true" signature="515:537" ph="select count... " />
-            <marker date="1557811066217" expanded="true" signature="646:663" ph="select cnt f... " />
-            <marker date="1557811066217" expanded="true" signature="747:855" ph="update bsc_p... " />
-            <marker date="1557811066217" expanded="true" signature="1467:3198" ph="select a.*, bsc_calc_ctrl" />
-            <marker date="1557811066217" expanded="true" signature="3298:3960" ph="select a.*,b... parent_dim_id" />
-            <marker date="1557811066217" expanded="true" signature="3330:3858" ph="select b.par... " />
-            <marker date="1557811066217" expanded="true" signature="4339:4523" ph="select a.mea... bsc_proj_mea" />
-            <marker date="1557811066217" expanded="true" signature="5402:6168" ph="select j.obj... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="5402:6653" ph="select j.obj... " />
-            <marker date="1557811066217" expanded="true" signature="5402:6803" ph="select j.obj... " />
-            <marker date="1557811066217" expanded="true" signature="6179:6653" ph="select t.obj... bsc_proj_obj" />
-            <marker date="1557811066217" expanded="true" signature="6514:6585" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557811066217" expanded="true" signature="7613:7843" ph="select t.obj... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="7613:8318" ph="select t.obj... " />
-            <marker date="1557811066217" expanded="true" signature="7854:8318" ph="select t.obj... bsc_proj_obj" />
-            <marker date="1557811066217" expanded="true" signature="8029:8100" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557811066217" expanded="true" signature="8441:8907" ph="select t.obj... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="8997:9473" ph="select t.obj... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="9562:10223" ph="select t.*,@... " />
-            <marker date="1557811066217" expanded="true" signature="10325:10740" ph="select ifnul... bsc_proj_obj_score" />
-            <marker date="1557811066217" expanded="true" signature="10883:11110" ph="select case bsc_proj_exe_mth" />
-            <marker date="1557811066217" expanded="true" signature="11228:11990" ph="select s.mon... *" />
-            <marker date="1557811066217" expanded="true" signature="11343:11958" ph="select d.* f... month_id" />
-            <marker date="1557811066217" expanded="true" signature="11360:11910" ph="select a.mon... bsc_proj_obj_score" />
-            <marker date="1557811066217" expanded="true" signature="12108:12263" ph="select measu... bsc_measure" />
-            <marker date="1557811066217" expanded="true" signature="12397:12548" ph="select t.yea... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="12397:13446" ph="select t.yea... " />
-            <marker date="1557811066217" expanded="true" signature="12559:13390" ph="select b.mon... bsc_proj_obj" />
-            <marker date="1557811066217" expanded="true" signature="12735:13077" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557811066217" expanded="true" signature="13629:15304" ph="select * fro... cycle_id" />
-            <marker date="1557811066217" expanded="true" signature="13644:14303" ph="select c.cyc... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="14314:15213" ph="select b.mon... bsc_proj_obj" />
-            <marker date="1557811066217" expanded="true" signature="14558:14900" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557811066217" expanded="true" signature="15450:16216" ph="select j.obj... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="15450:16851" ph="select j.obj... " />
-            <marker date="1557811066217" expanded="true" signature="16227:16851" ph="select t.obj... bsc_proj_obj" />
-            <marker date="1557811066217" expanded="true" signature="16562:16633" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557811066217" expanded="true" signature="16964:18639" ph="select * fro... cycle_id" />
-            <marker date="1557811066217" expanded="true" signature="16979:17638" ph="select c.cyc... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="17649:18548" ph="select b.mon... bsc_proj_obj" />
-            <marker date="1557811066217" expanded="true" signature="17893:18235" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557811066217" expanded="true" signature="18634:18639" ph="select t.yea... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="18730:19042" ph="select t.yea... bsc_proj_obj_h" />
-            <marker date="1557811066217" expanded="true" signature="20362:20579" ph="select i.mea... bsc_measure" />
-            <marker date="1557811066217" expanded="true" signature="20701:20821" ph="select ind_i... B04_IND" />
-            <marker date="1557811066217" expanded="true" signature="20907:21000" ph="select obj_n... bsc_proj_stat_obj" />
-            <marker date="1557811066217" expanded="true" signature="21088:21195" ph="select dim_c... b04_data_col_adim_scope" />
+            <marker date="1557915939598" expanded="true" signature="262:310" ph="select * fro... *" />
+            <marker date="1557915939598" expanded="true" signature="277:310" ph="select t1.*,... " />
+            <marker date="1557915939598" expanded="true" signature="515:537" ph="select count... " />
+            <marker date="1557915939598" expanded="true" signature="646:663" ph="select cnt f... " />
+            <marker date="1557915939598" expanded="true" signature="747:855" ph="update bsc_p... " />
+            <marker date="1557915939598" expanded="true" signature="1467:3198" ph="select a.*, bsc_calc_ctrl" />
+            <marker date="1557915939598" expanded="true" signature="3298:3960" ph="select a.*,b... parent_dim_id" />
+            <marker date="1557915939598" expanded="true" signature="3330:3858" ph="select b.par... " />
+            <marker date="1557915939598" expanded="true" signature="4339:4523" ph="select a.mea... bsc_proj_mea" />
+            <marker date="1557915939598" expanded="true" signature="5402:6168" ph="select j.obj... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="5402:6653" ph="select j.obj... " />
+            <marker date="1557915939598" expanded="true" signature="5402:6803" ph="select j.obj... " />
+            <marker date="1557915939598" expanded="true" signature="6179:6653" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557915939598" expanded="true" signature="6514:6585" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557915939598" expanded="true" signature="7613:7843" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="7613:8318" ph="select t.obj... " />
+            <marker date="1557915939598" expanded="true" signature="7854:8318" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557915939598" expanded="true" signature="8029:8100" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557915939598" expanded="true" signature="8441:8907" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="8997:9473" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="9562:10223" ph="select t.*,@... " />
+            <marker date="1557915939598" expanded="true" signature="10325:10740" ph="select ifnul... bsc_proj_obj_score" />
+            <marker date="1557915939598" expanded="true" signature="10883:11110" ph="select case bsc_proj_exe_mth" />
+            <marker date="1557915939598" expanded="true" signature="11228:11990" ph="select s.mon... *" />
+            <marker date="1557915939598" expanded="true" signature="11343:11958" ph="select d.* f... month_id" />
+            <marker date="1557915939598" expanded="true" signature="11360:11910" ph="select a.mon... bsc_proj_obj_score" />
+            <marker date="1557915939598" expanded="true" signature="12108:12263" ph="select measu... bsc_measure" />
+            <marker date="1557915939598" expanded="true" signature="12397:12548" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="12397:13446" ph="select t.yea... " />
+            <marker date="1557915939598" expanded="true" signature="12559:13390" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557915939598" expanded="true" signature="12735:13077" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557915939598" expanded="true" signature="13629:15421" ph="select * fro... cycle_id" />
+            <marker date="1557915939598" expanded="true" signature="13644:13747" ph="select c.cyc... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="14581:15330" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557915939598" expanded="true" signature="14675:15017" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557915939598" expanded="true" signature="15567:16333" ph="select j.obj... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="15567:16968" ph="select j.obj... " />
+            <marker date="1557915939598" expanded="true" signature="16344:16968" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557915939598" expanded="true" signature="16679:16750" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557915939598" expanded="true" signature="17081:18756" ph="select * fro... cycle_id" />
+            <marker date="1557915939598" expanded="true" signature="17096:17755" ph="select c.cyc... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="17766:18665" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557915939598" expanded="true" signature="18010:18352" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557915939598" expanded="true" signature="18751:18756" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="18847:19159" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557915939598" expanded="true" signature="20479:20696" ph="select i.mea... bsc_measure" />
+            <marker date="1557915939598" expanded="true" signature="20818:20938" ph="select ind_i... B04_IND" />
+            <marker date="1557915939598" expanded="true" signature="21024:21117" ph="select obj_n... bsc_proj_stat_obj" />
+            <marker date="1557915939598" expanded="true" signature="21205:21312" ph="select dim_c... b04_data_col_adim_scope" />
           </folding>
         </state>
       </provider>
@@ -2288,14 +2334,58 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <marker date="1557915939603" expanded="true" signature="5698:6372" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="6376:6440" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="6513:6993" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="6998:7062" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="7137:7204" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="7208:7272" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="7345:7708" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="7711:7770" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="7841:7887" ph="{...}" />
+            <marker date="1557915939603" expanded="false" signature="7948:7953" ph=" { " />
+            <marker date="1557915939603" expanded="false" signature="7988:7991" ph=" }" />
+            <marker date="1557915939603" expanded="true" signature="8065:8457" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="8461:8536" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="8630:8958" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="9037:9097" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="9099:9118" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="9194:9279" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="9366:9444" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="9706:9832" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="9953:10450" ph="{...}" />
+            <marker date="1557915939603" expanded="false" signature="10064:10080" ph="&lt;~&gt;" />
+            <marker date="1557915939603" expanded="true" signature="10500:10720" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="10791:10993" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="10996:11095" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="11203:11326" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="11329:11415" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="11521:11641" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="11644:11717" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="11825:11948" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="11951:12026" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="12135:12259" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="12262:12337" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="12448:12574" ph="{...}" />
+            <marker date="1557915939603" expanded="true" signature="12578:12657" ph="/**...*/" />
+            <marker date="1557915939603" expanded="true" signature="12766:12890" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_detail_layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="605" column="49" lean-forward="false" selection-start-line="605" selection-start-column="38" selection-end-line="605" selection-end-column="49" />
+        <state relative-caret-position="694">
+          <caret line="759" column="25" lean-forward="true" selection-start-line="759" selection-start-column="25" selection-end-line="759" selection-end-column="25" />
           <folding />
         </state>
       </provider>
