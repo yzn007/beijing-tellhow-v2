@@ -8,14 +8,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f65f38ba-5abc-4d62-9e8b-a7db299d75c5" name="Default" comment="方案指标关联关系：方案选择指标时，通过统计周期(年、季、月、日)、地区维度、其他维度，过滤符合条件的指标">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="f65f38ba-5abc-4d62-9e8b-a7db299d75c5" name="Default" comment="修改指标中引用了参数，方案查询时，结果有误bug">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/action/SelectorAction.java" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/action/SelectorAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/PublicMeasureDaoMapper.xml" afterPath="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/PublicMeasureDaoMapper.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_project_measure.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_project_measure.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/AsyncTree.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/AsyncTree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_layout_statistics.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_layout_statistics.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js" afterPath="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -43,396 +39,104 @@
       <file leaf-file-name="bsc_project_measure.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="1122" column="26" lean-forward="false" selection-start-line="1122" selection-start-column="26" selection-end-line="1122" selection-end-column="26" />
-              <folding>
-                <marker date="1557809992849" expanded="true" signature="137:362" ph="{&quot;id&quot;: 'card-1'...}" />
-                <marker date="1557809992849" expanded="true" signature="255:360" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="256:359" ph="{&quot;xtype&quot;: 'panel'...}" />
-                <marker date="1557809992849" expanded="true" signature="471:623" ph="{&quot;root&quot;: 'results'...}" />
-                <marker date="1557809992849" expanded="true" signature="658:679" ph="/** 统计周期(年季月日) ...*/" />
-                <marker date="1557809992849" expanded="true" signature="723:930" ph="{&quot;root&quot;: 'results'...}" />
-                <marker date="1557809992849" expanded="true" signature="993:1880" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="1058:1876" ph="{&quot;name&quot;: 'obj_period_id'...}" />
-                <marker date="1557809992849" expanded="true" signature="1503:1870" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="1557:1860" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="1968:2750" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="2024:2746" ph="{&quot;name&quot;: 'obj_link_id_cap'...}" />
-                <marker date="1557809992849" expanded="true" signature="2373:2740" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="2427:2730" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="3283:3346" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="3426:3622" ph="{&quot;oldToolbar&quot;: pub_tbar...}" />
-                <marker date="1557809992849" expanded="true" signature="3658:4763" ph="{&quot;region&quot;: 'center'...}" />
-                <marker date="1557809992849" expanded="true" signature="3733:3757" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="3771:4005" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="3807:4001" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="4016:4761" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="4017:4402" ph="{&quot;id&quot;: 'baseM'...}" />
-                <marker date="1557809992849" expanded="true" signature="4084:4399" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="4126:4397" ph="{&quot;id&quot;: 'baseMeasureTreePanel'...}" />
-                <marker date="1557809992849" expanded="true" signature="4404:4760" ph="{&quot;id&quot;: 'projectM'...}" />
-                <marker date="1557809992849" expanded="true" signature="4474:4757" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="4519:4755" ph="{&quot;id&quot;: 'projectMeasureTreePanel'...}" />
-                <marker date="1557809992849" expanded="true" signature="4810:5091" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="4847:5089" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="5139:5406" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="5176:5404" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="5448:6546" ph="{&quot;title&quot;: '衡量指标'...}" />
-                <marker date="1557809992849" expanded="true" signature="5631:5654" ph="{&quot;root&quot;: 'results'...}" />
-                <marker date="1557809992849" expanded="true" signature="5655:5737" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="5749:6544" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="5750:5950" ph="{&quot;name&quot;: 'measure_id'...}" />
-                <marker date="1557809992849" expanded="true" signature="5951:6132" ph="{&quot;name&quot;: 'measure_name'...}" />
-                <marker date="1557809992849" expanded="true" signature="6133:6315" ph="{&quot;name&quot;: 'formula_expr'...}" />
-                <marker date="1557809992849" expanded="true" signature="6316:6457" ph="{&quot;name&quot;: 'mea_definition'...}" />
-                <marker date="1557809992849" expanded="true" signature="6458:6543" ph="{&quot;name&quot;: 'measure_source_code'...}" />
-                <marker date="1557809992849" expanded="true" signature="6583:6669" ph="{&quot;id&quot;: 'card-0'...}" />
-                <marker date="1557809992849" expanded="true" signature="6726:7985" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="6900:7195" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="6952:7023" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="7076:7147" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="7215:7796" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="7268:7341" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="7397:7512" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="7620:7735" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="8195:8311" ph="{&quot;oldToolbar&quot;: pub_rn_tbar...}" />
-                <marker date="1557809992849" expanded="true" signature="8355:8605" ph="{&quot;id&quot;: 'baseTree'...}" />
-                <marker date="1557809992849" expanded="true" signature="8647:9704" ph="{&quot;region&quot;: 'west'...}" />
-                <marker date="1557809992849" expanded="true" signature="8751:8775" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="8790:9241" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="8818:9238" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="9070:9234" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="9252:9702" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="9253:9690" ph="{&quot;id&quot;: 'keyWordTree'...}" />
-                <marker date="1557809992849" expanded="true" signature="9498:9637" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="9532:9633" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="9869:10101" ph="{&quot;id&quot;: 'privateTree'...}" />
-                <marker date="1557809992849" expanded="true" signature="10151:10241" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="10265:10396" ph="{&quot;id&quot;: 'paramTreePanel'...}" />
-                <marker date="1557809992849" expanded="true" signature="10370:10393" ph="{&quot;id&quot;: 'paramTree'...}" />
-                <marker date="1557809992849" expanded="true" signature="10452:10508" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="10555:10644" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="10869:22787" ph="{&quot;region&quot;: 'center'...}" />
-                <marker date="1557809992849" expanded="true" signature="11012:22785" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="11057:11285" ph="{&quot;id&quot;: 'formulaDesc'...}" />
-                <marker date="1557809992849" expanded="true" signature="11287:12442" ph="{&quot;xtype&quot;: 'panel'...}" />
-                <marker date="1557809992849" expanded="true" signature="11333:11502" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="11374:11500" ph="{&quot;id&quot;: 'formula9'...}" />
-                <marker date="1557809992849" expanded="true" signature="11513:12439" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="11514:11546" ph="{&quot;iconCls&quot;: 'bsc_formula'...}" />
-                <marker date="1557809992849" expanded="true" signature="11547:11588" ph="{&quot;xtype&quot;: 'label'...}" />
-                <marker date="1557809992849" expanded="true" signature="11594:11709" ph="{&quot;text&quot;: '清空'...}" />
-                <marker date="1557809992849" expanded="true" signature="11665:11705" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="11714:11836" ph="{&quot;text&quot;: '还原'...}" />
-                <marker date="1557809992849" expanded="true" signature="11783:11832" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="11841:12438" ph="{&quot;text&quot;: '帮助'...}" />
-                <marker date="1557809992849" expanded="true" signature="11904:12434" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="11993:12201" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="12207:12240" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="12443:22784" ph="{&quot;xtype&quot;: 'panel'...}" />
-                <marker date="1557809992849" expanded="true" signature="12555:22781" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="12556:14540" ph="{&quot;xtype&quot;: 'fieldset'...}" />
-                <marker date="1557809992849" expanded="true" signature="12752:14536" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="12753:13044" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="12903:13039" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="12904:13038" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="12979:13032" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="13045:13340" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="13195:13335" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="13196:13334" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="13272:13328" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="13341:13637" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="13491:13632" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="13492:13631" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="13568:13625" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="13638:13940" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="13788:13935" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="13789:13934" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="13867:13928" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="13941:14237" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="14091:14232" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="14092:14231" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="14168:14225" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="14238:14535" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="14388:14530" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="14389:14529" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="14465:14523" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="14541:14606" ph="{&quot;xtype&quot;: 'panel'...}" />
-                <marker date="1557809992849" expanded="true" signature="14607:18177" ph="{&quot;xtype&quot;: 'fieldset'...}" />
-                <marker date="1557809992849" expanded="true" signature="14803:18173" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="14804:15078" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="14936:15073" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="14937:15072" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="15017:15066" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="15079:15348" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="15211:15343" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="15212:15342" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="15281:15336" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="15349:15619" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="15481:15614" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="15482:15613" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="15552:15607" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="15620:15894" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="15752:15889" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="15753:15888" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="15833:15882" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="15895:16164" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="16027:16159" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="16028:16158" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="16097:16152" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="16165:16434" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="16297:16429" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="16298:16428" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="16367:16422" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="16435:16703" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="16567:16698" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="16568:16697" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="16636:16691" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="16704:16973" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="16836:16968" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="16837:16967" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="16906:16961" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="16974:17244" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="17106:17239" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="17107:17238" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="17177:17232" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="17245:17532" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="17395:17527" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="17396:17526" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="17465:17520" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="17533:17849" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="17683:17844" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="17684:17843" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="17761:17837" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="17850:18172" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="18000:18167" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="18001:18166" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="18079:18160" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="18178:18243" ph="{&quot;xtype&quot;: 'panel'...}" />
-                <marker date="1557809992849" expanded="true" signature="18244:22780" ph="{&quot;xtype&quot;: 'fieldset'...}" />
-                <marker date="1557809992849" expanded="true" signature="18440:22776" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="18441:18709" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="18573:18704" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="18574:18703" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="18642:18697" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="18710:18978" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="18842:18973" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="18843:18972" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="18911:18966" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="18979:19247" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="19111:19242" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="19112:19241" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="19180:19235" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="19248:19516" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="19380:19511" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="19381:19510" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="19449:19504" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="19517:19785" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="19649:19780" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="19650:19779" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="19718:19773" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="19786:20054" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="19918:20049" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="19919:20048" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="19987:20042" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="20055:20323" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="20187:20318" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="20188:20317" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="20256:20311" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="20324:20592" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="20456:20587" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="20457:20586" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="20525:20580" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="20593:20861" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="20725:20856" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="20726:20855" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="20794:20849" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="20862:21130" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="20994:21125" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="20995:21124" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="21063:21118" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="21131:21399" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="21263:21394" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="21264:21393" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="21332:21387" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="21400:21668" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="21532:21663" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="21533:21662" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="21601:21656" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="21669:21953" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="21817:21948" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="21818:21947" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="21886:21941" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="21954:22222" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="22086:22217" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="22087:22216" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="22155:22210" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="22223:22491" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="22355:22486" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="22356:22485" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="22424:22479" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="22492:22775" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="22641:22770" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="22642:22769" ph="{&quot;xtype&quot;: 'button'...}" />
-                <marker date="1557809992849" expanded="true" signature="22713:22763" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="22822:24507" ph="{&quot;layout&quot;: 'fit'...}" />
-                <marker date="1557809992849" expanded="true" signature="22904:22977" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="22932:22974" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="23003:24505" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="23004:24504" ph="{&quot;id&quot;: 'card-wizard-panel'...}" />
-                <marker date="1557809992849" expanded="true" signature="23149:23172" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="23183:24475" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="23190:23307" ph="{&quot;text&quot;: '取消'...}" />
-                <marker date="1557809992849" expanded="true" signature="23254:23303" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="23312:24474" ph="{&quot;id&quot;: 'saveCtrlMeasure'...}" />
-                <marker date="1557809992849" expanded="true" signature="23402:24470" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="23714:23789" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="23826:23905" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="23944:24465" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="23968:24457" ph="{&quot;url&quot;: actionUrl...}" />
-                <marker date="1557809992849" expanded="true" signature="24031:24167" ph="{&quot;project_id&quot;: projectID...}" />
-                <marker date="1557809992849" expanded="true" signature="24224:24450" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="24314:24377" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="24383:24442" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="24536:24917" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="24919:24938" ph="/** 添加方案考核指标 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="24986:25738" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="25311:25395" ph="//..." />
-                <marker date="1557809992849" expanded="true" signature="25741:25760" ph="/** 修改衡量指标信息 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="25815:27154" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="26473:26597" ph="//..." />
-                <marker date="1557809992849" expanded="true" signature="27156:27179" ph="/** 删除方案考核指标 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="27210:27839" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="27361:27835" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="27383:27832" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="27405:27826" ph="{&quot;method&quot;: 'POST'...}" />
-                <marker date="1557809992849" expanded="true" signature="27514:27579" ph="{&quot;project_id&quot;: projectID...}" />
-                <marker date="1557809992849" expanded="true" signature="27634:27821" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="27720:27754" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="27760:27815" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="27841:27878" ph="/** 修改考核指标权重 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="27909:28361" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="27929:28357" ph="{&quot;method&quot;: 'POST'...}" />
-                <marker date="1557809992849" expanded="true" signature="28036:28083" ph="{&quot;project_id&quot;: projectID...}" />
-                <marker date="1557809992849" expanded="true" signature="28135:28354" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="28217:28293" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="28299:28350" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="28363:28383" ph="/** 导出Excel方法 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="28438:28837" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="28839:28859" ph="/** 导出计划值模板方法 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="28915:29103" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="29105:29184" ph="/** 执行方案 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="29213:31148" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="29216:29236" ph="/** 月份Store ...*/" />
-                <marker date="1557809992849" expanded="true" signature="29275:29417" ph="{&quot;root&quot;: 'results'...}" />
-                <marker date="1557809992849" expanded="true" signature="29451:29583" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="29483:29580" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="29630:31129" ph="{&quot;id&quot;: 'projWin'...}" />
-                <marker date="1557809992849" expanded="true" signature="29837:31126" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="29861:30903" ph="{&quot;region&quot;: 'center'...}" />
-                <marker date="1557809992849" expanded="true" signature="30042:30437" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="30043:30164" ph="{&quot;xtype&quot;: 'textfield'...}" />
-                <marker date="1557809992849" expanded="true" signature="30166:30436" ph="{&quot;name&quot;: 'month_id'...}" />
-                <marker date="1557809992849" expanded="true" signature="30452:30899" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="30453:30711" ph="{&quot;id&quot;: 'start'...}" />
-                <marker date="1557809992849" expanded="true" signature="30515:30706" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="30601:30662" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="30713:30801" ph="{&quot;id&quot;: 'stop'...}" />
-                <marker date="1557809992849" expanded="true" signature="30774:30796" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="30803:30898" ph="{&quot;id&quot;: 'close'...}" />
-                <marker date="1557809992849" expanded="true" signature="30865:30893" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="30933:31124" ph="{&quot;id&quot;: 'southPanel'...}" />
-                <marker date="1557809992849" expanded="true" signature="31039:31120" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="31074:31118" ph="{&quot;id&quot;: 'progressBar'...}" />
-                <marker date="1557809992849" expanded="true" signature="31176:31519" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="31217:31501" ph="{&quot;id&quot;: 'nullrootid'...}" />
-                <marker date="1557809992849" expanded="true" signature="31284:31498" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="31285:31356" ph="{&quot;id&quot;: 'COMPLETE'...}" />
-                <marker date="1557809992849" expanded="true" signature="31357:31424" ph="{&quot;id&quot;: 'TARGET'...}" />
-                <marker date="1557809992849" expanded="true" signature="31425:31497" ph="{&quot;id&quot;: 'FULL_SCORE'...}" />
-                <marker date="1557809992849" expanded="true" signature="31555:33123" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="31632:33098" ph="{&quot;id&quot;: 'createWin'...}" />
-                <marker date="1557809992849" expanded="true" signature="31790:31820" ph="{&quot;padding&quot;: '40px,30px'...}" />
-                <marker date="1557809992849" expanded="true" signature="31836:31908" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="31859:31904" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="31946:32187" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="31947:32025" ph="{&quot;id&quot;: 'new_project_id'...}" />
-                <marker date="1557809992849" expanded="true" signature="32026:32186" ph="{&quot;id&quot;: 'project_create'...}" />
-                <marker date="1557809992849" expanded="true" signature="32201:33095" ph="[...]" />
-                <marker date="1557809992849" expanded="true" signature="32202:33003" ph="{&quot;text&quot;: '确定'...}" />
-                <marker date="1557809992849" expanded="true" signature="32243:32999" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="32298:32359" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="32381:32992" ph="{&quot;method&quot;: 'POST'...}" />
-                <marker date="1557809992849" expanded="true" signature="32493:32672" ph="{&quot;checked&quot;: checked...}" />
-                <marker date="1557809992849" expanded="true" signature="32724:32986" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="32805:32919" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="32923:32979" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="33004:33094" ph="{&quot;text&quot;: '取消'...}" />
-                <marker date="1557809992849" expanded="true" signature="33045:33090" ph="{...}" />
-                <marker date="1557809992849" expanded="true" signature="33125:33207" ph="/** 全部替换 ...*/" />
-                <marker date="1557809992849" expanded="true" signature="33245:33326" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bsc_project_measure_layout.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="1" column="34" lean-forward="false" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
-              <folding>
-                <marker date="1557809529726" expanded="true" signature="8170:8176" ph="&amp;nbsp;" />
-                <marker date="1557809529726" expanded="true" signature="8176:8182" ph="&amp;nbsp;" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AsyncTree.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/AsyncTree.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+            <state relative-caret-position="96">
+              <caret line="44" column="39" lean-forward="false" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PublicMeasureDaoMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/PublicMeasureDaoMapper.xml">
+      <file leaf-file-name="bsc_project_measure_layout.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="136" column="33" lean-forward="false" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="33" />
+            <state relative-caret-position="209">
+              <caret line="26" column="2" lean-forward="true" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="2" />
               <folding>
-                <marker date="1557801988926" expanded="true" signature="304:373" ph="select measu... bsc_measure" />
-                <marker date="1557801988926" expanded="true" signature="451:1577" ph="insert into bsc_measure... " />
-                <marker date="1557801988926" expanded="true" signature="1658:2169" ph="update bsc_m... " />
-                <marker date="1557801988926" expanded="true" signature="2259:2516" ph="update bsc_m... " />
-                <marker date="1557801988926" expanded="true" signature="2599:2686" ph="delete from " />
-                <marker date="1557801988926" expanded="true" signature="3274:4157" ph="select a.*, bsc_measure" />
-                <marker date="1557801988926" expanded="true" signature="3390:3511" ph="select paren... bsc_measure" />
-                <marker date="1557801988926" expanded="true" signature="4277:4432" ph="select a.* f... bsc_measure" />
-                <marker date="1557801988926" expanded="true" signature="4535:4612" ph="select param... bsc_parameter" />
-                <marker date="1557801988926" expanded="true" signature="4702:4798" ph="insert into bsc_measure_exe... " />
-                <marker date="1557801988926" expanded="true" signature="4891:4953" ph="delete from " />
-                <marker date="1557801988926" expanded="true" signature="5050:5112" ph="delete from " />
-                <marker date="1557801988926" expanded="true" signature="5207:5323" ph="insert into bsc_measure_param... " />
-                <marker date="1557801988926" expanded="true" signature="5419:5488" ph="select count... bsc_measure" />
-                <marker date="1557801988926" expanded="true" signature="5572:5644" ph="select count... bsc_measure" />
+                <marker date="1557898034122" expanded="true" signature="8176:8182" ph="&amp;nbsp;" />
+                <marker date="1557898034122" expanded="true" signature="8182:8188" ph="&amp;nbsp;" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SelectorAction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/action/SelectorAction.java">
+      <file leaf-file-name="bsc_project_def_layout_statistics.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_layout_statistics.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="167" column="0" lean-forward="false" selection-start-line="167" selection-start-column="0" selection-end-line="167" selection-end-column="0" />
+            <state relative-caret-position="1382">
+              <caret line="437" column="1" lean-forward="true" selection-start-line="437" selection-start-column="1" selection-end-line="437" selection-end-column="1" />
               <folding>
-                <element signature="e#11587#11588#0" expanded="true" />
-                <element signature="e#11620#11621#0" expanded="true" />
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bsc_proj_obj_index_score_ext_layout.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-75">
+              <caret line="416" column="17" lean-forward="false" selection-start-line="416" selection-start-column="11" selection-end-line="416" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AsyncTree.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/AsyncTree.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="12" column="34" lean-forward="true" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BscProjectDaoMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscProjectDaoMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="124" column="16" lean-forward="true" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
+              <folding>
+                <marker date="1557823057593" expanded="true" signature="262:310" ph="select * fro... *" />
+                <marker date="1557823057593" expanded="true" signature="277:310" ph="select t1.*,... " />
+                <marker date="1557823057593" expanded="true" signature="515:537" ph="select count... " />
+                <marker date="1557823057593" expanded="true" signature="706:858" ph="select count... bsc_project" />
+                <marker date="1557823057593" expanded="true" signature="1270:2186" ph="select t.pro... bsc_project" />
+                <marker date="1557823057593" expanded="true" signature="2295:2883" ph="select * fro... month_id" />
+                <marker date="1557823057593" expanded="true" signature="2310:2439" ph="select month... bsc_proj_exe_mth" />
+                <marker date="1557823057593" expanded="true" signature="2450:2850" ph="select r.mon... *" />
+                <marker date="1557823057593" expanded="true" signature="2536:2597" ph="select * fro... bsc_project" />
+                <marker date="1557823057593" expanded="true" signature="2702:2734" ph="select * fro... bsc_result_measure" />
+                <marker date="1557823057593" expanded="true" signature="2965:3553" ph="insert into bsc_project... " />
+                <marker date="1557823057593" expanded="true" signature="3636:3921" ph="update bsc_p... " />
+                <marker date="1557823057593" expanded="true" signature="4014:4231" ph="update bsc_p... " />
+                <marker date="1557823057593" expanded="true" signature="4307:4405" ph="update bsc_p... " />
+                <marker date="1557823057593" expanded="true" signature="4484:4605" ph="select t.* f... bsc_proj_rslt_stat" />
+                <marker date="1557823057593" expanded="true" signature="4746:4850" ph="select b.* f... bsc_proj_exe_mth" />
+                <marker date="1557823057593" expanded="true" signature="4999:5103" ph="select b.* f... bsc_proj_exe_mth" />
+                <marker date="1557823057593" expanded="true" signature="5216:5286" ph="select count... bsc_proj_obj" />
+                <marker date="1557823057593" expanded="true" signature="5409:5567" ph="select a.mea... bsc_proj_mea" />
+                <marker date="1557823057593" expanded="true" signature="5918:5989" ph="insert into bsc_proj_stat_obj... " />
+                <marker date="1557823057593" expanded="true" signature="6076:6151" ph="insert into bsc_proj_stat_cyc... " />
+                <marker date="1557823057593" expanded="true" signature="6276:6412" ph="select SOURC... bsc_dim_link" />
+                <marker date="1557823057593" expanded="true" signature="6505:6567" ph="delete from " />
+                <marker date="1557823057593" expanded="true" signature="6659:6721" ph="delete from " />
+                <marker date="1557823057593" expanded="true" signature="6812:6989" ph="insert into bsc_proj_stat_obj... " />
+                <marker date="1557823057593" expanded="true" signature="6844:6989" ph="select ##{new... obj_id" />
+                <marker date="1557823057593" expanded="true" signature="6901:6984" ph="select obj_i... bsc_proj_stat_obj" />
+                <marker date="1557823057593" expanded="true" signature="7078:7301" ph="insert into bsc_proj_stat_cyc... " />
+                <marker date="1557823057593" expanded="true" signature="7147:7301" ph="select ##{new... cycle_id" />
+                <marker date="1557823057593" expanded="true" signature="7206:7295" ph="select cycle... bsc_proj_stat_cyc" />
+                <marker date="1557823057593" expanded="true" signature="7405:7505" ph="SELECT CYCLE... BSC_PROJ_STAT_CYC" />
+                <marker date="1557823057593" expanded="true" signature="7609:7706" ph="SELECT OBJ_I... BSC_PROJ_STAT_OBJ" />
+                <marker date="1557823057593" expanded="true" signature="7806:7892" ph="select * fro... bsc_proj_stat_obj" />
+                <marker date="1557823057593" expanded="true" signature="7991:8235" ph="select E.Dim... B04_DATA_COL_ADIM_SCOPE" />
+                <marker date="1557823057593" expanded="true" signature="8139:8213" ph="SELECT L.Reg... B04_DATA_COL" />
+                <marker date="1557823057593" expanded="true" signature="8341:8442" ph="select DATA_... B04_DATA_COL" />
+                <marker date="1557823057593" expanded="true" signature="8546:8733" ph="select e1.st... B04_DATA_COL_TM_SCOPE" />
+                <marker date="1557823057593" expanded="true" signature="8839:9072" ph="select Dim_C... B04_DATA_COL_ADIM_SCOPE" />
+                <marker date="1557823057593" expanded="true" signature="8981:9052" ph="SELECT Dim_T... B04_DATA_COL" />
+                <marker date="1557823057593" expanded="true" signature="9158:9377" ph="select i.mea... bsc_measure" />
               </folding>
             </state>
           </provider>
@@ -441,57 +145,85 @@
       <file leaf-file-name="BscProcedureExecuteAction.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="51" column="39" lean-forward="false" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="78" />
+            <state relative-caret-position="96">
+              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserDaoMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/dao/mapper/UserDaoMapper.xml">
+      <file leaf-file-name="CalculateProcedureOnlyMeasure.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="309" column="17" lean-forward="false" selection-start-line="309" selection-start-column="17" selection-end-line="309" selection-end-column="17" />
+            <state relative-caret-position="-75">
+              <caret line="785" column="23" lean-forward="true" selection-start-line="785" selection-start-column="23" selection-end-line="785" selection-end-column="23" />
               <folding>
-                <marker date="1557733193489" expanded="true" signature="252:300" ph="select * fro... *" />
-                <marker date="1557733193489" expanded="true" signature="267:300" ph="select t1.*,... " />
-                <marker date="1557733193489" expanded="true" signature="505:527" ph="select count... " />
-                <marker date="1557733193489" expanded="true" signature="729:1316" ph="select a.*, bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="1454:1483" ph="select * fro... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="1635:2215" ph="select a.*, bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="2328:3316" ph="insert into bsc_user_info... " />
-                <marker date="1557733193489" expanded="true" signature="3396:3447" ph="delete from " />
-                <marker date="1557733193489" expanded="true" signature="3543:3610" ph="delete from " />
-                <marker date="1557733193489" expanded="true" signature="3837:3892" ph="delete from " />
-                <marker date="1557733193489" expanded="true" signature="3975:4524" ph="update bsc_u... " />
-                <marker date="1557733193489" expanded="true" signature="4632:5334" ph="select t.use... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="5417:5487" ph="update bsc_u... " />
-                <marker date="1557733193489" expanded="true" signature="5567:5638" ph="insert into bsc_user_info... " />
-                <marker date="1557733193489" expanded="true" signature="5741:6056" ph="select d.rol... bsc_role_info" />
-                <marker date="1557733193489" expanded="true" signature="5741:6440" ph="select d.rol... " />
-                <marker date="1557733193489" expanded="true" signature="6067:6440" ph="select a.rol... dmd_bank_inter_org" />
-                <marker date="1557733193489" expanded="true" signature="6530:6607" ph="insert into bsc_user_role_rela... " />
-                <marker date="1557733193489" expanded="true" signature="6733:6820" ph="select * fro... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="6976:7317" ph="select a.* f... bsc_resource" />
-                <marker date="1557733193489" expanded="true" signature="7043:7289" ph="select 0 fro... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="7435:7549" ph="select resou... bsc_user_spec_priv" />
-                <marker date="1557733193489" expanded="true" signature="7830:8047" ph="select 0 fro... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="8134:8215" ph="insert into bsc_user_spec_priv" />
-                <marker date="1557733193489" expanded="true" signature="8328:8647" ph="select count... user_id" />
-                <marker date="1557733193489" expanded="true" signature="8359:8496" ph="select a.use... bsc_user_spec_priv" />
-                <marker date="1557733193489" expanded="true" signature="8513:8644" ph="select b.use... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="8765:9085" ph="select c.ban... dmd_bank_inter_org" />
-                <marker date="1557733193489" expanded="true" signature="8873:8973" ph="select a.ban... bsc_user_spec_priv" />
-                <marker date="1557733193489" expanded="true" signature="8990:9084" ph="select b.ban... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="9167:9355" ph="delete from " />
-                <marker date="1557733193489" expanded="true" signature="9257:9349" ph="select 0 fro... bsc_role_info" />
-                <marker date="1557733193489" expanded="true" signature="9404:9434" ph="delete from " />
-                <marker date="1557733193489" expanded="true" signature="9692:9816" ph="select ##{ite... dual" />
-                <marker date="1557733193489" expanded="true" signature="9894:10059" ph="insert into bsc_user_role_rela... " />
-                <marker date="1557733193489" expanded="true" signature="9927:10059" ph="select o.use... bsc_user_info" />
-                <marker date="1557733193489" expanded="true" signature="9995:10055" ph="select 1 fro... bsc_user_role_rela" />
-                <marker date="1557733193489" expanded="true" signature="10327:10504" ph="SELECT USER_... BSC_USER_INFO_TEMP" />
+                <element signature="e#2458#2479#0" expanded="true" />
+                <element signature="e#2665#2683#0" expanded="true" />
+                <element signature="e#26450#26458#0" expanded="true" />
+                <element signature="e#34640#34656#0" expanded="true" />
+                <element signature="e#34756#34764#0" expanded="true" />
+                <element signature="e#38366#38382#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BscResultDaoMapper.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscResultDaoMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="226" column="80" lean-forward="false" selection-start-line="226" selection-start-column="80" selection-end-line="226" selection-end-column="80" />
+              <folding>
+                <marker date="1557811066217" expanded="true" signature="262:310" ph="select * fro... *" />
+                <marker date="1557811066217" expanded="true" signature="277:310" ph="select t1.*,... " />
+                <marker date="1557811066217" expanded="true" signature="515:537" ph="select count... " />
+                <marker date="1557811066217" expanded="true" signature="646:663" ph="select cnt f... " />
+                <marker date="1557811066217" expanded="true" signature="747:855" ph="update bsc_p... " />
+                <marker date="1557811066217" expanded="true" signature="1467:3198" ph="select a.*, bsc_calc_ctrl" />
+                <marker date="1557811066217" expanded="true" signature="3298:3960" ph="select a.*,b... parent_dim_id" />
+                <marker date="1557811066217" expanded="true" signature="3330:3858" ph="select b.par... " />
+                <marker date="1557811066217" expanded="true" signature="4339:4523" ph="select a.mea... bsc_proj_mea" />
+                <marker date="1557811066217" expanded="true" signature="5402:6168" ph="select j.obj... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="5402:6653" ph="select j.obj... " />
+                <marker date="1557811066217" expanded="true" signature="5402:6803" ph="select j.obj... " />
+                <marker date="1557811066217" expanded="true" signature="6179:6653" ph="select t.obj... bsc_proj_obj" />
+                <marker date="1557811066217" expanded="true" signature="6514:6585" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557811066217" expanded="true" signature="7613:7843" ph="select t.obj... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="7613:8318" ph="select t.obj... " />
+                <marker date="1557811066217" expanded="true" signature="7854:8318" ph="select t.obj... bsc_proj_obj" />
+                <marker date="1557811066217" expanded="true" signature="8029:8100" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557811066217" expanded="true" signature="8441:8907" ph="select t.obj... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="8997:9473" ph="select t.obj... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="9562:10223" ph="select t.*,@... " />
+                <marker date="1557811066217" expanded="true" signature="10325:10740" ph="select ifnul... bsc_proj_obj_score" />
+                <marker date="1557811066217" expanded="true" signature="10883:11110" ph="select case bsc_proj_exe_mth" />
+                <marker date="1557811066217" expanded="true" signature="11228:11990" ph="select s.mon... *" />
+                <marker date="1557811066217" expanded="true" signature="11343:11958" ph="select d.* f... month_id" />
+                <marker date="1557811066217" expanded="true" signature="11360:11910" ph="select a.mon... bsc_proj_obj_score" />
+                <marker date="1557811066217" expanded="true" signature="12108:12263" ph="select measu... bsc_measure" />
+                <marker date="1557811066217" expanded="true" signature="12397:12548" ph="select t.yea... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="12397:13446" ph="select t.yea... " />
+                <marker date="1557811066217" expanded="true" signature="12559:13390" ph="select b.mon... bsc_proj_obj" />
+                <marker date="1557811066217" expanded="true" signature="12735:13077" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557811066217" expanded="true" signature="13629:15304" ph="select * fro... cycle_id" />
+                <marker date="1557811066217" expanded="true" signature="13644:14303" ph="select c.cyc... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="14314:15213" ph="select b.mon... bsc_proj_obj" />
+                <marker date="1557811066217" expanded="true" signature="14558:14900" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557811066217" expanded="true" signature="15450:16216" ph="select j.obj... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="15450:16851" ph="select j.obj... " />
+                <marker date="1557811066217" expanded="true" signature="16227:16851" ph="select t.obj... bsc_proj_obj" />
+                <marker date="1557811066217" expanded="true" signature="16562:16633" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557811066217" expanded="true" signature="16964:18639" ph="select * fro... cycle_id" />
+                <marker date="1557811066217" expanded="true" signature="16979:17638" ph="select c.cyc... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="17649:18548" ph="select b.mon... bsc_proj_obj" />
+                <marker date="1557811066217" expanded="true" signature="17893:18235" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+                <marker date="1557811066217" expanded="true" signature="18634:18639" ph="select t.yea... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="18730:19042" ph="select t.yea... bsc_proj_obj_h" />
+                <marker date="1557811066217" expanded="true" signature="20362:20579" ph="select i.mea... bsc_measure" />
+                <marker date="1557811066217" expanded="true" signature="20701:20821" ph="select ind_i... B04_IND" />
+                <marker date="1557811066217" expanded="true" signature="20907:21000" ph="select obj_n... bsc_proj_stat_obj" />
+                <marker date="1557811066217" expanded="true" signature="21088:21195" ph="select dim_c... b04_data_col_adim_scope" />
               </folding>
             </state>
           </provider>
@@ -508,36 +240,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>projectID</find>
-      <find>obj_Link_name</find>
+      <find>monthDS</find>
+      <find>·</find>
+      <find>addProjectStatOjbect</find>
       <find>cycle_type_id</find>
-      <find>request</find>
-      <find>listMonth</find>
-      <find>request.getParameter(&quot;cycle_type_id&quot;)</find>
-      <find>getRequestParam</find>
-      <find>listProjCycleType</find>
-      <find>POST</find>
-      <find>cycleTypeDS</find>
-      <find>obj_link_id</find>
-      <find>obj_link_name</find>
-      <find>speciallyAuthorize</find>
-      <find>cycleTypeId</find>
-      <find>ObjectCountPeriodProject</find>
-      <find>objectCountPeriodProject</find>
-      <find>listEngMeasure</find>
-      <find>getRootNodeByConf</find>
-      <find>expandMyMeasureTreeNodeByConf</find>
-      <find>dimension</find>
-      <find>reset</find>
-      <find>resetAddWinow</find>
-      <find>添加</find>
-      <find>delete</find>
-      <find>cycleTypeID</find>
-      <find>addWindow</find>
-      <find>baseMeasureTreePanel</find>
-      <find>doAddCtrlInfo</find>
-      <find>select</find>
+      <find>executeLowLevelMeasure</find>
+      <find>addProject</find>
+      <find>b</find>
+      <find>bsc</find>
+      <find>bscre</find>
+      <find>bscr</find>
+      <find>bsc_resualt_dao</find>
+      <find>bsc_resualt_da</find>
+      <find>bsc_resualt_d</find>
+      <find>bsc_resualt_</find>
+      <find>bsc_resualt</find>
+      <find>bsc_resual</find>
+      <find>bsc_resua</find>
+      <find>bsc_resu</find>
+      <find>bsc_re</find>
+      <find>bsc_</find>
+      <find>bscRes</find>
+      <find>bscResult</find>
+      <find>bscResultD</find>
+      <find>bscResultDao</find>
+      <find>getMeasureResultSQL</find>
       <find>doEditCtrlInfo</find>
+      <find>编辑方案</find>
+      <find>dimension</find>
+      <find>projectID</find>
+      <find>cycleTypeID</find>
     </findStrings>
     <replaceStrings>
       <replace>http://10.10.10.42:8081</replace>
@@ -593,10 +325,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/BscResultServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/profile/tellhow/spring/jdbc_oracle_local.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscResultDaoMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscProjectDaoMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_statistics.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_layout.js" />
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_layout_statistics.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/tree_search.js" />
         <option value="$PROJECT_DIR$/lib/spring-beans-3.2.4.RELEASE.jar!/org/springframework/beans/factory/support/DefaultListableBeanFactory.class" />
         <option value="$PROJECT_DIR$/pom.xml" />
@@ -625,17 +355,19 @@
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_public_measure_layout.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/do_execute_project.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/progress.js" />
-        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/service/IUserService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/sys/scripts/userManagerLayout.js" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/service/impl/UserServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/dao/mapper/UserDaoMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_project_measure.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/action/SelectorAction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/PublicMeasureDaoMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/AsyncTree.js" />
+        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscProjectDaoMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_project_measure.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_layout_statistics.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js" />
       </list>
     </option>
   </component>
@@ -835,66 +567,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="sys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sys" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="bsc" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -976,62 +648,6 @@
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resources" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1052,32 +668,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="impl" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1118,164 +708,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mapper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="base" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="action" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xwork-core-2.3.8.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xwork-core-2.3.8.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xwork2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bsbProd-beijing" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2010,11 +1442,18 @@
       <option name="project" value="LOCAL" />
       <updated>1557733394346</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="修改指标中引用了参数，方案查询时，结果有误bug">
+      <created>1557828315329</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1557828315329</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="721534000" />
+    <option name="totallyTimeSpent" value="745916000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -2031,7 +1470,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5229508" sideWeight="0.48335856" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39016393" sideWeight="0.48638427" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2042,7 +1481,7 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39016393" sideWeight="0.51664144" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39016393" sideWeight="0.5136157" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2053,7 +1492,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.38683787" sideWeight="0.46769458" order="2" side_tool="false" content_ui="tabs" x="1" y="33" width="1362" height="694" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20953101" sideWeight="0.47766322" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23298033" sideWeight="0.47766322" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27912253" sideWeight="0.5223368" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49918166" sideWeight="0.49394855" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -2094,7 +1533,8 @@
     <MESSAGE value="方案执行页面中的“指标计算”按钮移动到指标配置页面，并将方案执行页面隐藏" />
     <MESSAGE value="用户管理bug修改" />
     <MESSAGE value="方案指标关联关系：方案选择指标时，通过统计周期(年、季、月、日)、地区维度、其他维度，过滤符合条件的指标" />
-    <option name="LAST_COMMIT_MESSAGE" value="方案指标关联关系：方案选择指标时，通过统计周期(年、季、月、日)、地区维度、其他维度，过滤符合条件的指标" />
+    <MESSAGE value="修改指标中引用了参数，方案查询时，结果有误bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改指标中引用了参数，方案查询时，结果有误bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2104,18 +1544,6 @@
           <line>655</line>
           <properties />
           <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/BscProjectServiceImpl.java</url>
-          <line>98</line>
-          <properties />
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/BscProjectServiceImpl.java</url>
-          <line>125</line>
-          <properties />
-          <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscResultAction.java</url>
@@ -2157,21 +1585,47 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java</url>
-          <line>113</line>
+          <line>114</line>
           <properties />
-          <option name="timeStamp" value="279" />
+          <option name="timeStamp" value="310" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/BscProjectServiceImpl.java</url>
+          <line>124</line>
+          <properties />
+          <option name="timeStamp" value="311" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/BscProjectServiceImpl.java</url>
+          <line>103</line>
+          <properties />
+          <option name="timeStamp" value="312" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="relyMeasureID.equals(&quot;csgs&quot;)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java</url>
+          <line>747</line>
+          <properties />
+          <option name="timeStamp" value="314" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java</url>
           <line>41</line>
           <properties />
-          <option name="timeStamp" value="280" />
+          <option name="timeStamp" value="315" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="measure.getMeasureId().equals(&quot;csgs&quot;)" language="JAVA" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java</url>
+          <line>682</line>
+          <properties />
+          <option name="timeStamp" value="316" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="310" />
+      <option name="time" value="317" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2180,40 +1634,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/action/UserAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="1696" column="15" lean-forward="false" selection-start-line="1696" selection-start-column="15" selection-end-line="1696" selection-end-column="15" />
-          <folding>
-            <element signature="e#66457#66458#0" expanded="false" />
-            <element signature="e#66495#66496#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/synchrodata/SynchronizedDataConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/spring-core-3.2.4.RELEASE.jar!/org/springframework/cglib/proxy/MethodProxy.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/DataSourceConfigAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="116">
@@ -2255,31 +1675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="321" column="72" lean-forward="true" selection-start-line="321" selection-start-column="72" selection-end-line="321" selection-end-column="72" />
-          <folding>
-            <element signature="e#4188#4209#0" expanded="true" />
-            <element signature="e#4299#4318#0" expanded="true" />
-            <element signature="e#4395#4413#0" expanded="true" />
-            <element signature="e#4491#4510#0" expanded="true" />
-            <element signature="e#14408#14438#0" expanded="true" />
-            <element signature="e#19580#19610#0" expanded="true" />
-            <element signature="e#27731#27739#0" expanded="true" />
-            <element signature="e#35916#35932#0" expanded="true" />
-            <element signature="e#36032#36040#0" expanded="true" />
-            <element signature="e#39640#39656#0" expanded="true" />
-            <marker date="1557367175371" expanded="false" signature="44713:44724" ph=" { " />
-            <marker date="1557367175371" expanded="false" signature="44755:44761" ph=" }" />
-            <marker date="1557367175371" expanded="false" signature="44795:44806" ph=" { " />
-            <marker date="1557367175371" expanded="false" signature="44825:44831" ph=" }" />
-            <marker date="1557367175371" expanded="false" signature="44865:44876" ph=" { " />
-            <marker date="1557367175371" expanded="false" signature="44893:44899" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscCtrlMeasureAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="171">
@@ -2297,25 +1692,7 @@
             <element signature="e#2721#2722#0" expanded="false" />
             <element signature="e#2777#2778#0" expanded="false" />
             <element signature="e#2814#2815#0" expanded="false" />
-            <element signature="e#60099#60100#0" expanded="false" />
-            <element signature="e#60117#60118#0" expanded="false" />
-            <element signature="e#60152#60153#0" expanded="false" />
-            <element signature="e#60175#60176#0" expanded="false" />
-            <element signature="e#60210#60211#0" expanded="false" />
-            <element signature="e#60235#60236#0" expanded="false" />
-            <element signature="e#60286#60287#0" expanded="false" />
-            <element signature="e#60323#60324#0" expanded="false" />
-            <element signature="e#60355#60356#0" expanded="false" />
-            <element signature="e#60377#60378#0" expanded="false" />
-            <element signature="e#60422#60423#0" expanded="false" />
-            <element signature="e#60453#60454#0" expanded="false" />
-            <element signature="e#71247#71248#0" expanded="false" />
-            <element signature="e#71294#71295#0" expanded="false" />
-            <element signature="e#71343#71344#0" expanded="false" />
-            <element signature="e#71372#71373#0" expanded="false" />
-            <element signature="e#71441#71442#0" expanded="false" />
-            <element signature="e#71486#71487#0" expanded="false" />
-            <marker date="1557394337601" expanded="false" signature="63557:63578" ph="&lt;~&gt;" />
+            <marker date="1557811066212" expanded="false" signature="63409:63430" ph="&lt;~&gt;" />
           </folding>
         </state>
       </provider>
@@ -2324,6 +1701,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
           <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2404,70 +1782,17 @@
         <state relative-caret-position="122">
           <caret line="98" column="4" lean-forward="true" selection-start-line="98" selection-start-column="4" selection-end-line="98" selection-end-column="4" />
           <folding>
-            <marker date="1552961211000" expanded="true" signature="286:451" ph="insert into bsc_proj_mea... " />
-            <marker date="1552961211000" expanded="true" signature="537:670" ph="update bsc_p... " />
-            <marker date="1552961211000" expanded="true" signature="758:851" ph="delete from " />
-            <marker date="1552961211000" expanded="true" signature="941:1037" ph="delete from " />
-            <marker date="1552961211000" expanded="true" signature="1139:1402" ph="select a.*, bsc_proj_mea" />
-            <marker date="1552961211000" expanded="true" signature="1507:1576" ph="select measu... bsc_measure" />
-            <marker date="1552961211000" expanded="true" signature="1679:1756" ph="select param... bsc_parameter" />
-            <marker date="1552961211000" expanded="true" signature="1857:1960" ph="delete from " />
-            <marker date="1552961211000" expanded="true" signature="2049:2199" ph="insert into bsc_proj_mea_para... " />
-            <marker date="1552961211000" expanded="true" signature="2932:2990" ph="select * fro... bsc_proj_mea" />
-            <marker date="1552961211000" expanded="true" signature="3074:3196" ph="update bsc_p... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscResultDaoMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="222" column="24" lean-forward="true" selection-start-line="222" selection-start-column="24" selection-end-line="222" selection-end-column="24" />
-          <folding>
-            <marker date="1557367124926" expanded="true" signature="262:310" ph="select * fro... *" />
-            <marker date="1557367124926" expanded="true" signature="277:310" ph="select t1.*,... " />
-            <marker date="1557367124926" expanded="true" signature="515:537" ph="select count... " />
-            <marker date="1557367124926" expanded="true" signature="646:663" ph="select cnt f... " />
-            <marker date="1557367124926" expanded="true" signature="747:855" ph="update bsc_p... " />
-            <marker date="1557367124926" expanded="true" signature="1467:3198" ph="select a.*, bsc_calc_ctrl" />
-            <marker date="1557367124926" expanded="true" signature="3298:3960" ph="select a.*,b... parent_dim_id" />
-            <marker date="1557367124926" expanded="true" signature="3330:3858" ph="select b.par... " />
-            <marker date="1557367124926" expanded="true" signature="4339:4523" ph="select a.mea... bsc_proj_mea" />
-            <marker date="1557367124926" expanded="true" signature="5402:6168" ph="select j.obj... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="5402:7350" ph="select j.obj... " />
-            <marker date="1557367124926" expanded="true" signature="6179:7350" ph="select t.obj... bsc_proj_obj" />
-            <marker date="1557367124926" expanded="true" signature="6514:6585" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557367124926" expanded="true" signature="8160:8390" ph="select t.obj... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="8160:9412" ph="select t.obj... " />
-            <marker date="1557367124926" expanded="true" signature="8401:9412" ph="select t.obj... bsc_proj_obj" />
-            <marker date="1557367124926" expanded="true" signature="8576:8647" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557367124926" expanded="true" signature="9535:10001" ph="select t.obj... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="10091:10567" ph="select t.obj... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="10656:11317" ph="select t.*,@... " />
-            <marker date="1557367124926" expanded="true" signature="11419:11834" ph="select ifnul... bsc_proj_obj_score" />
-            <marker date="1557367124926" expanded="true" signature="11977:12204" ph="select case bsc_proj_exe_mth" />
-            <marker date="1557367124926" expanded="true" signature="12322:13084" ph="select s.mon... *" />
-            <marker date="1557367124926" expanded="true" signature="12437:13052" ph="select d.* f... month_id" />
-            <marker date="1557367124926" expanded="true" signature="12454:13004" ph="select a.mon... bsc_proj_obj_score" />
-            <marker date="1557367124926" expanded="true" signature="13202:13357" ph="select measu... bsc_measure" />
-            <marker date="1557367124926" expanded="true" signature="13491:13642" ph="select t.yea... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="13491:14540" ph="select t.yea... " />
-            <marker date="1557367124926" expanded="true" signature="13653:14484" ph="select b.mon... bsc_proj_obj" />
-            <marker date="1557367124926" expanded="true" signature="13829:14171" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557367124926" expanded="true" signature="14723:16398" ph="select * fro... cycle_id" />
-            <marker date="1557367124926" expanded="true" signature="14738:15397" ph="select c.cyc... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="15408:16307" ph="select b.mon... bsc_proj_obj" />
-            <marker date="1557367124926" expanded="true" signature="15652:15994" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557367124926" expanded="true" signature="16544:17310" ph="select j.obj... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="16544:18492" ph="select j.obj... " />
-            <marker date="1557367124926" expanded="true" signature="17321:18492" ph="select t.obj... bsc_proj_obj" />
-            <marker date="1557367124926" expanded="true" signature="17656:17727" ph="select * fro... bsc_proj_mea_obj_val_measure" />
-            <marker date="1557367124926" expanded="true" signature="18605:19202" ph="select t.yea... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="19293:19605" ph="select t.yea... bsc_proj_obj_h" />
-            <marker date="1557367124926" expanded="true" signature="20925:21142" ph="select i.mea... bsc_measure" />
-            <marker date="1557367124926" expanded="true" signature="21264:21384" ph="select ind_i... B04_IND" />
-            <marker date="1557367124926" expanded="true" signature="21470:21563" ph="select obj_n... bsc_proj_stat_obj" />
-            <marker date="1557367124926" expanded="true" signature="21651:21758" ph="select dim_c... b04_data_col_adim_scope" />
+            <marker date="1557828342487" expanded="true" signature="286:451" ph="insert into bsc_proj_mea... " />
+            <marker date="1557828342487" expanded="true" signature="537:670" ph="update bsc_p... " />
+            <marker date="1557828342487" expanded="true" signature="758:851" ph="delete from " />
+            <marker date="1557828342487" expanded="true" signature="941:1037" ph="delete from " />
+            <marker date="1557828342487" expanded="true" signature="1139:1425" ph="select a.*, bsc_proj_mea" />
+            <marker date="1557828342487" expanded="true" signature="1530:1599" ph="select measu... bsc_measure" />
+            <marker date="1557828342487" expanded="true" signature="1702:1779" ph="select param... bsc_parameter" />
+            <marker date="1557828342487" expanded="true" signature="1880:1983" ph="delete from " />
+            <marker date="1557828342487" expanded="true" signature="2072:2222" ph="insert into bsc_proj_mea_para... " />
+            <marker date="1557828342487" expanded="true" signature="2955:3013" ph="select * fro... bsc_proj_mea" />
+            <marker date="1557828342487" expanded="true" signature="3097:3219" ph="update bsc_p... " />
           </folding>
         </state>
       </provider>
@@ -2536,25 +1861,6 @@
         <state relative-caret-position="266">
           <caret line="254" column="40" lean-forward="false" selection-start-line="254" selection-start-column="40" selection-end-line="254" selection-end-column="40" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="911" column="36" lean-forward="true" selection-start-line="911" selection-start-column="36" selection-end-line="911" selection-end-column="36" />
-          <folding>
-            <element signature="e#2458#2479#0" expanded="true" />
-            <element signature="e#2569#2588#0" expanded="true" />
-            <element signature="e#2665#2683#0" expanded="true" />
-            <element signature="e#2761#2780#0" expanded="true" />
-            <element signature="e#12422#12452#0" expanded="true" />
-            <element signature="e#17496#17526#0" expanded="true" />
-            <element signature="e#26450#26458#0" expanded="true" />
-            <element signature="e#34640#34656#0" expanded="true" />
-            <element signature="e#34756#34764#0" expanded="true" />
-            <element signature="e#38366#38382#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2640,14 +1946,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="278">
           <caret line="38" column="5" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="38" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_project_measure.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="38" column="150" lean-forward="false" selection-start-line="38" selection-start-column="150" selection-end-line="38" selection-end-column="150" />
           <folding />
         </state>
       </provider>
@@ -2742,348 +2040,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="51" column="39" lean-forward="false" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="78" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="1122" column="26" lean-forward="false" selection-start-line="1122" selection-start-column="26" selection-end-line="1122" selection-end-column="26" />
-          <folding>
-            <marker date="1557809992849" expanded="true" signature="137:362" ph="{&quot;id&quot;: 'card-1'...}" />
-            <marker date="1557809992849" expanded="true" signature="255:360" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="256:359" ph="{&quot;xtype&quot;: 'panel'...}" />
-            <marker date="1557809992849" expanded="true" signature="471:623" ph="{&quot;root&quot;: 'results'...}" />
-            <marker date="1557809992849" expanded="true" signature="658:679" ph="/** 统计周期(年季月日) ...*/" />
-            <marker date="1557809992849" expanded="true" signature="723:930" ph="{&quot;root&quot;: 'results'...}" />
-            <marker date="1557809992849" expanded="true" signature="993:1880" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="1058:1876" ph="{&quot;name&quot;: 'obj_period_id'...}" />
-            <marker date="1557809992849" expanded="true" signature="1503:1870" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="1557:1860" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="1968:2750" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="2024:2746" ph="{&quot;name&quot;: 'obj_link_id_cap'...}" />
-            <marker date="1557809992849" expanded="true" signature="2373:2740" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="2427:2730" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="3283:3346" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="3426:3622" ph="{&quot;oldToolbar&quot;: pub_tbar...}" />
-            <marker date="1557809992849" expanded="true" signature="3658:4763" ph="{&quot;region&quot;: 'center'...}" />
-            <marker date="1557809992849" expanded="true" signature="3733:3757" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="3771:4005" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="3807:4001" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="4016:4761" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="4017:4402" ph="{&quot;id&quot;: 'baseM'...}" />
-            <marker date="1557809992849" expanded="true" signature="4084:4399" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="4126:4397" ph="{&quot;id&quot;: 'baseMeasureTreePanel'...}" />
-            <marker date="1557809992849" expanded="true" signature="4404:4760" ph="{&quot;id&quot;: 'projectM'...}" />
-            <marker date="1557809992849" expanded="true" signature="4474:4757" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="4519:4755" ph="{&quot;id&quot;: 'projectMeasureTreePanel'...}" />
-            <marker date="1557809992849" expanded="true" signature="4810:5091" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="4847:5089" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="5139:5406" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="5176:5404" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="5448:6546" ph="{&quot;title&quot;: '衡量指标'...}" />
-            <marker date="1557809992849" expanded="true" signature="5631:5654" ph="{&quot;root&quot;: 'results'...}" />
-            <marker date="1557809992849" expanded="true" signature="5655:5737" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="5749:6544" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="5750:5950" ph="{&quot;name&quot;: 'measure_id'...}" />
-            <marker date="1557809992849" expanded="true" signature="5951:6132" ph="{&quot;name&quot;: 'measure_name'...}" />
-            <marker date="1557809992849" expanded="true" signature="6133:6315" ph="{&quot;name&quot;: 'formula_expr'...}" />
-            <marker date="1557809992849" expanded="true" signature="6316:6457" ph="{&quot;name&quot;: 'mea_definition'...}" />
-            <marker date="1557809992849" expanded="true" signature="6458:6543" ph="{&quot;name&quot;: 'measure_source_code'...}" />
-            <marker date="1557809992849" expanded="true" signature="6583:6669" ph="{&quot;id&quot;: 'card-0'...}" />
-            <marker date="1557809992849" expanded="true" signature="6726:7985" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="6900:7195" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="6952:7023" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="7076:7147" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="7215:7796" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="7268:7341" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="7397:7512" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="7620:7735" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="8195:8311" ph="{&quot;oldToolbar&quot;: pub_rn_tbar...}" />
-            <marker date="1557809992849" expanded="true" signature="8355:8605" ph="{&quot;id&quot;: 'baseTree'...}" />
-            <marker date="1557809992849" expanded="true" signature="8647:9704" ph="{&quot;region&quot;: 'west'...}" />
-            <marker date="1557809992849" expanded="true" signature="8751:8775" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="8790:9241" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="8818:9238" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="9070:9234" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="9252:9702" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="9253:9690" ph="{&quot;id&quot;: 'keyWordTree'...}" />
-            <marker date="1557809992849" expanded="true" signature="9498:9637" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="9532:9633" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="9869:10101" ph="{&quot;id&quot;: 'privateTree'...}" />
-            <marker date="1557809992849" expanded="true" signature="10151:10241" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="10265:10396" ph="{&quot;id&quot;: 'paramTreePanel'...}" />
-            <marker date="1557809992849" expanded="true" signature="10370:10393" ph="{&quot;id&quot;: 'paramTree'...}" />
-            <marker date="1557809992849" expanded="true" signature="10452:10508" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="10555:10644" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="10869:22787" ph="{&quot;region&quot;: 'center'...}" />
-            <marker date="1557809992849" expanded="true" signature="11012:22785" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="11057:11285" ph="{&quot;id&quot;: 'formulaDesc'...}" />
-            <marker date="1557809992849" expanded="true" signature="11287:12442" ph="{&quot;xtype&quot;: 'panel'...}" />
-            <marker date="1557809992849" expanded="true" signature="11333:11502" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="11374:11500" ph="{&quot;id&quot;: 'formula9'...}" />
-            <marker date="1557809992849" expanded="true" signature="11513:12439" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="11514:11546" ph="{&quot;iconCls&quot;: 'bsc_formula'...}" />
-            <marker date="1557809992849" expanded="true" signature="11547:11588" ph="{&quot;xtype&quot;: 'label'...}" />
-            <marker date="1557809992849" expanded="true" signature="11594:11709" ph="{&quot;text&quot;: '清空'...}" />
-            <marker date="1557809992849" expanded="true" signature="11665:11705" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="11714:11836" ph="{&quot;text&quot;: '还原'...}" />
-            <marker date="1557809992849" expanded="true" signature="11783:11832" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="11841:12438" ph="{&quot;text&quot;: '帮助'...}" />
-            <marker date="1557809992849" expanded="true" signature="11904:12434" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="11993:12201" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="12207:12240" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="12443:22784" ph="{&quot;xtype&quot;: 'panel'...}" />
-            <marker date="1557809992849" expanded="true" signature="12555:22781" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="12556:14540" ph="{&quot;xtype&quot;: 'fieldset'...}" />
-            <marker date="1557809992849" expanded="true" signature="12752:14536" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="12753:13044" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="12903:13039" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="12904:13038" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="12979:13032" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="13045:13340" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="13195:13335" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="13196:13334" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="13272:13328" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="13341:13637" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="13491:13632" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="13492:13631" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="13568:13625" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="13638:13940" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="13788:13935" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="13789:13934" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="13867:13928" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="13941:14237" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="14091:14232" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="14092:14231" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="14168:14225" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="14238:14535" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="14388:14530" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="14389:14529" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="14465:14523" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="14541:14606" ph="{&quot;xtype&quot;: 'panel'...}" />
-            <marker date="1557809992849" expanded="true" signature="14607:18177" ph="{&quot;xtype&quot;: 'fieldset'...}" />
-            <marker date="1557809992849" expanded="true" signature="14803:18173" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="14804:15078" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="14936:15073" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="14937:15072" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="15017:15066" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="15079:15348" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="15211:15343" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="15212:15342" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="15281:15336" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="15349:15619" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="15481:15614" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="15482:15613" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="15552:15607" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="15620:15894" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="15752:15889" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="15753:15888" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="15833:15882" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="15895:16164" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="16027:16159" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="16028:16158" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="16097:16152" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="16165:16434" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="16297:16429" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="16298:16428" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="16367:16422" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="16435:16703" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="16567:16698" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="16568:16697" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="16636:16691" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="16704:16973" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="16836:16968" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="16837:16967" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="16906:16961" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="16974:17244" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="17106:17239" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="17107:17238" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="17177:17232" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="17245:17532" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="17395:17527" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="17396:17526" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="17465:17520" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="17533:17849" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="17683:17844" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="17684:17843" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="17761:17837" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="17850:18172" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="18000:18167" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="18001:18166" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="18079:18160" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="18178:18243" ph="{&quot;xtype&quot;: 'panel'...}" />
-            <marker date="1557809992849" expanded="true" signature="18244:22780" ph="{&quot;xtype&quot;: 'fieldset'...}" />
-            <marker date="1557809992849" expanded="true" signature="18440:22776" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="18441:18709" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="18573:18704" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="18574:18703" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="18642:18697" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="18710:18978" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="18842:18973" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="18843:18972" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="18911:18966" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="18979:19247" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="19111:19242" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="19112:19241" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="19180:19235" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="19248:19516" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="19380:19511" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="19381:19510" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="19449:19504" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="19517:19785" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="19649:19780" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="19650:19779" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="19718:19773" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="19786:20054" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="19918:20049" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="19919:20048" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="19987:20042" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="20055:20323" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="20187:20318" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="20188:20317" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="20256:20311" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="20324:20592" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="20456:20587" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="20457:20586" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="20525:20580" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="20593:20861" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="20725:20856" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="20726:20855" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="20794:20849" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="20862:21130" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="20994:21125" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="20995:21124" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="21063:21118" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="21131:21399" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="21263:21394" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="21264:21393" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="21332:21387" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="21400:21668" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="21532:21663" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="21533:21662" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="21601:21656" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="21669:21953" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="21817:21948" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="21818:21947" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="21886:21941" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="21954:22222" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="22086:22217" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="22087:22216" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="22155:22210" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="22223:22491" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="22355:22486" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="22356:22485" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="22424:22479" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="22492:22775" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="22641:22770" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="22642:22769" ph="{&quot;xtype&quot;: 'button'...}" />
-            <marker date="1557809992849" expanded="true" signature="22713:22763" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="22822:24507" ph="{&quot;layout&quot;: 'fit'...}" />
-            <marker date="1557809992849" expanded="true" signature="22904:22977" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="22932:22974" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="23003:24505" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="23004:24504" ph="{&quot;id&quot;: 'card-wizard-panel'...}" />
-            <marker date="1557809992849" expanded="true" signature="23149:23172" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="23183:24475" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="23190:23307" ph="{&quot;text&quot;: '取消'...}" />
-            <marker date="1557809992849" expanded="true" signature="23254:23303" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="23312:24474" ph="{&quot;id&quot;: 'saveCtrlMeasure'...}" />
-            <marker date="1557809992849" expanded="true" signature="23402:24470" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="23714:23789" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="23826:23905" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="23944:24465" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="23968:24457" ph="{&quot;url&quot;: actionUrl...}" />
-            <marker date="1557809992849" expanded="true" signature="24031:24167" ph="{&quot;project_id&quot;: projectID...}" />
-            <marker date="1557809992849" expanded="true" signature="24224:24450" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="24314:24377" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="24383:24442" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="24536:24917" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="24919:24938" ph="/** 添加方案考核指标 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="24986:25738" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="25311:25395" ph="//..." />
-            <marker date="1557809992849" expanded="true" signature="25741:25760" ph="/** 修改衡量指标信息 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="25815:27154" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="26473:26597" ph="//..." />
-            <marker date="1557809992849" expanded="true" signature="27156:27179" ph="/** 删除方案考核指标 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="27210:27839" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="27361:27835" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="27383:27832" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="27405:27826" ph="{&quot;method&quot;: 'POST'...}" />
-            <marker date="1557809992849" expanded="true" signature="27514:27579" ph="{&quot;project_id&quot;: projectID...}" />
-            <marker date="1557809992849" expanded="true" signature="27634:27821" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="27720:27754" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="27760:27815" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="27841:27878" ph="/** 修改考核指标权重 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="27909:28361" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="27929:28357" ph="{&quot;method&quot;: 'POST'...}" />
-            <marker date="1557809992849" expanded="true" signature="28036:28083" ph="{&quot;project_id&quot;: projectID...}" />
-            <marker date="1557809992849" expanded="true" signature="28135:28354" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="28217:28293" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="28299:28350" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="28363:28383" ph="/** 导出Excel方法 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="28438:28837" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="28839:28859" ph="/** 导出计划值模板方法 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="28915:29103" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="29105:29184" ph="/** 执行方案 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="29213:31148" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="29216:29236" ph="/** 月份Store ...*/" />
-            <marker date="1557809992849" expanded="true" signature="29275:29417" ph="{&quot;root&quot;: 'results'...}" />
-            <marker date="1557809992849" expanded="true" signature="29451:29583" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="29483:29580" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="29630:31129" ph="{&quot;id&quot;: 'projWin'...}" />
-            <marker date="1557809992849" expanded="true" signature="29837:31126" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="29861:30903" ph="{&quot;region&quot;: 'center'...}" />
-            <marker date="1557809992849" expanded="true" signature="30042:30437" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="30043:30164" ph="{&quot;xtype&quot;: 'textfield'...}" />
-            <marker date="1557809992849" expanded="true" signature="30166:30436" ph="{&quot;name&quot;: 'month_id'...}" />
-            <marker date="1557809992849" expanded="true" signature="30452:30899" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="30453:30711" ph="{&quot;id&quot;: 'start'...}" />
-            <marker date="1557809992849" expanded="true" signature="30515:30706" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="30601:30662" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="30713:30801" ph="{&quot;id&quot;: 'stop'...}" />
-            <marker date="1557809992849" expanded="true" signature="30774:30796" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="30803:30898" ph="{&quot;id&quot;: 'close'...}" />
-            <marker date="1557809992849" expanded="true" signature="30865:30893" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="30933:31124" ph="{&quot;id&quot;: 'southPanel'...}" />
-            <marker date="1557809992849" expanded="true" signature="31039:31120" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="31074:31118" ph="{&quot;id&quot;: 'progressBar'...}" />
-            <marker date="1557809992849" expanded="true" signature="31176:31519" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="31217:31501" ph="{&quot;id&quot;: 'nullrootid'...}" />
-            <marker date="1557809992849" expanded="true" signature="31284:31498" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="31285:31356" ph="{&quot;id&quot;: 'COMPLETE'...}" />
-            <marker date="1557809992849" expanded="true" signature="31357:31424" ph="{&quot;id&quot;: 'TARGET'...}" />
-            <marker date="1557809992849" expanded="true" signature="31425:31497" ph="{&quot;id&quot;: 'FULL_SCORE'...}" />
-            <marker date="1557809992849" expanded="true" signature="31555:33123" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="31632:33098" ph="{&quot;id&quot;: 'createWin'...}" />
-            <marker date="1557809992849" expanded="true" signature="31790:31820" ph="{&quot;padding&quot;: '40px,30px'...}" />
-            <marker date="1557809992849" expanded="true" signature="31836:31908" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="31859:31904" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="31946:32187" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="31947:32025" ph="{&quot;id&quot;: 'new_project_id'...}" />
-            <marker date="1557809992849" expanded="true" signature="32026:32186" ph="{&quot;id&quot;: 'project_create'...}" />
-            <marker date="1557809992849" expanded="true" signature="32201:33095" ph="[...]" />
-            <marker date="1557809992849" expanded="true" signature="32202:33003" ph="{&quot;text&quot;: '确定'...}" />
-            <marker date="1557809992849" expanded="true" signature="32243:32999" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="32298:32359" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="32381:32992" ph="{&quot;method&quot;: 'POST'...}" />
-            <marker date="1557809992849" expanded="true" signature="32493:32672" ph="{&quot;checked&quot;: checked...}" />
-            <marker date="1557809992849" expanded="true" signature="32724:32986" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="32805:32919" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="32923:32979" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="33004:33094" ph="{&quot;text&quot;: '取消'...}" />
-            <marker date="1557809992849" expanded="true" signature="33045:33090" ph="{...}" />
-            <marker date="1557809992849" expanded="true" signature="33125:33207" ph="/** 全部替换 ...*/" />
-            <marker date="1557809992849" expanded="true" signature="33245:33326" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/parameter.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -3092,23 +2048,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="34" lean-forward="false" selection-start-line="1" selection-start-column="34" selection-end-line="1" selection-end-column="34" />
-          <folding>
-            <marker date="1557809529726" expanded="true" signature="8170:8176" ph="&amp;nbsp;" />
-            <marker date="1557809529726" expanded="true" signature="8176:8182" ph="&amp;nbsp;" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_calc_exec_common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <marker date="1552961211000" expanded="true" signature="1474:1486" ph="..." />
             <marker date="1552961211000" expanded="true" signature="1547:1557" ph="..." />
           </folding>
@@ -3123,11 +2068,209 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/service/impl/BscProjectServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="147" column="0" lean-forward="false" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscProjectDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="124" column="16" lean-forward="true" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
+          <folding>
+            <marker date="1557823057593" expanded="true" signature="262:310" ph="select * fro... *" />
+            <marker date="1557823057593" expanded="true" signature="277:310" ph="select t1.*,... " />
+            <marker date="1557823057593" expanded="true" signature="515:537" ph="select count... " />
+            <marker date="1557823057593" expanded="true" signature="706:858" ph="select count... bsc_project" />
+            <marker date="1557823057593" expanded="true" signature="1270:2186" ph="select t.pro... bsc_project" />
+            <marker date="1557823057593" expanded="true" signature="2295:2883" ph="select * fro... month_id" />
+            <marker date="1557823057593" expanded="true" signature="2310:2439" ph="select month... bsc_proj_exe_mth" />
+            <marker date="1557823057593" expanded="true" signature="2450:2850" ph="select r.mon... *" />
+            <marker date="1557823057593" expanded="true" signature="2536:2597" ph="select * fro... bsc_project" />
+            <marker date="1557823057593" expanded="true" signature="2702:2734" ph="select * fro... bsc_result_measure" />
+            <marker date="1557823057593" expanded="true" signature="2965:3553" ph="insert into bsc_project... " />
+            <marker date="1557823057593" expanded="true" signature="3636:3921" ph="update bsc_p... " />
+            <marker date="1557823057593" expanded="true" signature="4014:4231" ph="update bsc_p... " />
+            <marker date="1557823057593" expanded="true" signature="4307:4405" ph="update bsc_p... " />
+            <marker date="1557823057593" expanded="true" signature="4484:4605" ph="select t.* f... bsc_proj_rslt_stat" />
+            <marker date="1557823057593" expanded="true" signature="4746:4850" ph="select b.* f... bsc_proj_exe_mth" />
+            <marker date="1557823057593" expanded="true" signature="4999:5103" ph="select b.* f... bsc_proj_exe_mth" />
+            <marker date="1557823057593" expanded="true" signature="5216:5286" ph="select count... bsc_proj_obj" />
+            <marker date="1557823057593" expanded="true" signature="5409:5567" ph="select a.mea... bsc_proj_mea" />
+            <marker date="1557823057593" expanded="true" signature="5918:5989" ph="insert into bsc_proj_stat_obj... " />
+            <marker date="1557823057593" expanded="true" signature="6076:6151" ph="insert into bsc_proj_stat_cyc... " />
+            <marker date="1557823057593" expanded="true" signature="6276:6412" ph="select SOURC... bsc_dim_link" />
+            <marker date="1557823057593" expanded="true" signature="6505:6567" ph="delete from " />
+            <marker date="1557823057593" expanded="true" signature="6659:6721" ph="delete from " />
+            <marker date="1557823057593" expanded="true" signature="6812:6989" ph="insert into bsc_proj_stat_obj... " />
+            <marker date="1557823057593" expanded="true" signature="6844:6989" ph="select ##{new... obj_id" />
+            <marker date="1557823057593" expanded="true" signature="6901:6984" ph="select obj_i... bsc_proj_stat_obj" />
+            <marker date="1557823057593" expanded="true" signature="7078:7301" ph="insert into bsc_proj_stat_cyc... " />
+            <marker date="1557823057593" expanded="true" signature="7147:7301" ph="select ##{new... cycle_id" />
+            <marker date="1557823057593" expanded="true" signature="7206:7295" ph="select cycle... bsc_proj_stat_cyc" />
+            <marker date="1557823057593" expanded="true" signature="7405:7505" ph="SELECT CYCLE... BSC_PROJ_STAT_CYC" />
+            <marker date="1557823057593" expanded="true" signature="7609:7706" ph="SELECT OBJ_I... BSC_PROJ_STAT_OBJ" />
+            <marker date="1557823057593" expanded="true" signature="7806:7892" ph="select * fro... bsc_proj_stat_obj" />
+            <marker date="1557823057593" expanded="true" signature="7991:8235" ph="select E.Dim... B04_DATA_COL_ADIM_SCOPE" />
+            <marker date="1557823057593" expanded="true" signature="8139:8213" ph="SELECT L.Reg... B04_DATA_COL" />
+            <marker date="1557823057593" expanded="true" signature="8341:8442" ph="select DATA_... B04_DATA_COL" />
+            <marker date="1557823057593" expanded="true" signature="8546:8733" ph="select e1.st... B04_DATA_COL_TM_SCOPE" />
+            <marker date="1557823057593" expanded="true" signature="8839:9072" ph="select Dim_C... B04_DATA_COL_ADIM_SCOPE" />
+            <marker date="1557823057593" expanded="true" signature="8981:9052" ph="SELECT Dim_T... B04_DATA_COL" />
+            <marker date="1557823057593" expanded="true" signature="9158:9377" ph="select i.mea... bsc_measure" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasureMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="958" column="55" lean-forward="false" selection-start-line="958" selection-start-column="47" selection-end-line="958" selection-end-column="55" />
+          <folding>
+            <element signature="e#4188#4209#0" expanded="true" />
+            <element signature="e#4395#4413#0" expanded="true" />
+            <element signature="e#27731#27739#0" expanded="true" />
+            <element signature="e#35916#35932#0" expanded="true" />
+            <element signature="e#36032#36040#0" expanded="true" />
+            <element signature="e#39640#39656#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/action/BscProcedureExecuteAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/calc/CalculateProcedureOnlyMeasure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="785" column="23" lean-forward="true" selection-start-line="785" selection-start-column="23" selection-end-line="785" selection-end-column="23" />
+          <folding>
+            <element signature="e#2458#2479#0" expanded="true" />
+            <element signature="e#2665#2683#0" expanded="true" />
+            <element signature="e#26450#26458#0" expanded="true" />
+            <element signature="e#34640#34656#0" expanded="true" />
+            <element signature="e#34756#34764#0" expanded="true" />
+            <element signature="e#38366#38382#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/BscResultDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="226" column="80" lean-forward="false" selection-start-line="226" selection-start-column="80" selection-end-line="226" selection-end-column="80" />
+          <folding>
+            <marker date="1557811066217" expanded="true" signature="262:310" ph="select * fro... *" />
+            <marker date="1557811066217" expanded="true" signature="277:310" ph="select t1.*,... " />
+            <marker date="1557811066217" expanded="true" signature="515:537" ph="select count... " />
+            <marker date="1557811066217" expanded="true" signature="646:663" ph="select cnt f... " />
+            <marker date="1557811066217" expanded="true" signature="747:855" ph="update bsc_p... " />
+            <marker date="1557811066217" expanded="true" signature="1467:3198" ph="select a.*, bsc_calc_ctrl" />
+            <marker date="1557811066217" expanded="true" signature="3298:3960" ph="select a.*,b... parent_dim_id" />
+            <marker date="1557811066217" expanded="true" signature="3330:3858" ph="select b.par... " />
+            <marker date="1557811066217" expanded="true" signature="4339:4523" ph="select a.mea... bsc_proj_mea" />
+            <marker date="1557811066217" expanded="true" signature="5402:6168" ph="select j.obj... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="5402:6653" ph="select j.obj... " />
+            <marker date="1557811066217" expanded="true" signature="5402:6803" ph="select j.obj... " />
+            <marker date="1557811066217" expanded="true" signature="6179:6653" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557811066217" expanded="true" signature="6514:6585" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557811066217" expanded="true" signature="7613:7843" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="7613:8318" ph="select t.obj... " />
+            <marker date="1557811066217" expanded="true" signature="7854:8318" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557811066217" expanded="true" signature="8029:8100" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557811066217" expanded="true" signature="8441:8907" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="8997:9473" ph="select t.obj... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="9562:10223" ph="select t.*,@... " />
+            <marker date="1557811066217" expanded="true" signature="10325:10740" ph="select ifnul... bsc_proj_obj_score" />
+            <marker date="1557811066217" expanded="true" signature="10883:11110" ph="select case bsc_proj_exe_mth" />
+            <marker date="1557811066217" expanded="true" signature="11228:11990" ph="select s.mon... *" />
+            <marker date="1557811066217" expanded="true" signature="11343:11958" ph="select d.* f... month_id" />
+            <marker date="1557811066217" expanded="true" signature="11360:11910" ph="select a.mon... bsc_proj_obj_score" />
+            <marker date="1557811066217" expanded="true" signature="12108:12263" ph="select measu... bsc_measure" />
+            <marker date="1557811066217" expanded="true" signature="12397:12548" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="12397:13446" ph="select t.yea... " />
+            <marker date="1557811066217" expanded="true" signature="12559:13390" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557811066217" expanded="true" signature="12735:13077" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557811066217" expanded="true" signature="13629:15304" ph="select * fro... cycle_id" />
+            <marker date="1557811066217" expanded="true" signature="13644:14303" ph="select c.cyc... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="14314:15213" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557811066217" expanded="true" signature="14558:14900" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557811066217" expanded="true" signature="15450:16216" ph="select j.obj... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="15450:16851" ph="select j.obj... " />
+            <marker date="1557811066217" expanded="true" signature="16227:16851" ph="select t.obj... bsc_proj_obj" />
+            <marker date="1557811066217" expanded="true" signature="16562:16633" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557811066217" expanded="true" signature="16964:18639" ph="select * fro... cycle_id" />
+            <marker date="1557811066217" expanded="true" signature="16979:17638" ph="select c.cyc... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="17649:18548" ph="select b.mon... bsc_proj_obj" />
+            <marker date="1557811066217" expanded="true" signature="17893:18235" ph="select * fro... bsc_proj_mea_obj_val_measure" />
+            <marker date="1557811066217" expanded="true" signature="18634:18639" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="18730:19042" ph="select t.yea... bsc_proj_obj_h" />
+            <marker date="1557811066217" expanded="true" signature="20362:20579" ph="select i.mea... bsc_measure" />
+            <marker date="1557811066217" expanded="true" signature="20701:20821" ph="select ind_i... B04_IND" />
+            <marker date="1557811066217" expanded="true" signature="20907:21000" ph="select obj_n... bsc_proj_stat_obj" />
+            <marker date="1557811066217" expanded="true" signature="21088:21195" ph="select dim_c... b04_data_col_adim_scope" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="416" column="17" lean-forward="false" selection-start-line="416" selection-start-column="11" selection-end-line="416" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/AsyncTree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="19" lean-forward="true" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
+        <state relative-caret-position="228">
+          <caret line="12" column="34" lean-forward="true" selection-start-line="12" selection-start-column="34" selection-end-line="12" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="44" column="39" lean-forward="false" selection-start-line="44" selection-start-column="39" selection-end-line="44" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/pages/bsc_project_measure.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="40" column="47" lean-forward="false" selection-start-line="40" selection-start-column="47" selection-end-line="40" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_def_layout_statistics.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1382">
+          <caret line="437" column="1" lean-forward="true" selection-start-line="437" selection-start-column="1" selection-end-line="437" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_project_measure_layout.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="26" column="2" lean-forward="true" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="2" />
+          <folding>
+            <marker date="1557898034122" expanded="true" signature="8176:8182" ph="&amp;nbsp;" />
+            <marker date="1557898034122" expanded="true" signature="8182:8188" ph="&amp;nbsp;" />
+          </folding>
         </state>
       </provider>
     </entry>

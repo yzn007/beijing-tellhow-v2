@@ -70,7 +70,7 @@ projectDS.on("load",function(){
 			record = projectDS.getById(initProject);
 		}
 		obj_cate_id = record.get('obj_cate_id');
-        dimension = record.get('obj_link_id');
+        // dimension = record.get('obj_link_id');
 		if(projectID && projectID!=null){
 			Ext.getCmp("projectSelector").setValue(projectID);
 		}else{
@@ -82,7 +82,7 @@ projectDS.on("load",function(){
 		}
 		
 		isTemplate = (record.get('is_template') == 'Y');
-		cycleTypeID = record.get('cycle_type_id');
+		// cycleTypeID = record.get('cycle_type_id');
 		fullScore = record.get('full_score');
 		
 		var b = record.get("app_type_id")== '00' || (!isTopBank && isTemplate);

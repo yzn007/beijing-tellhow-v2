@@ -232,7 +232,9 @@ Ext.onReady(function() {
 				return;
 			}
 
-			url = "/bsc/pages/bsc_project_measure.jsp?project_id="+getSelectedRecord('projectGrid').get('project_id');
+			url = "/bsc/pages/bsc_project_measure.jsp?project_id="+getSelectedRecord('projectGrid').get('project_id')
+			+"&cycleTypeID="+getSelectedRecord('projectGrid').get('cycle_type_id')
+                +"&dimension="+getSelectedRecord('projectGrid').get('obj_link_id');
 			window.parent.tabManager.removeTabItem(rid);
 			window.parent.gotoPage(rid,'方案与指标',url);
 		}
