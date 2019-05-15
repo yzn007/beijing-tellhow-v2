@@ -901,7 +901,6 @@ public class BscResultAction extends BaseDispatchAction {
 				dataList = this.bscResultService.listScoreTotalResultByObj(paramMap);
 			}
 
-
 			ITableTemplate template = new DhtmlTableTemplate();
 
 			String[] mapKey = new String[measureList.size()+2];

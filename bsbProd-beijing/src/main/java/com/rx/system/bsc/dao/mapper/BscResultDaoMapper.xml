@@ -424,8 +424,10 @@
 		<include refid="pageDataHeader"/>
 		select * from (select c.cycle_id as month_id,
 		concat(c.cycle_id,'年') as month_name,
-		max(t.object_name) object_name,
-		${case_sql}
+		max(t.object_name) object_name
+		<if test="case_sql != null and case_sql != ''">
+		,${case_sql}
+		</if>
 		from bsc_proj_obj_h t
 		inner join  bsc_proj_stat_cyc c
 		on t.project_id =c.project_id
@@ -447,8 +449,10 @@
 		</if>
 		group by c.cycle_id
 		union
-		select b.month_id as month_id, concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') as month_name,max(t.object_name) as object_name,
-		${case_sql}
+		select b.month_id as month_id, concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') as month_name,max(t.object_name) as object_name
+		<if test="case_sql != null and case_sql != ''">
+			,${case_sql}
+		</if>
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
 		left join (select * from  bsc_proj_mea_obj_val_measure where case when
