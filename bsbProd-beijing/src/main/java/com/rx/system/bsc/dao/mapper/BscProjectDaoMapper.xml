@@ -82,6 +82,12 @@
 		<if test="countPeriod != null and countPeriod != ''">
 			and t.cycle_type_id = #{countPeriod}
 		</if>
+		<if test="project_type != null and project_type != ''">
+			and t.project_type = #{project_type}
+		</if>
+		<if test="district_id != null and district_id != ''">
+			and t.district_id = #{district_id}
+		</if>
 			order by record_status,project_name 
 	</select>
 	

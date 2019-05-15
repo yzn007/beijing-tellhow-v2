@@ -9,6 +9,87 @@
  * @type {null}
  */
 
+// 方案分类
+projectTypes = [
+    {id:"01", name:"城市生命线"},
+    {id:"02", name:"城市事件线"},
+    {id:"03", name:"城市生活线"},
+    {id:"04", name:"社情民意线"}
+];
+
+ProjectTypeSelector = function (fieldLabel) {
+    var typeStore = new Ext.data.JsonStore({
+        fields: ["id", "name"],
+        data: projectTypes
+    });
+
+    ProjectTypeSelector.superclass.constructor.call(this,{
+        store: typeStore,
+        valueField :'id',
+        displayField:'name',
+        mode: 'local',
+        hiddenName:'project_type',
+        editable: false,
+        triggerAction: 'all',
+        allowBlank:true,
+        fieldLabel:fieldLabel,
+        name: 'project_type',
+        value: '',
+        id:'project_type',
+        anchor:'95%',
+        listeners: {
+            select: function (combo, record, index) {
+                if (combo.lastSelectionText != "") {
+                    // Ext.getCmp("measure_source_desc").setValue(combo.lastSelectionText);
+                    project_type = record.get("id");
+                    projectStore.reload();
+                }
+            }
+        }
+    });
+}
+
+Ext.extend(ProjectTypeSelector,Ext.form.ComboBox);
+
+// 统计周期
+var cycleTypeDS = new Ext.data.JsonStore({
+    url : pathUrl + '/selector_listProjCycleType.action',
+    root : 'results',
+    totalProperty : 'totalCount',
+    fields : ['cycle_type_id', 'cycle_type_desc']
+});
+cycleTypeDS.load({
+    callback : function(record, options, success) {
+        var allArea = new Ext.data.Record({'cycle_type_id':'','cycle_type_desc':'全部'});
+        this.insert(0,allArea);
+    }
+});
+
+//地区维度
+var	districtDimensionStore=new Ext.data.JsonStore({
+    url :pathUrl + '/dimLink_listExpressionDetail.action?link_id=Zone_Cd',
+    root : 'results',
+    id : 'value_field',
+    fields : ['value_field', 'display_field']
+});
+districtDimensionStore.on('load',function(){
+    if (districtDimensionStore.getCount() > 0) {
+
+        dimension = districtDimensionStore.getAt(0).get('value_field');
+
+        // Ext.getCmp('obj_district_id').setValue(dimensionId)
+    }
+});
+
+// 其它维度
+var	dimensionStore=new Ext.data.JsonStore({
+    url :pathUrl + '/selector_listDimension.action',
+    root : 'results',
+    totalProperty : 'totalCount',
+    fields : [ 'link_id', 'link_name']
+
+});
+
 var mask = null;
 var path = '';
 //多选扩展
@@ -108,9 +189,9 @@ var monthDS = new Ext.data.JsonStore({
 				}
 
 				p = Ext.getCmp("projectSelector").getValue();
-				indexDS.reload({
-					params: {month_id : monthID,project_id : p}
-				});
+				// indexDS.reload({
+				// 	params: {month_id : monthID,project_id : p}
+				// });
 			}else{
 				setMOCmp("monthSelector",'',showID);
 //				Ext.getCmp("indexSelector").setValue('');
@@ -130,7 +211,7 @@ var projectStore = new Ext.data.JsonStore({
 	fields : ["project_id", "project_name", "project_desc", "cycle_type_id",
 			"obj_cate_id", "app_type_id", "view_id",
 			"owner_org_id", "create_user", "create_time", "update_user",
-			"update_time"],
+			"update_time", 'obj_link_id','district_id'],
 			
 	idProperty : 'project_id',
 	listeners : {
@@ -149,9 +230,13 @@ var projectStore = new Ext.data.JsonStore({
 				objDS.load({
 					params: {project_id : projectID}
 				});
+				beforeClose();
 				indexDS.reload({
 					params: {project_id : projectID}
 				});
+
+                districtDimensionStore.load();
+                dimensionStore.load();
 			}
 		},
 		beforeload : function(store, options) {
@@ -162,7 +247,11 @@ var projectStore = new Ext.data.JsonStore({
 				is_template : 'N',
 //				app_type_id : '00',
 				obj_cate_id : objCateId,
-				record_status : 'All'
+				record_status : 'All',
+                project_type:project_type,
+                countPeriod:cycle_type_id,
+                dimension:dimension,
+                district_id:district_id
 			}
 		}
 	},
@@ -405,12 +494,14 @@ function getMOCmp(id){
 }
 function getMOCmpVal(id){
 	var select = getMOCmp(id);
+    if (typeof(select) == "undefined")
+        return '';
 	if(select.ismult)
 		return select.code || '';
 	return select.getValue();
 }
 function setMOCmp(id, val,num){
-	debugger;
+	// debugger;
 	var select = getMOC2mpVal(id,num);
 	if(val === ''){
 		select.setValue('');
@@ -441,7 +532,7 @@ Ext.onReady(function() {
 			region : 'north',
 			frame : true,
 			border : false,
-			height : 80,
+			height : 180,
 			labelWidth : 33,
 //			buttonAlign : 'right',
 			layout : {
@@ -458,9 +549,75 @@ Ext.onReady(function() {
 						{
 							columnWidth : .20,
 							layout : 'form',
-							labelWidth : 32,
+							labelWidth : 64,
                //             labelAlign : 'left',
+                            border : false,items : [new ProjectTypeSelector('方案分类')]
+                        },
+
+                        {
+                            columnWidth : .35,
+                            layout : 'form',
+                            labelWidth : 64,
+                            labelAlign : 'left',
                             border : false,
+                            items : [{
+                                xtype : 'combo',
+                                mode : 'local',
+                                displayField : 'display_field',
+                                valueField : 'value_field',
+                                store : districtDimensionStore,
+                                editable : false,
+                                triggerAction : 'all',
+                                fieldLabel : '地区维度',
+                                name : 'obj_id',
+                                emptyText:'请选择...',
+                                id : 'obj_district_id',
+                                anchor : '91%',
+                                // tpl:multstr('value_field','display_field'),
+                                // ismult : true,
+                                // onSelect : multselect,
+                                listeners : {
+                                    select : function(combo,record,index){
+                                        objID = '';
+                                        projectID = '';
+                                        district_id = record.get('value_field');
+                                        projectStore.reload();
+                                    }
+                                }
+                            }]
+                        },
+                        {
+                            columnWidth : .35,
+                            layout : 'form',
+                            labelWidth : 64,
+                            labelAlign : 'left',
+                            border : false,
+                            items : [{
+                                xtype : 'combo',
+                                mode : 'local',
+                                displayField : 'link_name',
+                                valueField : 'link_id',
+                                store : dimensionStore,
+                                editable : false,
+                                triggerAction : 'all',
+                                fieldLabel : '其它维度',
+                                name : 'obj_link_id',
+                                emptyText:'请选择...',
+                                id : 'obj_link_id',
+                                anchor : '91%',
+                                listeners:{
+                                    select:function(combo,record,index){
+                                        dimension = record.get('link_id');
+                                        projectStore.reload();
+                                    }
+                                }
+                            }]
+                        },
+
+                        {
+                            columnWidth : .734,
+                            layout : 'form',
+                            labelWidth : 64,
 							items : [{
 								xtype : 'combo',
 								mode : 'local',
@@ -468,7 +625,7 @@ Ext.onReady(function() {
 								valueField : 'project_id',
 								store : projectStore,
 								triggerAction : 'all',
-								fieldLabel : '方案',
+								fieldLabel : '方案名称',
 								name : 'project_id',
 								listeners : {
 									select : function(combo,record,index){
@@ -478,7 +635,13 @@ Ext.onReady(function() {
 										objID = '';
 										objDS.load({params: {project_id : p}});
 										measure_id = '';
+										beforeClose();
 										indexDS.reload({params: {project_id : p}});
+                                        // if (record.get('obj_link_id') == 'Zone_Cd') {
+                                        //     Ext.getCmp('obj_link_id').hide();
+                                        // } else {
+                                        //     Ext.getCmp('obj_link_id').show();
+                                        // }
 									}
 								},
 								editable : false,
@@ -487,9 +650,9 @@ Ext.onReady(function() {
 							}]
 						},
 						{
-							columnWidth : .15,
+							columnWidth : .2,
 							layout : 'form',
-							labelWidth : 55,
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							items : [{
@@ -556,6 +719,7 @@ Ext.onReady(function() {
 									select : function(combo,record,index){
 										measure_id = '';
 										m = record.get("month_id");
+										beforeClose();
 										indexDS.reload({params: {month_id : m,project_id : p}});
 										projectID = '';
 									}

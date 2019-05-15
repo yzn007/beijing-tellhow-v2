@@ -46,7 +46,7 @@
 			var dhtmlGrid = null;
 			var monthID = '${param.month_id}',projectID = '${param.project_id}',measure_id = '${param.measure_id}',
 				monthName='${param.monthName}',projectName='${param.projectName}',
-				cycle_type_id = '${param.cycle_type_id}';
+				cycle_type_id = '${param.cycle_type_id}',project_type='',district_id='',dimension='',countPeriod='';
 			var objCateId = '${param.objCateId}';
 			var showID = '${param.show_id}',objID = '${param.obj_id}',timID = '${param.time_id}';
 	    </script>
