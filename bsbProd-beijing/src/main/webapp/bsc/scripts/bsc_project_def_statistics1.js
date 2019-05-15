@@ -1088,7 +1088,7 @@ function deleteResultRank(rankIds) {
 };
 
 /**
- * 考核周期 00：月 01：季 02：年
+ * 考核周期 00：月 01：季 02：年 03:日
  */
 function cycleType(val) {
     if (val == '00')
@@ -1097,6 +1097,8 @@ function cycleType(val) {
         return '季'
     else if (val == '02')
         return '年'
+    else if (val == '03')
+        return '日'
     else
         return val
 };

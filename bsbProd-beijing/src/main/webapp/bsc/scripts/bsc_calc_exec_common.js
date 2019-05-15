@@ -46,6 +46,8 @@ function cycleType(val) {
 		return '季'
 	else if (val == '02')
 		return '年'
+	else if (val == '03')
+		return '日'
 	else
 		return val
 };

@@ -387,16 +387,16 @@ function doEdit() {
             Ext.getCmp('inner_level_order').setValue(record.inner_level_order);
 
             switch (record.countperiod){
-                case "01":
-                    val = "年";
-                    break;
-                case "02":
-                    val = "季";
-                    break;
-                case "03":
+                case "00":
                     val = "月";
                     break;
-                case "04":
+                case "01":
+                    val = "季";
+                    break;
+                case "02":
+                    val = "年";
+                    break;
+                case "03":
                     val = "日";
                     break;
                 default:

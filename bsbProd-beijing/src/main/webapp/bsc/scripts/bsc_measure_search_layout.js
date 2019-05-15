@@ -80,16 +80,16 @@ Ext.onReady(function() {
                         var val = "";
                         //统计周期
                         switch (Ext.getCmp('countperiod').getValue()){
-                            case "01":
-                                val = "年";
-                                break;
-                            case "02":
-                                val = "季";
-                                break;
-                            case "03":
+                            case "00":
                                 val = "月";
                                 break;
-                            case "04":
+                            case "01":
+                                val = "季";
+                                break;
+                            case "02":
+                                val = "年";
+                                break;
+                            case "03":
                                 val = "日";
                                 break;
                             default:
