@@ -11,6 +11,7 @@
 
 // 方案分类
 projectTypes = [
+	{id:"", name:"全部"},
     {id:"01", name:"城市生命线"},
     {id:"02", name:"城市事件线"},
     {id:"03", name:"城市生活线"},
@@ -73,6 +74,8 @@ var	districtDimensionStore=new Ext.data.JsonStore({
     fields : ['value_field', 'display_field']
 });
 districtDimensionStore.on('load',function(){
+	console.info("dload");
+	districtDimensionStore.insert(0, new Ext.data.Record({'value_field':'','display_field':'全部'}))
     if (districtDimensionStore.getCount() > 0) {
         //dimension = districtDimensionStore.getAt(0).get('value_field');
         // Ext.getCmp('obj_district_id').setValue(dimensionId)
@@ -250,7 +253,7 @@ var projectStore = new Ext.data.JsonStore({
 				obj_cate_id : objCateId,
 				record_status : 'All',
                 project_type:project_type,
-                countPeriod:cycle_type_id,
+                //countPeriod:cycle_type_id,
                 dimension:dimension,
                 district_id:district_id
 			}
@@ -531,7 +534,7 @@ Ext.onReady(function() {
 			region : 'north',
 			frame : true,
 			border : false,
-			height : 140,
+			height : 110,
 			labelWidth : 33,
 //			buttonAlign : 'right',
 			layout : {
@@ -723,6 +726,7 @@ Ext.onReady(function() {
 							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
+							hidden: true,
 							items : [{
 								xtype : 'combo',
 								mode : 'local',
@@ -736,7 +740,6 @@ Ext.onReady(function() {
 								emptyText : '请选择...',
 								id : 'showSelector',
 								anchor : '91%',
-								hidden: false,
 								listeners : {
 									render : function(combo) {
 										var r = combo.getStore();
@@ -745,7 +748,7 @@ Ext.onReady(function() {
 										Ext.getCmp("monthSelector1").hide();
 										Ext.getCmp("objSelector1").hide();
 										Ext.getCmp("monthBox2").show();
-										Ext.getCmp("objBox2").show();
+										//Ext.getCmp("objBox2").show();
 										setMOCmp("objSelector", objDS.getAt(0) || '','2');
 									},
 									select : function(combo,record,index){
@@ -776,6 +779,7 @@ Ext.onReady(function() {
 							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
+							hidden: true,
 							items : [{
 								xtype : 'combo',
 								mode : 'local',
@@ -806,6 +810,7 @@ Ext.onReady(function() {
 							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
+							hidden: true,
 							items : [{
 								xtype : 'combo',
 								mode : 'local',
