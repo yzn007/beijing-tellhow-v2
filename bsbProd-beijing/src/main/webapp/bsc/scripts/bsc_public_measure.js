@@ -789,13 +789,29 @@ ImportWindow = Ext.extend(Ext.Window, {
                                 Ext.MessageBox.alert("提示","文件不能为空或者以.exe结尾！");
                                 return;
                             }
+                            // var options = {
+                            //     type:'POST',
+                            //     success:showResponse,
+                            //     dataType: 'json',
+                            //     error : function(xhr, status, err) {
+                            //         Ext.Msg.alert('失败', '指标导入失败！');
+                            //         Ext.getCmp('importWindow').destroy();
+                            //     }
+                            // };
+                            // formPanel.form.submit(function () {
+                            //     $(this).ajaxSubmit(options);
+                            //     return false;
+                            // });
                             formPanel.form.submit({
                                 // type:'ajax',
                                 params:{fileName:filename},
                                 method : 'POST',
                                 waitMsg: '正在提交数据...',
-                                success: function(){
-                                    Ext.Msg.alert('成功','指标导入完成！');
+                                success: function(form, action){
+                                    if(action.result.unImport!=""){
+                                        Ext.Msg.alert('信息',action.result.unImport);
+                                    }else
+                                        Ext.Msg.alert('成功','指标导入完成！');
                                     Ext.getCmp('importWindow').destroy();
                                 },
                                 failure: function(form, action){
@@ -803,6 +819,8 @@ ImportWindow = Ext.extend(Ext.Window, {
                                     Ext.getCmp('importWindow').destroy();
                                 }
                             });
+
+
 
                         }else{
                             Ext.MessageBox.alert("提示信息",'请选择导入的数据文件！');
@@ -821,7 +839,13 @@ ImportWindow = Ext.extend(Ext.Window, {
     }
 });
 
-/**
+function showResponse(responseText, statusText, xhr, $form){
+    if(responseText.status == "0"){
+        alert(responseText.msg);
+    }
+}
+
+    /**
  * 高级查询
  * @param n
  */

@@ -1816,16 +1816,26 @@ public class BscResultAction extends BaseDispatchAction {
 		int totalRowNum = sheet.getLastRowNum();
 		List<Map<Integer,String>> list = new ArrayList<Map<Integer,String>>();
 		Map<Integer,String> map = null;
+		List<String>badNums = new ArrayList<>();
 		for(int x = startRowNum ; x <= totalRowNum ; x++){
 			boolean isExists = false;
 			boolean isParentExist = false;
+			boolean isMeasureName = false;
+			String isMeasureType = "";
+			boolean isSourceId = false;
+			boolean isFomula = false;
+			boolean isDescribe = false;
+			boolean isCount = false;
+			boolean isDimension = false;
+			boolean isObject = false;
+			String strAlert = "";
 			//取得行
 			Row row = sheet.getRow(x);
 			int cellLength = row.getLastCellNum();
 
 			for(int y=startColumn;y<cellLength;y++){
 				Cell cell = row.getCell(y);
-				if(cell == null || cell.toString().equals("")){
+				if(cell == null || cell.toString().trim().equals("")){
 					if(y==startColumn ||  y== startColumn + 1)
 						break;
 					map.put(y,"");
@@ -1836,13 +1846,49 @@ public class BscResultAction extends BaseDispatchAction {
 						map = new HashMap<Integer,String>();
 					}else if(y==startColumn+1){//parentid
 						isParentExist = true;
+					}else if (y==startColumn+2){//指标名称
+						isMeasureName = true;
+					}else if (y==startColumn+3){//指标类型
+						isMeasureType = getMeasureKey(cell.toString().trim());
+					}else if (y==startColumn+4){//指标原表Id
+						isSourceId = true;
+					}else if (y==startColumn+5){//指标公式
+						isFomula = true;
+					}else if (y==startColumn+6){//指标描述
+						isDescribe = true;
+					}else if (y==startColumn+9){//统计周期
+						isCount = true;
+					}else if (y==startColumn+10){//地区维度
+						isDimension = true;
+					}else if (y==startColumn+11){//其它维度
+						isObject = true;
+					}else if (y==startColumn+12){//预警指标类型
+						strAlert = getMeasureKey(cell.toString().trim());
 					}
-
-					map.put(y, cell.getStringCellValue().toString());
+					map.put(y, cell.getStringCellValue().toString().trim());
 				}
 			}
-			if(isExists&&isParentExist)
-				list.add(map);
+			if(isExists&&isParentExist&&isMeasureName&&isMeasureType!=""){
+				if(isMeasureType.equals("00") && isSourceId && isFomula && isCount && isDimension && isObject){//基础指标
+					list.add(map);
+				}else if(isMeasureType.equals("01") && isFomula && isCount && isDimension && isObject) {//衍生指标
+					list.add(map);
+				}else if(isMeasureType.equals("03")) {//分类目录
+					list.add(map);
+				}else if(isMeasureType.equals("04") && isFomula && isCount && isDimension && isObject){//预警指标04
+					if(strAlert.equals("2") && isDescribe){//复杂类型
+						list.add(map);
+					}else if(strAlert.equals("0") ){//阈值
+						list.add(map);
+					}else{
+						badNums.add(String.valueOf(x+1));
+					}
+				}else{
+					badNums.add(String.valueOf(x+1));
+				}
+			}else if(isExists){
+				badNums.add(String.valueOf(x+1));
+			}
 		}
 		//开始处理数据
 		if(list.size()>0){
@@ -1933,14 +1979,17 @@ public class BscResultAction extends BaseDispatchAction {
 				e.printStackTrace();
 			}
 		}
-		doSuccessInfoResponse("处理完成[" + paramMap.get("fileName")+"]文件数据，请核对！");
+		doSuccessInfoResponse("处理完成[" + paramMap.get("fileName")+"]文件数据，请核对！",badNums.size()>0?"未导入行数："
+				+badNums.toString().replace("[","").replace("]","").
+				substring(0,badNums.toString().length() - 2)		+",请核对!":"");
 		return null;
 	}
 
-	protected void doSuccessInfoResponse(String info) throws Exception{
+	protected void doSuccessInfoResponse(String info,String badNums) throws Exception{
 		Map<String, Object> results = new HashMap<String, Object>();
 		results.put("success", Boolean.valueOf(true));
 		results.put("info", info);
+		results.put("unImport",badNums);
 		response.setHeader("Content-Type", "text/html;charset = utf-8");
 		JSONObject json = new JSONObject(results);
 		response.getWriter().write(json.toString());
