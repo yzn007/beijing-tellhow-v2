@@ -214,6 +214,7 @@ var projectStore = new Ext.data.JsonStore({
 	idProperty : 'project_id',
 	listeners : {
 		load : function(store, records, options) {
+			console.info("load");
 			if (store.getCount() > 0) {
 				if (projectID == ''){
 					projectID = store.getAt(0).get('project_id');
@@ -235,6 +236,8 @@ var projectStore = new Ext.data.JsonStore({
 
                 districtDimensionStore.load();
                 dimensionStore.load();
+			} else {
+				Ext.getCmp("projectSelector").reset();
 			}
 		},
 		beforeload : function(store, options) {
@@ -841,6 +844,10 @@ Ext.onReady(function() {
                                 width : 38,
                                 text : '查  询',
                                 handler : function() {
+									if(projectID == '') {
+										Ext.Msg.alert('提示','请选择一个方案');
+										return;
+									}
                                     toVar();
                                     queryResult();
                                 }
@@ -987,7 +994,10 @@ function toVar(){
 	monthName=Ext.get("monthSelector1").getValue();
 	projectName=Ext.get("projectSelector").getValue();
 //	indexName=Ext.get("indexSelector").getValue();
-	cycle_type_id = projectStore.getById(projectID).get("cycle_type_id");
+	if (projectStore.getById(projectID) == null)
+		cycle_type_id = '';
+	else
+		cycle_type_id = projectStore.getById(projectID).get("cycle_type_id");
 	objID = getMOCmpVal("objSelector");
     obj_id = Ext.getCmp("objSelector1").getValue();
 	timID = Ext.getCmp("monthSelector2").code || '';
