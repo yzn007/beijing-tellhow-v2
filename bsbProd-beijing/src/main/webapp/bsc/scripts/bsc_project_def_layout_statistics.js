@@ -89,7 +89,7 @@ ObjectCountPeriod = function () {
         valueField :'cycle_type_id',
         displayField:'cycle_type_desc',
         mode: 'local',
-        width:60,
+        width:80,
         editable: false,
         triggerAction: 'all',
         fieldLabel:'统计周期',
@@ -145,14 +145,16 @@ Ext.onReady(function() {
 		hidden : true
 	}]);
 	
-	var projectbar = [{
+	var projectbar = [
+		{
 		text : '添加(a)',
 		tooltip : '添加新方案',
 		iconCls : 'add',
 		handler : function() {
 			addProject();
 		}
-	}, '-', {
+	}, '-',
+		{
 		text : '编辑(e)',
 		id : 'editProject',
 		disabled : true,
@@ -177,7 +179,8 @@ Ext.onReady(function() {
             setDimDataDS(projectId,lk);
 
 		}
-	}, '-', {
+	}, '-',
+		{
 		text : '停用(t)',
 		id : 'deleteProject',
 		toolTip : '停用方案',
@@ -193,7 +196,8 @@ Ext.onReady(function() {
 							deleteProject();
 					});
 		}
-	},'-',{
+	},'-',
+		{
 		text : '删除(d)',
 		id : 'dropProject',
 		toolTip : '删除方案',
@@ -209,7 +213,8 @@ Ext.onReady(function() {
 							dropProject();
 					});
 		}
-	},'-', {
+	},'-',
+		{
 		text : '复制',
 		id : 'copyProject',
 		title : '复制已存在方案',
@@ -222,7 +227,8 @@ Ext.onReady(function() {
 			}
 			copyProject(record);
 		}
-	},'-',{
+	},'-',
+		{
 		id : 'gotoEdit',
 		text : '编辑方案指标',
 		iconCls : 'execute',
@@ -274,7 +280,7 @@ Ext.onReady(function() {
 	// 		});
 	// 	}
 	// },
-		'->',{
+		'->', '-', {
 		xtype : 'checkbox',
 		boxLabel : '显示已停用方案 ',
 		listeners : {
@@ -283,14 +289,14 @@ Ext.onReady(function() {
 				projectStore.reload();
 			}
 		}
-	}, '->','周期',new ObjectCountPeriod(),
-       '->', '维度',{
+	}, '->', '-', '周期: ',new ObjectCountPeriod(),
+       '->', '-', '维度: ',{
             xtype : 'combo',
             store : dimensionStore,
             valueField : 'link_id',
             displayField : 'link_name',
             mode : 'local',
-            width : 150,
+            width : 280,
             editable : false,
             triggerAction : 'all',
             emptyText :  '请选择统计维度',
@@ -304,11 +310,11 @@ Ext.onReady(function() {
             id : 'isDimension_cap',			//对象维度
             anchor : '95%'
         },
-		'->', '搜索:', {
+		'->', '搜索: ', {
 		xtype : 'textfield',
 		id : 'searchKey',
 		emptyText : '请输入方案名...',
-		width : 150,
+		width : 160,
 		listeners : {
 			specialkey : function(field, e) {
 				if (e.getKey() == Ext.EventObject.ENTER) {
