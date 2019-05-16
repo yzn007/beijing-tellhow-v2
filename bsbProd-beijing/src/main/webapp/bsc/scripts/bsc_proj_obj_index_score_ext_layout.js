@@ -74,9 +74,7 @@ var	districtDimensionStore=new Ext.data.JsonStore({
 });
 districtDimensionStore.on('load',function(){
     if (districtDimensionStore.getCount() > 0) {
-
-        dimension = districtDimensionStore.getAt(0).get('value_field');
-
+        //dimension = districtDimensionStore.getAt(0).get('value_field');
         // Ext.getCmp('obj_district_id').setValue(dimensionId)
     }
 });
