@@ -533,7 +533,7 @@ Ext.onReady(function() {
 			region : 'north',
 			frame : true,
 			border : false,
-			height : 180,
+			height : 110,
 			labelWidth : 33,
 //			buttonAlign : 'right',
 			layout : {
@@ -544,19 +544,60 @@ Ext.onReady(function() {
 			items : [
 				{
 					xtype: 'container',
-					layout:'column',
-					anchor:'100%',
-					items:[
+					layout: 'column',
+					anchor: '100%',
+					items: [
 						{
 							columnWidth : .20,
 							layout : 'form',
 							labelWidth : 64,
-               //             labelAlign : 'left',
-                            border : false,items : [new ProjectTypeSelector('方案分类')]
-                        },
-
+							//             labelAlign : 'left',
+							border : false,items : [new ProjectTypeSelector('方案分类')]
+						},
+						{
+							columnWidth : .80,
+							layout : 'form',
+							labelWidth : 64,
+							items : [{
+								xtype : 'combo',
+								mode : 'local',
+								displayField : 'project_name',
+								valueField : 'project_id',
+								store : projectStore,
+								triggerAction : 'all',
+								fieldLabel : '方案名称',
+								name : 'project_id',
+								listeners : {
+									select : function(combo,record,index){
+										p = record.get("project_id");
+										monthID = '';
+										monthDS.load({params: {project_id : p}});
+										objID = '';
+										objDS.load({params: {project_id : p}});
+										measure_id = '';
+										beforeClose();
+										indexDS.reload({params: {project_id : p}});
+										// if (record.get('obj_link_id') == 'Zone_Cd') {
+										//     Ext.getCmp('obj_link_id').hide();
+										// } else {
+										//     Ext.getCmp('obj_link_id').show();
+										// }
+									}
+								},
+								editable : false,
+								id : "projectSelector",
+								anchor : '91%'
+							}]
+						}
+					]
+				},
+				{
+					xtype: 'container',
+					layout:'column',
+					anchor:'100%',
+					items:[
                         {
-                            columnWidth : .35,
+                            columnWidth : .10,
                             layout : 'form',
                             labelWidth : 64,
                             labelAlign : 'left',
@@ -588,7 +629,7 @@ Ext.onReady(function() {
                             }]
                         },
                         {
-                            columnWidth : .35,
+                            columnWidth : .10,
                             layout : 'form',
                             labelWidth : 64,
                             labelAlign : 'left',
@@ -614,44 +655,8 @@ Ext.onReady(function() {
                                 }
                             }]
                         },
-
-                        {
-                            columnWidth : .734,
-                            layout : 'form',
-                            labelWidth : 64,
-							items : [{
-								xtype : 'combo',
-								mode : 'local',
-								displayField : 'project_name',
-								valueField : 'project_id',
-								store : projectStore,
-								triggerAction : 'all',
-								fieldLabel : '方案名称',
-								name : 'project_id',
-								listeners : {
-									select : function(combo,record,index){
-										p = record.get("project_id");
-										monthID = '';
-										monthDS.load({params: {project_id : p}});
-										objID = '';
-										objDS.load({params: {project_id : p}});
-										measure_id = '';
-										beforeClose();
-										indexDS.reload({params: {project_id : p}});
-                                        // if (record.get('obj_link_id') == 'Zone_Cd') {
-                                        //     Ext.getCmp('obj_link_id').hide();
-                                        // } else {
-                                        //     Ext.getCmp('obj_link_id').show();
-                                        // }
-									}
-								},
-								editable : false,
-								id : "projectSelector",
-								anchor : '91%'
-							}]
-						},
 						{
-							columnWidth : .2,
+							columnWidth : .10,
 							layout : 'form',
 							labelWidth : 64,
 							labelAlign : 'left',
@@ -698,9 +703,9 @@ Ext.onReady(function() {
 							}]
 						},
 						{
-							columnWidth : .18,
+							columnWidth : .10,
 							layout : 'form',
-							labelWidth : 55,
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							items : [{
@@ -728,9 +733,9 @@ Ext.onReady(function() {
 							}]
 						},
 						{
-							columnWidth : .18,
+							columnWidth : .10,
 							layout : 'form',
-							labelWidth : 55,
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							items : [{
@@ -759,9 +764,9 @@ Ext.onReady(function() {
 							}]
 						},
 						{
-							columnWidth : .18,
+							columnWidth : .10,
 							layout : 'form',
-							labelWidth : 55,
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							id : "objBox2",
@@ -788,9 +793,9 @@ Ext.onReady(function() {
 							}]
 						},
 						{
-							columnWidth : .18,
+							columnWidth : .10,
 							layout : 'form',
-							labelWidth : 55,
+							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
 							id : "monthBox2",
@@ -822,11 +827,10 @@ Ext.onReady(function() {
 								}
 							}]
 						},
-
                         {
                             id : 'dimSet',
-                            labelWidth : 55,
-                            columnWidth : .18,
+                            labelWidth : 64,
+                            columnWidth : .10,
                             labelAlign : 'center',
                             emptyText : '请选择...',
                             anchor : '50%',
@@ -835,7 +839,7 @@ Ext.onReady(function() {
                         {
                             columnWidth : .10,
                             layout : 'form',
-                            labelWidth : 20,
+                            labelWidth : 64,
                             labelAlign : 'right',
                             border : false,
                             items : [{
@@ -856,7 +860,6 @@ Ext.onReady(function() {
                                 width : 20
                             }]
                         }
-
 					]
 				},
 			]
