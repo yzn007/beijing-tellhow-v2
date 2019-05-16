@@ -67,7 +67,7 @@ AddWindow = Ext.extend(Ext.Window, {
 				id : 'addForm',
 				baseCls : 'x-plain',
 				border : false,
-				labelWidth : 80,
+				labelWidth : 100,
 				labelAlign : 'left',
 				layout : 'form',
                 timeout : 600000,
@@ -865,7 +865,7 @@ SearchWindow = Ext.extend(Ext.Window, {
                 items : [
 					{
 						xtype : 'textfield',
-						fieldLabel : '指标id',
+						fieldLabel : '指标ID',
 						allowBlank : true,
 						id : 'measure_id',
 						name : 'measure_id',
