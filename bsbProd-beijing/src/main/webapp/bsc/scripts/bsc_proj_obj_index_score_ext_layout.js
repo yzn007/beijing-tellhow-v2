@@ -154,7 +154,7 @@ var menu = [{
 		document.excelForm.title.value = title;
 		document.excelForm.project_name.value = projectName;
 		document.excelForm.month_name.value = monthName;
-		document.excelForm.measure_id.value = measure_id;
+		document.excelForm.measure_id.value = '';//measure_id;
 		document.excelForm.show_id.value = showID;
 		document.excelForm.obj_id.value = objID;
 		document.excelForm.time_id.value = timID;
@@ -276,15 +276,13 @@ var objDS = new Ext.data.JsonStore({
 	listeners : {
 		load : function(store, records, options) {
 			if (store.getCount() > 0) {
+				objDS.insert(0, new Ext.data.Record({obj_id: '', obj_name: '全部'}));
 				if (objID == ''){
-
                     if(showID == "2"){
                         setMOCmp("objSelector", '','1');
-
 					}else{
                         setMOCmp("objSelector",store.getAt(0),'2');
 					}
-
 				}
 			}else{
 				setMOCmp("objSelector",'',showID);
@@ -533,7 +531,7 @@ Ext.onReady(function() {
 			region : 'north',
 			frame : true,
 			border : false,
-			height : 110,
+			height : 140,
 			labelWidth : 33,
 //			buttonAlign : 'right',
 			layout : {
@@ -555,7 +553,7 @@ Ext.onReady(function() {
 							border : false,items : [new ProjectTypeSelector('方案分类')]
 						},
 						{
-							columnWidth : .80,
+							columnWidth : .60,
 							layout : 'form',
 							labelWidth : 64,
 							items : [{
@@ -596,204 +594,8 @@ Ext.onReady(function() {
 					layout:'column',
 					anchor:'100%',
 					items:[
-                        {
-                            columnWidth : .10,
-                            layout : 'form',
-                            labelWidth : 64,
-                            labelAlign : 'left',
-                            border : false,
-                            items : [{
-                                xtype : 'combo',
-                                mode : 'local',
-                                displayField : 'display_field',
-                                valueField : 'value_field',
-                                store : districtDimensionStore,
-                                editable : false,
-                                triggerAction : 'all',
-                                fieldLabel : '地区维度',
-                                name : 'obj_id',
-                                emptyText:'请选择...',
-                                id : 'obj_district_id',
-                                anchor : '91%',
-                                // tpl:multstr('value_field','display_field'),
-                                // ismult : true,
-                                // onSelect : multselect,
-                                listeners : {
-                                    select : function(combo,record,index){
-                                        objID = '';
-                                        projectID = '';
-                                        district_id = record.get('value_field');
-                                        projectStore.reload();
-                                    }
-                                }
-                            }]
-                        },
-                        {
-                            columnWidth : .10,
-                            layout : 'form',
-                            labelWidth : 64,
-                            labelAlign : 'left',
-                            border : false,
-                            items : [{
-                                xtype : 'combo',
-                                mode : 'local',
-                                displayField : 'link_name',
-                                valueField : 'link_id',
-                                store : dimensionStore,
-                                editable : false,
-                                triggerAction : 'all',
-                                fieldLabel : '其它维度',
-                                name : 'obj_link_id',
-                                emptyText:'请选择...',
-                                id : 'obj_link_id',
-                                anchor : '91%',
-                                listeners:{
-                                    select:function(combo,record,index){
-                                        dimension = record.get('link_id');
-                                        projectStore.reload();
-                                    }
-                                }
-                            }]
-                        },
 						{
-							columnWidth : .10,
-							layout : 'form',
-							labelWidth : 64,
-							labelAlign : 'left',
-							border : false,
-							items : [{
-								xtype : 'combo',
-								mode : 'local',
-								displayField : 'show_name',
-								valueField : 'show_id',
-								store : showDS,
-								editable : false,
-								triggerAction : 'all',
-								fieldLabel : '维度名称',
-								name : 'show_id',
-								emptyText : '请选择...',
-								id : 'showSelector',
-								anchor : '91%',
-								listeners : {
-									render : function(combo) {
-										var r = combo.getStore();
-										showID = r.getAt(1).get('show_id');
-										combo.setValue(showID);
-									},
-									select : function(combo,record,index){
-										showID = combo.getValue();
-                                        if(showID == "1"){
-                                            Ext.getCmp("monthSelector1").hide();
-                                            Ext.getCmp("objSelector1").hide();
-                                            Ext.getCmp("monthBox2").show();
-                                            Ext.getCmp("objBox2").show();
-                                            setMOCmp("objSelector", objDS.getAt(0) || '','2');
- //                                           setMOCmp("objSelector",'','2');
-                                        }
-                                        else{
-                                            Ext.getCmp("monthSelector1").show();
-                                            Ext.getCmp("objSelector1").show();
-                                            Ext.getCmp("monthBox2").hide();
-                                            Ext.getCmp("objBox2").hide();
-                                            setMOCmp("monthSelector", monthDS.getAt(0) || '','1');
-//                                            setMOCmp("monthSelector", '','1');
-                                        }
-									}
-								}
-							}]
-						},
-						{
-							columnWidth : .10,
-							layout : 'form',
-							labelWidth : 64,
-							labelAlign : 'left',
-							border : false,
-							items : [{
-								xtype : 'combo',
-								mode : 'local',
-								displayField : 'month_name',
-								valueField : 'month_id',
-								store : monthDS,
-								editable : false,
-								triggerAction : 'all',
-								fieldLabel : '统计年份',
-								name : 'month_id',
-								emptyText : '请选择...',
-								id : 'monthSelector1',
-								anchor : '91%',
-								listeners : {
-									select : function(combo,record,index){
-										measure_id = '';
-										m = record.get("month_id");
-										beforeClose();
-										indexDS.reload({params: {month_id : m,project_id : p}});
-										projectID = '';
-									}
-								}
-							}]
-						},
-						{
-							columnWidth : .10,
-							layout : 'form',
-							labelWidth : 64,
-							labelAlign : 'left',
-							border : false,
-							items : [{
-								xtype : 'combo',
-								mode : 'local',
-								displayField : 'obj_name',
-								valueField : 'obj_id',
-								store : objDS,
-								editable : false,
-								triggerAction : 'all',
-								fieldLabel : '统计维度',
-								name : 'obj_id',
-								emptyText:'请选择...',
-								id : 'objSelector1',
-								anchor : '91%',
-								tpl:multstr('obj_id','obj_name'),
-								triggerAction: 'all',
-								ismult : true,
-								onSelect : multselect,
-								listeners : {
-									select : function(combo,record,index){
-										objID = '';
-										projectID = '';
-									}
-								}
-							}]
-						},
-						{
-							columnWidth : .10,
-							layout : 'form',
-							labelWidth : 64,
-							labelAlign : 'left',
-							border : false,
-							id : "objBox2",
-							hidden : true,
-							items : [{
-								xtype : 'combo',
-								mode : 'local',
-								displayField : 'obj_name',
-								valueField : 'obj_id',
-								store : objDS,
-								editable : false,
-								triggerAction : 'all',
-								fieldLabel : '统计维度',
-								name : 'obj_id',
-								emptyText:'请选择...',
-								id : 'objSelector2',
-								anchor : '91%',
-								listeners : {
-									select : function(combo,record,index){
-										objID = '';
-										projectID = '';
-									}
-								}
-							}]
-						},
-						{
-							columnWidth : .10,
+							columnWidth : .21,
 							layout : 'form',
 							labelWidth : 64,
 							labelAlign : 'left',
@@ -828,13 +630,61 @@ Ext.onReady(function() {
 							}]
 						},
                         {
-                            id : 'dimSet',
+                            columnWidth : .25,
+                            layout : 'form',
                             labelWidth : 64,
-                            columnWidth : .10,
-                            labelAlign : 'center',
-                            emptyText : '请选择...',
-                            anchor : '50%',
-                            layout : 'form'
+                            items : [{
+                                xtype : 'combo',
+                                mode : 'local',
+                                displayField : 'display_field',
+                                valueField : 'value_field',
+                                store : districtDimensionStore,
+                                editable : false,
+                                triggerAction : 'all',
+                                fieldLabel : '地区名称',
+                                name : 'obj_id',
+                                emptyText:'请选择...',
+                                id : 'obj_district_id',
+                                anchor : '91%',
+                                // tpl:multstr('value_field','display_field'),
+                                // ismult : true,
+                                // onSelect : multselect,
+                                listeners : {
+                                    select : function(combo,record,index){
+                                        objID = '';
+                                        projectID = '';
+                                        district_id = record.get('value_field');
+                                        projectStore.reload();
+                                    }
+                                }
+                            }]
+                        },
+                        {
+                            columnWidth : .25,
+                            layout : 'form',
+                            labelWidth : 64,
+                            labelAlign : 'left',
+                            border : false,
+                            items : [{
+                                xtype : 'combo',
+                                mode : 'local',
+                                displayField : 'link_name',
+                                valueField : 'link_id',
+                                store : dimensionStore,
+                                editable : false,
+                                triggerAction : 'all',
+                                fieldLabel : '其它维度',
+                                name : 'obj_link_id',
+                                emptyText:'请选择...',
+                                id : 'obj_link_id',
+                                anchor : '91%',
+                                listeners:{
+                                    select:function(combo,record,index){
+                                        dimension = record.get('link_id');
+                                        projectStore.reload();
+                                    }
+                                }
+                            }]
                         },
                         {
                             columnWidth : .10,
@@ -848,10 +698,10 @@ Ext.onReady(function() {
                                 width : 38,
                                 text : '查  询',
                                 handler : function() {
-									if(projectID == '') {
-										Ext.Msg.alert('提示','请选择一个方案');
-										return;
-									}
+									// if(projectID == '') {
+									// 	Ext.Msg.alert('提示','请选择一个方案');
+									// 	return;
+									// }
                                     toVar();
                                     queryResult();
                                 }
@@ -862,6 +712,166 @@ Ext.onReady(function() {
                         }
 					]
 				},
+				{
+					xtype: 'container',
+					layout:'column',
+					anchor:'100%',
+					items:[
+						{
+							columnWidth : .20,
+							layout : 'form',
+							labelWidth : 64,
+							labelAlign : 'left',
+							border : false,
+							items : [{
+								xtype : 'combo',
+								mode : 'local',
+								displayField : 'show_name',
+								valueField : 'show_id',
+								store : showDS,
+								editable : false,
+								triggerAction : 'all',
+								fieldLabel : '维度名称',
+								name : 'show_id',
+								emptyText : '请选择...',
+								id : 'showSelector',
+								anchor : '91%',
+								hidden: false,
+								listeners : {
+									render : function(combo) {
+										var r = combo.getStore();
+										showID = r.getAt(0).get('show_id');
+										combo.setValue(showID);
+										Ext.getCmp("monthSelector1").hide();
+										Ext.getCmp("objSelector1").hide();
+										Ext.getCmp("monthBox2").show();
+										Ext.getCmp("objBox2").show();
+										setMOCmp("objSelector", objDS.getAt(0) || '','2');
+									},
+									select : function(combo,record,index){
+										showID = combo.getValue();
+										if(showID == "1"){
+											Ext.getCmp("monthSelector1").hide();
+											Ext.getCmp("objSelector1").hide();
+											Ext.getCmp("monthBox2").show();
+											Ext.getCmp("objBox2").show();
+											setMOCmp("objSelector", objDS.getAt(0) || '','2');
+											//                                           setMOCmp("objSelector",'','2');
+										}
+										else{
+											Ext.getCmp("monthSelector1").show();
+											Ext.getCmp("objSelector1").show();
+											Ext.getCmp("monthBox2").hide();
+											Ext.getCmp("objBox2").hide();
+											setMOCmp("monthSelector", monthDS.getAt(0) || '','1');
+//                                            setMOCmp("monthSelector", '','1');
+										}
+									}
+								}
+							}]
+						},
+						{
+							columnWidth : .20,
+							layout : 'form',
+							labelWidth : 64,
+							labelAlign : 'left',
+							border : false,
+							items : [{
+								xtype : 'combo',
+								mode : 'local',
+								displayField : 'month_name',
+								valueField : 'month_id',
+								store : monthDS,
+								editable : false,
+								triggerAction : 'all',
+								fieldLabel : '统计年份',
+								name : 'month_id',
+								emptyText : '请选择...',
+								id : 'monthSelector1',
+								anchor : '91%',
+								listeners : {
+									select : function(combo,record,index){
+										measure_id = '';
+										m = record.get("month_id");
+										beforeClose();
+										indexDS.reload({params: {month_id : m,project_id : p}});
+										projectID = '';
+									}
+								}
+							}]
+						},
+						{
+							columnWidth : .20,
+							layout : 'form',
+							labelWidth : 64,
+							labelAlign : 'left',
+							border : false,
+							items : [{
+								xtype : 'combo',
+								mode : 'local',
+								displayField : 'obj_name',
+								valueField : 'obj_id',
+								store : objDS,
+								editable : false,
+								triggerAction : 'all',
+								fieldLabel : '统计维度',
+								name : 'obj_id',
+								emptyText:'请选择...',
+								id : 'objSelector1',
+								anchor : '91%',
+								tpl:multstr('obj_id','obj_name'),
+								triggerAction: 'all',
+								ismult : true,
+								onSelect : multselect,
+								listeners : {
+									select : function(combo,record,index){
+										objID = '';
+										projectID = '';
+									}
+								}
+							}]
+						},
+						{
+							columnWidth : .60,
+							layout : 'form',
+							labelWidth : 64,
+							labelAlign : 'left',
+							border : false,
+							id : "objBox2",
+							hidden : true,
+							items : [{
+								xtype : 'combo',
+								mode : 'local',
+								displayField : 'obj_name',
+								valueField : 'obj_id',
+								store : objDS,
+								editable : false,
+								triggerAction : 'all',
+								fieldLabel : '统计维度',
+								name : 'obj_id',
+								emptyText:'请选择...',
+								id : 'objSelector2',
+								anchor : '91%',
+								listeners : {
+									select : function(combo,record,index){
+										objID = '';
+										projectID = '';
+									}
+								}
+							}]
+						},
+						{
+							id : 'dimSet',
+							labelWidth : 64,
+							columnWidth : .20,
+							labelAlign : 'center',
+							emptyText : '请选择...',
+							anchor : '50%',
+							layout : 'form',
+							hidden: true,
+						},
+						]
+				}
 			]
 		}, {
 			region : 'center',
@@ -935,7 +945,7 @@ function queryResult() {
     var param = "?project_id=" + projectID + "&month_id=" + monthID
 			+ "&cycle_type_id="+cycle_type_id
 			+ "&obj_cate_id=" + objCateId + "&monthName=" + encodeURI(encodeURI(monthName))
-			+ "&measure_id=" + measure_id
+			+ "&measure_id=" + ''
 			+ "&show_id=" + showID
 			+ "&obj_id=" + objID
 			+ "&time_id=" + timID
