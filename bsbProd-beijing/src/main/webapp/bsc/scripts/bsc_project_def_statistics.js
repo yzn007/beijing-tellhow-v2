@@ -578,7 +578,15 @@ function addProject() {
                 fieldLabel : '地区维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
                 name : 'obj_district_id',
                 id : 'districtDimension',			//地区维度
-                anchor : '95%'
+                anchor : '95%',
+                listeners: {
+                    select : function(combo, record, index){
+                        beforeObjClose();
+                        objDimDS.reload({params : {
+                                link_id : record.get('link_id')
+                            }})
+                    }
+                },
             },
             {
                 xtype : 'hidden',

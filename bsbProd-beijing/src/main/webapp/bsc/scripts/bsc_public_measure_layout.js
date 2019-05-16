@@ -122,7 +122,7 @@ Ext.onReady(function() {
                             console.info(record);
                             var val = "";
                             //统计周期
-                            switch (Ext.getCmp('countperiod').getValue()){
+                            switch (record.countperiod){
                                 case "00":
                                     val = "月";
                                     break;

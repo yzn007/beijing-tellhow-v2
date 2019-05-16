@@ -76,7 +76,9 @@ Ext.onReady(function() {
                 console.info(data);
                 attsPanel.form.load({
                     url : pathUrl + '/publicMeasure_common.action?method=getEngMeasureById&measure_id='+data.data.measure_id+'&is_private=N',
-                    success:function(){
+                    success:function(form ,action){
+                        var record = eval(action.result.data);
+                        console.info(record);
                         var val = "";
                         //统计周期
                         switch (Ext.getCmp('countperiod').getValue()){
