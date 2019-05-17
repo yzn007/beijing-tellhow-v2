@@ -263,7 +263,7 @@ public class DataSourceConfigAction extends BaseDispatchAction {
      * 根据数据源表达式得到此表达式中涉及的所有--字段名、字段类型、字段数序
      * */
     public void getSorExpFields(){
-    	String exp = request.getParameter("source_exp");
+    	String exp = request.getParameter("source_exp").replace("\n", " ");
     	String id = request.getParameter("source_id");
     	if(null != exp && !"".equals(exp)){
 			try {
