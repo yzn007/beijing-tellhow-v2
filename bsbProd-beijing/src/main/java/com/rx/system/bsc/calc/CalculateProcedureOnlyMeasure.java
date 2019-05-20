@@ -533,6 +533,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         }
         String v_objectColumn	=	dataSource.getObjColumnName();
         String v_sourceExpr		=	dataSource.getExpression();
+        String v_districtColumn = dataSource.getDistrictColumn();
 
         //查找指标公式引用的参数
         List<String> paraIDs	=	measure.getParams();
@@ -542,11 +543,15 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         String exprObjectID		=	"";
         String exprValue		=	"";
         String exprFilter		=	"";
+        String exprDistrictID   =   "";
 
         //3.2 如果数据源是数据集, 则使用数据源定义的对象维度；否则使用固定值PARAMETER
         if ("00".equals(v_resultTypeID)){
             if (null != v_objectColumn){
                 exprObjectID	=	v_objectColumn;
+            }
+            if(null!= v_districtColumn){
+                exprDistrictID = v_districtColumn;
             }
         }else {
             exprObjectID	=	"'"+ IMeasure.OBJ_NAME_SCALE_MEASURE +"'";
@@ -630,13 +635,22 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             dateFrm = this.date.substring(0,4);
         }
         //4. 拼接SQL语句
-        String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,value)" +
-                "select " +
+        //判断是否存在该列
+        boolean isExistsCol = true;
+        try{
+            this.jdbcManager.execute("select " + exprDistrictID + " from (" + v_sourceExpr + ") a");
+        }catch (Exception e){
+            isExistsCol = false;
+            System.out.print(e.toString());
+        }
+        String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,district_id,value)" +
+                "select distinct " +
                 "m."+  noEqMonthPlace +" as month_id,'" + dateFrm +
                 "'			 as date," +
                 "'" + exprMeasureID + "' as measure_id," +
                 "m."   + exprObjectID+ " as object_id," +
-                "ifnull(sum(" + exprValue + "),0) as value " +
+                (isExistsCol?"m."   + exprDistrictID: "''") +" as district_id," +
+                 "ifnull(sum(" + exprValue + "),0) as value " +
                 "from (" + v_sourceExpr
                 ;
 
@@ -667,7 +681,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             sqlStat	= sqlStat + " where 1=1";
         }
 
-        sqlStat = sqlStat +  " group by m. " + exprObjectID + ",m." + noEqMonthPlace;
+        sqlStat = sqlStat +  " group by m. " + exprObjectID + ",m." + noEqMonthPlace + (isExistsCol? ",m." + exprDistrictID:"");
 
         return sqlStat;
     }
@@ -733,6 +747,10 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
 
             // 如果指标是标量指标，则使用笛卡尔积联合
             String joinStr = "1=1";//全匹配
+            if(i>0)
+                joinStr = "m"+String.valueOf(i-1)+".district_id = m"+String.valueOf(i)+".district_id and m"+
+                        String.valueOf(i-1)+".month_id = m"+String.valueOf(i)+".month_id and m"+
+                        String.valueOf(i-1)+".object_id = m"+ String.valueOf(i)+".object_id ";
 //            if ("01".equals(relyResultTypeID)) {
 //                joinStr = "1=1";
 //            } else {
@@ -764,12 +782,13 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         }
 
         // 4. 拼接SQL语句
-        String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,value)\n"
-                + "select "
+        String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,district_id,value)\n"
+                + "select distinct "
                 + "m0.month_id  as month_id,'" + dateFrm
                 + "' 			 as date,"
                 + "'"+ exprMeasureID+ "' as measure_id,"
                 + "m0.object_id as object_id,\n"
+                + "m0.district_id as district_id,\n"
                 + "ifnull("+ exprValue+ ",0) as value \n"
                 + "from bsc_measure a " + exprJoinClause;
 
@@ -848,12 +867,13 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         }
 
         StringBuilder sb = new StringBuilder();
-        sb.append("insert into " +this.bsc_proj_mea_obj_val_measure+" (month_id,date,measure_id,object_id,value,source_id)\n");
+        sb.append("insert into " +this.bsc_proj_mea_obj_val_measure+" (month_id,date,measure_id,object_id,district_id,value,source_id)\n");
         sb.append("select ");
         sb.append("c.month_id as month_id,");
         sb.append("coalesce(c.date,DATE_FORMAT(SYSDATE(),'%Y-%m-%d'))	as date,");
         sb.append("'"+ measure.getMeasureId() + "' as measure_id,");
         sb.append("m.object_id  as object_id,\n");
+        sb.append("m.object_id  as district_id,\n");
         sb.append("c.value as value, \n");
         sb.append("a.source_id \n");
         sb.append("from bsc_measure a ");
@@ -862,6 +882,8 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         sb.append("on c.measure_id =  a.measure_id");
         sb.append(" left join (" + sqlsel + ") m ");
         sb.append("on c.object_id = m.object_id ");
+//        sb.append(" left join (" + sqlsel + ") n ");
+//        sb.append("on c.district_id = n.object_id ");
         sb.append(" where a.measure_id='" + measure.getMeasureId() + "'");
         sb.append(" and c.date = '"+dateFrm+"'");
 
@@ -938,7 +960,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         }else if(measure.getCountPeriod() .equals("02")){//年
             dateFrm = this.date.substring(0,4);
         }
-        String v_sql = "select object_id,value,month_id from "+this.resultTable+" where date='"
+        String v_sql = "select object_id,district_id,value,month_id from "+this.resultTable+" where date='"
                 + dateFrm
                 + "' and measure_id = '" + measure.getMeasureId() + "'";
 

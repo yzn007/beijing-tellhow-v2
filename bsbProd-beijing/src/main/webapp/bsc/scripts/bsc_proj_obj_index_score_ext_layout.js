@@ -954,7 +954,9 @@ function queryResult() {
 			+ "&show_id=" + showID
 			+ "&obj_id=" + objID
 			+ "&time_id=" + timID
-			+ "&projectName=" + encodeURI(encodeURI(projectName));
+			+ "&projectName=" + encodeURI(encodeURI(projectName))
+			+ "&district_id=" + district_id
+			+ "&dimension=" + dimension;
 
 
 	mask.show();

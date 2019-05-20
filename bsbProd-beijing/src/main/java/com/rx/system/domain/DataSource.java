@@ -23,6 +23,16 @@ public class DataSource implements IDataSource {
 
     private String obj_column;
 
+	public String getDistrictColumn() {
+		return district_column;
+	}
+
+	public void setDistrict_column(String district_column) {
+		this.district_column = district_column;
+	}
+
+	private String district_column;
+
 	public String getSource_id() {
 		return source_id;
 	}

@@ -471,6 +471,12 @@
 		<if test="oId != null and oId != ''">
 			and t.object_id in (${oId})
 		</if>
+		<if test="dimension != null and dimension != ''">
+			and b.object_id = #{dimension}
+		</if>
+		<if test="district_id != null and district_id != ''">
+			and b.district_id = #{district_id}
+		</if>
 		group by b.month_id,case when  #{year_id} is not null then b.object_id else null end
 		) ua order by month_id  desc
 		<include refid="pageDataEnd"/>

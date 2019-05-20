@@ -19,5 +19,7 @@ public interface IDataSource {
 	 * @return
 	 */
 	public String getExpression();
+
+	public String getDistrictColumn();
 	
 }
