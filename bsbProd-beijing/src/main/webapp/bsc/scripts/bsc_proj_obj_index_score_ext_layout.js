@@ -327,6 +327,8 @@ indexDS.on("load",function(){
 		var record = indexDS.getAt(i);
 		var comp = getComponment(record);
 		if(comp != null){
+			console.info('load dimSet');
+			comp.fieldLabel = '其它维度'
 			Ext.getCmp("dimSet").add(comp);
 		}
 	}
@@ -374,6 +376,7 @@ function beforeClose() {
 			comp.destroy();
 		}
 	}
+	console.info("beforeClose")
 	Ext.getCmp("dimSet").doLayout(true);
 }
 
@@ -415,7 +418,7 @@ gridSelector = function(obj) {
         hidden:true
 	}, {
 		id : 'valueField',
-		header : '指标名称',	
+		header : '指标名称',
 		dataIndex : 'display_field'
 	}]);
 	
@@ -534,7 +537,7 @@ Ext.onReady(function() {
 			region : 'north',
 			frame : true,
 			border : false,
-			height : 110,
+			height : 160,
 			labelWidth : 33,
 //			buttonAlign : 'right',
 			layout : {
@@ -662,33 +665,16 @@ Ext.onReady(function() {
                                 }
                             }]
                         },
-                        {
-                            columnWidth : .25,
-                            layout : 'form',
-                            labelWidth : 64,
-                            labelAlign : 'left',
-                            border : false,
-                            items : [{
-                                xtype : 'combo',
-                                mode : 'local',
-                                displayField : 'link_name',
-                                valueField : 'link_id',
-                                store : dimensionStore,
-                                editable : false,
-                                triggerAction : 'all',
-                                fieldLabel : '其它维度',
-                                name : 'obj_link_id',
-                                emptyText:'请选择...',
-                                id : 'obj_link_id',
-                                anchor : '91%',
-                                listeners:{
-                                    select:function(combo,record,index){
-                                        dimension = record.get('link_id');
-                                        projectStore.reload();
-                                    }
-                                }
-                            }]
-                        },
+						{
+							id : 'dimSet',
+							labelWidth : 64,
+							columnWidth : .25,
+							labelAlign : 'center',
+							emptyText : '其它维度',
+							anchor : '50%',
+							layout : 'form',
+							hidden: false,
+						},
                         {
                             columnWidth : .10,
                             layout : 'form',
@@ -779,7 +765,7 @@ Ext.onReady(function() {
 							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
-							hidden: true,
+							hidden: false,
 							items : [{
 								xtype : 'combo',
 								mode : 'local',
@@ -866,14 +852,32 @@ Ext.onReady(function() {
 							}]
 						},
 						{
-							id : 'dimSet',
-							labelWidth : 64,
-							columnWidth : .20,
-							labelAlign : 'center',
-							emptyText : '请选择...',
-							anchor : '50%',
+							columnWidth : .25,
 							layout : 'form',
-							hidden: true,
+							labelWidth : 64,
+							labelAlign : 'left',
+							border : false,
+							hidden:true,
+							items : [{
+								xtype : 'combo',
+								mode : 'local',
+								displayField : 'link_name',
+								valueField : 'link_id',
+								store : dimensionStore,
+								editable : false,
+								triggerAction : 'all',
+								fieldLabel : '其它维度',
+								name : 'obj_link_id',
+								emptyText:'请选择...',
+								id : 'obj_link_id',
+								anchor : '91%',
+								listeners:{
+									select:function(combo,record,index){
+										dimension = record.get('link_id');
+										projectStore.reload();
+									}
+								}
+							}]
 						},
 						]
 				}
@@ -950,7 +954,7 @@ function queryResult() {
     var param = "?project_id=" + projectID + "&month_id=" + monthID
 			+ "&cycle_type_id="+cycle_type_id
 			+ "&obj_cate_id=" + objCateId + "&monthName=" + encodeURI(encodeURI(monthName))
-			+ "&measure_id=" + ''
+			+ "&measure_id=" + measure_id
 			+ "&show_id=" + showID
 			+ "&obj_id=" + objID
 			+ "&time_id=" + timID
