@@ -135,12 +135,14 @@ AddWindow = Ext.extend(Ext.Window, {
                         fieldLabel : '其它维度',
                         listeners: {
                             select : function(combo, record, index){
-                                beforeMeaClose(this.id);
-                                objDimDS.reload({params : {
-                                    link_id : record.get('link_id')
-                                }})
-								var otherObject = Ext.getCmp('other_object_table');
-                                otherObject.setValue(record.get('link_id'));
+                                // beforeMeaClose(this.id);
+                                // objDimDS.reload({params : {
+                                //     link_id : record.get('link_id')
+                                // }})
+								// var otherObject = Ext.getCmp('other_object_table');
+                                // otherObject.setValue(record.get('link_id'));
+
+                                Ext.getCmp('objDimSet_desc').setValue(record.data.link_name)
                             }
                         },
                         name : 'obj_link_id',
@@ -167,12 +169,14 @@ AddWindow = Ext.extend(Ext.Window, {
                         fieldLabel : '地区维度<span style="color:red;font-weight:bold" data-qtip="Required">*</span>',
                         listeners: {
                             select : function(combo, record, index){
-                                beforeMeaClose(this.id);
-                                objDistrictDim.reload({params : {
-                                    link_id : record.get('link_id')
-                                }});
-                                var districtObject = Ext.getCmp('district_object_table');
-                                districtObject.setValue(record.get('link_id'));
+                                // beforeMeaClose(this.id);
+                                // objDistrictDim.reload({params : {
+                                //     link_id : record.get('link_id')
+                                // }});
+                                // var districtObject = Ext.getCmp('district_object_table');
+                                // districtObject.setValue(record.get('link_id'));
+                                console.info(record);
+                                Ext.getCmp('objDistrictDimSet_desc').setValue(record.data.link_name);
                             }
                         },
                         name : 'obj_district_id',
