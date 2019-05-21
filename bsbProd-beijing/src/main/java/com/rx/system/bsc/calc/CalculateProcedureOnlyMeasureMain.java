@@ -19,7 +19,6 @@ import com.rx.system.bsc.service.impl.BscProjectServiceImpl;
 import com.rx.system.bsc.service.impl.DataSourceConfigServiceImpl;
 import com.rx.system.bsc.service.impl.DimLinkServiceImpl;
 import com.rx.system.domain.DimLink;
-import com.sun.media.jfxmedia.logging.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
