@@ -23,7 +23,7 @@ public class DataSource implements IDataSource {
 
     private String obj_column;
 
-	public String getDistrictColumn() {
+	public String getDistrict_column() {
 		return district_column;
 	}
 
@@ -96,4 +96,6 @@ public class DataSource implements IDataSource {
 	public String getObjColumnName() {
 		return this.obj_column;
 	}
+
+	public String getDistrictColumn() {return this.district_column;}
 }

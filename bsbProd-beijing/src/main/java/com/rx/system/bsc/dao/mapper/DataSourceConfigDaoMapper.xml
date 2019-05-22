@@ -32,9 +32,9 @@
 	<!-- 添加基础数据源 -->
 	<insert id="addDataSource" parameterType="DataSource">
 		insert into bsc_datasource
-  			   (source_id, source_name, source_expression, obj_cate_id, obj_column)
+  			   (source_id, source_name, source_expression, obj_cate_id, obj_column,district_column)
 		values
-  		      (#{source_id},#{source_name},#{source_expression},#{obj_cate_id},#{obj_column})
+  		      (#{source_id},#{source_name},#{source_expression},'BM',#{obj_column},#{district_column})
 	</insert>
 	
 	<!-- 修改数据源信息 -->
@@ -42,8 +42,9 @@
 		update bsc_datasource  
 		set source_name = #{source_name},
 			source_expression = #{source_expression},
-			obj_cate_id = #{obj_cate_id},
-			obj_column = #{obj_column}
+			<!--obj_cate_id = #{obj_cate_id},-->
+			obj_column = #{obj_column},
+			district_column = #{district_column}
 		where source_id = #{source_id}
 	</update>
 	
@@ -64,7 +65,8 @@
 		d.source_expression,
 		d.obj_cate_id,
 		c.obj_cate_desc,
-		d.obj_column
+		d.obj_column,
+		d.district_column
 		from bsc_datasource d left outer join bsc_obj_cate c on
 		d.obj_cate_id = c.obj_cate_id
 		where 1=1

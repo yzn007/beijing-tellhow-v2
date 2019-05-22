@@ -98,6 +98,7 @@ AddDataSourceWindow = Ext.extend(Ext.Window, {
 						}
 					}
 				},{xtype:'combo',
+					hidden:true,
 				   fieldLabel:'对象类型',
 				   name:'obj_cate_name',
 				   hiddenName:'obj_cate_id',
@@ -114,10 +115,15 @@ AddDataSourceWindow = Ext.extend(Ext.Window, {
 				   mode:'local',
 				   anchor:'95%'
 				},{xtype:'textfield',
-				   fieldLabel:'对象字段名',
+				   fieldLabel:'对象维度字段',
 				   name:'obj_column',
 				   anchor:'95%'
-				},{
+				},{xtype:'textfield',
+                    fieldLabel:'地区维度字段',
+                    name:'district_column',
+                    anchor:'95%',
+                    allowBlank: false,
+                },{
 					xtype: 'textarea',
 					name: 'source_expression',
 					id: 'source_expression',
@@ -244,6 +250,7 @@ EditDataSourceWindow = Ext.extend(Ext.Window, {
 					}
 				},{
 					xtype: 'combo',
+					hidden:true,
 					fieldLabel:'对象类型',
 					id:'edit_obj_cate_id',
 					hiddenName:'obj_cate_id',
@@ -256,10 +263,16 @@ EditDataSourceWindow = Ext.extend(Ext.Window, {
 					anchor: '95%',
 					value:'2222'
 				},{xtype:'textfield',
-				   fieldLabel:'对象字段名',
+				   fieldLabel:'对象维度字段',
 				   name:'obj_column',
 				   anchor:'95%'
-				   },{
+				   },
+                    {xtype:'textfield',
+                        fieldLabel:'地区维度字段',
+                        name:'district_column',
+                        anchor:'95%',
+                        allowBlank: false,
+                    },{
 					xtype: 'textarea',
 					name: 'source_expression',
 					id: 'source_expression',
