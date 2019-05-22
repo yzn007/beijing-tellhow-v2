@@ -579,14 +579,14 @@ function addProject() {
                 name : 'obj_district_id',
                 id : 'districtDimension',			//地区维度
                 anchor : '95%',
-                listeners: {
-                    select : function(combo, record, index){
-                        beforeObjClose();
-                        objDimDS.reload({params : {
-                                link_id : record.get('link_id')
-                            }})
-                    }
-                },
+                // listeners: {
+                //     select : function(combo, record, index){
+                //         beforeObjClose();
+                //         objDimDS.reload({params : {
+                //                 link_id : record.get('link_id')
+                //             }})
+                //     }
+                // },
             },
             {
                 xtype : 'hidden',
