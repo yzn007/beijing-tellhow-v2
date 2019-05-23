@@ -83,7 +83,18 @@ var souceTopbar = [{
 	    		deleteSourceRecord(record.get('source_id'));
 	    });
 	}
-},'->','搜索:',{
+}
+	,'-', {
+		id : 'import_menu',
+		text : '导入(i)',
+		tooltip : '导入数据源',
+		iconCls : 'importdata',
+		handler : function() {
+			doImport();
+		}
+	}
+
+,'->','搜索:',{
 	xtype: 'textfield',
 	id: 'searchKey',
 	emptyText : '请输入数据源ID或者名称...',
@@ -128,6 +139,114 @@ var sourceGridPanel = new Ext.grid.GridPanel({
 	})*/
 });
 
+/**
+ * 导入数据源
+ */
+function doImport(){
+	var importWindow = new ImportWindow();
+	importWindow.show();
+}
+ImportWindow = Ext.extend(Ext.Window, {
+	title : '导入数据源窗口',
+	width : 330,
+	height : 200,
+	layout : 'fit',
+	plain : true,
+	modal : true,
+	bodyStyle : 'padding:10px;',
+	buttonAlign : 'center',
+	id : 'importWindow',
+	listeners : {
+		close : function() {
+			Ext.getCmp("importWindow").destroy();
+		}
+	},
+	initComponent : function() {
+
+		Ext.applyIf(this, {
+			items : [{
+				xtype : 'form',
+				region : 'center',
+				id : 'importForm',
+				width : 300,
+				bodyStyle : 'padding:10px;10px;55px;10px',
+				border : false,
+				labelWidth : 80,
+				labelAlign : 'left',
+				layout : 'form',
+				url : pathUrl + '/datasourceconfig_importFromExcel.action',
+				timeout : 60000,
+				fileUpload: true,
+				items : [
+					{
+						id : 'template_id',
+						fieldLabel : '模板下载',
+						anchor : '95%',
+						// title: '模板下载',
+						width: '80%',
+						html: '<a href="'+pathUrl + '/datasourceconfig_importTemplateDownload.action" >'+'下载导入模板</a>'
+					},
+					{
+						id:'file',
+						anchor : '95%',
+						xtype : 'textfield',
+						allowBlank :false,
+						// width:"90%",
+						blankText:"请选择文件",
+						inputType:'file'//文件组件
+					}
+				],
+				buttons:[{
+					text : '提交',
+					handler : function() {
+						var formPanel = Ext.getCmp('importForm');
+						if(formPanel.form.isValid()){
+							var file=formPanel.form.findField("file");
+							var str = file.getValue();
+							var filename=str;
+							str = str.substr(str.indexOf('.'),str.length - 1);
+							if("" == str || str==".exe") {
+								Ext.MessageBox.alert("提示","文件不能为空或者以.exe结尾！");
+								return;
+							}
+							formPanel.form.submit({
+								// type:'ajax',
+								params:{fileName:filename},
+								method : 'POST',
+								waitMsg: '正在提交数据...',
+								success: function(form, action){
+									console.info(action);
+									Ext.Msg.alert('信息',action.result.info);
+									sourceStore.load();
+									Ext.getCmp('importWindow').destroy();
+								},
+								failure: function(form, action){
+									Ext.Msg.alert('失败', '指标导入失败！');
+									Ext.getCmp('importWindow').destroy();
+								}
+							});
+						}else{
+							Ext.MessageBox.alert("提示信息",'请选择导入的数据文件！');
+						}
+
+					}
+				},{
+					text : '取消',
+					handler : function() {
+						Ext.getCmp('importWindow').destroy();
+					}
+				}]
+			}]}
+		)
+		ImportWindow.superclass.initComponent.call(this);
+	}
+});
+
+function showResponse(responseText, statusText, xhr, $form){
+	if(responseText.status == "0"){
+		alert(responseText.msg);
+	}
+}
 
 //数据源字段Store
 var sourceFieldStore = new Ext.data.GroupingStore({

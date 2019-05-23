@@ -211,6 +211,7 @@
 	<!-- new 数据源配置action -->
 	<bean id="dataSourceConfigAction" class="com.rx.system.bsc.action.DataSourceConfigAction" scope="prototype">
 		<property name="dataSourceConfigService" ref="dataSourceConfigService"></property>
+		<property name="selectorService" ref="selectorService"></property>
 	</bean>
 	
 	<!-- bsc数据源字段维护Action -->

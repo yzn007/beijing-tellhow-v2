@@ -547,7 +547,7 @@ Ext.onReady(function() {
 			region : 'north',
 			frame : true,
 			border : false,
-			height : 160,
+			height : 110,
 			labelWidth : 33,
 //			buttonAlign : 'right',
 			layout : {

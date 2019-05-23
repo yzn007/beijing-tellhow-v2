@@ -1,14 +1,31 @@
 package com.rx.system.bsc.action;
 
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.text.DateFormat;
+import java.util.*;
 
 import com.rx.log.annotation.FunDesc;
 import com.rx.log.annotation.UseLog;
 import com.rx.system.base.BaseDispatchAction;
 import com.rx.system.bsc.service.IDataSourceConfigService;
+import com.rx.system.constant.Constant;
+import com.rx.system.domain.BscMeasure;
 import com.rx.system.domain.DataSource;
+import com.rx.system.model.excel.utils.ExcelUtil;
+import com.rx.system.service.ISelectorService;
 import com.rx.system.util.GlobalUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.entity.ContentType;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.struts2.ServletActionContext;
+import org.json.JSONObject;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * bsc_datasource:数据源配置
@@ -20,6 +37,12 @@ import com.rx.system.util.GlobalUtil;
 public class DataSourceConfigAction extends BaseDispatchAction {
 
     private IDataSourceConfigService dataSourceConfigService = null;
+
+    private ISelectorService selectorService = null;
+
+    public void setSelectorService(ISelectorService selectorService) {
+        this.selectorService = selectorService;
+    }
 
     /**
      * 添加数据源
@@ -306,4 +329,201 @@ public class DataSourceConfigAction extends BaseDispatchAction {
 			doFailureInfoResponse("不存在该数据源名称");
 		return null;
 	}
+
+    @FunDesc(code="BSC_0034")
+    @UseLog
+    public String importTemplateDownload() throws Exception {
+        String webBasePath = "";
+        String filename = "importDataSouceTemplate.xlsx";
+        try{
+            ServletActionContext.getServletContext();
+            webBasePath = ServletActionContext.getServletContext().getRealPath("/");
+        }catch (NullPointerException nullEx){
+            webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
+        }
+
+        String localFileName =  webBasePath + Constant.UPLOAD_DIR +filename;
+
+        File fileSave = new File(localFileName);
+        FileInputStream fileInputStream = new FileInputStream(fileSave);
+
+        Workbook wb = null;
+        try{
+            wb = new XSSFWorkbook(fileInputStream);
+            response.reset();
+            response.setContentType("application/x-download");
+            response.setCharacterEncoding("UTF-8");
+            response.setHeader("Content-Disposition", "attachment; filename="
+                    + java.net.URLEncoder.encode(filename, "utf-8"));
+            OutputStream out = response.getOutputStream();
+            try {
+                wb.write(out);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (out != null) {
+                    try {
+                        out.flush();
+                        out.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+//				wb.destroy();
+            }
+            return "excelDownload";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private File file ;
+    private String contentType;
+    private String fileName;
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String importFromExcel() throws Exception {
+        String webBasePath = "";
+        String filename = "数据源导入模板上传.xlsx";
+        Map <String,Object> paramMap = getRequestParam(request);
+
+        try{
+            ServletActionContext.getServletContext();
+            webBasePath = ServletActionContext.getServletContext().getRealPath("/");
+        }catch (NullPointerException nullEx){
+            webBasePath = "D:\\泰豪\\git\\new\\beijing-tellhow-v2\\bsbProd-beijing\\src\\main\\webapp\\";
+        }
+
+        String localFileName =  webBasePath + Constant.FILE_UPLOAD_DIR +"\\"+ DateFormat.getDateInstance().format(new Date())+"_"+filename;
+        //上传到服务器目录
+        if(file.isFile()){
+            //定义并初始化io流的读写操作
+            BufferedInputStream bis = new BufferedInputStream(
+                    new FileInputStream(file));
+            BufferedOutputStream bos = null;
+            try {
+                bos = new BufferedOutputStream(new FileOutputStream(localFileName));
+                // 从源文件中取数据，写到目标文件中
+                byte[] buff = new byte[8192];
+                for (int len = -1; (len = bis.read(buff)) != -1;) {
+                    bos.write(buff, 0, len);
+                }
+                bos.flush();
+            } catch (IOException ie) {
+                ie.printStackTrace();
+            } finally {
+                if (bis != null) {
+                    try {
+                        bis.close();
+                    } catch (IOException ie) {
+                        ie.printStackTrace();
+                    }
+                }
+                if (bos != null) {
+                    try {
+                        bos.close();
+                    } catch (IOException ie) {
+                        ie.printStackTrace();
+                    }
+                }
+            }
+        }
+
+        File fileSave = new File(localFileName);
+        FileInputStream fileInputStream = new FileInputStream(fileSave);
+        MultipartFile multipartFile = new MockMultipartFile(fileSave.getName(),fileSave.getName(),
+                ContentType.APPLICATION_OCTET_STREAM.toString(), fileInputStream);
+
+        int beginRowIndex = 4;
+        int cellType = 1;
+        Workbook wookbook = null;
+
+        try{
+            //wookbook = new HSSFWorkbook(fileInputStream);
+            wookbook = new XSSFWorkbook(fileInputStream);
+            cellType = HSSFCell.CELL_TYPE_STRING;
+            List<BscMeasure> listMeasure = ExcelUtil.read2003Excel(multipartFile,beginRowIndex,BscMeasure.class);
+        }catch (Exception e){
+            try{
+                fileInputStream =  new FileInputStream(fileSave);
+//				wookbook = new HSSFWorkbook(fileInputStream);
+                wookbook = new XSSFWorkbook(fileInputStream);
+                cellType = HSSFCell.CELL_TYPE_STRING;
+//				List<BscMeasure> listMeasure = ExcelUtil.read2003Excel(multipartFile,beginRowIndex,BscMeasure.class);
+            }catch (Exception ex){
+                LOG.debug(ex.toString());
+            }
+
+        }
+        List<Map<String, Object>> dataList = this.selectorService.queryForList("select '' LINK_ID," +
+                "'全部' LINK_NAME, null SOURCE_EXPRESSION ,'N' IS_TREE ,'' ID_FIELD ,'' PARENT_ID_FIELD,'' " +
+                "LABEL_FIELD,'' ROOT_VALUE from dual union select * from bsc_dim_link ");
+
+        Sheet sheet = wookbook.getSheetAt(0);
+        //开始处理上传行号-跳过标题和表头
+        int startRowNum = 3;
+        //总数
+        int totalRowNum = sheet.getLastRowNum();
+        int count = 0;
+        for(int x = startRowNum ; x <= totalRowNum ; x++){
+            Row row = sheet.getRow(x);
+            DataSource dataSource = new DataSource();
+            dataSource.setSource_id(row.getCell(1).getStringCellValue().trim()); // 数据源ID
+            dataSource.setSource_name(row.getCell(2).getStringCellValue().trim()); // 数据源名称
+            dataSource.setObj_column(row.getCell(3).getStringCellValue().trim()); // 对象维度
+            dataSource.setObj_cate_id("BM");
+            dataSource.setDistrict_column(row.getCell(4).getStringCellValue().trim()); //地区维度
+            dataSource.setSource_expression(row.getCell(5).getStringCellValue().trim()); // 表达式
+
+            if (StringUtils.isEmpty(dataSource.getSource_id()))
+                continue;
+
+            for(Map<String, Object> map:dataList) {
+                if (dataSource.getObj_column().equals(map.get("link_name"))) {
+                    dataSource.setObj_column(map.get("label_field").toString());
+                }
+            }
+            if (dataSource.getDistrict_column().equals("全国地区代码")) {
+                dataSource.setDistrict_column("Country_Region_Link");
+            } else {
+                dataSource.setDistrict_column("Zone_Cd");
+            }
+            try{this.dataSourceConfigService.addDataSource(dataSource); count++;}catch (Exception ex){}
+        }
+        doSuccessInfoResponse("成功导入" + count + "条数据");
+        return null;
+    }
+
+    protected void doSuccessInfoResponse(String info) throws Exception{
+        Map<String, Object> results = new HashMap<String, Object>();
+        results.put("success", Boolean.valueOf(true));
+        results.put("info", info);
+        response.setHeader("Content-Type", "text/html;charset = utf-8");
+        JSONObject json = new JSONObject(results);
+        response.getWriter().write(json.toString());
+    }
 }
