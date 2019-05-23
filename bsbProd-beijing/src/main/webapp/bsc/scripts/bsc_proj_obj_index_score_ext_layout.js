@@ -280,7 +280,7 @@ var objDS = new Ext.data.JsonStore({
 		load : function(store, records, options) {
 			console.info("-- objDs load--" + store.getCount())
 			if (store.getCount() > 0) {
-				objDS.insert(0, new Ext.data.Record({obj_id: '', obj_name: '全部'}));
+				//objDS.insert(0, new Ext.data.Record({obj_id: '', obj_name: '全部'}));
 				if (objID == ''){
                     if(showID == "2"){
                         setMOCmp("objSelector", '','1');
