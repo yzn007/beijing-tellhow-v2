@@ -330,6 +330,8 @@ indexDS.on("load",function(){
 			console.info('load dimSet');
 			comp.fieldLabel = '其它维度'
 			Ext.getCmp("dimSet").add(comp);
+
+			loadGridData();
 		}
 	}
 	Ext.getCmp("dimSet").doLayout(true);
@@ -421,19 +423,7 @@ gridSelector = function(obj) {
 		header : '指标名称',
 		dataIndex : 'display_field'
 	}]);
-	
-	
-	
 
-	
-	var vStore = new Ext.data.JsonStore({
-		url : pathUrl + '/bscProject_common.action?method=listExecutedIndex',
-		root : 'results',
-		id : 'value_field',
-		fields : ['value_field', 'display_field']
-	});
-	
-	
 	var showMenu = new Ext.menu.Menu({
 		items : [new Ext.grid.GridPanel({
 			tbar : [{
@@ -468,27 +458,47 @@ gridSelector = function(obj) {
 		if(this.menu == null)
 			this.menu = showMenu;
         this.menu.show(this.el, "tl-bl?");
-        if(!expanded) {
-        	expanded = true;
-        	Ext.getCmp(obj.id + "Grid").getSelectionModel().on("rowselect",function(sm,index,record){
-        		var rowVal = Ext.getCmp(obj.id).getRawValue();
-        		if(rowVal.indexOf(record.get('value_field')+",") == -1)
-        			rowVal += record.get('value_field')+",";
-        		Ext.getCmp(obj.id).setRawValue(rowVal)
-        	});
-        	Ext.getCmp(obj.id + "Grid").getSelectionModel().on("rowdeselect",function(sm,index,record){
-        		var rowVal = Ext.getCmp(obj.id).getRawValue();
-        		rowVal = rowVal.replace(record.get('value_field')+",","");
-        		Ext.getCmp(obj.id).setRawValue(rowVal)
-        	});
-            m = getMOCmpVal("monthSelector");
-			p = Ext.getCmp("projectSelector").getValue();
-
-        	vStore.load({params: {month_id : m,project_id : p}});
-        }
     };
 }
+var vStore = new Ext.data.JsonStore({
+	url : pathUrl + '/bscProject_common.action?method=listExecutedIndex',
+	root : 'results',
+	id : 'value_field',
+	fields : ['value_field', 'display_field'],
+	listeners:{
+		load : function(){
+			console.info('load vstore')
+			if(vStore.getCount() == 0) {
+				console.info('vstore empty');
+				Ext.getCmp('dimSet').hide();
+			} else {
+				Ext.getCmp('dimSet').show();
+			}
+		}
+
+	}
+});
 Ext.extend(gridSelector,Ext.form.ComboBox);
+
+function loadGridData() {
+	var id = 'index_type';
+	console.info('--xx--' + id);
+	Ext.getCmp(id + "Grid").getSelectionModel().on("rowselect",function(sm,index,record){
+		var rowVal = Ext.getCmp(id).getRawValue();
+		if(rowVal.indexOf(record.get('value_field')+",") == -1)
+			rowVal += record.get('value_field')+",";
+		Ext.getCmp(id).setRawValue(rowVal)
+	});
+	Ext.getCmp(id + "Grid").getSelectionModel().on("rowdeselect",function(sm,index,record){
+		var rowVal = Ext.getCmp(id).getRawValue();
+		rowVal = rowVal.replace(record.get('value_field')+",","");
+		Ext.getCmp(id).setRawValue(rowVal)
+	});
+	m = getMOCmpVal("monthSelector");
+	p = Ext.getCmp("projectSelector").getValue();
+
+	vStore.load({params: {month_id : m,project_id : p}});
+}
 
 function getMOC2mpVal(id,num){
     var sel = Ext.getCmp(id+num);
@@ -586,6 +596,8 @@ Ext.onReady(function() {
 										// } else {
 										//     Ext.getCmp('obj_link_id').show();
 										// }
+
+										loadGridData()
 									}
 								},
 								editable : false,
