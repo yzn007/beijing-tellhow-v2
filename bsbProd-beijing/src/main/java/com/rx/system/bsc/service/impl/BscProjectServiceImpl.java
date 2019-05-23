@@ -27,35 +27,53 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 	 * @throws Exception
 	 */
 	public void refreshProjectObjects(String projectID) throws Exception{
-		String sql = "select a.id_field,a.label_field,a.source_expression as src_sql from bsc_dim_link a, bsc_project b" +
-				" where a.link_id = b.obj_link_id and b.project_id = '"+ projectID +"'";
+		String sql = "select distinct a.id_field,a.label_field,a.source_expression as src_sql from bsc_dim_link a, bsc_project b" +
+				" where a.link_id = b.obj_link_id";
+		String sqlZero = sql;
+		if(!projectID.equals("")&&null!=projectID){
+			sql += " and b.project_id = '"+ projectID +"'";
+		}
+		boolean isExists = true;
 
 		@SuppressWarnings("unchecked")
 		List<Map<String, Object>> objDimLinkList = this.jdbcManager.queryForList(sql);
 		
-		if (objDimLinkList.size() == 0)
-			return;
+		if (objDimLinkList.size() == 0){
+			isExists = false;
+			objDimLinkList = this.jdbcManager.queryForList(sqlZero);
+			if(objDimLinkList.size() == 0)
+				return;
+		}
 
-		Map<String, Object> map = GlobalUtil.lowercaseMapKey(objDimLinkList.get(0));
-		
-		String idField 		= (String) map.get("id_field");
-		String labelField 	= (String) map.get("label_field");
-		String src_sql 		= (String) map.get("src_sql");
-		
-		
-		StringBuilder command = new StringBuilder();
-		command.append("insert into bsc_proj_obj(");
-		command.append("project_id,");
-		command.append("object_id,");
-		command.append("object_name");
-		command.append(")select");
-		command.append("'"+ projectID +"',");
-		command.append(idField + ",");
-		command.append(labelField);
-		command.append(" from (" + src_sql + ") s");
-		
 		this.jdbcManager.execute("delete from bsc_proj_obj where project_id = '" + projectID + "'");
-		this.jdbcManager.execute(command.toString());
+		for(Map objlink:objDimLinkList){
+			Map<String, Object> map = GlobalUtil.lowercaseMapKey(objlink);
+
+			String idField 		= (String) map.get("id_field");
+			String labelField 	= (String) map.get("label_field");
+			String src_sql 		= (String) map.get("src_sql");
+
+
+			StringBuilder command = new StringBuilder();
+			command.append("insert into bsc_proj_obj(");
+			command.append("project_id,");
+			command.append("object_id,");
+			command.append("object_name");
+			command.append(")select");
+			command.append("'"+ projectID +"',");
+			command.append(idField + ",");
+			command.append(labelField);
+			command.append(" from (" + src_sql + ") s");
+			try{
+				this.jdbcManager.execute(command.toString());
+			}catch (Exception e){
+				System.out.print("idField:"+idField + " ,project_id:"+ projectID);
+			}
+
+			if(isExists)
+				break;
+		}
+
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.rx.system.action.LoginAction" contentType="text/html; charset=utf-8" pageEncoding="utf-8" isELIgnored="false"%>
+﻿<%@ page language="java" import="java.util.*,com.rx.system.action.LoginAction" contentType="text/html; charset=utf-8" pageEncoding="UTF-8" isELIgnored="false"%>
 <%
 	String casUrl = (String) session.getAttribute("casUrl");
 %>
@@ -52,10 +52,10 @@
 		<div class="opt_item mpsws" style="color:#fff;font-size:14px;height: 100%;float: right;width:100px;" onclick = "logout()">
 		<div id = "log_out"  style="float: left"></div><p style="float: left;line-height: 26px;margin-left: 12px;">退出</p>
 		</div>
-		<div class="opt_item mpsws" style="color:#fff;font-size:16px;height: 100%;float: right;padding-right: 44px;" onclick="modifyPassword()">
+		<%--<div class="opt_item mpsws" style="color:#fff;font-size:16px;height: 100%;float: right;padding-right: 44px;" onclick="modifyPassword()">
 			<div id = "up_prd" style="width: 20px;height: inherit;float: left;"></div>
 			<p style="text-align: left;margin: auto 12px;float: left;font-size:14px;height: 54px;line-height: 54px;">修改密码</p>
-		</div>	
+		</div>	--%>
 		<div class="logininfo" style="height: 100%;line-height: 100%;float: right;padding-right: 44px;">
 		<p style="height: 54px;line-height: 54px;margin: auto 5px;">
 			当前用户：&nbsp;${currentUser.user_name}
