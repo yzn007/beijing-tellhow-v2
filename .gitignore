@@ -1,3 +1,5 @@
 *.war
 target
 *.jar
+
+bsbProd-beijing/.idea/*
