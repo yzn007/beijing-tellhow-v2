@@ -142,7 +142,8 @@ AddWindow = Ext.extend(Ext.Window, {
 								// var otherObject = Ext.getCmp('other_object_table');
                                 // otherObject.setValue(record.get('link_id'));
 
-                                Ext.getCmp('objDimSet_desc').setValue(record.data.link_name)
+                                Ext.getCmp('objDimSet_desc').setValue(record.data.link_name);
+                                Ext.getCmp('other_object_table').setValue(record.data.link_id);
                             }
                         },
                         name : 'obj_link_id',
@@ -177,6 +178,7 @@ AddWindow = Ext.extend(Ext.Window, {
                                 // districtObject.setValue(record.get('link_id'));
                                 console.info(record);
                                 Ext.getCmp('objDistrictDimSet_desc').setValue(record.data.link_name);
+                                Ext.getCmp('district_object_table').setValue(record.data.link_id);
                             }
                         },
                         name : 'obj_district_id',
