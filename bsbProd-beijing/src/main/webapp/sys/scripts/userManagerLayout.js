@@ -1,12 +1,14 @@
 Ext.onReady(function() {
-	var topmenu = [{
-		text : "添加(a)",
-		tooltip : "添加系统用户",
-		iconCls : 'add',
-		handler : function() {
-			addUser(store);
-		}
-	}, '-', {
+	var topmenu = [
+	// 	{
+	// 	text : "添加(a)",
+	// 	tooltip : "添加系统用户",
+	// 	iconCls : 'add',
+	// 	handler : function() {
+	// 		addUser(store);
+	// 	}
+	// }, '-',
+		{
 		text : "编辑(e)",
 		tooltip : "编辑用户",
 		iconCls : 'edit',
