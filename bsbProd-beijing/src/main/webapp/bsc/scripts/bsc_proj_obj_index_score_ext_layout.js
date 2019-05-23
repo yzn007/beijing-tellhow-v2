@@ -278,6 +278,7 @@ var objDS = new Ext.data.JsonStore({
 	fields : ['obj_id', 'obj_name'],
 	listeners : {
 		load : function(store, records, options) {
+			console.info("-- objDs load--" + store.getCount())
 			if (store.getCount() > 0) {
 				objDS.insert(0, new Ext.data.Record({obj_id: '', obj_name: '全部'}));
 				if (objID == ''){
@@ -287,8 +288,10 @@ var objDS = new Ext.data.JsonStore({
                         setMOCmp("objSelector",store.getAt(0),'2');
 					}
 				}
+				Ext.getCmp('objSelector2').show();
 			}else{
-				setMOCmp("objSelector",'',showID);
+				Ext.getCmp('objSelector2').hide();
+				//setMOCmp("objSelector",'',showID);
 			}
 		}
 	},
@@ -328,7 +331,7 @@ indexDS.on("load",function(){
 		var comp = getComponment(record);
 		if(comp != null){
 			console.info('load dimSet');
-			comp.fieldLabel = '其它维度'
+			//comp.fieldLabel = '其它维度'
 			Ext.getCmp("dimSet").add(comp);
 
 			loadGridData();
@@ -468,12 +471,6 @@ var vStore = new Ext.data.JsonStore({
 	listeners:{
 		load : function(){
 			console.info('load vstore')
-			if(vStore.getCount() == 0) {
-				console.info('vstore empty');
-				Ext.getCmp('dimSet').hide();
-			} else {
-				Ext.getCmp('dimSet').show();
-			}
 		}
 
 	}
@@ -678,14 +675,33 @@ Ext.onReady(function() {
                             }]
                         },
 						{
-							id : 'dimSet',
-							labelWidth : 64,
 							columnWidth : .25,
-							labelAlign : 'center',
-							emptyText : '其它维度',
-							anchor : '50%',
 							layout : 'form',
-							hidden: false,
+							labelWidth : 64,
+							labelAlign : 'left',
+							border : false,
+							id : "objBox2",
+							hidden : false,
+							items : [{
+								xtype : 'combo',
+								mode : 'local',
+								displayField : 'obj_name',
+								valueField : 'obj_id',
+								store : objDS,
+								editable : false,
+								triggerAction : 'all',
+								fieldLabel : '其它维度',
+								name : 'obj_id',
+								emptyText:'请选择...',
+								id : 'objSelector2',
+								anchor : '91%',
+								listeners : {
+									select : function(combo,record,index){
+										objID = '';
+										projectID = '';
+									}
+								}
+							}]
 						},
                         {
                             columnWidth : .10,
@@ -808,7 +824,7 @@ Ext.onReady(function() {
 							labelWidth : 64,
 							labelAlign : 'left',
 							border : false,
-							hidden: true,
+							hidden: false,
 							items : [{
 								xtype : 'combo',
 								mode : 'local',
@@ -835,33 +851,14 @@ Ext.onReady(function() {
 							}]
 						},
 						{
-							columnWidth : .60,
-							layout : 'form',
+							id : 'dimSet',
 							labelWidth : 64,
-							labelAlign : 'left',
-							border : false,
-							id : "objBox2",
-							hidden : true,
-							items : [{
-								xtype : 'combo',
-								mode : 'local',
-								displayField : 'obj_name',
-								valueField : 'obj_id',
-								store : objDS,
-								editable : false,
-								triggerAction : 'all',
-								fieldLabel : '统计维度',
-								name : 'obj_id',
-								emptyText:'请选择...',
-								id : 'objSelector2',
-								anchor : '91%',
-								listeners : {
-									select : function(combo,record,index){
-										objID = '';
-										projectID = '';
-									}
-								}
-							}]
+							columnWidth : .25,
+							labelAlign : 'center',
+							emptyText : '其它维度',
+							anchor : '50%',
+							layout : 'form',
+							hidden: true,
 						},
 						{
 							columnWidth : .25,
@@ -966,7 +963,7 @@ function queryResult() {
     var param = "?project_id=" + projectID + "&month_id=" + monthID
 			+ "&cycle_type_id="+cycle_type_id
 			+ "&obj_cate_id=" + objCateId + "&monthName=" + encodeURI(encodeURI(monthName))
-			+ "&measure_id=" + measure_id
+			+ "&measure_id=" + ''
 			+ "&show_id=" + showID
 			+ "&obj_id=" + objID
 			+ "&time_id=" + timID
