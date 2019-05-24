@@ -32,7 +32,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="bsc_proj_obj_index_score_ext_layout.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bsc_proj_obj_index_score_ext_layout.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="887">
@@ -87,27 +87,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PublicMeasureDaoMapper.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PublicMeasureDaoMapper.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/PublicMeasureDaoMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="144" column="24" lean-forward="true" selection-start-line="144" selection-start-column="24" selection-end-line="144" selection-end-column="24" />
+            <state relative-caret-position="483">
+              <caret line="144" column="19" lean-forward="false" selection-start-line="144" selection-start-column="19" selection-end-line="144" selection-end-column="19" />
               <folding>
-                <marker date="1558678923824" expanded="true" signature="304:373" ph="select measu... bsc_measure" />
-                <marker date="1558678923824" expanded="true" signature="451:1577" ph="insert into bsc_measure... " />
-                <marker date="1558678923824" expanded="true" signature="1658:2169" ph="update bsc_m... " />
-                <marker date="1558678923824" expanded="true" signature="2259:2516" ph="update bsc_m... " />
-                <marker date="1558678923824" expanded="true" signature="2599:2686" ph="delete from " />
-                <marker date="1558678923824" expanded="true" signature="3274:4285" ph="select a.*, bsc_measure" />
-                <marker date="1558678923824" expanded="true" signature="3390:3511" ph="select paren... bsc_measure" />
-                <marker date="1558678923824" expanded="true" signature="4405:4560" ph="select a.* f... bsc_measure" />
-                <marker date="1558678923824" expanded="true" signature="4663:4740" ph="select param... bsc_parameter" />
-                <marker date="1558678923824" expanded="true" signature="4830:4926" ph="insert into bsc_measure_exe... " />
-                <marker date="1558678923824" expanded="true" signature="5019:5081" ph="delete from " />
-                <marker date="1558678923824" expanded="true" signature="5178:5240" ph="delete from " />
-                <marker date="1558678923824" expanded="true" signature="5335:5451" ph="insert into bsc_measure_param... " />
-                <marker date="1558678923824" expanded="true" signature="5547:5616" ph="select count... bsc_measure" />
-                <marker date="1558678923824" expanded="true" signature="5700:5772" ph="select count... bsc_measure" />
+                <marker date="1558680790437" expanded="true" signature="304:373" ph="select measu... bsc_measure" />
+                <marker date="1558680790437" expanded="true" signature="451:1577" ph="insert into bsc_measure... " />
+                <marker date="1558680790437" expanded="true" signature="1658:2169" ph="update bsc_m... " />
+                <marker date="1558680790437" expanded="true" signature="2259:2516" ph="update bsc_m... " />
+                <marker date="1558680790437" expanded="true" signature="2599:2686" ph="delete from " />
+                <marker date="1558680790437" expanded="true" signature="3274:4367" ph="select a.*, bsc_measure" />
+                <marker date="1558680790437" expanded="true" signature="3390:3511" ph="select paren... bsc_measure" />
+                <marker date="1558680790437" expanded="true" signature="4487:4642" ph="select a.* f... bsc_measure" />
+                <marker date="1558680790437" expanded="true" signature="4745:4822" ph="select param... bsc_parameter" />
+                <marker date="1558680790437" expanded="true" signature="4912:5008" ph="insert into bsc_measure_exe... " />
+                <marker date="1558680790437" expanded="true" signature="5101:5163" ph="delete from " />
+                <marker date="1558680790437" expanded="true" signature="5260:5322" ph="delete from " />
+                <marker date="1558680790437" expanded="true" signature="5417:5533" ph="insert into bsc_measure_param... " />
+                <marker date="1558680790437" expanded="true" signature="5629:5698" ph="select count... bsc_measure" />
+                <marker date="1558680790437" expanded="true" signature="5782:5854" ph="select count... bsc_measure" />
               </folding>
             </state>
           </provider>
@@ -2064,11 +2064,18 @@
       <option name="project" value="LOCAL" />
       <updated>1558596757980</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="修改方案其它维度为空时，只能选择指标其它维度为空的指标">
+      <created>1558679468116</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1558679468116</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="887097000" />
+    <option name="totallyTimeSpent" value="888368000" />
   </component>
   <component name="TodoView" selected-index="1">
     <todo-panel id="selected-file">
@@ -2081,7 +2088,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2096,14 +2102,14 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35737705" sideWeight="0.5136157" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35737705" sideWeight="0.5136157" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3229508" sideWeight="0.5181543" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="WINDOWED" visible="false" show_stripe_button="true" weight="0.38683787" sideWeight="0.46769458" order="2" side_tool="false" content_ui="tabs" x="1" y="33" width="1362" height="694" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -2226,7 +2232,8 @@
     <MESSAGE value="添加方案维度为空结果查询不到问题修复" />
     <MESSAGE value="用户新增和修改密码功能屏蔽" />
     <MESSAGE value="添加指标选择其它维度后建立方案过滤维度不出来bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="添加指标选择其它维度后建立方案过滤维度不出来bug" />
+    <MESSAGE value="修改方案其它维度为空时，只能选择指标其它维度为空的指标" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改方案其它维度为空时，只能选择指标其它维度为空的指标" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2783,30 +2790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/PublicMeasureDaoMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="144" column="24" lean-forward="true" selection-start-line="144" selection-start-column="24" selection-end-line="144" selection-end-column="24" />
-          <folding>
-            <marker date="1558678923824" expanded="true" signature="304:373" ph="select measu... bsc_measure" />
-            <marker date="1558678923824" expanded="true" signature="451:1577" ph="insert into bsc_measure... " />
-            <marker date="1558678923824" expanded="true" signature="1658:2169" ph="update bsc_m... " />
-            <marker date="1558678923824" expanded="true" signature="2259:2516" ph="update bsc_m... " />
-            <marker date="1558678923824" expanded="true" signature="2599:2686" ph="delete from " />
-            <marker date="1558678923824" expanded="true" signature="3274:4285" ph="select a.*, bsc_measure" />
-            <marker date="1558678923824" expanded="true" signature="3390:3511" ph="select paren... bsc_measure" />
-            <marker date="1558678923824" expanded="true" signature="4405:4560" ph="select a.* f... bsc_measure" />
-            <marker date="1558678923824" expanded="true" signature="4663:4740" ph="select param... bsc_parameter" />
-            <marker date="1558678923824" expanded="true" signature="4830:4926" ph="insert into bsc_measure_exe... " />
-            <marker date="1558678923824" expanded="true" signature="5019:5081" ph="delete from " />
-            <marker date="1558678923824" expanded="true" signature="5178:5240" ph="delete from " />
-            <marker date="1558678923824" expanded="true" signature="5335:5451" ph="insert into bsc_measure_param... " />
-            <marker date="1558678923824" expanded="true" signature="5547:5616" ph="select count... bsc_measure" />
-            <marker date="1558678923824" expanded="true" signature="5700:5772" ph="select count... bsc_measure" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/bsc/scripts/bsc_proj_obj_index_score_ext_layout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="887">
@@ -2814,6 +2797,30 @@
           <folding>
             <marker date="1558679342731" expanded="true" signature="230:232" ph="[...]" />
             <marker date="1558679342731" expanded="true" signature="27931:28143" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/rx/system/bsc/dao/mapper/PublicMeasureDaoMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="144" column="19" lean-forward="false" selection-start-line="144" selection-start-column="19" selection-end-line="144" selection-end-column="19" />
+          <folding>
+            <marker date="1558680790437" expanded="true" signature="304:373" ph="select measu... bsc_measure" />
+            <marker date="1558680790437" expanded="true" signature="451:1577" ph="insert into bsc_measure... " />
+            <marker date="1558680790437" expanded="true" signature="1658:2169" ph="update bsc_m... " />
+            <marker date="1558680790437" expanded="true" signature="2259:2516" ph="update bsc_m... " />
+            <marker date="1558680790437" expanded="true" signature="2599:2686" ph="delete from " />
+            <marker date="1558680790437" expanded="true" signature="3274:4367" ph="select a.*, bsc_measure" />
+            <marker date="1558680790437" expanded="true" signature="3390:3511" ph="select paren... bsc_measure" />
+            <marker date="1558680790437" expanded="true" signature="4487:4642" ph="select a.* f... bsc_measure" />
+            <marker date="1558680790437" expanded="true" signature="4745:4822" ph="select param... bsc_parameter" />
+            <marker date="1558680790437" expanded="true" signature="4912:5008" ph="insert into bsc_measure_exe... " />
+            <marker date="1558680790437" expanded="true" signature="5101:5163" ph="delete from " />
+            <marker date="1558680790437" expanded="true" signature="5260:5322" ph="delete from " />
+            <marker date="1558680790437" expanded="true" signature="5417:5533" ph="insert into bsc_measure_param... " />
+            <marker date="1558680790437" expanded="true" signature="5629:5698" ph="select count... bsc_measure" />
+            <marker date="1558680790437" expanded="true" signature="5782:5854" ph="select count... bsc_measure" />
           </folding>
         </state>
       </provider>
