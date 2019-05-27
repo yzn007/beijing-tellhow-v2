@@ -242,15 +242,20 @@ public class BscResultServiceImpl extends BaseService implements IBscResultServi
 	private void add_measure_case_sql(Map<String, Object> paramMap){
 		List<Map<String, Object>> measureList = (List<Map<String, Object>>)paramMap.get("measureList");
 		String case_sql = "";
+		String case_sql_n = "";//指标计算用
 		for (int i = 0; i < measureList.size(); i++) {
 			Map<String, Object> map = measureList.get(i);
 			String measure_id = getStringValue(map,"measure_id");
 			String source_id = getStringValue(map,"source_id");
-			case_sql += "max(case when b.measure_id ='"+measure_id+"' and b.source_id = '"+ source_id +"' then b.value else 0 end) as col_"+i;
-			if(i != measureList.size()-1)
+			case_sql += "max(case when b.measure_id ='"+measure_id+"' then b.value else 0 end) as col_"+i;
+			case_sql_n += "max(case when b.measure_id ='"+measure_id+"' and b.source_id = '"+ source_id +"' then b.value else 0 end) as col_"+i;
+			if(i != measureList.size()-1){
 				case_sql += ",";
+				case_sql_n += ",";
+			}
 		}
 		paramMap.put("case_sql", case_sql);
+		paramMap.put("case_sql_n",case_sql_n);
 	}
 	/**
 	 * 查询各考核对象的方案得分

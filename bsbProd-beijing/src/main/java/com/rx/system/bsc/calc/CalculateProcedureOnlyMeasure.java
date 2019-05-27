@@ -611,10 +611,14 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         String expression = dataSource.getExpression().toUpperCase();
         if (expression.indexOf("'[%MONTHID]'") != -1 &&
                 expression.indexOf("WHERE") != -1  ){
+            String strMark = "WHERE";
+            if(expression.indexOf(" AND") != -1){
+                strMark = " AND";
+            }
             List<String> mothns = new ArrayList<String>();
-            String expressionNoConf = expression.substring(0,expression.indexOf("WHERE"));
+            String expressionNoConf = expression.substring(0,expression.indexOf(strMark));
             List<Map> sourceDatas = getDataSourceValues(measure.getSourceId(),expressionNoConf);
-            monthPlace = expression.substring(expression.indexOf("WHERE") + 5,expression.indexOf("'[%MONTHID]'"));
+            monthPlace = expression.substring(expression.indexOf(strMark) + strMark.length(),expression.indexOf("'[%MONTHID]'"));
             String key = monthPlace.trim().substring(0,monthPlace.trim().length()-1).trim();
 //            sourceDatas.stream().forEach(s->{if(!mothns.contains("'"+s.get(key).toString()+"'")) {mothns.add("'"+s.get(key).toString()+"'");}});
             sourceDatas.stream().filter(s->!mothns.contains("'"+s.get(key).toString()+"'")).forEach(s->mothns.add("'"+s.get(key).toString()+"'"));
@@ -640,15 +644,20 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         try{
             this.jdbcManager.execute("select " + exprDistrictID + " from (" + v_sourceExpr + ") a");
         }catch (Exception e){
-            isExistsCol = false;
-            System.out.print(e.toString());
+            try{
+                this.jdbcManager.execute("select region_cd from (" + v_sourceExpr + ") a");
+            }catch (Exception ex){
+                isExistsCol = false;
+                System.out.print(e.toString());
+            }
         }
         String sqlStat = "insert into "+this.resultTable+" (month_id,date,measure_id,object_id,district_id,value)" +
                 "select distinct " +
                 "m."+  noEqMonthPlace +" as month_id,'" + dateFrm +
                 "'			 as date," +
                 "'" + exprMeasureID + "' as measure_id," +
-                "m."   + exprObjectID+ " as object_id," +
+                (!"".equals(exprObjectID)?
+                               "m."   + exprObjectID:"''")+ " as object_id," +
                 (isExistsCol?"m."   + exprDistrictID: "''") +" as district_id," +
                  "ifnull(sum(" + exprValue + "),0) as value " +
                 "from (" + v_sourceExpr
@@ -681,7 +690,8 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             sqlStat	= sqlStat + " where 1=1";
         }
 
-        sqlStat = sqlStat +  " group by m. " + exprObjectID + ",m." + noEqMonthPlace + (isExistsCol? ",m." + exprDistrictID:"");
+        sqlStat = sqlStat +  " group by "+(!"".equals(exprObjectID)?   "m. " + exprObjectID + ",":"")
+                + "m." + noEqMonthPlace + (isExistsCol? ",m." + exprDistrictID:"");
 
         return sqlStat;
     }

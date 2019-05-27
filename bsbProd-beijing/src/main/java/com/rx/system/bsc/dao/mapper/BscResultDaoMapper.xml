@@ -219,8 +219,8 @@
 		group by j.obj_id,j.obj_name
 		UNION
 		select t.object_id as obj_id, concat('[',t.object_id,']',' ',t.object_name) as object_name ,concat(max(substr(COALESCE (b.month_id,#{year_id}),1,4)),'年') as month_name
-		<if test="case_sql != null and case_sql != ''">
-			,${case_sql}
+		<if test="case_sql_n != null and case_sql_n != ''">
+			,${case_sql_n}
 		</if>
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
@@ -450,8 +450,8 @@
 		group by c.cycle_id
 		union
 		select b.month_id as month_id, concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') as month_name,max(t.object_name) as object_name
-		<if test="case_sql != null and case_sql != ''">
-			,${case_sql}
+		<if test="case_sql_n != null and case_sql_n != ''">
+			,${case_sql_n}
 		</if>
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
@@ -510,8 +510,8 @@
 		group by j.obj_id,j.obj_name
 		UNION
 		select t.object_id as obj_id, concat('[',t.object_id,']',' ',t.object_name) as object_name ,concat(max(substr(COALESCE (b.month_id,#{year_id}),1,4)),'年') as month_name
-		<if test="case_sql != null and case_sql != ''">
-			,${case_sql}
+		<if test="case_sql_n != null and case_sql_n != ''">
+			,${case_sql_n}
 		</if>
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
@@ -552,8 +552,8 @@
 		group by c.cycle_id
 		union
 		select b.month_id as month_id, concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') as month_name,max(t.object_name) as object_name
-		<if test="case_sql != null and case_sql != ''">
-			,${case_sql}
+		<if test="case_sql_n != null and case_sql_n != ''">
+			,${case_sql_n}
 		</if>
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
