@@ -248,7 +248,8 @@ public class BscResultServiceImpl extends BaseService implements IBscResultServi
 			String measure_id = getStringValue(map,"measure_id");
 			String source_id = getStringValue(map,"source_id");
 			case_sql += "max(case when b.measure_id ='"+measure_id+"' then b.value else 0 end) as col_"+i;
-			case_sql_n += "max(case when b.measure_id ='"+measure_id+"' and b.source_id = '"+ source_id +"' then b.value else 0 end) as col_"+i;
+			case_sql_n += "max(case when b.measure_id ='"+measure_id+"' and "+
+					(!"".equals(source_id)?"b.source_id = '"+ source_id + "'" :"(b.source_id is null or b.source_id = '')")+" then b.value else 0 end) as col_"+i;
 			if(i != measureList.size()-1){
 				case_sql += ",";
 				case_sql_n += ",";

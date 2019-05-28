@@ -666,7 +666,8 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 "m."+  noEqMonthPlace +" as month_id,'" + dateFrm +
                 "'			 as date," +
                 "'" + exprMeasureID + "' as measure_id," +
-                "m."   + exprObjectID+ " as object_id," +
+                (!"".equals(exprObjectID)?
+                        "m."   + exprObjectID:"''")+ " as object_id," +
                 (isExistsCol?"m."   + exprDistrictID: "''") +" as district_id," +
                 "ifnull(sum(" + exprValue + "),0) as value " +
                 "from (" + v_sourceExpr
@@ -699,7 +700,8 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             sqlStat	= sqlStat + " where 1=1";
         }
 
-        sqlStat = sqlStat +  " group by m. " + exprObjectID + ",m." + noEqMonthPlace + (isExistsCol? ",m." + exprDistrictID:"");
+        sqlStat = sqlStat +  " group by "+(!"".equals(exprObjectID)?   "m. " + exprObjectID + ",":"")
+                + "m." + noEqMonthPlace + (isExistsCol? ",m." + exprDistrictID:"");
 
         return sqlStat;
     }
