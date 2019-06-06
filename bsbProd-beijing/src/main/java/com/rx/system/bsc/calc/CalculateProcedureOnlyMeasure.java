@@ -394,76 +394,105 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
     protected void executeProjectMeasure() throws Exception{
         //日
         String dateFrm = this.date;
-        String bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
-        List<Map<String, Object>> projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+        String bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"'";
+        int cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        String bsc_sql = "";
+        List<Map<String, Object>> projMeaCommandList = null;
+        final int perProc = 1000;
+        for(int k = 0;k<cnt;k=k+perProc){
+            bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm
+                    +"' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>"+String.valueOf(k)+ " and rw <=" + String.valueOf(k+perProc);
+            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
 
-        //执行积分公式SQL日
-        for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
-            Map<String, Object> map = projMeaCommandList.get(i);
-            String command = String.valueOf(map.get("exe_command".toUpperCase()));
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+            //执行积分公式SQL日
+            for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
+                Map<String, Object> map = projMeaCommandList.get(i);
+                String command = String.valueOf(map.get("exe_command".toUpperCase()));
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
 
-            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                return;
+                if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                    return;
+                }
+                this.status.setIndex(++runStep);
+                this.status.updateLogExecutInfo("正在计算方案日指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+                this.session.setAttribute("status", this.status);
             }
-            this.status.setIndex(++runStep);
-            this.status.updateLogExecutInfo("正在计算方案日指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
-            this.session.setAttribute("status", this.status);
         }
+
         //月
         dateFrm = this.date.substring(0,7);
-        bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
-        projMeaCommandList.clear();
-        projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
-        for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
-            Map<String, Object> map = projMeaCommandList.get(i);
-            String command = String.valueOf(map.get("exe_command".toUpperCase()));
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+        bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"'";
+        cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        for(int k = 0;k<cnt;k=k+perProc){
+//            bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
+            bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm
+                    +"' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>"+String.valueOf(k)+ " and rw <=" + String.valueOf(k+perProc);
+            projMeaCommandList.clear();
+            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+            for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
+                Map<String, Object> map = projMeaCommandList.get(i);
+                String command = String.valueOf(map.get("exe_command".toUpperCase()));
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
 
-            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                return;
+                if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                    return;
+                }
+                this.status.setIndex(++runStep);
+                this.status.updateLogExecutInfo("正在计算方案月指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+                this.session.setAttribute("status", this.status);
             }
-            this.status.setIndex(++runStep);
-            this.status.updateLogExecutInfo("正在计算方案月指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
-            this.session.setAttribute("status", this.status);
         }
+
         //季
         dateFrm = getSeasonString(this.date);
-        bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
-        projMeaCommandList.clear();
-        projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
-        for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
-            Map<String, Object> map = projMeaCommandList.get(i);
-            String command = String.valueOf(map.get("exe_command".toUpperCase()));
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+        bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"'";
+        cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        for(int k = 0;k<cnt;k=k+perProc){
+//            bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
+            bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm
+                    +"' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>"+String.valueOf(k)+ " and rw <=" + String.valueOf(k+perProc);
+            projMeaCommandList.clear();
+            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+            for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
+                Map<String, Object> map = projMeaCommandList.get(i);
+                String command = String.valueOf(map.get("exe_command".toUpperCase()));
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
 
-            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                return;
+                if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                    return;
+                }
+                this.status.setIndex(++runStep);
+                this.status.updateLogExecutInfo("正在计算方案季指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+                this.session.setAttribute("status", this.status);
             }
-            this.status.setIndex(++runStep);
-            this.status.updateLogExecutInfo("正在计算方案季指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
-            this.session.setAttribute("status", this.status);
         }
+
         //年
         dateFrm = this.date.substring(0,4);
-        bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
-        projMeaCommandList.clear();
-        projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
-        for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
-            Map<String, Object> map = projMeaCommandList.get(i);
-            String command = String.valueOf(map.get("exe_command".toUpperCase()));
-            command = this.replaceContextVar(command);
-            this.jdbcManager.execute(command);
+        bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"'";
+        cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        for(int k = 0;k<cnt;k=k+perProc){
+//            bsc_sql = "select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' order by exe_order_id";
+            bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm
+                    +"' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>"+String.valueOf(k)+ " and rw <=" + String.valueOf(k+perProc);
+            projMeaCommandList.clear();
+            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+            for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
+                Map<String, Object> map = projMeaCommandList.get(i);
+                String command = String.valueOf(map.get("exe_command".toUpperCase()));
+                command = this.replaceContextVar(command);
+                this.jdbcManager.execute(command);
 
-            if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                return;
+                if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
+                    return;
+                }
+                this.status.setIndex(++runStep);
+                this.status.updateLogExecutInfo("正在计算方案年指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
+                this.session.setAttribute("status", this.status);
             }
-            this.status.setIndex(++runStep);
-            this.status.updateLogExecutInfo("正在计算方案年指标值......("+ (i+1) +"/"+projMeaCommandList.size()+")");
-            this.session.setAttribute("status", this.status);
         }
     }
 
@@ -642,10 +671,10 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         //判断是否存在该列
         boolean isExistsCol = true;
         try{
-            this.jdbcManager.execute("select " + exprDistrictID + " from (" + v_sourceExpr + ") a");
+            this.jdbcManager.execute("select " + exprDistrictID + " from (" + v_sourceExpr + ") a limit 1");
         }catch (Exception e){
             try{
-                this.jdbcManager.execute("select region_cd from (" + v_sourceExpr + ") a");
+                this.jdbcManager.execute("select region_cd from (" + v_sourceExpr + ") a limit 1");
             }catch (Exception ex){
                 isExistsCol = false;
                 System.out.print(e.toString());
@@ -878,12 +907,12 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
 
         StringBuilder sb = new StringBuilder();
         sb.append("insert into " +this.bsc_proj_mea_obj_val_measure+" (month_id,date,measure_id,object_id,district_id,value,source_id)\n");
-        sb.append("select ");
+        sb.append("select distinct ");
         sb.append("c.month_id as month_id,");
         sb.append("coalesce(c.date,DATE_FORMAT(SYSDATE(),'%Y-%m-%d'))	as date,");
         sb.append("'"+ measure.getMeasureId() + "' as measure_id,");
-        sb.append("m.object_id  as object_id,\n");
-        sb.append("m.object_id  as district_id,\n");
+        sb.append("c.object_id  as object_id,\n");
+        sb.append("c.district_id  as district_id,\n");
         sb.append("c.value as value, \n");
         sb.append("a.source_id \n");
         sb.append("from bsc_measure a ");
@@ -891,11 +920,12 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
         sb.append(this.resultTable + " c ");
         sb.append("on c.measure_id =  a.measure_id");
         sb.append(" left join (" + sqlsel + ") m ");
-        sb.append("on c.object_id = m.object_id ");
+        sb.append("on c.object_id = m.object_id or (c.district_id = m.object_id and c.object_id != c.district_id)");
 //        sb.append(" left join (" + sqlsel + ") n ");
 //        sb.append("on c.district_id = n.object_id ");
         sb.append(" where a.measure_id='" + measure.getMeasureId() + "'");
         sb.append(" and c.date = '"+dateFrm+"'");
+        sb.append(" and length(c.month_id)<=6");
 
         return sb.toString();
     }
@@ -1018,7 +1048,7 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
             dateFrm = this.date.substring(0,4);
         }
         String sql = "insert into " +this.bsc_proj_val_cmd_measure+"(date,measure_id,exe_order_id,exe_command) "
-                +"values('"+this.date+"','"+measure.getMeasureId()+"','1','"+command.replaceAll("'", "''")+"')";
+                +"values('"+dateFrm+"','"+measure.getMeasureId()+"','1','"+command.replaceAll("'", "''")+"')";
         this.jdbcManager.execute(sql);
     }
 

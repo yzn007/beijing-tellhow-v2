@@ -1,5 +1,7 @@
 package com.rx.system.bsc.calc.service;
 
+import com.rx.system.domain.BscMeasure;
+
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +27,21 @@ public interface IMeasureService {
 	 * @throws Exception
 	 */
 	public List<IMeasure> getValidMeasure() throws Exception;
+
+	/**
+	 * 取得运行的有效指标-分页
+	 * @param m
+	 * @return
+	 * @throws Exception
+	 */
+	public List<IMeasure> getValidMeasureMap(Map m) throws Exception;
+
+	/**
+	 * 取得指标计算总数
+	 * @return
+	 * @throws Exception
+	 */
+	public int getValidMeasureCount() throws Exception;
 	
 	/**
 	 * 获取指标计算依赖的指标

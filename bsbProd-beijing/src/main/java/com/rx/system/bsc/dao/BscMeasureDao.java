@@ -36,4 +36,20 @@ public interface BscMeasureDao {
 	 * @throws Exception
 	 */
 	public List<IMeasure> getValidMeasure() throws Exception;
+
+	/**
+	 * 取得运行的有效指标-分页
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public List<IMeasure> getValidMeasureMap(Map map) throws Exception;
+
+	/**
+	 * 取得指标计算总数
+	 * @return
+	 * @throws Exception
+	 */
+	public int getValidMeasureCount() throws Exception;
+
 }

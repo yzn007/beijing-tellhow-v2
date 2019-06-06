@@ -141,7 +141,7 @@
 				and (a.source_type_id = '03'or a.districtobjecttable = '${dimension}' or a.otherobjecttable = '${dimension}')
 			</when>
 			<when test="(dimension == null or dimension == '') and countperiod != null and countperiod != ''">
-				and (a.source_type_id = '03' or trim(a.otherobjecttable) = '')
+				and (a.source_type_id = '03' or trim(a.otherobjecttable) = '' or a.otherobjecttable is null)
 			</when>
 		</choose>
 		   order by a.inner_level_order,a.measure_id

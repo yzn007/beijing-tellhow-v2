@@ -12,13 +12,62 @@
 		order by exe_order_id
 	</select>
 
+	<!-- 分页查询数据Sql头 -->
+	<sql id="pageDataHeader">
+		<if test="endrow != null and endrow != ''">
+		select * from (select  t1.*,@rw:=@rw+1 rw from (
+		</if>
+	</sql>
+
+	<!-- 分页查询数据Sql尾 -->
+	<sql id="pageDataEnd">
+		<if test="endrow != null and endrow != ''">
+		) t1 ,(select @rw:=0) r) tt where rw >#{start} <![CDATA[ and rw<= #{endrow}]]>
+		</if>
+	</sql>
+
+	<!-- 获取所有需要计算的有效指标====调试模式 ===limit 5000 -->
+	<select id="getValidMeasure" parameterType="map" resultType="BscMeasure">
+
+		select * from (
+			select a.*
+			from bsc_measure a join bsc_datasource b on a.SOURCE_ID = b.SOURCE_ID
+			where a.source_type_id != '03' and a.formula_expr is not null
+			union
+			select a.* from bsc_measure a where a.source_type_id = '01' and a.formula_expr is not null and a.formula_expr!='') bb  limit 5000
+
+
+	</select>
+
 	<!-- 获取所有需要计算的有效指标====调试模式 ===limit 6 -->
-	<select id="getValidMeasure" resultType="BscMeasure">
+	<select id="getValidMeasureMap" parameterType="map" resultType="BscMeasure">
+
+		<include refid="pageDataHeader"/>
+
+		select * from (SELECT* from (select a.*
+		from (
+		select * from bsc_measure a where  exists (select 1 from bsc_measure_exe e where e.MEASURE_ID = a.MEASURE_ID or e.RELY_MEASURE_ID = a.MEASURE_ID)
+		) a left join bsc_datasource b on a.SOURCE_ID = b.SOURCE_ID
+		where a.source_type_id != '03' and a.formula_expr is not null and trim(a.formula_expr) != '' order by a.source_type_id) a
+		union
+		select a.*
+		from (
+		select * from bsc_measure a where not exists (select 1 from bsc_measure_exe e where e.MEASURE_ID = a.MEASURE_ID or e.RELY_MEASURE_ID = a.MEASURE_ID)
+		) a join bsc_datasource b on a.SOURCE_ID = b.SOURCE_ID  and a.source_id is not null and trim(a.source_id)!=''
+		where a.source_type_id != '03' and a.formula_expr is not null) bb  -- limit 4000
+
+		<include refid="pageDataEnd"/>
+
+	</select>
+
+	<!--获取所有需要计算的有效指标总数 -->
+	<select id="getValidMeasureCount" resultType="int">
+		select count(1) from (
 		select a.*
 		from bsc_measure a join bsc_datasource b on a.SOURCE_ID = b.SOURCE_ID
 		where a.source_type_id != '03' and a.formula_expr is not null
-	  	union
-		select a.* from bsc_measure a where a.source_type_id = '01' and a.formula_expr is not null and a.formula_expr!=''
+		union
+		select a.* from bsc_measure a where a.source_type_id = '01' and a.formula_expr is not null and a.formula_expr!='') bb limit 5000
 	</select>
 
 	

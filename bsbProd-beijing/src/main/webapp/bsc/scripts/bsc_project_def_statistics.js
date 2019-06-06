@@ -600,7 +600,7 @@ function addProject() {
             },
             {
 			xtype : 'combo',
-			store : dimensionStore,
+			store : dimensionOtherStore,
 			valueField : 'link_id',
 			displayField : 'link_name',
 			mode : 'local',
@@ -816,7 +816,7 @@ function editProject(record) {
             },
             {
                 xtype: 'combo',
-                store: districtDimensionStore,
+                store: dimensionStore,
                 valueField: 'link_id',
                 displayField: 'link_name',
                 mode: 'local',

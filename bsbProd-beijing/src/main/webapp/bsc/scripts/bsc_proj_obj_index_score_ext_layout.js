@@ -669,7 +669,7 @@ Ext.onReady(function() {
                                         objID = '';
                                         projectID = '';
                                         district_id = record.get('value_field');
-                                        projectStore.reload();
+                                        // projectStore.reload();
                                     }
                                 }
                             }]
@@ -955,6 +955,8 @@ function queryResult() {
 		return;
 	if(showID =='1'){
         objID = Ext.getCmp("objSelector2").getValue();
+        if(Ext.getCmp('objSelector2').hidden )
+        	objID = "";
         monthID = Ext.getCmp("monthSelector2").code || '';
 	}else{
         objID = Ext.getCmp("objSelector1").code || '';
@@ -1020,7 +1022,7 @@ function load(path) {
 
 function toVar(){
 	showID = Ext.getCmp("showSelector").getValue();
-	measure_id=Ext.getCmp("index_type").getValue();
+	measure_id=Ext.getCmp("index_type")!=undefined?Ext.getCmp("index_type").getValue():'';
 	monthID = Ext.getCmp("monthSelector1").getValue();
 	projectID = Ext.getCmp("projectSelector").getValue();
 //	measure_id=Ext.getCmp("indexSelector").getValue();

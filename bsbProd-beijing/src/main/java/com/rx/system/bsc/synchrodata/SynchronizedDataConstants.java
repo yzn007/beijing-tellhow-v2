@@ -3,6 +3,8 @@ package com.rx.system.bsc.synchrodata;
 
 import org.apache.axis2.addressing.EndpointReference;
 
+import java.util.*;
+
 /**
  * 
  * 修改备注：    
@@ -27,7 +29,27 @@ public class SynchronizedDataConstants {
 
 //	public final static String SOAP_WSDL_ADDRESS = "http://192.166.162.148:18001/portal/intlDataSynchronizedService?wsdl";
 
-	public final static String SOAP_WSDL_ADDRESS = "http://172.26.52.167:18001/portal/intlDataSynchronizedService?wsdl";
+	public static List<String> getPropertyValueByKey(String propertyName,String k) {
+		// 获得资源包
+		ResourceBundle rb = ResourceBundle.getBundle(propertyName.trim());
+		// 通过资源包拿到所有的key
+		Enumeration<String> allKey = rb.getKeys();
+		// 遍历key 得到 value
+		List<String> valList = new ArrayList<String>();
+		while (allKey.hasMoreElements()) {
+			String key = allKey.nextElement();
+			if(key.equals(k)){
+				String value = (String) rb.getString(key);
+				valList.add(value);
+				break;
+			}
+		}
+		return valList;
+	}
+
+	public final static String SOAP_WSDL_ADDRESS = getPropertyValueByKey("spring.jdbc_oracle_local","wsdl.ip")!=null?
+			getPropertyValueByKey("spring.jdbc_oracle_local","wsdl.ip").get(0):
+			"http://172.26.52.167:18001/portal/intlDataSynchronizedService?wsdl";
 
 	public final static String SOAP_TARGET_NAMESPACE = "http://internal.synchrodata.security.portal.quick.com/";
 	

@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!DOCTYPE project [
+        <!ELEMENT project (modelVersion|groupId|artifactId|version|packaging|name|url|properties|dependencies|profiles|build)*>
+        <!ATTLIST project
+                xmlns CDATA #REQUIRED
+                xmlns:xsi CDATA #REQUIRED
+                xsi:schemaLocation CDATA #REQUIRED>
+        <!ELEMENT modelVersion (#PCDATA)>
+        <!ELEMENT groupId (#PCDATA)>
+        <!ELEMENT artifactId (#PCDATA)>
+        <!ELEMENT version (#PCDATA)>
+        <!ELEMENT packaging (#PCDATA)>
+        <!ELEMENT name (#PCDATA)>
+        <!ELEMENT url (#PCDATA)>
+        <!ELEMENT properties (project.build.sourceEncoding|springversion|axis2.version|junitversion|maven.compiler.source|maven.compiler.target|prefix.revision.timestamp|maven.build.timestamp.format|profiles.active|cas.server.ip)*>
+        <!ELEMENT project.build.sourceEncoding (#PCDATA)>
+        <!ELEMENT springversion (#PCDATA)>
+        <!ELEMENT axis2.version (#PCDATA)>
+        <!ELEMENT junitversion (#PCDATA)>
+        <!ELEMENT maven.compiler.source (#PCDATA)>
+        <!ELEMENT maven.compiler.target (#PCDATA)>
+        <!ELEMENT prefix.revision.timestamp (#PCDATA)>
+        <!ELEMENT maven.build.timestamp.format (#PCDATA)>
+        <!ELEMENT dependencies (dependency)*>
+        <!ELEMENT dependency (groupId|artifactId|version|scope|systemPath)*>
+        <!ELEMENT scope (#PCDATA)>
+        <!ELEMENT systemPath (#PCDATA)>
+        <!ELEMENT profiles (profile)*>
+        <!ELEMENT profile (id|properties|activation)*>
+        <!ELEMENT id (#PCDATA)>
+        <!ELEMENT profiles.active (#PCDATA)>
+        <!ELEMENT cas.server.ip (#PCDATA)>
+        <!ELEMENT activation (activeByDefault)*>
+        <!ELEMENT activeByDefault (#PCDATA)>
+        <!ELEMENT build (finalName|pluginManagement|plugins|resources)*>
+        <!ELEMENT finalName (#PCDATA)>
+        <!ELEMENT pluginManagement (plugins)*>
+        <!ELEMENT plugins (plugin)*>
+        <!ELEMENT plugin (artifactId|version|configuration|groupId)*>
+        <!ELEMENT configuration (source|target|encoding|compilerArguments|webResources)*>
+        <!ELEMENT source (#PCDATA)>
+        <!ELEMENT target (#PCDATA)>
+        <!ELEMENT encoding (#PCDATA)>
+        <!ELEMENT compilerArguments (extdirs)*>
+        <!ELEMENT extdirs (#PCDATA)>
+        <!ELEMENT webResources (resource)*>
+        <!ELEMENT resource (directory|targetPath|filtering|includes|excludes)*>
+        <!ELEMENT directory (#PCDATA)>
+        <!ELEMENT targetPath (#PCDATA)>
+        <!ELEMENT filtering (#PCDATA)>
+        <!ELEMENT includes (include)*>
+        <!ELEMENT include (#PCDATA)>
+        <!ELEMENT resources (resource)*>
+        <!ELEMENT excludes (exclude)*>
+        <!ELEMENT exclude (#PCDATA)>
+        ]>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>

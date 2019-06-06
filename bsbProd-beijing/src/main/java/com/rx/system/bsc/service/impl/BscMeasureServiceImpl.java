@@ -2,6 +2,7 @@ package com.rx.system.bsc.service.impl;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,16 @@ public class BscMeasureServiceImpl extends BaseService implements IMeasureServic
 	@Override
 	public List<IMeasure> getValidMeasure() throws Exception {
 		return this.bscMeasureDao.getValidMeasure();
+	}
+
+	@Override
+	public List<IMeasure> getValidMeasureMap(Map m) throws Exception {
+		return this.bscMeasureDao.getValidMeasureMap(m);
+	}
+
+	@Override
+	public int getValidMeasureCount() throws Exception {
+		return this.bscMeasureDao.getValidMeasureCount();
 	}
 
 	/**

@@ -98,7 +98,12 @@
 		select distinct r.month_id as month_id,concat(substr(r.month_id,1,4),'年') as month_name from (select * from bsc_project p where PROJECT_ID =  #{project_id}) p
  left join bsc_proj_obj o on p.PROJECT_ID = o.PROJECT_ID
 and p.PROJECT_ID = #{project_id}
-left join (select * from bsc_result_measure )r on r.OBJECT_ID = o.OBJECT_ID  JOIN
+left join (select DISTINCT a.* from (select * from
+ bsc_result_measure where measure_id in (select measure_id from bsc_proj_mea where project_id = #{project_id}))  a join (select p.project_id, p.obj_link_id,o.object_id,m.measure_id from bsc_project p join bsc_proj_obj o  on o.project_id = p.project_id
+and p.project_id = #{project_id} join bsc_proj_mea m on m.project_id = p.project_id) p on  p.measure_id = a.measure_id  WHERE  case when p.obj_link_id is null or p.obj_link_id = '' then  a.district_id = p.object_id else
+a.object_id = p.object_id end
+  )r on case when p.obj_link_id is null or p.obj_link_id = ''
+ then r.district_id = o.object_id else r.OBJECT_ID = o.OBJECT_ID end  JOIN
 bsc_proj_mea m on p.project_id = m.PROJECT_ID and m.measure_id = r.measure_id and r.value >0
 		) u
 		order by u.month_id desc
