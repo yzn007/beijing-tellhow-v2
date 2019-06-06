@@ -258,7 +258,16 @@ public class CalculateProcedureOnlyMeasure extends Thread implements Procedure{
     }
 
     protected void parseProjectMeasure(List<IMeasure> projMeasures) throws Exception{
-        this.jdbcManager.execute("delete from " +this.bsc_proj_val_cmd_measure+" where date='"+this.date+"'");
+        //删除日数据
+        String dateFrm = this.date;
+        this.jdbcManager.execute("delete from " +this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"'" );
+        dateFrm = this.date.substring(0,7);
+        this.jdbcManager.execute("delete from " +this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"'" );
+        dateFrm = getSeasonString(this.date);
+        this.jdbcManager.execute("delete from " +this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"'" );
+        dateFrm = this.date.substring(0,4);
+        this.jdbcManager.execute("delete from " +this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"'" );
+
         for (int i = 0; i < projMeasures.size() && this.run; i++) {
             IMeasure map = projMeasures.get(i);
             String meausre_id = map.getMeasureId();
