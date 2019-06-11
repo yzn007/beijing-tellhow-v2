@@ -16,6 +16,8 @@ public interface IPublicMeasureService {
 	 * @throws Exception
 	 */
 	public void addEngMeasure(Map<String, Object> paramMap) throws Exception;
+
+	public void engMeasureExeProc(Map<String, Object> paramMap) throws Exception;
 	
 	/**
 	 * 编辑指标
@@ -23,6 +25,8 @@ public interface IPublicMeasureService {
 	 * @throws Exception
 	 */
 	public void editEngMeasure(Map<String, Object> paramMap) throws Exception;
+
+	public void editEngMeasureExeProc(Map<String, Object> paramMap) throws Exception;
 	
 	/**
 	 * 编辑指标公式
@@ -40,14 +44,14 @@ public interface IPublicMeasureService {
 	
 	/**
 	 * 获取基础指标列表
-	 * @param measure
+	 * @param paramMap
 	 * @throws Exception
 	 */
 	public List<Map<String, Object>> listBaseEngMeasure(Map<String, Object> paramMap) throws Exception;
 	
 	/**
 	 * 获取私有指标列表
-	 * @param measure
+	 * @param paramMap
 	 * @throws Exception
 	 */
 	public List<Map<String, Object>> listEngMeasure(Map<String, Object> paramMap) throws Exception;

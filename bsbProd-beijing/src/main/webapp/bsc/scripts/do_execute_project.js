@@ -162,6 +162,7 @@ function doExecuteMeasure() {
                 format: 'Y-m-d',
                 allowBlank : false,
 				maxValue:new Date(),
+					editable: false,
 				width:250,
 				listeners: {
                     "select": function () {

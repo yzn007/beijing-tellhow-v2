@@ -137,6 +137,9 @@
 			and (a.source_type_id = '03'or a.countperiod = '${countperiod}')
 		</if>
 		<choose>
+			<when test="dimension != null and dimension != '' and (district != null and district != '')">
+				and (a.source_type_id = '03'or a.districtobjecttable = '${district}' or a.otherobjecttable = '${dimension}')
+			</when>
 			<when test="dimension != null and dimension != ''">
 				and (a.source_type_id = '03'or a.districtobjecttable = '${dimension}' or a.otherobjecttable = '${dimension}')
 			</when>

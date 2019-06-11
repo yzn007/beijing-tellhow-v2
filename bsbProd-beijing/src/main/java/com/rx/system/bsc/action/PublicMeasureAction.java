@@ -27,6 +27,8 @@ public class PublicMeasureAction extends BaseDispatchAction {
 	private static Map<String, Object> serviceMethodMapping = new HashMap<String, Object>();
 
 	static {
+		serviceMethodMapping.put("engMeasureExeProc", "engMeasureExeProc@BSC_0131");
+		serviceMethodMapping.put("editEngMeasureExeProc", "editEngMeasureExeProc@BSC_0131");
 		serviceMethodMapping.put("addEngMeasure", "addEngMeasure@BSC_0131");
 		serviceMethodMapping.put("editEngMeasure", "editEngMeasure@BSC_0132");
 		serviceMethodMapping.put("deleteEngMeasure", "deleteEngMeasure@BSC_0133");

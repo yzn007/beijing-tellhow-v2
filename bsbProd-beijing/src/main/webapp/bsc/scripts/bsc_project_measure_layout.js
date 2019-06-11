@@ -15,7 +15,7 @@ var projectDS = new Ext.data.JsonStore({
 	root : 'results',
 	id : 'project_id',
 	totalProperty : 'totalCount',
-	fields : ['project_id', 'project_name', 'app_type_id', 'is_template', 'role_id','role_name', 'obj_cate_id', 'cycle_type_id','full_score','icon','obj_link_name','obj_link_id']
+	fields : ['project_id', 'project_name', 'app_type_id', 'is_template', 'role_id','role_name', 'obj_cate_id', 'cycle_type_id','full_score','icon','obj_link_name','obj_link_id','district_id']
 });
 
 // //对象维度
@@ -240,7 +240,7 @@ Ext.onReady(function() {
 						var record = projectDS.getById(projectID);
 						isTemplate = (record.get('is_template') == 'Y');
 						cycleTypeID = record.get('cycle_type_id');
-						dimension = record.get('obj_link_id');
+						dimension = record.get('obj_link_id')+","+record.get("district_id");
 						
 						project_id_hidden = projectID,
 						project_name_hidden = projectName,

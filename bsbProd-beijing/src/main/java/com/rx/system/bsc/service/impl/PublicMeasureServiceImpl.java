@@ -42,6 +42,17 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 		paramMap.put("objDimSet",paramMap.get(paramMap.get("obj_link_id")));//其它维度
 		paramMap.put("objDistrictDimSet",paramMap.get(paramMap.get("obj_district_id")));//地区维度
 		this.publicMeasureDao.addEngMeasure(paramMap);
+//		this.jdbcManager.execute("call pbsc_measure_cascade()");
+//		this.jdbcManager.execute("call pbsc_measure_order()");
+	}
+
+	/**
+	 * 指标添加或删除后更新存储过程
+	 * @param paramMap
+	 * @throws Exception
+	 */
+	public void engMeasureExeProc(Map<String, Object> paramMap) throws Exception {
+		Thread.sleep(2000);
 		this.jdbcManager.execute("call pbsc_measure_cascade()");
 		this.jdbcManager.execute("call pbsc_measure_order()");
 	}
@@ -52,9 +63,21 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 	 * @throws Exception
 	 */
 	public void editEngMeasure(Map<String, Object> paramMap) throws Exception {
+		Thread.sleep(2000);
 		this.publicMeasureDao.editEngMeasure(paramMap);
+//		this.jdbcManager.execute("call pbsc_measure_order()");
+	}
+	/**
+	 * 编辑指标后调用存储过程
+	 * @param paramMap
+	 * @throws Exception
+	 */
+	@Override
+	public void editEngMeasureExeProc(Map<String, Object> paramMap) throws Exception {
 		this.jdbcManager.execute("call pbsc_measure_order()");
 	}
+
+
 	
 	/**
 	 * 编辑指标公式
@@ -172,8 +195,8 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 //		}
 		this.publicMeasureDao.removeDependMeasure(paramMap);
 		this.publicMeasureDao.deleteEngMeasure(paramMap);
-		this.jdbcManager.execute("call pbsc_measure_cascade()");
-		this.jdbcManager.execute("call pbsc_measure_order()");
+//		this.jdbcManager.execute("call pbsc_measure_cascade()");
+//		this.jdbcManager.execute("call pbsc_measure_order()");
 		resultMap.put("success",Boolean.valueOf(true));
 		return resultMap;
 	}
@@ -185,6 +208,14 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 	 */
 	public List<Map<String, Object>> listBaseEngMeasure(Map<String, Object> paramMap) throws Exception {
 		paramMap.put("is_private", "0");
+		String dimensionvalues = getStringValue(paramMap,"dimension");
+		String []objOths;
+		if(dimensionvalues.indexOf(",")>0){
+			objOths = dimensionvalues.split(",");
+			paramMap.put("district",objOths[0]);
+			paramMap.put("dimension",objOths[1]);
+		}
+
 		return toLowerMapList(this.publicMeasureDao.listEngMeasure(paramMap));
 	}
 	
@@ -195,6 +226,14 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 	 */
 	public List<Map<String, Object>> listEngMeasure(Map<String, Object> paramMap) throws Exception {
 		paramMap.put("is_private", "1");
+		String dimensionvalues = getStringValue(paramMap,"dimension");
+		String []objOths;
+		if(dimensionvalues.indexOf(",")>0){
+			objOths = dimensionvalues.split(",");
+
+			paramMap.put("dimension",objOths[0]);
+			paramMap.put("district",objOths[1]);
+		}
 		return toLowerMapList(this.publicMeasureDao.listEngMeasure(paramMap));
 	}
 	

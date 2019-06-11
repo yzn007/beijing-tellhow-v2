@@ -269,6 +269,11 @@ AddWindow = Ext.extend(Ext.Window, {
 								Ext.getCmp("addWindow").destroy();
 							}
 						});
+                        //调用添加指标存储过程
+                        Ext.Ajax.request({
+                            url : pathUrl + '/publicMeasure_common.action?method=engMeasureExeProc',
+                            method : 'POST'
+                        });
 					} else {
 						Ext.MessageBox.alert('错误', '请填写必输项！');
 					}
@@ -705,8 +710,14 @@ EditWindow = Ext.extend(Ext.Window, {
 												+ nodeID
 									});
 									Ext.getCmp("editWindow").destroy();
+                                    //调用编辑指标存储过程
+                                    Ext.Ajax.request({
+                                        url : pathUrl + '/publicMeasure_common.action?method=editEngMeasureExeProc',
+                                        method : 'POST'
+                                    });
 								}
 							});
+
 						}
 
 					} else {
@@ -983,6 +994,11 @@ function doDeleteMeasure(n) {
 									}
 								}
 							});
+                            //调用删除指标存储过程
+                            Ext.Ajax.request({
+                                url : pathUrl + '/publicMeasure_common.action?method=engMeasureExeProc',
+                                method : 'POST'
+                            });
 						}
 					});
 					}

@@ -342,7 +342,16 @@ public class SelectorAction extends BaseDispatchAction {
 			sb.append(" and countperiod = '"+period+"'");
 		}
 		if(!"".equals(dimension) && null != dimension){
-			sb.append(" and( districtobjecttable = '"+dimension+"' or otherobjecttable ='" +dimension+"') ");
+			String []objOths = {};
+			if(dimension.indexOf(",")>0){
+				objOths = dimension.split(",");
+			}
+			if(objOths.length>0 && !"".equals(objOths[1])){
+				sb.append(" and( districtobjecttable = '"+objOths[1]+"' or otherobjecttable ='" +objOths[0]+"') ");
+			}else{
+				sb.append(" and( districtobjecttable = '"+dimension+"' or otherobjecttable ='" +dimension+"') ");
+			}
+
 		}
 		sb.append(" order by global_order_id");
 
