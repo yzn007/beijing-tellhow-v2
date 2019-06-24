@@ -33,6 +33,11 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 		if(!projectID.equals("")&&null!=projectID){
 			sql += " and b.project_id = '"+ projectID +"'";
 		}
+		sql  += " union select distinct a.id_field,a.label_field,a.source_expression as src_sql from bsc_dim_link a, bsc_project b" +
+				" where a.link_id = b.district_id";
+		if(!projectID.equals("")&&null!=projectID){
+			sql += " and b.project_id = '"+ projectID +"'";
+		}
 		boolean isExists = true;
 
 		@SuppressWarnings("unchecked")
@@ -46,6 +51,7 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 		}
 
 		this.jdbcManager.execute("delete from bsc_proj_obj where project_id = '" + projectID + "'");
+		int i=0;
 		for(Map objlink:objDimLinkList){
 			Map<String, Object> map = GlobalUtil.lowercaseMapKey(objlink);
 
@@ -70,7 +76,7 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 				System.out.print("idField:"+idField + " ,project_id:"+ projectID);
 			}
 
-			if(isExists)
+			if(isExists && i++>0)
 				break;
 		}
 
@@ -100,8 +106,12 @@ public class BscProjectServiceImpl extends BaseService implements IBscProjectSer
 			String month_name = "";
 			if(month_id.length()==4){
 				month_name = month_id+"年";
-			}else {
+			}else if(month_id.length()==5){
+				month_name = month_id.substring(0, 4)+"年"+month_id.substring(4)+"季度";
+			}else if(month_id.length()==6){
 				month_name = month_id.substring(0, 4)+"年"+month_id.substring(4)+"月";
+			}else{
+				month_name = month_id.substring(0, 4)+"年"+month_id.substring(5,7)+"月"+month_id.substring(8,10)+"日";
 			}
 			map.put("month_name", month_name);
 		}

@@ -450,7 +450,12 @@
 		</if>
 		group by c.cycle_id
 		union
-		select b.month_id as month_id, concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') as month_name,t.object_name as object_name
+		select b.month_id as month_id, case length(b.month_id) when 4 then concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年')
+																  when 6 then concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年',substr(b.month_id,5,2),'月')
+																  when 5 then concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年',substr(b.month_id,5,1),'季度')
+																  else concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年',substr(b.month_id,6,2),'月',substr(b.month_id,9,2),'日') end
+		<!--concat(substr(COALESCE (b.month_id,#{year_id}),1,4),'年') -->
+		as month_name,t.object_name as object_name
 		<if test="case_sql_n != null and case_sql_n != ''">
 			,${case_sql_n}
 		</if>
@@ -464,8 +469,8 @@
 			#{year_id} is not null then  month_id = #{year_id}
 		</if>
 		when ${oId} is not null then
-		object_id in (${oId}) else null is null end and value >0) b on b.district_id = t.OBJECT_ID and
-		case when b.object_id is not null and trim(b.object_id) != '' then  b.OBJECT_ID = t.OBJECT_ID  else 1=1 end
+		object_id in (${oId}) else null is null end and value >0) b on (b.district_id = t.OBJECT_ID or
+		case when b.object_id is not null and trim(b.object_id) != '' then  b.OBJECT_ID = t.OBJECT_ID  else 1=1 end)
 		and b.MEASURE_ID = m.MEASURE_ID
 		where t.project_id = #{project_id} and b.month_id is not null
 		<if test="tId != null and tId != ''">

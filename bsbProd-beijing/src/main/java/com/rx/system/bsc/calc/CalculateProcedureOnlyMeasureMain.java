@@ -326,7 +326,13 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             String command = this.parseMeasure(measure);
             if("".equals(command)||null==command)
                 continue;
-            insertExeCommand(measure, command,i+1);
+            try {
+                insertExeCommand(measure, command, i + 1);
+            }catch (Exception e){
+                System.out.println("error:"+measure.getMeasureName()+"*"+command);
+//                continue;
+            }
+//            insertExeCommand(measure, command,i+1);
             measureCache.put(measure.getMeasureId(), measure);
 
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
@@ -487,6 +493,8 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
 
     @SuppressWarnings("unchecked")
     protected void executeProjectMeasure() throws Exception{
+        //未执行的
+        List<String> listNoExe = new ArrayList<>();
         //日
         String dateFrm = this.date;
         String bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"' and rowmark='" +start+ "'" ;
@@ -503,10 +511,16 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                try {
+                    this.jdbcManager.execute(command);
+
+                }catch (Exception e){
+                    Thread.sleep(50);
+                    listNoExe.add(command);
+                }
 
                 if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                    return;
+//                    return;
                 }
                 this.status.setIndex(++runStep);
                 this.status.updateLogExecutInfo("正在计算方案日指标值......("+ (k+i+1) +"/"+cnt+")"+start);
@@ -526,10 +540,15 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                try {
+                    this.jdbcManager.execute(command);
+                    Thread.sleep(50);
+                }catch (Exception e){
+                    listNoExe.add(command);
+                }
 
                 if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                    return;
+//                    return;
                 }
                 this.status.setIndex(++runStep);
                 this.status.updateLogExecutInfo("正在计算方案月指标值......("+ (k+i+1) +"/"+cnt+")"+start);
@@ -549,10 +568,15 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                try {
+                    this.jdbcManager.execute(command);
+                    Thread.sleep(50);
+                }catch (Exception e){
+                    listNoExe.add(command);
+                }
 
                 if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                    return;
+//                    return;
                 }
                 this.status.setIndex(++runStep);
                 this.status.updateLogExecutInfo("正在计算方案季指标值......("+ (k+i+1) +"/"+cnt+")"+start);
@@ -573,10 +597,15 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                try {
+                    this.jdbcManager.execute(command);
+                    Thread.sleep(50);
+                }catch (Exception e){
+                    listNoExe.add(command);
+                }
 
                 if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
-                    return;
+//                    return;
                 }
                 this.status.setIndex(++runStep);
                 this.status.updateLogExecutInfo("正在计算方案年指标值......("+ (k+i+1) +"/"+cnt+")"+start);
@@ -584,6 +613,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             }
         }
         projMeaCommandList = null;
+        if(listNoExe.size()>0){
+            System.out.println("未执行的sql数量为："+listNoExe.size());
+        }
     }
 
     protected void archiveToHist() throws Exception{
@@ -774,6 +806,10 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         //4.1 如果存在过滤条件，则添加过滤条件
         if (null != exprFilter && !"".equals(exprFilter)) {
             sqlStat	= sqlStat + " and (" + exprFilter+") ";
+        }
+        //判断是否来自汇总表
+        if (v_formulaExpr.toLowerCase().indexOf("ix_val")>-1){
+            sqlStat += " and ix_id = '" +exprMeasureID+ "'";
         }
 
         sqlStat = sqlStat + ") m ";
@@ -1005,7 +1041,7 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         sb.append("on c.object_id = m.object_id or (c.district_id = m.object_id and c.object_id != c.district_id)");
         sb.append(" where a.measure_id='" + measure.getMeasureId() + "'");
         sb.append(" and c.date = '"+dateFrm+"'");
-        sb.append(" and length(c.month_id)<=6");
+        sb.append(" and length(c.month_id)<=10");
 
         return sb.toString();
     }

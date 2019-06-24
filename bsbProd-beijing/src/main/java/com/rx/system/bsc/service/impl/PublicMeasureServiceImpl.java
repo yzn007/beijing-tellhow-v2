@@ -210,7 +210,7 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 		paramMap.put("is_private", "0");
 		String dimensionvalues = getStringValue(paramMap,"dimension");
 		String []objOths;
-		if(dimensionvalues.indexOf(",")>0){
+		if(dimensionvalues.indexOf(",")>=0){
 			objOths = dimensionvalues.split(",");
 			paramMap.put("district",objOths[0]);
 			paramMap.put("dimension",objOths[1]);
@@ -228,7 +228,7 @@ public class PublicMeasureServiceImpl extends BaseService implements IPublicMeas
 		paramMap.put("is_private", "1");
 		String dimensionvalues = getStringValue(paramMap,"dimension");
 		String []objOths;
-		if(dimensionvalues.indexOf(",")>0){
+		if(dimensionvalues.indexOf(",")>=0){
 			objOths = dimensionvalues.split(",");
 
 			paramMap.put("dimension",objOths[0]);

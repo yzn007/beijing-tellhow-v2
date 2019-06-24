@@ -343,7 +343,7 @@ public class SelectorAction extends BaseDispatchAction {
 		}
 		if(!"".equals(dimension) && null != dimension){
 			String []objOths = {};
-			if(dimension.indexOf(",")>0){
+			if(dimension.indexOf(",")>=0){
 				objOths = dimension.split(",");
 			}
 			if(objOths.length>0 && !"".equals(objOths[1])){
