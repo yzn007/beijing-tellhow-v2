@@ -9,10 +9,12 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.rx.system.bsc.synchrodata.*;
 import com.rx.system.model.excel.StringUtil;
+import com.rx.system.service.IInitService;
 import org.apache.commons.lang3.StringUtils;
 import org.jasig.cas.client.authentication.AttributePrincipal;
 
@@ -36,6 +38,8 @@ public class LoginAction extends BaseDispatchAction {
 	private IUserService userService = null;
 	private DataStore store = null;
 	private SessionLogWriter logWriter = null;
+	private IInitService initService = null;
+
 
 	/**
 	 * Ajax登陆方法
@@ -54,7 +58,6 @@ public class LoginAction extends BaseDispatchAction {
 				user_id = "admin";
 				System.out.println("*********************取得cas用户名失败，设置为默认管理员【admin】！------------------");
 			}
-
 		}
 		//CAS
 		String password = "1";
@@ -63,6 +66,15 @@ public class LoginAction extends BaseDispatchAction {
 		Map<String, Object> results = new HashMap<String, Object>();
 		//同步用户数据
 		getUserInfo(list);
+		String jsp = "/main.jsp";
+		if(session != null){
+			 if(session.getAttribute("ticket") != null){
+				 String tk = session.getAttribute("ticket").toString();
+				  jsp = "/main.jsp?ticket="+tk;
+			 }
+
+		}
+
 
 		try {
 			//根据输入用户名查询用户列表
@@ -83,13 +95,17 @@ public class LoginAction extends BaseDispatchAction {
 			session.setAttribute("sysDate", store.getSysDate());
 			session.setAttribute("currentMonth", store.getCurrentMonth());
 			session.setAttribute("casUrl",this.getServerIp());
+
 			doSuccessInfoResponse("登陆成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 //			results.put("info", e.getMessage());
 			doFailureInfoResponse(e.getMessage());
 		}
-		return "main";
+		((HttpServletResponse)response).sendRedirect(
+				((HttpServletRequest)request).getContextPath()+jsp);
+
+		return null;
 	}
 	private String getCasLoginUsername() {
 		String username = request.getRemoteUser();
@@ -354,8 +370,6 @@ public class LoginAction extends BaseDispatchAction {
 	public void setLogWriter(SessionLogWriter logWriter) {
 		this.logWriter = logWriter;
 	}
-
-
 
 
 

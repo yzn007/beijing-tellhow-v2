@@ -204,7 +204,7 @@
 	
 	<!-- 添加用户角色 -->
 	<insert id="addUserRole" parameterType="map">
-		insert into bsc_user_info(user_id,role_id)values(#{user_id},#{role_id})
+		insert into bsc_user_role_rela(user_id,role_id)values(#{user_id},#{role_id})
 	</insert>
 	
 	<!-- 根据用户ID获取用户角色 -->

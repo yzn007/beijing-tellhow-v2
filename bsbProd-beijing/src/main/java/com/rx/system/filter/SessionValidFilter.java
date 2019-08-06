@@ -44,16 +44,29 @@ public class SessionValidFilter implements Filter {
 	public void doFilter(ServletRequest servletRequest, ServletResponse response,FilterChain chain) throws IOException, ServletException {
 
 		HttpServletRequest req = (HttpServletRequest) servletRequest;
-		HttpSession session = req.getSession(false);
+//		HttpSession session = req.getSession(false);
+		HttpSession session = req.getSession();
 		String userURI = null == req.getRequestURI() ? "" : req.getRequestURI();
 		String contextPath = req.getContextPath();
-		boolean canAnonymousAccess = (userURI.equalsIgnoreCase(contextPath))
+
+		String ticket = req.getParameter("ticket");
+		if(null != ticket && !"".equals(ticket)){
+
+			session.setAttribute("ticket",ticket);
+		}
+	/*	boolean canAnonymousAccess = (userURI.equalsIgnoreCase(contextPath))
 				|| (userURI.equalsIgnoreCase(contextPath + "/"))
 				|| (userURI.equalsIgnoreCase(contextPath + "/login_doLogin.action"))
-				|| (userURI.equalsIgnoreCase(contextPath+ "/login.jsp"));
+				|| (userURI.equalsIgnoreCase(contextPath + "/main.jsp"))
+				|| (userURI.equalsIgnoreCase(contextPath+ "/login.jsp"));*/
+
+		boolean canAnonymousAccess =(userURI.equalsIgnoreCase(contextPath + "/login_doLogin.action"));
+		System.out.println("canAnonymousAccess="+canAnonymousAccess);
+
 		if(canAnonymousAccess) {
 			chain.doFilter(req, response);
 		}else if(session == null || session.getAttribute("currentUser") == null) {
+
 			((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/login_doLogin.action");
 			return;
 		}else{
