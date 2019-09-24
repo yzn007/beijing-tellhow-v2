@@ -54,6 +54,7 @@ public class SessionValidFilter implements Filter {
 
 			session.setAttribute("ticket",ticket);
 		}
+
 	/*	boolean canAnonymousAccess = (userURI.equalsIgnoreCase(contextPath))
 				|| (userURI.equalsIgnoreCase(contextPath + "/"))
 				|| (userURI.equalsIgnoreCase(contextPath + "/login_doLogin.action"))

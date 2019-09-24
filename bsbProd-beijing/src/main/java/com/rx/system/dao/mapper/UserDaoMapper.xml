@@ -8,7 +8,6 @@
 	<sql id="pageDataHeader">
 		select * from (select  t1.*,@rw:=@rw+1 rw from (
 	</sql>
-	
 	<!-- 分页查询数据Sql尾 -->
 	<sql id="pageDataEnd">
 		

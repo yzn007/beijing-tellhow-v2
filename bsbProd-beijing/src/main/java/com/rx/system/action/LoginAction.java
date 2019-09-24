@@ -156,7 +156,6 @@ public class LoginAction extends BaseDispatchAction {
 		String retProtalUrl = path.concat("/portal");
 		String logoutUrl = casUrl.concat("/logout?service=").concat(urlEncode(retProtalUrl));
 		return logoutUrl;
-
 	}
 
 
