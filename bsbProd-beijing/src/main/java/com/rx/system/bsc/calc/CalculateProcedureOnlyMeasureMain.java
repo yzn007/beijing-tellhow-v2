@@ -140,7 +140,10 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
     protected String bsc_proj_mea_obj_val_measure = "bsc_proj_mea_obj_val_measure";//公式
     protected String bsc_proj_exe_mth_measure = "bsc_proj_exe_mth_measure";//方案执行情况
     protected String bsc_proj_val_cmd_measure = "bsc_proj_val_cmd_measure";//方案指标计算命令
-
+    public static String BSC_PROJ_VAL_CMD_MEASURE = "bsc_proj_val_cmd_measure_exe";//方案指标计算命令锁表标志
+    public static String BSC_PROJ_MEA_OBJ_VAL_MEASURE = "bsc_proj_mea_obj_val_measure_exe";//公式锁表标志
+    public static String RESULTTABLE = "bsc_result_measure_exe";//结果表锁表标志
+    public static String COMMANDTABLE = "bsc_proj_mea_cmd_measure_exe";//命令表锁表标志
     protected boolean run = true;//线程是都继续运行
 
 
@@ -361,8 +364,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
             String meausre_id = map.getMeasureId();
 
             String command = this.parseProjectMeasureFormula(map);
-            this.insertProjectMeasureCommand(map, command);
-
+            synchronized (BSC_PROJ_VAL_CMD_MEASURE) {
+                this.insertProjectMeasureCommand(map, command);
+            }
             if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
                 return;
             }
@@ -378,7 +382,10 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         //日期取得
         String dateFrm = this.date;
         String sql = "select * from " + this.commandTable + " where date= '"+dateFrm+"' and rowmark='" +start+ "' order by exe_order_id";
-        List<Map<String, Object>> lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        List<Map<String, Object>> lowMeaCommandList = null;
+        synchronized (COMMANDTABLE) {
+            lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        }
 
         if(this.status.getStatus() != ThreadStatus.STATUS_RUNNING){
             return;
@@ -391,7 +398,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 continue;
             try {
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                synchronized (RESULTTABLE) {
+                    this.jdbcManager.execute(command);
+                }
             }catch (Exception e){
                 commdFailList.add(command);
             }
@@ -408,7 +417,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         dateFrm = this.date.substring(0,7);
         sql = "select * from " + this.commandTable + " where date= '"+dateFrm+"' and rowmark='" +start+ "'  order by exe_order_id";
         lowMeaCommandList.clear();
-        lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        synchronized (COMMANDTABLE) {
+            lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        }
         for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
             Map<String, Object> map = lowMeaCommandList.get(i);
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
@@ -416,7 +427,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 continue;
             try {
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                synchronized (RESULTTABLE) {
+                    this.jdbcManager.execute(command);
+                }
             }catch (Exception e){
                 commdFailList.add(command);
             }
@@ -433,7 +446,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         dateFrm = getSeasonString(this.date);
         sql = "select * from " + this.commandTable + " where date= '"+dateFrm+"' and rowmark='" +start+ "'  order by exe_order_id";
         lowMeaCommandList.clear();
-        lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        synchronized (COMMANDTABLE) {
+            lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        }
         for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
             Map<String, Object> map = lowMeaCommandList.get(i);
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
@@ -441,7 +456,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 continue;
             try {
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                synchronized (RESULTTABLE) {
+                    this.jdbcManager.execute(command);
+                }
             }catch (Exception e){
                 commdFailList.add(command);
             }
@@ -458,7 +475,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         dateFrm = this.date.substring(0,4);
         sql = "select * from " + this.commandTable + " where date= '"+dateFrm+"' and rowmark='" +start+ "'  order by exe_order_id";
         lowMeaCommandList.clear();
-        lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        synchronized (COMMANDTABLE) {
+            lowMeaCommandList = this.jdbcManager.queryForList(sql);
+        }
         for (int i = 0; i < lowMeaCommandList.size() && this.run; i++) {
             Map<String, Object> map = lowMeaCommandList.get(i);
             String command = String.valueOf(map.get("exe_command".toUpperCase()));
@@ -466,7 +485,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
                 continue;
             try {
                 command = this.replaceContextVar(command);
-                this.jdbcManager.execute(command);
+                synchronized (RESULTTABLE) {
+                    this.jdbcManager.execute(command);
+                }
             }catch (Exception e){
                 commdFailList.add(command);
             }
@@ -482,7 +503,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         if(commdFailList.size()>0){
             for(String command:commdFailList){
                 try {
-                    this.jdbcManager.execute(command);
+                    synchronized (RESULTTABLE) {
+                        this.jdbcManager.execute(command);
+                    }
                 }catch (Exception e){
                     System.out.println("error info:{"+e.toString()+"}");
                 }
@@ -498,24 +521,34 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         //日
         String dateFrm = this.date;
         String bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"' and rowmark='" +start+ "'" ;
-        int cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+//        Thread.sleep(2000);
+        int cnt = 0;
+        synchronized(BSC_PROJ_VAL_CMD_MEASURE){
+            cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        }
         String bsc_sql = "";
         List<Map<String, Object>> projMeaCommandList = null;
         final int perProc = 1000;
         for(int k = 0;k<cnt;k=k+perProc) {
             bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " + this.bsc_proj_val_cmd_measure + " where date='" + dateFrm+"' and rowmark='" +start
                     + "' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>" + String.valueOf(k) + " and rw <=" + String.valueOf(k + perProc);
-            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+//            Thread.sleep(1000);
+            projMeaCommandList.clear();
+            synchronized (BSC_PROJ_VAL_CMD_MEASURE) {
+                projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+            }
             //执行积分公式SQL日
             for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
                 try {
-                    this.jdbcManager.execute(command);
+                    synchronized (BSC_PROJ_MEA_OBJ_VAL_MEASURE) {
+                        this.jdbcManager.execute(command);
+                    }
 
                 }catch (Exception e){
-                    Thread.sleep(50);
+//                    Thread.sleep(50);
                     listNoExe.add(command);
                 }
 
@@ -530,19 +563,26 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         //月
         dateFrm = this.date.substring(0,7);
         bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"' and rowmark='" +start+ "'" ;
-        cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+//        Thread.sleep(2000);
+        synchronized(BSC_PROJ_VAL_CMD_MEASURE){
+            cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        }
         for(int k = 0;k<cnt;k=k+perProc){
             bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' and rowmark='" +start
                     +"' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>"+String.valueOf(k)+ " and rw <=" + String.valueOf(k+perProc);
             projMeaCommandList = null;
-            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+//            Thread.sleep(1000);
+            synchronized (BSC_PROJ_VAL_CMD_MEASURE) {
+                projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+            }
             for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
                 try {
-                    this.jdbcManager.execute(command);
-                    Thread.sleep(50);
+                    synchronized (BSC_PROJ_MEA_OBJ_VAL_MEASURE) {
+                        this.jdbcManager.execute(command);
+                    }
                 }catch (Exception e){
                     listNoExe.add(command);
                 }
@@ -558,19 +598,26 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         //季
         dateFrm = getSeasonString(this.date);
         bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"' and rowmark='" +start+ "'" ;
-        cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+//        Thread.sleep(2000);
+        synchronized(BSC_PROJ_VAL_CMD_MEASURE){
+            cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        }
         for(int k = 0;k<cnt;k=k+perProc){
             bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' and rowmark='" +start
                     +"' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>"+String.valueOf(k)+ " and rw <=" + String.valueOf(k+perProc);
             projMeaCommandList = null;
-            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+//            Thread.sleep(1000);
+            synchronized (BSC_PROJ_VAL_CMD_MEASURE) {
+                projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+            }
             for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
                 try {
-                    this.jdbcManager.execute(command);
-                    Thread.sleep(50);
+                    synchronized (BSC_PROJ_MEA_OBJ_VAL_MEASURE) {
+                        this.jdbcManager.execute(command);
+                    }
                 }catch (Exception e){
                     listNoExe.add(command);
                 }
@@ -587,19 +634,26 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         //年
         dateFrm = this.date.substring(0,4);
         bsc_count_sql = "select count(1) from "+this.bsc_proj_val_cmd_measure+" where date= '"+dateFrm+"' and rowmark='" +start+ "'" ;
-        cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+//        Thread.sleep(2000);
+        synchronized(BSC_PROJ_VAL_CMD_MEASURE){
+            cnt = this.jdbcManager.queryForInt(bsc_count_sql);
+        }
         for(int k = 0;k<cnt;k=k+perProc){
             bsc_sql = "select * from (select tt.*, @rw:=@rw+1 rw from (select * from " +this.bsc_proj_val_cmd_measure+" where date='"+dateFrm+"' and rowmark='" +start
                     +"' order by exe_order_id)tt,(select @rw:=0) r) t1 where rw>"+String.valueOf(k)+ " and rw <=" + String.valueOf(k+perProc);
             projMeaCommandList = null;
-            projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+//            Thread.sleep(1000);
+            synchronized (BSC_PROJ_VAL_CMD_MEASURE) {
+                projMeaCommandList = this.jdbcManager.queryForList(bsc_sql);
+            }
             for (int i = 0; i < projMeaCommandList.size() && this.run; i++) {
                 Map<String, Object> map = projMeaCommandList.get(i);
                 String command = String.valueOf(map.get("exe_command".toUpperCase()));
                 command = this.replaceContextVar(command);
                 try {
-                    this.jdbcManager.execute(command);
-                    Thread.sleep(50);
+                    synchronized (BSC_PROJ_MEA_OBJ_VAL_MEASURE) {
+                        this.jdbcManager.execute(command);
+                    }
                 }catch (Exception e){
                     listNoExe.add(command);
                 }
@@ -1144,7 +1198,9 @@ public class CalculateProcedureOnlyMeasureMain extends Thread implements Procedu
         String sql = "insert into  "+this.commandTable+"(date,measure_id,exe_order_id,exe_command,rowmark) " +
                 "values('" + dateFrm + "',"+"'"+measure.getMeasureId()+"',"+ order_id +
                 ",'"+command.replaceAll("'", "''")+"','"+start+"' )";
-        this.jdbcManager.execute(sql);
+        synchronized (COMMANDTABLE) {
+            this.jdbcManager.execute(sql);
+        }
     }
 
     /**

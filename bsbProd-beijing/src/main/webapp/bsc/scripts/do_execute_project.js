@@ -217,7 +217,7 @@ function doExecuteMeasure() {
                     id : 'logPanel',
 //					title : '执行详细信息',
                     height : '100%',
-                    autoScorll : true,
+                    autoScroll : true,
                     html : ''
                 })]
             }]

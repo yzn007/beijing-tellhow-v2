@@ -461,7 +461,9 @@
 		</if>
 		from bsc_proj_obj t
 		left JOIN bsc_proj_mea m on m.PROJECT_ID = t.PROJECT_ID
-		left join (select * from  bsc_proj_mea_obj_val_measure where case when
+		left join (select b.* from  bsc_proj_mea_obj_val_measure b
+		join bsc_proj_mea m on b.measure_id = m.measure_id and m.project_id = #{project_id}
+		where case when
 		<if test="tId != null and tId != ''">
 			concat(${tId}) is not null then  month_id in (${tId})
 		</if>

@@ -68,7 +68,7 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 			context.put("is_published", "N");
 //			procedure.initContext(context);
 //
-//			session.removeAttribute("status");
+			session.removeAttribute("status");
 //			procedure.setSession(session);
 //
 //			procedure.start();
@@ -108,7 +108,7 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 				context.put("thread",""+(k+ perThreadOfNum)/perThreadOfNum);
 				calculateProcedureOnlyMeasure.initContext(context);
 
-				session.removeAttribute("status");
+//				session.removeAttribute("status");
 				calculateProcedureOnlyMeasure.setSession(session);
 				
 //				calculateProcedureOnlyMeasure.date = date;
@@ -145,6 +145,7 @@ public class BscProcedureExecuteAction extends BaseDispatchAction {
 			}
 			executorService.shutdown();
 			System.out.println("start:"+new Date());
+			doSuccessInfoResponse("");
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.removeAttribute("status");

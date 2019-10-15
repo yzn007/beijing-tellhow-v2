@@ -224,6 +224,7 @@ var ProgressRunnerMeasure = function() {
                             update(index, pbar, count, time);
                             over(pbar);
                             setStatus('stop');
+
                         } else if (state == 2) {
                             Ext.MessageBox.alert('提示信息',e);
                             setStatus('exception');
@@ -233,7 +234,6 @@ var ProgressRunnerMeasure = function() {
                     } else {
                         Ext.MessageBox.alert('提示信息', json.info);
                     }
-
                 },
 
                 failure : function(response, options) {
@@ -319,9 +319,9 @@ function setStatus(status) {
 				msg : '计算完成，请在[方案结果]中查询计算结果',
 				buttons : Ext.Msg.OK,
 				fn : function() {
-//					Ext.getCmp('start').disable();
-//					Ext.getCmp('stop').disable();
-//					Ext.getCmp('close').enable();
+					Ext.getCmp('start').disable();
+					Ext.getCmp('stop').disable();
+					Ext.getCmp('close').enable();
 //					Ext.getCmp('projWin').close();
 					exeInfoStore.reload();
 				},
