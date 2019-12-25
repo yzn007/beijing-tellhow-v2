@@ -12,7 +12,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.rx.system.bsc.calc.parse.StringUtil;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.rx.system.domain.Resource;
@@ -50,10 +52,15 @@ public class MainPageFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpSession session = req.getSession();
 		SysUser user = (SysUser) session.getAttribute("currentUser");
-		if(user == null)
+		Object ticket = session.getAttribute("ticket");
+		if(user == null && StringUtils.isEmpty(ticket))
 			throw new ServletException("用户未登陆");
 		
 		try {
+			if (null == user){
+				user = userService.findUserById("admin");
+				System.out.println("*********************用户为空，取得默认管理员【admin】！------------------");
+			}
 			//获取登陆用户菜单
 			List<Resource> userResourceList = getResourceService(session).getUserResource(user);
 			
